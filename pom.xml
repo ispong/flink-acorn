@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.isxcode</groupId>
-	<artifactId>demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<artifactId>flink-demo</artifactId>
+	<version>0.0.1</version>
+	<name>flink-demo</name>
+	<description>flink-demo</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
