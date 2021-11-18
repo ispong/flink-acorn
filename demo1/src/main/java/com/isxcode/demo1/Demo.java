@@ -5,6 +5,8 @@ import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
+import static org.apache.flink.table.api.Expressions.$;
+
 public class Demo {
     public static void main(String[] args) {
 
@@ -28,8 +30,7 @@ public class Demo {
 
         // --- to kafka ---
         tEnv.executeSql("CREATE TABLE to_kafka (\n" +
-                "   username STRING," +
-                "   age INT" +
+                "   username STRING" +
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
                 "   'topic'='ispong-input-2'," +
@@ -40,6 +41,9 @@ public class Demo {
 
         // from data
         Table fromData = tEnv.from("from_kafka");
+
+        // filter
+        fromData = fromData.select($("username").as("username"));
 
         // to data
         fromData.executeInsert("to_kafka");
