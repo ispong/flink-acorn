@@ -36,7 +36,8 @@ public class Demo {
                 "   'topic'='ispong-input-2'," +
                 "   'properties.zookeeper.connect'='101.132.135.228:30099'," +
                 "   'properties.bootstrap.servers'='101.132.135.228:30098'," +
-                "   'format' = 'csv'" +
+                "   'format' = 'csv'," +
+                "   'csv.ignore-parse-errors' = 'true'" +
                 ")");
 
         // from data
