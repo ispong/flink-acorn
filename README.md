@@ -1,3 +1,5 @@
 ### Demo for Flink
 
-- http://localhost:8888/demo
+```http request
+GET http://localhost:8888/demo
+```
