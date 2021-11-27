@@ -12,14 +12,8 @@
     <font color="#be73f1">Flink 实战日记</font>
 </h4>
 
-## 🐣 Introduce
+### ✨ 实战列表
 
-<p>
-<font color="#be73f1">
-&nbsp &nbsp 提供flink实战案例
-</font>
-</p>
-
-## 📒 Documentation
-
-- [demo1](./demo1/README.md) : 实现kafka同步到flink同步到kafka
+| 模块名  | 作者 | 说明 |
+| --- | --- | --- |
+| [demo1](./demo1/README.md) | ispong | 实现kafka同步到flink同步到kafka|
