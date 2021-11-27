@@ -5,17 +5,19 @@
 </p>
 
 <h1 align="center">
-    Flink Acorn
+    <font color="#be73f1">Flink Acorn</font>
 </h1>
 
 <h4 align="center">
-    Flink 实战日记
+    <font color="#be73f1">Flink 实战日记</font>
 </h4>
 
 ## 🐣 Introduce
 
 <p>
+<font color="#be73f1">
 &nbsp &nbsp 提供flink实战案例
+</font>
 </p>
 
 ## 📒 Documentation
