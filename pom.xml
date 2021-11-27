@@ -6,10 +6,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.isxcode</groupId>
-	<artifactId>isxcode-spark</artifactId>
+	<artifactId>flink-acorn</artifactId>
 	<version>0.0.1</version>
-	<name>isxcode-spark</name>
-	<description>isxcode-spark</description>
+	<name>flink-acorn</name>
+	<description>flink-acorn</description>
 	<packaging>pom</packaging>
 
 	<modules>
