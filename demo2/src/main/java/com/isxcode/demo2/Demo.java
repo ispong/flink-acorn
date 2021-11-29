@@ -40,7 +40,7 @@ public class Demo {
         tEnv.executeSql("CREATE TABLE to_mysql (\n" +
                 "   username varchar(150)," +
                 "   age int," +
-                "   lucky_stamp TIME," +
+                "   lucky_time TIME," +
                 "   lucky_date DATE," +
                 "   lucky_datetime TIMESTAMP" +
                 ") WITH (\n" +
@@ -60,7 +60,7 @@ public class Demo {
                 $("age").as("age"),
                 $("lucky_datetime").as("lucky_datetime"),
                 $("lucky_date").as("lucky_date"),
-                $("lucky_time").as("lucky_stamp"));
+                $("lucky_time").as("lucky_time"));
 
         fromData.executeInsert("to_mysql");
     }
