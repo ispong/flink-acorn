@@ -51,9 +51,9 @@ public class Demo {
         Table fromData = tEnv.from("from_kafka");
 
         // filter
-        fromData = fromData.select($("username").as("username"))
-                .select($("age").as("age"))
-                .select($("lucky_date").as("lucky_date"));
+        fromData = fromData.select($("age").as("age"));
+//        select($("username").as("username"))
+//                .select($("lucky_date").as("lucky_date"));
 
         // to data
         fromData.executeInsert("to_mysql");
