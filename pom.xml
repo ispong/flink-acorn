@@ -15,6 +15,7 @@
 	<modules>
 		<module>demo1</module>
         <module>demo2</module>
+		<module>demo3</module>
     </modules>
 
 </project>

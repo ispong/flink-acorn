@@ -1,4 +1,4 @@
-package com.isxcode.demo2;
+package com.isxcode.demo3;
 
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
@@ -14,8 +14,16 @@ public class Demo {
         TableEnvironment tEnv = TableEnvironment.create(settings);
         tEnv.getConfig().getConfiguration().setString("pipeline.name", "isxcode-pipeline");
 
-        // 一定要按照顺序输入
-        // example:john,12,2020-12-12 12:12:12,2020-12-12,12:12:12
+        /**
+         * example:
+         * {
+         *     "username":"john",
+         *     "lucky_date":"2020-12-12",
+         *     "age":12,
+         *     "lucky_datetime":"2020-12-12 12:12:12",
+         *     "lucky_time":"12:12:12"
+         * }
+         */
         tEnv.executeSql("CREATE TABLE from_kafka(\n" +
                 "   username STRING," +
                 "   age INT," +
@@ -27,8 +35,10 @@ public class Demo {
                 "   'topic'='ispong_kafka'," +
                 "   'properties.zookeeper.connect'='39.103.230.188:30121'," +
                 "   'properties.bootstrap.servers'='39.103.230.188:30120'," +
-                "   'format'='csv'," +
-                "   'csv.ignore-parse-errors'='true'" +
+                "   'format'='json'," +
+                "   'json.timestamp-format.standard'='SQL'," +
+                "   'json.ignore-parse-errors'='true'," +
+                "   'json.fail-on-missing-field'='false'" +
                 ")");
 
         //  mysql --> flink
@@ -52,7 +62,7 @@ public class Demo {
 
         Table fromData = tEnv.from("from_kafka");
 
-        // select中的字段需要根据mysql输出的字段顺序排序
+        // select中的字段一定根据mysql输出的字段顺序排序
         fromData = fromData.select(
                 $("username").as("username"),
                 $("age").as("age"),
