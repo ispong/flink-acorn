@@ -21,9 +21,9 @@ public class Demo {
 
         // --- from kafka ---
         tEnv.executeSql("CREATE TABLE from_kafka (\n" +
-                "   age INT," +
-                "   username STRING," +
-                "   lucky_date TIMESTAMP(3) METADATA FROM 'timestamp' " +
+                "   age INT" +
+//                "   username STRING," +
+//                "   lucky_date TIMESTAMP(3) METADATA FROM 'timestamp' " +
                 ") WITH (\n" +
                 "   'connector' = 'kafka'," +
                 "   'topic' = 'ispong-kafka'," +
