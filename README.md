@@ -17,4 +17,4 @@
 | 模块名  | 作者 | 说明 |
 | --- | --- | --- |
 | [demo1](./demo1/README.md) | [ispong](https://github.com/ispong) | 实现kafka同步到flink，再同步到kafka|
-| [demo2](./demo2/README.md) | [ispong](https://github.com/ispong) | kafka输入时间类型字段 |
+| [demo2](./demo2/README.md) | [ispong](https://github.com/ispong) | kafka输入csv格式数据,保存到mysql|

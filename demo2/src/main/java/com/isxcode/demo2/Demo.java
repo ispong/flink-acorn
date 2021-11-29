@@ -14,13 +14,16 @@ public class Demo {
         TableEnvironment tEnv = TableEnvironment.create(settings);
         tEnv.getConfig().getConfiguration().setString("pipeline.name", "isxcode-pipeline");
 
-        // date 输入 2020-12-12
+        // csv 输入
+        // DATE 输入 2020-12-12
+        // TIME 输入 12:12:12
+        // TIMESTAMP 输入 2020-12-12-12:12:12
         tEnv.executeSql("CREATE TABLE from_kafka(\n" +
                 "   username STRING," +
                 "   age INT," +
-                "   lucky_stamp TIMESTAMP," +
+                "   lucky_datetime TIMESTAMP," +
                 "   lucky_date DATE," +
-                "   lucky_datetime TIME" +
+                "   lucky_time TIME" +
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
                 "   'topic'='ispong_kafka'," +
@@ -30,12 +33,16 @@ public class Demo {
                 "   'csv.ignore-parse-errors'='true'" +
                 ")");
 
+        //  mysql --> flink
+        //  datetime -> TIMESTAMP
+        //  date --> DATE
+        //  time --> TIME
         tEnv.executeSql("CREATE TABLE to_mysql (\n" +
                 "   username varchar(150)," +
                 "   age int," +
-                "   lucky_stamp timestamp," +
-                "   lucky_date date," +
-                "   lucky_datetime datetime" +
+                "   lucky_stamp TIME," +
+                "   lucky_date DATE," +
+                "   lucky_datetime TIMESTAMP" +
                 ") WITH (\n" +
                 "   'connector'='jdbc'," +
                 "   'url'='jdbc:mysql://47.103.203.73:3306/VATtest'," +
@@ -51,9 +58,9 @@ public class Demo {
         fromData = fromData.select(
                 $("username").as("username"),
                 $("age").as("age"),
-                $("lucky_stamp").as("lucky_stamp"),
+                $("lucky_datetime").as("lucky_datetime"),
                 $("lucky_date").as("lucky_date"),
-                $("lucky_datetime").as("lucky_datetime"));
+                $("lucky_time").as("lucky_stamp"));
 
         fromData.executeInsert("to_mysql");
     }
