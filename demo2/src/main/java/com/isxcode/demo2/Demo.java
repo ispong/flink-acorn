@@ -14,10 +14,13 @@ public class Demo {
         TableEnvironment tEnv = TableEnvironment.create(settings);
         tEnv.getConfig().getConfiguration().setString("pipeline.name", "isxcode-pipeline");
 
+        // date 输入 2020-12-12
         tEnv.executeSql("CREATE TABLE from_kafka(\n" +
                 "   username STRING," +
-                "   age INT,"+
-                "   lucky_date DATE"+
+                "   age INT," +
+                "   lucky_stamp TIMESTAMP," +
+                "   lucky_date DATE," +
+                "   lucky_datetime TIME" +
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
                 "   'topic'='ispong_kafka'," +
@@ -29,15 +32,17 @@ public class Demo {
 
         tEnv.executeSql("CREATE TABLE to_mysql (\n" +
                 "   username varchar(150)," +
-                "   age int,"+
-                "   lucky_date date"+
+                "   age int," +
+                "   lucky_stamp timestamp," +
+                "   lucky_date date," +
+                "   lucky_datetime datetime" +
                 ") WITH (\n" +
                 "   'connector'='jdbc'," +
                 "   'url'='jdbc:mysql://47.103.203.73:3306/VATtest'," +
                 "   'table-name'='ispong_table'," +
                 "   'driver'='com.mysql.cj.jdbc.Driver'," +
                 "   'username'='admin'," +
-                "   'password'='gsw921226'"+
+                "   'password'='gsw921226'" +
                 ")");
 
         Table fromData = tEnv.from("from_kafka");
@@ -46,7 +51,9 @@ public class Demo {
         fromData = fromData.select(
                 $("username").as("username"),
                 $("age").as("age"),
-                $("lucky_date").as("lucky_date"));
+                $("lucky_stamp").as("lucky_stamp"),
+                $("lucky_date").as("lucky_date"),
+                $("lucky_datetime").as("lucky_datetime"));
 
         fromData.executeInsert("to_mysql");
     }
