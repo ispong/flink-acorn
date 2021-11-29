@@ -32,7 +32,7 @@ public class Demo {
                 "   'format' = 'csv'," +
                 "   'csv.ignore-parse-errors' = 'true'" +
                 ")");
-        
+
         // --- to mysql ---
         tEnv.executeSql("CREATE TABLE to_mysql (\n" +
                 "   age int" +
@@ -51,7 +51,7 @@ public class Demo {
         Table fromData = tEnv.from("from_kafka");
 
         // filter
-        fromData = fromData.select($("name").as("username"))
+        fromData = fromData.select($("username").as("username"))
                 .select($("age").as("age"))
                 .select($("lucky_date").as("lucky_date"));
 
