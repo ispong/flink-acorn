@@ -22,7 +22,7 @@ public class Demo {
                 "   'topic'='ispong_kafka'," +
                 "   'properties.zookeeper.connect'='39.103.230.188:30121'," +
                 "   'properties.bootstrap.servers'='39.103.230.188:30120'," +
-                "   'format'='csv'" +
+                "   'format'='csv'," +
                 "   'csv.ignore-parse-errors'='true'" +
                 ")");
 
