@@ -22,13 +22,13 @@ public class Demo {
         // --- from kafka ---
         tEnv.executeSql("CREATE TABLE from_kafka (\n" +
                 "   age INT," +
-                "   username STRING" +
+                "   name STRING" +
 //                "   lucky_date TIMESTAMP(3) METADATA FROM 'timestamp' " +
                 ") WITH (\n" +
-                "   'connector'='kafka'," +
-                "   'topic'='ispong-kafka'," +
-                "   'properties.zookeeper.connect'='39.103.230.188:30121'," +
-                "   'properties.bootstrap.servers'='39.103.230.188:30120'," +
+                "   'connector' = 'kafka'," +
+                "   'topic' = 'ispong-kafka'," +
+                "   'properties.zookeeper.connect' = '39.103.230.188:30121'," +
+                "   'properties.bootstrap.servers' = '39.103.230.188:30120'," +
                 "   'format' = 'csv'," +
                 "   'csv.ignore-parse-errors' = 'true'" +
                 ")");
@@ -39,19 +39,19 @@ public class Demo {
                 "   username varchar(150)" +
 //                "   lucky_date date " +
                 ") WITH (\n" +
-                "   'connector'='jdbc'," +
-                "   'url'='jdbc:mysql://47.103.203.73:3306/VATtest'," +
-                "   'table-name'='ispong_table'," +
-                "   'driver'='com.mysql.cj.jdbc.Driver'," +
+                "   'connector' = 'jdbc'," +
+                "   'url' = 'jdbc:mysql://47.103.203.73:3306/VATtest'," +
+                "   'table-name' = 'ispong_table'," +
+                "   'driver' = 'com.mysql.cj.jdbc.Driver'," +
                 "   'username'='admin'," +
-                "   'password'='gsw921226'"+
+                "   'password' = 'gsw921226'"+
                 ")");
 
         // from data
         Table fromData = tEnv.from("from_kafka");
 
         // filter
-        fromData = fromData.select($("username").as("username"))
+        fromData = fromData.select($("name").as("username"))
                 .select($("age").as("age"))
                 .select($("lucky_date").as("lucky_date"));
 
