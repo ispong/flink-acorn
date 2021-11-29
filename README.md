@@ -16,6 +16,8 @@
 
 | 模块名  | 作者 | 说明 |
 | --- | --- | --- |
-| [demo1](./demo1/README.md) | [ispong](https://github.com/ispong) | kafka输入，kafka输出，csv格式数据 |
-| [demo2](./demo2/README.md) | [ispong](https://github.com/ispong) | kafka输入，mysql输出，csv格式数据 |
-| [demo2](./demo3/README.md) | [ispong](https://github.com/ispong) | kafka输入，mysql输出，json格式数据|
+| [demo1](./demo1/README.md) | [ispong](https://github.com/ispong) | kafka输入csv格式数据，输出kafka |
+| [demo2](./demo2/README.md) | [ispong](https://github.com/ispong) | kafka输入csv格式数据，输出mysql |
+| [demo2](./demo3/README.md) | [ispong](https://github.com/ispong) | kafka输入json格式数据，输出mysql |
+| [demo2](./demo4/README.md) | [ispong](https://github.com/ispong) | kafka输入csv格式数据，输出hive |
+| [demo2](./demo5/README.md) | [ispong](https://github.com/ispong) | kafka输入json格式数据，输出hive |

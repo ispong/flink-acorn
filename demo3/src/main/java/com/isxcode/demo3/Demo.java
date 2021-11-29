@@ -1,29 +1,20 @@
 package com.isxcode.demo3;
 
 import org.apache.flink.table.api.EnvironmentSettings;
+import org.apache.flink.table.api.Expressions;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
-
-import static org.apache.flink.table.api.Expressions.$;
 
 public class Demo {
 
     public static void main(String[] args) {
 
+        // 构建环境
         EnvironmentSettings settings = EnvironmentSettings.newInstance().build();
         TableEnvironment tEnv = TableEnvironment.create(settings);
         tEnv.getConfig().getConfiguration().setString("pipeline.name", "isxcode-pipeline");
 
-        /**
-         * example:
-         * {
-         *     "username":"john",
-         *     "lucky_date":"2020-12-12",
-         *     "age":12,
-         *     "lucky_datetime":"2020-12-12 12:12:12",
-         *     "lucky_time":"12:12:12"
-         * }
-         */
+        // kafka输入
         tEnv.executeSql("CREATE TABLE from_kafka(\n" +
                 "   username STRING," +
                 "   age INT," +
@@ -41,10 +32,7 @@ public class Demo {
                 "   'json.fail-on-missing-field'='false'" +
                 ")");
 
-        //  mysql --> flink
-        //  datetime -> TIMESTAMP
-        //  date --> DATE
-        //  time --> TIME
+        // mysql输出
         tEnv.executeSql("CREATE TABLE to_mysql (\n" +
                 "   username STRING," +
                 "   age INT," +
@@ -60,17 +48,19 @@ public class Demo {
                 "   'password'='gsw921226'" +
                 ")");
 
+        // 处理数据流
         Table fromData = tEnv.from("from_kafka");
 
         // select中的字段一定根据mysql输出的字段顺序排序
         fromData = fromData.select(
-                $("username").as("username"),
-                $("age").as("age"),
-                $("lucky_time").as("lucky_time"),
-                $("lucky_date").as("lucky_date"),
-                $("lucky_datetime").as("lucky_datetime")
+                Expressions.$("username").as("username"),
+                Expressions.$("age").as("age"),
+                Expressions.$("lucky_time").as("lucky_time"),
+                Expressions.$("lucky_date").as("lucky_date"),
+                Expressions.$("lucky_datetime").as("lucky_datetime")
         );
 
+        // 输出数据流
         fromData.executeInsert("to_mysql");
     }
 }

@@ -15,6 +15,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- version config -->
         <flink.version>1.12.4</flink.version>
         <scala.binary.version>2.11</scala.binary.version>
         <log4j.version>2.12.1</log4j.version>
@@ -36,12 +37,6 @@
     </repositories>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-hive_2.11</artifactId>
-            <version>1.12.3</version>
-        </dependency>
 
         <dependency>
             <groupId>org.apache.hive</groupId>
@@ -134,13 +129,6 @@
             <version>${log4j.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-streaming-java_2.11</artifactId>
-            <version>1.12.4</version>
-            <scope>compile</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
