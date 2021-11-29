@@ -40,7 +40,7 @@ public class Demo {
 
         Table fromData = tEnv.from("from_kafka");
 
-        fromData = fromData.select($("age").as("age"), $("username").as("username"));
+        fromData = fromData.select($("username").as("username"), $("age").as("age"));
 
         fromData.executeInsert("to_mysql");
     }
