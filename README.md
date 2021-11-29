@@ -16,4 +16,4 @@
 
 | 模块名  | 作者 | 说明 |
 | --- | --- | --- |
-| [demo1](./demo1/README.md) | ispong | 实现kafka同步到flink同步到kafka|
+| [demo1](./demo1/README.md) | [ispong](https://github.com/ispong) | 实现kafka同步到flink同步到kafka|
