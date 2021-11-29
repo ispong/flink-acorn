@@ -22,8 +22,8 @@ public class Demo {
         // --- from kafka ---
         tEnv.executeSql("CREATE TABLE from_kafka (\n" +
                 "   age INT," +
-                "   name STRING" +
-//                "   lucky_date TIMESTAMP(3) METADATA FROM 'timestamp' " +
+                "   username STRING," +
+                "   lucky_date TIMESTAMP(3) METADATA FROM 'timestamp' " +
                 ") WITH (\n" +
                 "   'connector' = 'kafka'," +
                 "   'topic' = 'ispong-kafka'," +
@@ -32,11 +32,11 @@ public class Demo {
                 "   'format' = 'csv'," +
                 "   'csv.ignore-parse-errors' = 'true'" +
                 ")");
-
+        
         // --- to mysql ---
         tEnv.executeSql("CREATE TABLE to_mysql (\n" +
-                "   age int," +
-                "   username varchar(150)" +
+                "   age int" +
+//                "   username varchar(150)" +
 //                "   lucky_date date " +
                 ") WITH (\n" +
                 "   'connector' = 'jdbc'," +
