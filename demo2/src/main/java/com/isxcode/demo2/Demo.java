@@ -54,13 +54,14 @@ public class Demo {
 
         Table fromData = tEnv.from("from_kafka");
 
-        // select中的字段需要根据kafka的字段顺序排序
+        // select中的字段需要根据mysql输出的字段顺序排序
         fromData = fromData.select(
                 $("username").as("username"),
                 $("age").as("age"),
-                $("lucky_datetime").as("lucky_datetime"),
+                $("lucky_time").as("lucky_time"),
                 $("lucky_date").as("lucky_date"),
-                $("lucky_time").as("lucky_time"));
+                $("lucky_datetime").as("lucky_datetime")
+        );
 
         fromData.executeInsert("to_mysql");
     }
