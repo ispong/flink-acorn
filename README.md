@@ -12,8 +12,9 @@
     <font color="#be73f1">Flink 实战日记</font>
 </h4>
 
-### ✨ 实战列表
+### ✨ 日记本
 
 | 模块名  | 作者 | 说明 |
 | --- | --- | --- |
-| [demo1](./demo1/README.md) | [ispong](https://github.com/ispong) | 实现kafka同步到flink同步到kafka|
+| [demo1](./demo1/README.md) | [ispong](https://github.com/ispong) | 实现kafka同步到flink，再同步到kafka|
+| [demo2](./demo2/README.md) | [ispong](https://github.com/ispong) | kafka输入时间类型字段 |
