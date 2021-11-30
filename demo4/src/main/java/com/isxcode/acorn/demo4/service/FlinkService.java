@@ -99,23 +99,23 @@ public class FlinkService {
         }
 
         // 生成FlinkJob.java代码
-        String flinkJobJavaCode = "";
-        switch (executeConfig.getWorkType()){
-            case KAFKA_INPUT_MYSQL_OUTPUT:
-                Template template = null;
-                try {
+        String flinkJobJavaCode;
+        try {
+            Template template;
+            switch (executeConfig.getWorkType()) {
+                case KAFKA_INPUT_MYSQL_OUTPUT:
                     template = freeMarkerConfigurer.getConfiguration().getTemplate("FlinkKafkaToMysqlTemplate.ftl");
-                    flinkJobJavaCode = FreeMarkerTemplateUtils.processTemplateIntoString(template, executeConfig);
-                } catch (IOException | TemplateException e) {
-                    return new FlinkError("10004", "初始化代码失败");
-                }
-                break;
-            case KAFKA_INPUT_KAFKA_OUTPUT:
-                return new FlinkError("10004", "作业类型暂不支持");
-            case KAFKA_INPUT_HIVE_OUTPUT:
-                return new FlinkError("10006", "作业类型暂不支持");
-            default:
-                return new FlinkError("10003", "作业类型不支持");
+                    break;
+                case KAFKA_INPUT_KAFKA_OUTPUT:
+                    return new FlinkError("10004", "作业类型暂不支持");
+                case KAFKA_INPUT_HIVE_OUTPUT:
+                    return new FlinkError("10006", "作业类型暂不支持");
+                default:
+                    return new FlinkError("10003", "作业类型不支持");
+            }
+            flinkJobJavaCode = FreeMarkerTemplateUtils.processTemplateIntoString(template, executeConfig);
+        }catch (IOException | TemplateException e) {
+            return new FlinkError("10004", "初始化代码失败");
         }
 
         // 创建FlinkJob.java文件
