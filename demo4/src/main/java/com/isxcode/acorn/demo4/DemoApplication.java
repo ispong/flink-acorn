@@ -1,6 +1,8 @@
 package com.isxcode.acorn.demo4;
 
 import com.isxcode.acorn.demo4.pojo.FlinkReq;
+import com.isxcode.acorn.demo4.pojo.dto.ExecuteConfig;
+import com.isxcode.acorn.demo4.pojo.dto.FlinkError;
 import com.isxcode.acorn.demo4.pojo.dto.NodeInfo;
 import com.isxcode.acorn.demo4.service.FlinkService;
 import org.springframework.boot.SpringApplication;
@@ -62,12 +64,14 @@ public class DemoApplication {
     }
 
     /**
-     * 执行工作流
+     * 执行flink作业
+     *
+     * @return code 错误码
      */
-    @GetMapping("/execute")
-    public void executeFlink(@RequestParam String flowId, @RequestParam String executeId) {
+    @PostMapping("/execute")
+    public FlinkError executeFlink(@RequestBody ExecuteConfig executeConfig) {
 
-        flinkService.executeFlink(flowId, executeId);
+        return flinkService.executeFlink(executeConfig);
     }
 
 

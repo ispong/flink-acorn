@@ -10,17 +10,12 @@ import org.springframework.stereotype.Component;
 public class FlinkProperties {
 
     /**
-     * 模板文件
+     * 临时存储位置
      */
-    private String templateDir;
+    private String tmpDir;
 
     /**
-     * 目标目录
-     */
-    private String targetDir;
-
-    /**
-     * 日志目录
+     * 日志存储位置
      */
     private String logDir;
 }
