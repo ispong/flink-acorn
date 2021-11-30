@@ -16,8 +16,8 @@
 
 | 模块名  | 作者 | 说明 |
 | --- | --- | --- |
-| [demo1](./demo1/README.md) | [ispong](https://github.com/ispong) | kafka输入csv格式数据，输出kafka |
+| [demo1](./demo1/README.md) | [ispong](https://github.com/ispong) | kafka输入csv格式数据，输出kafka为csv数据格式 |
 | [demo2](./demo2/README.md) | [ispong](https://github.com/ispong) | kafka输入csv格式数据，输出mysql |
-| [demo2](./demo3/README.md) | [ispong](https://github.com/ispong) | kafka输入json格式数据，输出mysql |
-| [demo2](./demo4/README.md) | [ispong](https://github.com/ispong) | kafka输入csv格式数据，输出hive |
-| [demo2](./demo5/README.md) | [ispong](https://github.com/ispong) | kafka输入json格式数据，输出hive |
+| [demo3](./demo3/README.md) | [ispong](https://github.com/ispong) | kafka输入json格式数据，输出mysql |
+| [demo4](./demo4/README.md) | [ispong](https://github.com/ispong) | spring集成flink，实现配置节点和工作流，然后一键发布flink|
+| [demo5](./demo5/README.md) | [ispong](https://github.com/ispong) | kafka输入json格式数据，输出hive |
