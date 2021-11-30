@@ -4,7 +4,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.isxcode</groupId>
+    <groupId>com.isxcode.acorn</groupId>
     <artifactId>demo3</artifactId>
     <version>0.0.1</version>
     <name>demo3</name>
