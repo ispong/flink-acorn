@@ -53,7 +53,7 @@ public class FlinkService {
 
         Assert.notNull(flinkReq.getNodeType(), "节点类型不可为空");
 
-        String nodeId = SnowflakeUtils.getNextUuid();
+        String nodeId = "SnowflakeUtils.getNextUuid()";
 
         FlinkNodeEntity flinkNodeEntity = new FlinkNodeEntity();
         flinkNodeEntity.setNodeId(nodeId);
