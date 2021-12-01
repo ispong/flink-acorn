@@ -14,9 +14,7 @@ public class ShellUtils {
 
     public static void executeCommand(String command, String logPath) {
 
-        CommandLine cmdLine = new CommandLine("/opt/flink/bin/flink");
-        cmdLine.addArgument("run");
-        cmdLine.addArgument("/home/dehoop/acorn/tmp/executeIdIsxcode/target/flinkJob-1.0.0.jar");
+        CommandLine cmdLine = CommandLine.parse(command);
         DefaultExecutor executor = new DefaultExecutor();
         executor.setExitValues(null);
 

@@ -159,7 +159,7 @@ public class FlinkService {
         }
 
         // 执行编译且运行的命令
-        // cd /home/dehoop/acorn/tmp/executeIdIsxcode && mvn clean package && /opt/flink/bin/flink run /home/dehoop/acorn/tmp/executeIdIsxcode/target/flinkJob-1.0.0.jar
+        // cd /home/dehoop/acorn/tmp/executeIdIsxcode && mvn clean package && flink run /home/dehoop/acorn/tmp/executeIdIsxcode/target/flinkJob-1.0.0.jar
         String goHomeCommand = "cd " + flinkProperties.getTmpDir() + FlinkConstants.SPLIT_CODE + executeConfig.getExecuteId();
         String mvnBuildCommand = "mvn clean package";
         String submitFlinkJob = "flink run " + flinkProperties.getTmpDir() + FlinkConstants.SPLIT_CODE + executeConfig.getExecuteId() + FlinkConstants.SPLIT_CODE + "target" + FlinkConstants.SPLIT_CODE + "flinkJob-1.0.0.jar";
