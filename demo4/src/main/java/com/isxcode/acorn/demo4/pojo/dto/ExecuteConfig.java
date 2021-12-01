@@ -20,6 +20,11 @@ public class ExecuteConfig {
     private WorkType workType;
 
     /**
+     * 工作流id
+     */
+    private String flowId;
+
+    /**
      * kafka输入
      */
     private KafkaInput kafkaInput;
