@@ -1,7 +1,5 @@
 package com.isxcode.acorn.demo4.service;
 
-import com.isxcode.acorn.demo4.utils.ShellUtils;
-import io.micrometer.core.instrument.util.IOUtils;
 import com.alibaba.fastjson.JSON;
 import com.isxcode.acorn.demo4.pojo.FlinkReq;
 import com.isxcode.acorn.demo4.pojo.dto.ExecuteConfig;
@@ -12,9 +10,10 @@ import com.isxcode.acorn.demo4.pojo.node.KafkaInput;
 import com.isxcode.acorn.demo4.pojo.node.KafkaOutput;
 import com.isxcode.acorn.demo4.properties.FlinkProperties;
 import com.isxcode.acorn.demo4.repository.FlinkRepository;
-import com.isxcode.oxygen.core.snowflake.SnowflakeUtils;
+import com.isxcode.acorn.demo4.utils.ShellUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import io.micrometer.core.instrument.util.IOUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.io.DefaultResourceLoader;
