@@ -14,9 +14,7 @@ public class ShellUtils {
 
     public static void executeCommand(String command, String logPath) {
 
-        CommandLine cmdLine = new CommandLine("sh");
-        cmdLine.addArgument("-c");
-        cmdLine.addArgument("'" + command + "'");
+        CommandLine cmdLine = CommandLine.parse(command);
         DefaultExecutor executor = new DefaultExecutor();
         executor.setExitValues(null);
 
