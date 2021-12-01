@@ -19,9 +19,8 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.nio.file.attribute.FileAttribute;
 
 @Slf4j
 @Service
@@ -111,11 +110,16 @@ public class FlinkService {
         // 创建FlinkJob.java文件
         String flinkJobPath = flinkProperties.getTmpDir() + FlinkConstants.SPLIT_CODE + executeConfig.getExecuteId() + FlinkConstants.SPLIT_CODE + "src" + FlinkConstants.SPLIT_CODE + "main" + FlinkConstants.SPLIT_CODE + "java" + FlinkConstants.SPLIT_CODE + "com" + FlinkConstants.SPLIT_CODE + "isxcode" + FlinkConstants.SPLIT_CODE + "acorn" + FlinkConstants.SPLIT_CODE + "demo4";
         try {
-            log.debug(flinkJobPath);
-            Files.createDirectories(Paths.get(flinkJobPath));
+            if (!Files.exists(Paths.get(flinkJobPath))) {
+                log.debug(flinkJobPath);
+                Files.createDirectories(Paths.get(flinkJobPath));
+            }
             flinkJobPath = flinkJobPath + FlinkConstants.SPLIT_CODE + "FlinkJob.java";
-            Path file = Files.createFile(Paths.get(flinkJobPath));
-            Files.write(file, flinkJobJavaCode.getBytes());
+            if (!Files.exists(Paths.get(flinkJobPath))) {
+                Files.createFile(Paths.get(flinkJobPath));
+            }
+            Path file = Paths.get(flinkJobPath);
+            Files.write(file, flinkJobJavaCode.getBytes(), StandardOpenOption.WRITE);
         } catch (IOException e) {
             log.debug(e.getMessage());
             return new FlinkError("10007", "创建文件失败");
@@ -127,8 +131,28 @@ public class FlinkService {
         Resource resource = defaultResourceLoader.getResource("templates/pom.xml");
         try {
             log.debug(flinkPomFilePath);
-            Path file = Files.createFile(Paths.get(flinkPomFilePath));
-            Files.write(file, IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8).getBytes());
+            if (!Files.exists(Paths.get(flinkPomFilePath))) {
+                Files.createFile(Paths.get(flinkPomFilePath));
+            }
+            Path file = Paths.get(flinkPomFilePath);
+            Files.write(file, IOUtils.toString(resource.getInputStream(), StandardCharsets.UTF_8).getBytes(), StandardOpenOption.WRITE);
+        } catch (IOException e) {
+            log.debug(e.getMessage());
+            return new FlinkError("10007", "创建文件失败");
+        }
+
+        // 创建日志文件
+        String logPath = flinkProperties.getLogDir();
+        log.debug(logPath);
+        try {
+            if (!Files.exists(Paths.get(logPath))) {
+                log.debug(logPath);
+                Files.createDirectories(Paths.get(logPath));
+            }
+            logPath = logPath + FlinkConstants.SPLIT_CODE + executeConfig.getExecuteId() + ".log";
+            if (!Files.exists(Paths.get(logPath))) {
+                Files.createFile(Paths.get(logPath));
+            }
         } catch (IOException e) {
             log.debug(e.getMessage());
             return new FlinkError("10007", "创建文件失败");
@@ -137,7 +161,7 @@ public class FlinkService {
         // 执行编译且运行的命令
         String buildCommand = "cd " + flinkProperties.getTmpDir() + FlinkConstants.SPLIT_CODE + executeConfig.getExecuteId() + " && mvn clean package && cd ." + FlinkConstants.SPLIT_CODE + "target && flink run flinkJob-1.0.0.jar";
         log.debug(buildCommand);
-        ShellUtils.executeCommand(executeConfig.getExecuteId(), buildCommand, flinkProperties.getLogDir());
+        ShellUtils.executeCommand(buildCommand, logPath);
         return new FlinkError("10009", "运行成功");
     }
 }

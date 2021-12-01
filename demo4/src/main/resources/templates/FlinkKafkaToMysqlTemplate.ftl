@@ -26,10 +26,11 @@ public class FlinkJob {
             "   'topic'='${kafkaInput.topic}'," +
             "   'properties.zookeeper.connect'='${kafkaInput.zookeeper}'," +
             "   'properties.bootstrap.servers'='${kafkaInput.brokerList}'," +
-            "   'format'='${kafkaInput.dataFormat}'," +
             <#if (kafkaInput.dataFormat)=='CSV' >
+            "   'format'='csv'," +
             "   'csv.ignore-parse-errors' = 'true'" +
             <#else>
+            "   'format'='json'," +
             "   'json.timestamp-format.standard'='SQL'," +
             "   'json.ignore-parse-errors'='true'," +
             "   'json.fail-on-missing-field'='false'" +
