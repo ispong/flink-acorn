@@ -167,7 +167,6 @@ public class FlinkService {
         String buildCommand = goHomeCommand + " && " + mvnBuildCommand + " && " + submitFlinkJob;
         log.info(buildCommand);
         ShellUtils.executeCommand(buildCommand, logPath);
-
         return new FlinkError("10009", "运行成功");
     }
 }
