@@ -14,8 +14,9 @@ public class ShellUtils {
 
     public static void executeCommand(String command, String logPath) {
 
-        command = "ls -la && ls -la";
-        CommandLine cmdLine = CommandLine.parse(command);
+        CommandLine cmdLine = new CommandLine("sh");
+        cmdLine.addArgument("-c");
+        cmdLine.addArgument("'" + command + "'");
         DefaultExecutor executor = new DefaultExecutor();
         executor.setExitValues(null);
 
