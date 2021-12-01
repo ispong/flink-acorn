@@ -3,7 +3,9 @@
 #POST http://localhost:30155/execute
 POST http://39.103.230.188:30155/execute
 Content-Type: application/json
+```
 
+```json
 {
   "executeId": "executeIdIsxcode",
   "workType": "KAFKA_INPUT_MYSQL_OUTPUT",
@@ -40,6 +42,34 @@ Content-Type: application/json
         "type": "INT"
       }
     ]
-  }
+  },
+  "ConditionList":[
+    {
+      "name": "",
+      "type": "",
+      "opts": [
+        {
+          "col": "",
+          "opt": "",
+          "value": ""
+        },
+        {
+          "col": "",
+          "opt": "",
+          "value": ""
+        }
+      ]
+    } 
+  ],
+  "columnMapping": [
+    {
+      "fromCol": "",
+      "toCol": ""
+    },
+    {
+      "fromCol": "",
+      "toCol": ""
+    },
+  ]
 }
 ```

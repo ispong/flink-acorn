@@ -6,6 +6,8 @@ import com.isxcode.acorn.demo4.pojo.node.KafkaOutput;
 import com.isxcode.acorn.demo4.pojo.node.MysqlOutput;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class ExecuteConfig {
 
@@ -39,4 +41,9 @@ public class ExecuteConfig {
      */
     private MysqlOutput mysqlOutput;
 
+
+    /**
+     * 字段映射
+     */
+    private List<ColumnMapping> columnMapping;
 }
