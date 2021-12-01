@@ -14,9 +14,9 @@ public class ShellUtils {
 
     public static void executeCommand(String command, String logPath) {
 
-//        command = "/opt/flink/bin/flink run /home/dehoop/acorn/tmp/executeIdIsxcode/target/flinkJob-1.0.0.jar";
-        command = "ls";
-        CommandLine commandline = new CommandLine(command);
+        CommandLine cmdLine = new CommandLine("/opt/flink/bin/flink");
+        cmdLine.addArgument("run");
+        cmdLine.addArgument("/home/dehoop/acorn/tmp/executeIdIsxcode/target/flinkJob-1.0.0.jar");
         DefaultExecutor executor = new DefaultExecutor();
         executor.setExitValues(null);
 
@@ -31,7 +31,7 @@ public class ShellUtils {
             executor.setWatchdog(watchdog);
 
             // 执行命令
-            int exitValue = executor.execute(commandline);
+            int exitValue = executor.execute(cmdLine);
             log.info(String.valueOf(exitValue));
         } catch (IOException e) {
             e.printStackTrace();
