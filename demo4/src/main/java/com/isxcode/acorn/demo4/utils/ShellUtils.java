@@ -14,7 +14,6 @@ public class ShellUtils {
 
     public static void executeCommand(String command, String logPath) {
 
-        command = "ls";
         CommandLine commandline = new CommandLine(command);
         DefaultExecutor executor = new DefaultExecutor();
         executor.setExitValues(null);
