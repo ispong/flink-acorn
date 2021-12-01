@@ -1,5 +1,6 @@
 package com.isxcode.acorn.demo4.service;
 
+import com.isxcode.acorn.demo4.constant.FlinkConstants;
 import com.isxcode.acorn.demo4.pojo.dto.ExecuteConfig;
 import com.isxcode.acorn.demo4.pojo.dto.FlinkError;
 import com.isxcode.acorn.demo4.properties.FlinkProperties;
@@ -106,7 +107,7 @@ public class FlinkService {
         }
 
         // 创建FlinkJob.java文件
-        String flinkJobPath = flinkProperties.getTmpDir() + File.separator + executeConfig.getExecuteId() + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator + "com" + File.separator + "isxcode" + File.separator + "acorn" + File.separator + "demo4" + File.separator + "FlinkJob.java";
+        String flinkJobPath = flinkProperties.getTmpDir() + FlinkConstants.SPLIT_CODE + executeConfig.getExecuteId() + FlinkConstants.SPLIT_CODE + "src" + FlinkConstants.SPLIT_CODE + "main" + FlinkConstants.SPLIT_CODE + "java" + FlinkConstants.SPLIT_CODE + "com" + FlinkConstants.SPLIT_CODE + "isxcode" + FlinkConstants.SPLIT_CODE + "acorn" + FlinkConstants.SPLIT_CODE + "demo4" + FlinkConstants.SPLIT_CODE + "FlinkJob.java";
         try {
             Path file = Files.createFile(Paths.get(flinkJobPath));
             Files.write(file, flinkJobJavaCode.getBytes());
@@ -115,7 +116,7 @@ public class FlinkService {
         }
 
         // 创建pom.xml文件
-        String flinkPomFilePath = flinkProperties.getTmpDir() + File.separator + executeConfig.getExecuteId() + File.separator + "pom.xml";
+        String flinkPomFilePath = flinkProperties.getTmpDir() + FlinkConstants.SPLIT_CODE + executeConfig.getExecuteId() + FlinkConstants.SPLIT_CODE + "pom.xml";
         DefaultResourceLoader defaultResourceLoader = new DefaultResourceLoader();
         Resource resource = defaultResourceLoader.getResource("template/pom.xml");
         try {
@@ -126,7 +127,7 @@ public class FlinkService {
         }
 
         // 执行编译且运行的命令
-        String buildCommand = "cd " + flinkProperties.getTmpDir() + File.separator + executeConfig.getExecuteId() + " && mvn clean package" + "&& cd " + flinkProperties.getTmpDir() + File.separator + executeConfig.getExecuteId() + File.separator + "target && flink run flinkJob-1.0.0.jar";
+        String buildCommand = "cd " + flinkProperties.getTmpDir() + FlinkConstants.SPLIT_CODE + executeConfig.getExecuteId() + " && mvn clean package" + "&& cd " + flinkProperties.getTmpDir() + FlinkConstants.SPLIT_CODE + executeConfig.getExecuteId() + FlinkConstants.SPLIT_CODE + "target && flink run flinkJob-1.0.0.jar";
         ShellUtils.executeCommand(executeConfig.getExecuteId(), buildCommand, flinkProperties.getLogDir());
         return new FlinkError("10009", "运行成功");
     }
