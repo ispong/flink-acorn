@@ -160,10 +160,7 @@ public class FlinkService {
         }
 
         // 执行编译且运行的命令
-        String goHomeCommand = "cd " + flinkProperties.getTmpDir() + FlinkConstants.SPLIT_CODE + executeConfig.getExecuteId();
-        ShellUtils.executeCommand(goHomeCommand, logPath);
-
-        String mvnBuildCommand = "mvn clean package";
+        String mvnBuildCommand = "mvn clean package -f " + flinkPomFilePath;
         ShellUtils.executeCommand(mvnBuildCommand, logPath);
 
         String submitFlinkJob = "flink run " + flinkProperties.getTmpDir() + FlinkConstants.SPLIT_CODE + executeConfig.getExecuteId() + FlinkConstants.SPLIT_CODE + "target" + FlinkConstants.SPLIT_CODE + "flinkJob-1.0.0.jar";
