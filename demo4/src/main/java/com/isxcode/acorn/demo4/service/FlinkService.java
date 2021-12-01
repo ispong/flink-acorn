@@ -150,9 +150,10 @@ public class FlinkService {
                 Files.createDirectories(Paths.get(logPath));
             }
             logPath = logPath + FlinkConstants.SPLIT_CODE + executeConfig.getExecuteId() + ".log";
-            if (!Files.exists(Paths.get(logPath))) {
-                Files.createFile(Paths.get(logPath));
+            if (Files.exists(Paths.get(logPath))) {
+                Files.delete(Paths.get(logPath));
             }
+            Files.createFile(Paths.get(logPath));
         } catch (IOException e) {
             log.debug(e.getMessage());
             return new FlinkError("10007", "创建文件失败");
