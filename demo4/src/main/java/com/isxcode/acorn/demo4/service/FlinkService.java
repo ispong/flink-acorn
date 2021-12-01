@@ -1,26 +1,17 @@
 package com.isxcode.acorn.demo4.service;
 
-import com.alibaba.fastjson.JSON;
-import com.isxcode.acorn.demo4.pojo.FlinkReq;
 import com.isxcode.acorn.demo4.pojo.dto.ExecuteConfig;
 import com.isxcode.acorn.demo4.pojo.dto.FlinkError;
-import com.isxcode.acorn.demo4.pojo.dto.NodeInfo;
-import com.isxcode.acorn.demo4.pojo.entity.FlinkNodeEntity;
-import com.isxcode.acorn.demo4.pojo.node.KafkaInput;
-import com.isxcode.acorn.demo4.pojo.node.KafkaOutput;
 import com.isxcode.acorn.demo4.properties.FlinkProperties;
-import com.isxcode.acorn.demo4.repository.FlinkRepository;
 import com.isxcode.acorn.demo4.utils.ShellUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import io.micrometer.core.instrument.util.IOUtils;
 import org.apache.logging.log4j.util.Strings;
-import org.springframework.beans.BeanUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
-import org.springframework.util.Assert;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.io.File;
@@ -33,59 +24,55 @@ import java.nio.file.Paths;
 @Service
 public class FlinkService {
 
-    private final FlinkRepository flinkRepository;
-
     private final FlinkProperties flinkProperties;
 
     private final FreeMarkerConfigurer freeMarkerConfigurer;
 
-    public FlinkService(FlinkRepository flinkRepository,
-                        FlinkProperties flinkProperties,
+    public FlinkService(FlinkProperties flinkProperties,
                         FreeMarkerConfigurer freeMarkerConfigurer) {
 
-        this.flinkRepository = flinkRepository;
         this.flinkProperties = flinkProperties;
         this.freeMarkerConfigurer = freeMarkerConfigurer;
     }
 
-    public NodeInfo addNode(FlinkReq flinkReq) {
-
-        Assert.notNull(flinkReq.getNodeType(), "节点类型不可为空");
-
-        String nodeId = "SnowflakeUtils.getNextUuid()";
-
-        FlinkNodeEntity flinkNodeEntity = new FlinkNodeEntity();
-        flinkNodeEntity.setNodeId(nodeId);
-        flinkNodeEntity.setType(flinkReq.getNodeType().name());
-
-        switch (flinkReq.getNodeType()) {
-            case KAFKA_INPUT:
-                KafkaInput kafkaInput = new KafkaInput();
-                BeanUtils.copyProperties(flinkReq, kafkaInput);
-                flinkNodeEntity.setConfig(JSON.toJSONString(kafkaInput));
-                break;
-            case KAFKA_OUTPUT:
-                KafkaOutput kafkaOutput = new KafkaOutput();
-                BeanUtils.copyProperties(flinkReq, kafkaOutput);
-                flinkNodeEntity.setConfig(JSON.toJSONString(kafkaOutput));
-            default:
-                throw new RuntimeException("节点类型不支持");
-        }
-
-        // 保存节点
-        flinkRepository.addNode(flinkNodeEntity);
-        return getNode(nodeId);
-    }
-
-    public NodeInfo getNode(String nodeId) {
-
-        NodeInfo nodeInfo = new NodeInfo();
-
-        FlinkNodeEntity nodeEntity = flinkRepository.getNode(nodeId);
-        BeanUtils.copyProperties(nodeEntity, nodeInfo);
-
-        return nodeInfo;
-    }
+//    public NodeInfo addNode(FlinkReq flinkReq) {
+//
+//        Assert.notNull(flinkReq.getNodeType(), "节点类型不可为空");
+//
+//        String nodeId = "SnowflakeUtils.getNextUuid()";
+//
+//        FlinkNodeEntity flinkNodeEntity = new FlinkNodeEntity();
+//        flinkNodeEntity.setNodeId(nodeId);
+//        flinkNodeEntity.setType(flinkReq.getNodeType().name());
+//
+//        switch (flinkReq.getNodeType()) {
+//            case KAFKA_INPUT:
+//                KafkaInput kafkaInput = new KafkaInput();
+//                BeanUtils.copyProperties(flinkReq, kafkaInput);
+//                flinkNodeEntity.setConfig(JSON.toJSONString(kafkaInput));
+//                break;
+//            case KAFKA_OUTPUT:
+//                KafkaOutput kafkaOutput = new KafkaOutput();
+//                BeanUtils.copyProperties(flinkReq, kafkaOutput);
+//                flinkNodeEntity.setConfig(JSON.toJSONString(kafkaOutput));
+//            default:
+//                throw new RuntimeException("节点类型不支持");
+//        }
+//
+//        // 保存节点
+//        flinkRepository.addNode(flinkNodeEntity);
+//        return getNode(nodeId);
+//    }
+//
+//    public NodeInfo getNode(String nodeId) {
+//
+//        NodeInfo nodeInfo = new NodeInfo();
+//
+//        FlinkNodeEntity nodeEntity = flinkRepository.getNode(nodeId);
+//        BeanUtils.copyProperties(nodeEntity, nodeInfo);
+//
+//        return nodeInfo;
+//    }
 
 
     public FlinkError executeFlink(ExecuteConfig executeConfig) {

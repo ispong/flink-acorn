@@ -37,7 +37,8 @@ public class DemoApplication {
     @PostMapping("/addNode")
     public NodeInfo addNode(@RequestBody FlinkReq flinkReq) {
 
-        return flinkService.addNode(flinkReq);
+//        return flinkService.addNode(flinkReq);
+        return null;
     }
 
     /**
@@ -46,7 +47,8 @@ public class DemoApplication {
     @PostMapping("/getNode")
     public NodeInfo getNode(@RequestBody FlinkReq flinkReq) {
 
-        return flinkService.getNode(flinkReq.getNodeId());
+//        return flinkService.getNode(flinkReq.getNodeId());
+        return null;
     }
 
     /**

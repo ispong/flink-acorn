@@ -64,12 +64,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.isxcode.oxygen</groupId>
-            <artifactId>oxygen-spring-boot-starter</artifactId>
-            <version>0.11.5-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
