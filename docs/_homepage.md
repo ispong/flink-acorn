@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/ispong/flink-acorn" style="border-bottom: none !important;">
-    <img alt="flink-acorn" width="200" src="https://github.com/ispong/flink-acorn/raw/main/logo.png">
+    <img alt="flink-acorn" width="100" src="https://github.com/ispong/flink-acorn/raw/main/logo.png">
   </a>
 </p>
 
