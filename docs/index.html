@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Isxcode - Flink Acorn</title>
+    <meta name="description" content="🐿️ Flink集群服务器插件，通过Restful接口发布管理Flink的Job。">
+    <meta name="keywords" content="flink-acorn,flink,isxcode">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="icon" href="assets/images/favicon.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css"/>
+    <link rel="stylesheet" href="assets/styles.css"/>
+    <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
+</head>
+<body>
+<div id="app">
+    Please wait...
+</div>
+<script>
+    window.$docsify = {
+        name: '<h4>Flink Acorn</h4>',
+        themeColor: '#be73f1',
+        repo: 'https://github.com/ispong/flink-acorn',
+        homepage: '_homepage.md',
+        loadSidebar: true,
+        loadNavbar: true,
+        coverpage: true,
+        onlyCover: true,
+        notFoundPage: true,
+        subMaxLevel: 4,
+        maxLevel: 4,
+        routerMode: 'hash',
+        auto2top: true,
+        autoHeader: false,
+        alias: {
+            '.*/_sidebar.md': '/zh-cn/_sidebar.md',
+            '.*/_navbar.md': '/zh-cn/_navbar.md',
+        },
+        plugins: [
+            EditOnGithubPlugin.create('https://github.com/ispong/flink-acorn/blob/main/docs/', null, 'Edit on github')
+        ],
+        search: {
+            placeholder: 'Search',
+            noData: 'No Results',
+            namespace: '/zh-cn/',
+            hideOtherSidebarContent: true,
+        },
+        pagination: {
+            previousText: 'PREVIOUS',
+            nextText: 'NEXT',
+            crossChapter: true,
+            crossChapterText: true,
+        },
+        copyCode: {
+            buttonText: 'Copy to clipboard',
+            errorText: 'Error',
+            successText: 'Copied'
+        },
+    };
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/docsify"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+
+<script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-java.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-json.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-http.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-sql.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-xml-doc.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-groovy.min.js"></script>
+
+</body>
+</html>

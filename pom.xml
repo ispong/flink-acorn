@@ -18,6 +18,8 @@
 		<module>demo3</module>
         <module>demo4</module>
 		<module>demo5</module>
+        <module>acorn-common</module>
+		<module>acorn-plugin</module>
 	</modules>
 
 </project>
