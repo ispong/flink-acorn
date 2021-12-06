@@ -1,28 +1,44 @@
 <p align="center">
   <a href="https://github.com/ispong/flink-acorn" style="border-bottom: none !important;">
-    <img alt="flink-acorn" width="200" src="https://github.com/ispong/flink-acorn/raw/main/logo.png">
+    <img alt="flink-acorn" width="180" src="https://github.com/ispong/flink-acorn/raw/main/logo.png">
   </a>
 </p>
 
 <h1 align="center">
-    <font color="#be73f1">Flink Acorn</font>
+    Flink Acorn
 </h1>
 
-<h4 align="center">
-    <font color="#be73f1">Flink 实战日记</font>
-</h4>
+<h3 align="center">
+    大栗子
+</h3>
 
 ### 📢 公告
 
-Flink集群服务器插件，通过Restful接口发布管理Flink的Job。
+> 目前针对版本为`1.12.5 scala-2.11`的flink集群
 
-### 插件安装
+### 🔨 使用场景
 
-### 插件使用
+> Flink集群服务器插件，通过Restful接口发布管理Flink的Job。
 
+### 📒 相关文档
 
+- [Flink 集群安装]()
+- [Flink 常用命令]()
 
-### ✨ Demo说明
+### 📦 插件安装
+
+```bash
+git clone https://github.com/ispong/flink-acorn
+cd acorn-common
+mvn install
+cd acorn-plugin
+mvn package
+java -jar acorn-plugin/target/acorn-plugin.jar
+```
+
+### 👏 
+
+### ✨ 项目模块说明
 
 | 模块名  | 作者 | 说明 |
 | --- | --- | --- |

@@ -16,10 +16,10 @@
 		<module>demo1</module>
         <module>demo2</module>
 		<module>demo3</module>
-        <module>demo4</module>
 		<module>demo5</module>
         <module>acorn-common</module>
 		<module>acorn-plugin</module>
-	</modules>
+        <module>acorn-template</module>
+    </modules>
 
 </project>

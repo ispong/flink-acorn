@@ -4,11 +4,13 @@ import com.isxcode.acorn.common.menu.WorkType;
 import com.isxcode.acorn.common.pojo.node.KafkaInput;
 import com.isxcode.acorn.common.pojo.node.KafkaOutput;
 import com.isxcode.acorn.common.pojo.node.MysqlOutput;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@Builder
 public class ExecuteConfig {
 
     /**

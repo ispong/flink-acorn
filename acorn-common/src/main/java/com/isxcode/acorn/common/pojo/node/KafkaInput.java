@@ -1,7 +1,8 @@
 package com.isxcode.acorn.common.pojo.node;
 
 import com.isxcode.acorn.common.menu.DataFormat;
-import com.isxcode.acorn.common.pojo.dto.ColumnInfo;
+import com.isxcode.acorn.common.pojo.dto.FlinkCol;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@Builder
 public class KafkaInput extends NodeBaseInfo {
 
     private String brokerList;
@@ -19,5 +21,5 @@ public class KafkaInput extends NodeBaseInfo {
 
     private DataFormat dataFormat;
 
-    private List<ColumnInfo> columnList;
+    private List<FlinkCol> columnList;
 }
