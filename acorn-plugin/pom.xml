@@ -108,7 +108,7 @@
         <dependency>
             <groupId>com.isxcode.acorn</groupId>
             <artifactId>acorn-common</artifactId>
-            <version>0.0.1</version>
+            <version>0.0.3-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
