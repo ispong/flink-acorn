@@ -28,10 +28,10 @@
 ### 📦 插件安装
 
 ```bash
-git clone https://github.com/ispong/flink-acorn
-cd acorn-common
-mvn install
-cd acorn-plugin
+# git clone https://gitee.com/ispong/flink-acorn.git
+git clone https://github.com/ispong/flink-acorn.git
+cd acorn-common && mvn clean install
+cd acorn-plugin 
 mvn package
 java -jar acorn-plugin/target/acorn-plugin.jar
 ```
