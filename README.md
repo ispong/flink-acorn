@@ -31,8 +31,7 @@
 # git clone https://gitee.com/ispong/flink-acorn.git
 git clone https://github.com/ispong/flink-acorn.git
 cd acorn-plugin && mvn clean package
-
-java -jar acorn-plugin/target/acorn-plugin.jar
+java -jar ./target/acorn-plugin.jar
 ```
 
 ### 👏 
