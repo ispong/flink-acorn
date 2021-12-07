@@ -1,8 +1,9 @@
 - **开始使用**
-    - [Overview](/zh-cn/README.md)
-    - [Getting started](/zh-cn/快速使用.md)
-- **Frameworks**
-    - Acorn
+    - [总览](/zh-cn/README.md)
+    - [快速使用](/zh-cn/start/快速使用.md)
+- **插件**
+    - 小栗子
 - **博客**
     - 2021
       - [Flink集群安装](/zh-cn/blogs/Flink集群安装.md)
+      - [Flink常用命令](/zh-cn/blogs/Flink常用命令.md)

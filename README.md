@@ -13,30 +13,40 @@
 </h3>
 
 <h4 align="center">
-    🐿️ Flink服务器插件，通过Restful接口发布Flink的Job。
+    < [https://ispong.github.io/flink-acorn](https://ispong.github.io/flink-acorn) >
 </h4>
 
 <h4 align="center">
-    < https://ispong.github.io/flink-acorn >
+    🐿️ Flink服务器插件，通过Restful接口发布Flink的Job。
 </h4>
+
 
 ### 📢 公告
 
 目前，插件主要针对`flink-1.14.0-scala-2.12`版本进行开发
 
-### 📒 相关文档
+### ✨ 模块说明
 
-- [Flink 集群安装]()
-- [Flink 常用命令]()
+| 模块名  |  说明 |
+| ---  | --- |
+| [acorn-common](./acorn-common/README.md) | 负责客户端调用服务器插件 |
+| [acorn-plugin](./acorn-plugin/README.md) | 服务器插件模块 |
+| [acorn-template](./acorn-template/README.md) | 给用户使用的项目模板 |
+| [demo1](./demo1/README.md) | kafka输入csv格式数据，输出kafka为csv数据格式 |
+| [demo2](./demo2/README.md) | kafka输入csv格式数据，输出mysql |
+| [demo3](./demo3/README.md) | kafka输入json格式数据，输出mysql |
+| [demo5](./demo5/README.md) | kafka输入json格式数据，输出hive |
 
 ### 📦 插件安装
 
 ##### 服务器插件安装
 
 ```bash
-# git clone https://gitee.com/ispong/flink-acorn.git
+# 或者使用gitee仓库 git clone https://gitee.com/ispong/flink-acorn.git
 git clone https://github.com/ispong/flink-acorn.git
+# 构建插件
 cd acorn-plugin && mvn clean package
+# 运行插件 默认端口`30155`
 nohup java -jar -Xmx2048m ./target/acorn-plugin.jar >> ./flink-acorn.log 2>&1 &
 ```
 
@@ -131,18 +141,6 @@ public class TemplateApplication {
     }
 }
 ```
-
-### ✨ 模块说明
-
-| 模块名  |  说明 |
-| ---  | --- |
-| [acorn-common](./acorn-common/README.md) | 负责客户端调用服务器插件 |
-| [acorn-plugin](./acorn-plugin/README.md) | 服务器插件模块 |
-| [acorn-template](./acorn-template/README.md) | 给用户使用的项目模板 |
-| [demo1](./demo1/README.md) | kafka输入csv格式数据，输出kafka为csv数据格式 |
-| [demo2](./demo2/README.md) | kafka输入csv格式数据，输出mysql |
-| [demo3](./demo3/README.md) | kafka输入json格式数据，输出mysql |
-| [demo5](./demo5/README.md) | kafka输入json格式数据，输出hive |
 
 ### 👏 欢迎维护
 

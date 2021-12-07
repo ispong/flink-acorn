@@ -3,6 +3,9 @@
 <h1 align="center" style="font-weight: bold">
     Flink Acorn
 </h1>
+<h3 align="center" style="font-weight: bold">
+    小栗子
+</h3>
 
 - 🐿️ Flink集群服务器插件，通过Restful接口发布管理Flink的Job。
 
