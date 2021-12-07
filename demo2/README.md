@@ -41,7 +41,7 @@ vim pom.xml
   <scala.binary.version>2.11</scala.binary.version>
   <maven.compiler.source>${target.java.version}</maven.compiler.source>
   <maven.compiler.target>${target.java.version}</maven.compiler.target>
-  <log4j.version>2.12.1</log4j.version>
+  <log4j.version>2.13.2</log4j.version>
 </properties>
 
 <dependencies>

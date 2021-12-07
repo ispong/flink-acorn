@@ -16,7 +16,7 @@ public class AcornTemplate {
 
         try {
             String executeUrl = String.format(UrlConstants.EXECUTE_URL, host, port);
-            return HttpUtils.doPost(executeUrl, JSON.toJSONString(executeConfig), AcornResponse.class);
+            return HttpUtils.doPost(executeUrl, executeConfig, AcornResponse.class);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
