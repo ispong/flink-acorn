@@ -38,9 +38,9 @@
 | [demo2](./demo2/README.md)                   | kafka输入，mysql输出。                        |
 | [demo3](./demo3/README.md)                   | kafka输入，hive输出。                         |
 
-### 📦 插件安装
+### 📦 安装使用
 
-##### 服务器插件安装
+##### 服务器端，插件安装
 
 ```bash
 # 或者 git clone https://gitee.com/ispong/flink-acorn.git
@@ -51,7 +51,7 @@ cd acorn-plugin && mvn clean package
 nohup java -jar -Xmx2048m ./target/acorn-plugin.jar >> ./flink-acorn.log 2>&1 &
 ```
 
-##### 本地客户端使用
+##### 客户端，插件使用
 
 ```xml
 <!-- 添加maven依赖 -->
@@ -121,4 +121,4 @@ public class TemplateController {
 ### 👏 社区开发
 
 > 欢迎大家一同维护开发，请参照具体[开发文档](https://github.com/ispong/flink-acorn/blob/main/CONTRIBUTING.md) 。
-> 如需加入我们，请联系邮箱[ispong@outlook.com] 。
+> 如需加入我们，请联系邮箱 ispong@outlook.com 。
