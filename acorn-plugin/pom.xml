@@ -19,17 +19,6 @@
 
     <repositories>
         <repository>
-            <id>apache.snapshots</id>
-            <name>Apache Development Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
             <id>apache.snapshots.ossrh</id>
             <name>Apache Development Snapshot Repository OSSRH</name>
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
@@ -52,9 +41,15 @@
     <dependencies>
 
         <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>[2.15.0,)</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.isxcode.oxygen</groupId>
             <artifactId>spring-oxygen-core</artifactId>
-            <version>0.12.3-SNAPSHOT</version>
+            <version>0.12.6</version>
         </dependency>
 
         <dependency>
