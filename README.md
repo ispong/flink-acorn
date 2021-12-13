@@ -46,6 +46,14 @@ nohup java -jar -Xmx2048m ./target/acorn-plugin.jar >> ./flink-acorn.log 2>&1 &
 
 ##### 客户端，插件使用
 
+> Note:
+> 需要提前将jdbc下载到flink的lib文件夹下并重启flink
+
+```bash
+sudo cp mysql-connector-java-8.0.22/mysql-connector-java-8.0.22.jar /opt/flink/lib/
+sudo cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-jdbc_2.12/1.14.0/flink-connector-jdbc_2.12-1.14.0.jar /opt/flink/lib/
+```
+
 ```xml
 <!-- 添加maven依赖 -->
 <dependency>
