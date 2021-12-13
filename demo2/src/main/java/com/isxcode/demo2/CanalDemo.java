@@ -30,7 +30,7 @@ public class CanalDemo {
 
         // 装成csv
         tEnv.executeSql("CREATE TABLE from_csv_kafka(\n" +
-                "   username STRING ," +
+                "   username STRING PRIMARY KEY," +
                 "   age INT" +
                 ") WITH (\n" +
                 "   'connector'='upsert-kafka'," +
@@ -45,7 +45,7 @@ public class CanalDemo {
 
         // 输入到mysql
         tEnv.executeSql("CREATE TABLE to_mysql (\n" +
-                "   username STRING primary key," +
+                "   username STRING PRIMARY KEY," +
                 "   age INT" +
                 ") WITH (\n" +
                 "   'connector'='jdbc'," +
