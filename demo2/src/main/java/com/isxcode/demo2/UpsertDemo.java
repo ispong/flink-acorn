@@ -24,10 +24,10 @@ public class UpsertDemo {
                 "   'properties.group.id'='test-consumer-group'," +
                 "   'properties.zookeeper.connect'='172.26.34.166:30099'," +
                 "   'properties.bootstrap.servers'='172.26.34.166:30098'," +
-                "   'key.format' = 'csv'," +
-                "   'key.csv.ignore-parse-errors'='false'," +
-                "   'value.format' = 'csv'," +
-                "   'value.csv.ignore-parse-errors'='false'" +
+                "   'key.format' = 'json'," +
+                "   'key.json.ignore-parse-errors'='false'," +
+                "   'value.format' = 'json'," +
+                "   'value.json.ignore-parse-errors'='false'" +
                 ")");
 
         tEnv.executeSql("CREATE TABLE to_mysql (\n" +
