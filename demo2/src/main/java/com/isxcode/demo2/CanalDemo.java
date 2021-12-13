@@ -43,18 +43,18 @@ public class CanalDemo {
                 "   'value.json.ignore-parse-errors'='false'" +
                 ")");
 
-        // 输入到mysql
-        tEnv.executeSql("CREATE TABLE to_mysql (\n" +
-                "   username STRING PRIMARY KEY," +
-                "   age INT" +
-                ") WITH (\n" +
-                "   'connector'='jdbc'," +
-                "   'url'='jdbc:mysql://172.26.34.166:30010/dehoop'," +
-                "   'table-name'='ispong_table_bak'," +
-                "   'driver'='com.mysql.cj.jdbc.Driver'," +
-                "   'username'='root'," +
-                "   'password'='dehoop2021'" +
-                ")");
+//        // 输入到mysql
+//        tEnv.executeSql("CREATE TABLE to_mysql (\n" +
+//                "   username STRING PRIMARY KEY," +
+//                "   age INT" +
+//                ") WITH (\n" +
+//                "   'connector'='jdbc'," +
+//                "   'url'='jdbc:mysql://172.26.34.166:30010/dehoop'," +
+//                "   'table-name'='ispong_table_bak'," +
+//                "   'driver'='com.mysql.cj.jdbc.Driver'," +
+//                "   'username'='root'," +
+//                "   'password'='dehoop2021'" +
+//                ")");
 
         // 存入json
         Table fromData = tEnv.from("from_canal_kafka");
@@ -64,13 +64,13 @@ public class CanalDemo {
         );
         fromData.executeInsert("from_csv_kafka");
 
-        // json存入mysql
-        Table from_csv_kafka = tEnv.from("from_csv_kafka");
-        from_csv_kafka = from_csv_kafka.select(
-                $("username").as("username"),
-                $("age").as("age")
-        );
-        from_csv_kafka.executeInsert("to_mysql");
+//        // json存入mysql
+//        Table from_csv_kafka = tEnv.from("from_csv_kafka");
+//        from_csv_kafka = from_csv_kafka.select(
+//                $("username").as("username"),
+//                $("age").as("age")
+//        );
+//        from_csv_kafka.executeInsert("to_mysql");
 
     }
 }
