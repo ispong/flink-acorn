@@ -21,7 +21,7 @@ public class CanalDemo {
                 ") WITH (\n" +
                 "   'connector'='upsert-kafka'," +
                 "   'topic'='ispong_kafka'," +
-                "   'scan.startup.mode' = 'earliest-offset'," +
+//                "   'scan.startup.mode' = 'earliest-offset'," +
                 "   'properties.group.id'='test-consumer-group'," +
                 "   'properties.zookeeper.connect'='172.26.34.166:30099'," +
                 "   'properties.bootstrap.servers'='172.26.34.166:30098'," +
