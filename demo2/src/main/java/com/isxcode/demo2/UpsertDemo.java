@@ -16,7 +16,7 @@ public class UpsertDemo {
 
         // properties.group.id | cat consumer.properties
         tEnv.executeSql("CREATE TABLE from_kafka(\n" +
-                "   username as data[0].username primary key," +
+                "   username as data[0].username," +
                 "   age as data[0].age" +
                 ") WITH (\n" +
                 "   'connector'='upsert-kafka'," +
