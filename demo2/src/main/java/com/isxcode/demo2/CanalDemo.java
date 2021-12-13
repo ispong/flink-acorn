@@ -19,7 +19,7 @@ public class CanalDemo {
                 "   username STRING," +
                 "   age INT" +
                 ") WITH (\n" +
-                "   'connector'='kafka'," +
+                "   'connector'='upsert-kafka'," +
                 "   'topic'='ispong_kafka'," +
                 "   'scan.startup.mode' = 'earliest-offset'," +
                 "   'properties.group.id'='test-consumer-group'," +
