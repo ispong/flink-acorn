@@ -1,16 +1,6 @@
-<p align="center">
-  <a href="https://github.com/ispong/flink-acorn" style="border-bottom: none !important;">
-    <img alt="flink-acorn" width="180" src="https://github.com/ispong/flink-acorn/raw/main/docs/assets/images/logo.png">
-  </a>
-</p>
-
 <h1 align="center">
     Flink Acorn
 </h1>
-
-<h3 align="center">
-    小栗子
-</h3>
 
 <h4 align="center">
     <a href="https://ispong.github.io/flink-acorn" >
@@ -29,14 +19,17 @@
 
 ### ✨ 模块
 
-| 模块名                                          | 说明                                          |
-|:---------------------------------------------| :-------------------------------------------- |
+| 模块名                                          | 说明                           |
+|:---------------------------------------------|:-----------------------------|
 | [acorn-common](./acorn-common/README.md)     | 提供AcornTemplate组件，方便用户调用插件服务。 |
-| [acorn-plugin](./acorn-plugin/README.md)     | 服务器插件本体。                              |
-| [acorn-template](./acorn-template/README.md) | 如何使用插件的模板。                          |
-| [demo1](./demo1/README.md)                   | kafka输入，kafka输出。                        |
-| [demo2](./demo2/README.md)                   | kafka输入，mysql输出。                        |
-| [demo3](./demo3/README.md)                   | kafka输入，hive输出。                         |
+| [acorn-plugin](./acorn-plugin/README.md)     | 服务器插件本体。                     |
+| [acorn-template](./acorn-template/README.md) | 如何使用插件的模板。                   |
+| [demo1](./demo1/README.md)                   | kafka输入，kafka输出。             |
+| [demo2](./demo2/README.md)                   | kafka输入，mysql输出。             |
+| [demo3](./demo3/README.md)                   | kafka输入，hive输出。              |
+| [demo4](./demo4/README.md)                   | mysql -> binlog -> kafka     |
+| [demo5](./demo5/README.md)                   | kafka -> flink -> doris     |
+
 
 ### 📦 安装使用
 
