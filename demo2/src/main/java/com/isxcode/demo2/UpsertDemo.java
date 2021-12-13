@@ -6,7 +6,7 @@ import org.apache.flink.table.api.TableEnvironment;
 
 import static org.apache.flink.table.api.Expressions.$;
 
-public class CanalDemo {
+public class UpsertDemo {
 
     public static void main(String[] args) {
 
@@ -19,14 +19,15 @@ public class CanalDemo {
                 "   username STRING," +
                 "   age INT" +
                 ") WITH (\n" +
-                "   'connector'='kafka'," +
+                "   'connector'='upsert-kafka'," +
                 "   'topic'='ispong_kafka'," +
-//                "   'scan.startup.mode' = 'earliest-offset'," +
                 "   'properties.group.id'='test-consumer-group'," +
                 "   'properties.zookeeper.connect'='172.26.34.166:30099'," +
                 "   'properties.bootstrap.servers'='172.26.34.166:30098'," +
-                "   'format'='canal-json'," +
-                "   'canal-json.ignore-parse-errors'='true'" +
+                "   'key.format' = 'csv'," +
+                "   'key.csv.ignore-parse-errors'='false'," +
+                "   'value.format' = 'csv'," +
+                "   'value.csv.ignore-parse-errors'='false'" +
                 ")");
 
         tEnv.executeSql("CREATE TABLE to_mysql (\n" +
