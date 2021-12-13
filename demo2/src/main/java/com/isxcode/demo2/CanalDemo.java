@@ -14,12 +14,14 @@ public class CanalDemo {
         TableEnvironment tEnv = TableEnvironment.create(settings);
         tEnv.getConfig().getConfiguration().setString("pipeline.name", "isxcode-pipeline");
 
+        // properties.group.id | cat consumer.properties
         tEnv.executeSql("CREATE TABLE from_kafka(\n" +
                 "   username STRING," +
                 "   age INT" +
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
                 "   'topic'='ispong_kafka'," +
+                "   'properties.group.id'='test-consumer-group'," +
                 "   'properties.zookeeper.connect'='172.26.34.166:30099'," +
                 "   'properties.bootstrap.servers'='172.26.34.166:30098'," +
                 "   'format'='canal-json'," +
