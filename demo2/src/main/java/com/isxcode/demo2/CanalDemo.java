@@ -25,8 +25,7 @@ public class CanalDemo {
                 "   'key.format'='canal-json'," +
                 "   'value.format'='canal-json'," +
                 "   'properties.zookeeper.connect'='172.26.34.166:30099'," +
-                "   'properties.bootstrap.servers'='172.26.34.166:30098'," +
-                "   'canal-json.ignore-parse-errors'='true'" +
+                "   'properties.bootstrap.servers'='172.26.34.166:30098'" +
                 ")");
 
         tEnv.executeSql("CREATE TABLE to_mysql (\n" +
