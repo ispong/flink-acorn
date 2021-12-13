@@ -57,7 +57,7 @@ public class CanalDemo {
                 ")");
 
         // 存入json
-        Table fromData = tEnv.from("from_kafka");
+        Table fromData = tEnv.from("from_canal_kafka");
         fromData = fromData.select(
                 $("username").as("username"),
                 $("age").as("age")
