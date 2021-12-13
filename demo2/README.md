@@ -184,6 +184,8 @@ mvn clean package
 flink run flink-demo-0.1.jar
 ```
 
+// properties.group.id | cat consumer.properties
+
 ## 🔗 Links
 
 - [flink website](https://flink.apache.org/)

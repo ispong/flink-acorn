@@ -189,7 +189,7 @@
                             </filters>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.isxcode.demo2.UpsertDemo</mainClass>
+                                    <mainClass>com.isxcode.demo2.CanalDemo</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
