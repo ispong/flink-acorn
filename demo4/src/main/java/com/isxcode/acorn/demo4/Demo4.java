@@ -18,7 +18,7 @@ public class Demo4 {
         tEnv.executeSql("CREATE TABLE from_canal_kafka(\n" +
                 "   username STRING," +
                 "   age INT," +
-                "   type STRING METADATA FROM 'value.type' VIRTUAL" +
+                "   behavior STRING" +
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
                 "   'topic'='ispong_kafka'," +
@@ -34,7 +34,7 @@ public class Demo4 {
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
                 "   username STRING PRIMARY KEY," +
                 "   age INT," +
-                "   type STRING " +
+                "   behavior STRING " +
                 ") WITH (\n" +
                 "   'connector'='upsert-kafka'," +
                 "   'topic'='ispong_kafka_doris'," +
@@ -64,7 +64,7 @@ public class Demo4 {
         Table upinsertTable = from_csv_kafka.select(
                 $("username").as("username"),
                 $("age").as("age"),
-                $("type").as("type")
+                $("behavior").as("behavior")
         );
         upinsertTable.executeInsert("to_kafka");
 
