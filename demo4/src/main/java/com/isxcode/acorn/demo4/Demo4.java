@@ -18,7 +18,7 @@ public class Demo4 {
         tEnv.executeSql("CREATE TABLE from_canal_kafka(\n" +
                 "   username STRING," +
                 "   age INT," +
-                "   origin_table STRING METADATA FROM 'value.table' VIRTUAL" +
+                "   type STRING METADATA FROM 'value.type' VIRTUAL" +
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
                 "   'topic'='ispong_kafka'," +
@@ -32,9 +32,9 @@ public class Demo4 {
 
         // to upinsert kafka
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
-//                "   username STRING PRIMARY KEY," +
-//                "   age INT," +
-                "   origin_table STRING PRIMARY KEY" +
+                "   username STRING PRIMARY KEY," +
+                "   age INT," +
+                "   type STRING " +
                 ") WITH (\n" +
                 "   'connector'='upsert-kafka'," +
                 "   'topic'='ispong_kafka_doris'," +
@@ -62,9 +62,9 @@ public class Demo4 {
         // json存入mysql
         Table from_csv_kafka = tEnv.from("from_canal_kafka");
         Table upinsertTable = from_csv_kafka.select(
-//                $("username").as("username"),
-//                $("age").as("age"),
-                $("origin_table").as("origin_table")
+                $("username").as("username"),
+                $("age").as("age"),
+                $("type").as("type")
         );
         upinsertTable.executeInsert("to_kafka");
 
