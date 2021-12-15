@@ -30,32 +30,16 @@ public class Demo4 {
                 ")");
 
         // from kafka
-//        tEnv.executeSql("CREATE TABLE from_kafka(\n" +
-//                "   username STRING PRIMARY KEY," +
-//                "   age INT" +
-//                ") WITH (\n" +
-//                "   'connector'='upsert-kafka'," +
-//                "   'topic'='ispong_kafka_json'," +
-//                "   'properties.group.id'='test-consumer-group'," +
-//                "   'properties.zookeeper.connect'='172.26.34.166:30099'," +
-//                "   'properties.bootstrap.servers'='172.26.34.166:30098'," +
-//                "   'key.format' = 'csv'," +
-//                "   'key.csv.ignore-parse-errors'='false'," +
-//                "   'value.format' = 'csv'," +
-//                "   'value.csv.ignore-parse-errors'='false'" +
-//                ")");
-
-        // 输入到mysql
-        tEnv.executeSql("CREATE TABLE to_mysql (\n" +
-                "   username STRING PRIMARY KEY," +
+        tEnv.executeSql("CREATE TABLE to_kafka(\n" +
+                "   username STRING," +
                 "   age INT" +
                 ") WITH (\n" +
-                "   'connector'='jdbc'," +
-                "   'driver'='com.mysql.cj.jdbc.Driver'," +
-                "   'url'='jdbc:mysql://192.168.66.66:30102/dehoop'," +
-                "   'table-name'='ispong_table_bak'," +
-                "   'username'='root'," +
-                "   'password'='dehoop2021'" +
+                "   'connector'='kafka'," +
+                "   'topic'='ispong_kafka_delete_job'," +
+                "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
+                "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
+                "   'format'='csv'," +
+                "   'csv.ignore-parse-errors'='true'" +
                 ")");
 
         // 存入json
@@ -72,7 +56,7 @@ public class Demo4 {
                 $("username").as("username"),
                 $("age").as("age")
         );
-        from_csv_kafka.executeInsert("to_mysql");
+        from_csv_kafka.executeInsert("to_kafka");
 
     }
 }
