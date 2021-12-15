@@ -53,8 +53,8 @@ public class Demo4 {
 
         // json读取kafka数据
         tEnv.executeSql("CREATE TABLE from_canal_json(\n" +
-                "   username as data[1].username," +
-                "   age as data[1].age," +
+                "   data[1].username as username," +
+                "   data[1].age as age," +
                 "   type STRING" +
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
