@@ -34,7 +34,7 @@ public class Demo4 {
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
 //                "   username STRING PRIMARY KEY," +
 //                "   age INT," +
-                "   origin_table STRING" +
+                "   origin_table STRING PRIMARY KEY" +
                 ") WITH (\n" +
                 "   'connector'='upsert-kafka'," +
                 "   'topic'='ispong_kafka_doris'," +
