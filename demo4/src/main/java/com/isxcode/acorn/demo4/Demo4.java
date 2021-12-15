@@ -53,9 +53,9 @@ public class Demo4 {
 
         // json读取kafka数据
         tEnv.executeSql("CREATE TABLE from_canal_json(\n" +
-                "   data[1].username as username," +
-                "   data[1].age as age," +
-                "   type STRING" +
+                "   username as data[1].username," +
+                "   age as data[1].age," +
+                "   type as type" +
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
                 "   'topic'='ispong_kafka'," +
@@ -65,7 +65,23 @@ public class Demo4 {
                 "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
                 "   'format'='json'," +
                 "   'json.fail-on-missing-field' = 'false'," +
-                "   'json.ignore-parse-errors'='true'" +
+                "   'json.ignore-parse-errors'='true'," +
+                "   'format.json-schema'='{\n" +
+                "  \"type\": \"object\",\n" +
+                "  \"properties\": {\n" +
+                "    \"type\": {\"type\": \"string\"},\n" +
+                "    \"data\": {\n" +
+                "      \"type\": \"array\",\n" +
+                "      \"items\": {\n" +
+                "        \"type\": \"object\",\n" +
+                "        \"properties\": {\n" +
+                "          \"username\": {\"type\": \"string\"},\n" +
+                "          \"age\": {\"type\": \"int\"}\n" +
+                "        }\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}'" +
                 ")");
 
         // from kafka of json
