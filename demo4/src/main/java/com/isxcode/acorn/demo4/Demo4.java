@@ -47,8 +47,7 @@ public class Demo4 {
         Table from_csv_kafka = tEnv.from("from_canal_kafka");
         Table upinsertTable = from_csv_kafka.select(
                 $("username").as("username"),
-                $("age").as("age"),
-                $("behavior").as("behavior")
+                $("age").as("age")
         );
         upinsertTable.executeInsert("to_kafka");
 
@@ -87,7 +86,8 @@ public class Demo4 {
         Table from_json_kafka = tEnv.from("from_canal_json");
         Table deleteTable = from_json_kafka.select(
                 $("username").as("username"),
-                $("age").as("age")
+                $("age").as("age"),
+                $("type").as("type")
         );
         deleteTable.executeInsert("to_delete_kafka");
 
