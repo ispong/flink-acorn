@@ -17,8 +17,7 @@ public class Demo4 {
         // canal 读取数据
         tEnv.executeSql("CREATE TABLE from_canal_kafka(\n" +
                 "   username STRING," +
-                "   age INT," +
-                "   behavior STRING" +
+                "   age INT" +
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
                 "   'topic'='ispong_kafka'," +
@@ -33,8 +32,7 @@ public class Demo4 {
         // to upinsert kafka
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
                 "   username STRING PRIMARY KEY," +
-                "   age INT," +
-                "   behavior STRING " +
+                "   age INT" +
                 ") WITH (\n" +
                 "   'connector'='upsert-kafka'," +
                 "   'topic'='ispong_kafka_doris'," +
