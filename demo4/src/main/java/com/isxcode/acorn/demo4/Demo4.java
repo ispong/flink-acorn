@@ -42,6 +42,19 @@ public class Demo4 {
                 "   'csv.ignore-parse-errors'='true'" +
                 ")");
 
+        tEnv.executeSql("CREATE TABLE to_kafka(\n" +
+                "   username STRING PRIMARY KEY," +
+                "   age INT" +
+                ") WITH (\n" +
+                "   'connector'='upsert-kafka'," +
+                "   'topic'='ispong_kafka_delete_job'," +
+                "   'properties.group.id'='test-consumer-group'," +
+                "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
+                "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
+                "   'key.format' = 'json'," +
+                "   'value.format' = 'json'"+
+                ")");
+
         // 存入json
 //        Table fromData = tEnv.from("from_canal_kafka");
 //        fromData = fromData.select(
