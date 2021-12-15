@@ -46,24 +46,24 @@ public class Demo4 {
                 ")");
 
         // to delete kafka
-        tEnv.executeSql("CREATE TABLE to_delete_kafka(\n" +
-                "   username STRING PRIMARY KEY," +
-                "   age INT" +
-                ") WITH (\n" +
-                "   'connector'='upsert-kafka'," +
-                "   'topic'='ispong_kafka_delete_job'," +
-                "   'properties.group.id'='test-consumer-group'," +
-                "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
-                "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
-                "   'key.format' = 'json'," +
-                "   'value.format' = 'json'"+
-                ")");
+//        tEnv.executeSql("CREATE TABLE to_delete_kafka(\n" +
+//                "   username STRING PRIMARY KEY," +
+//                "   age INT" +
+//                ") WITH (\n" +
+//                "   'connector'='upsert-kafka'," +
+//                "   'topic'='ispong_kafka_delete_job'," +
+//                "   'properties.group.id'='test-consumer-group'," +
+//                "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
+//                "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
+//                "   'key.format' = 'json'," +
+//                "   'value.format' = 'json'"+
+//                ")");
 
         // json存入mysql
         Table from_csv_kafka = tEnv.from("from_canal_kafka");
         Table upinsertTable = from_csv_kafka.select(
-                $("username").as("username"),
-                $("age").as("age"),
+//                $("username").as("username"),
+//                $("age").as("age"),
                 $("origin_table").as("origin_table")
         );
         upinsertTable.executeInsert("to_kafka");
