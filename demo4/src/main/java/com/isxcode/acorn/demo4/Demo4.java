@@ -29,19 +29,7 @@ public class Demo4 {
                 "   'canal-json.ignore-parse-errors'='true'" +
                 ")");
 
-        // from kafka
-        tEnv.executeSql("CREATE TABLE to_kafka(\n" +
-                "   username STRING," +
-                "   age INT" +
-                ") WITH (\n" +
-                "   'connector'='kafka'," +
-                "   'topic'='ispong_kafka_delete_job'," +
-                "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
-                "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
-                "   'format'='csv'," +
-                "   'csv.ignore-parse-errors'='true'" +
-                ")");
-
+        // to new kafka
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
                 "   username STRING PRIMARY KEY," +
                 "   age INT" +
