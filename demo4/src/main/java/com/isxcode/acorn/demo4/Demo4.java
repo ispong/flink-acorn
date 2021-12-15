@@ -17,7 +17,8 @@ public class Demo4 {
         // canal 读取数据
         tEnv.executeSql("CREATE TABLE from_canal_kafka(\n" +
                 "   username STRING," +
-                "   age INT" +
+                "   age INT," +
+                "   origin_table STRING METADATA FROM 'value.table' VIRTUAL" +
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
                 "   'topic'='ispong_kafka'," +
@@ -29,10 +30,11 @@ public class Demo4 {
                 "   'canal-json.ignore-parse-errors'='true'" +
                 ")");
 
-        // to new kafka
+        // to upinsert kafka
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
                 "   username STRING PRIMARY KEY," +
-                "   age INT" +
+                "   age INT," +
+                "   origin_table STRING" +
                 ") WITH (\n" +
                 "   'connector'='upsert-kafka'," +
                 "   'topic'='ispong_kafka_doris'," +
@@ -43,21 +45,35 @@ public class Demo4 {
                 "   'value.format' = 'json'"+
                 ")");
 
-        // 存入json
-//        Table fromData = tEnv.from("from_canal_kafka");
-//        fromData = fromData.select(
-//                $("username").as("username"),
-//                $("age").as("age")
-//        );
-//        fromData.executeInsert("from_kafka");
+        // to delete kafka
+        tEnv.executeSql("CREATE TABLE to_delete_kafka(\n" +
+                "   username STRING PRIMARY KEY," +
+                "   age INT" +
+                ") WITH (\n" +
+                "   'connector'='upsert-kafka'," +
+                "   'topic'='ispong_kafka_delete_job'," +
+                "   'properties.group.id'='test-consumer-group'," +
+                "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
+                "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
+                "   'key.format' = 'json'," +
+                "   'value.format' = 'json'"+
+                ")");
 
         // json存入mysql
         Table from_csv_kafka = tEnv.from("from_canal_kafka");
-        from_csv_kafka = from_csv_kafka.select(
+        Table upinsertTable = from_csv_kafka.select(
                 $("username").as("username"),
-                $("age").as("age")
+                $("age").as("age"),
+                $("origin_table").as("origin_table")
         );
-        from_csv_kafka.executeInsert("to_kafka");
+        upinsertTable.executeInsert("to_kafka");
+
+//        Table deleteTable = from_csv_kafka.select(
+//                $("username").as("username"),
+//                $("age").as("age")
+//        );
+//        deleteTable.executeInsert("to_delete_kafka");
+
 
     }
 }
