@@ -19,17 +19,15 @@
 
 ### ✨ 模块
 
-| 模块名                                          | 说明                           |
-|:---------------------------------------------|:-----------------------------|
-| [acorn-common](./acorn-common/README.md)     | 提供AcornTemplate组件，方便用户调用插件服务。 |
-| [acorn-plugin](./acorn-plugin/README.md)     | 服务器插件本体。                     |
-| [acorn-template](./acorn-template/README.md) | 如何使用插件的模板。                   |
-| [demo1](./demo1/README.md)                   | kafka输入，kafka输出。             |
-| [demo2](./demo2/README.md)                   | kafka输入，mysql输出。             |
-| [demo3](./demo3/README.md)                   | kafka输入，hive输出。              |
-| [demo4](./demo4/README.md)                   | mysql -> binlog -> kafka     |
-| [demo5](./demo5/README.md)                   | kafka -> flink -> doris     |
-
+| 模块名                                          | 说明                                                  |
+|:---------------------------------------------|:----------------------------------------------------|
+| [acorn-common](./acorn-common/README.md)     | 提供AcornTemplate组件，方便用户调用插件服务。                       |
+| [acorn-plugin](./acorn-plugin/README.md)     | 服务器插件本体。                                            |
+| [acorn-template](./acorn-template/README.md) | 如何使用插件的模板。                                          |
+| [demo1](./demo1/README.md)                   | kafka输入，kafka输出。                                    |
+| [demo2](./demo2/README.md)                   | kafka输入，mysql输出。                                    |
+| [demo3](./demo3/README.md)                   | kafka输入，hive输出。                                     |
+| [demo4](./demo4/README.md)                   | mysql -> binlog -> kafka -> flink -> kafka -> doris |
 
 ### 📦 安装使用
 
