@@ -49,50 +49,15 @@ public class Demo4 {
         Table upinsertTable = from_csv_kafka.select(
                 $("username").as("username"),
                 $("age").as("age")
-        );
+        ).filter($("username").isNull());
         upinsertTable.executeInsert("to_kafka");
 
-//
-//        // json读取kafka数据
-//        tEnv.executeSql("CREATE TABLE from_canal_json(\n" +
-//                "   username as data[0].username," +
-//                "   age as data[0].age," +
-//                "   type as type" +
-//                ") WITH (\n" +
-//                "   'connector'='kafka'," +
-//                "   'topic'='ispong_kafka'," +
-//                "   'scan.startup.mode' = 'earliest-offset'," +
-//                "   'properties.group.id'='test-consumer-group'," +
-//                "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
-//                "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
-//                "   'format'='json'," +
-//                "   'json.fail-on-missing-field' = 'false'," +
-//                "   'json.ignore-parse-errors'='true'," +
-//                "   'format.json-schema'='{\n" +
-//                "      \"type\": \"object\",\n" +
-//                "      \"properties\": {\n" +
-//                "          \"type\": {\"type\": \"string\"},\n" +
-//                "          \"data\": {\n" +
-//                "             \"type\": \"array\",\n" +
-//                "             \"items\": {\n" +
-//                "                 \"type\": \"object\",\n" +
-//                "                 \"properties\": {\n" +
-//                "                       \"username\": {\"type\": \"string\"},\n" +
-//                "                       \"age\": {\"type\": \"int\"}\n" +
-//                "                  }\n" +
-//                "             }\n" +
-//                "         }\n" +
-//                "      }\n" +
-//                "   }'" +
-//                ")");
-//
-//        // from kafka of json
+
 //        tEnv.executeSql("CREATE TABLE to_delete_kafka(\n" +
 //                "   username STRING PRIMARY KEY," +
-//                "   age INT," +
-//                "   type STRING" +
+//                "   age INT" +
 //                ") WITH (\n" +
-//                "   'connector'='upsert-kafka'," +
+//                "   'connector'='kafka'," +
 //                "   'topic'='ispong_kafka_delete_job'," +
 //                "   'properties.group.id'='test-consumer-group'," +
 //                "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
@@ -100,6 +65,7 @@ public class Demo4 {
 //                "   'key.format' = 'json'," +
 //                "   'value.format' = 'json'"+
 //                ")");
+
 
 //        Table from_json_kafka = tEnv.from("from_canal_json");
 //        Table deleteTable = from_json_kafka.select(
