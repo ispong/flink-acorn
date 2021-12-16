@@ -15,6 +15,7 @@ public class Demo4 {
         EnvironmentSettings settings = EnvironmentSettings.newInstance().build();
         TableEnvironment tEnv = TableEnvironment.create(settings);
         tEnv.getConfig().getConfiguration().setString("pipeline.name", "isxcode-pipeline");
+        tEnv.getConfig().getConfiguration().setString("table.exec.sink.not-null-enforcer", "drop");
 
         // canal 读取数据
         tEnv.executeSql("CREATE TABLE from_canal_kafka(\n" +
