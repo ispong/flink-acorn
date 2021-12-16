@@ -1,6 +1,7 @@
 package com.isxcode.acorn.demo4;
 
 import org.apache.flink.table.api.EnvironmentSettings;
+import org.apache.flink.table.api.Expressions;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
 
@@ -17,6 +18,7 @@ public class Demo4 {
 
         // canal 读取数据
         tEnv.executeSql("CREATE TABLE from_canal_kafka(\n" +
+                "   origin_table STRING METADATA FROM 'value.table' VIRTUAL, " +
                 "   username STRING," +
                 "   age INT" +
                 ") WITH (\n" +
@@ -32,6 +34,7 @@ public class Demo4 {
 
         // to upinsert kafka
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
+                "   origin_table STRING, "+
                 "   username STRING ," +
                 "   age INT ," +
                 "   __DELETE_LABEL__ INT,"+
@@ -51,10 +54,12 @@ public class Demo4 {
 
         // json存入mysql
         Table from_csv_kafka = tEnv.from("from_canal_kafka");
+
         Table upinsertTable = from_csv_kafka.select(
                 $("username").as("username"),
-                $("age").as("age")
-        ).addColumns(ifThenElse($("age").isNull(), 1, 0).as("__DELETE_LABEL__"));
+                $("age").as("age"),
+                $("origin_table").as("origin_table")
+        ).addColumns(ifThenElse($("origin_table").isNull(), 1, 0).as("__DELETE_LABEL__"));
 
         upinsertTable.executeInsert("to_kafka");
 
