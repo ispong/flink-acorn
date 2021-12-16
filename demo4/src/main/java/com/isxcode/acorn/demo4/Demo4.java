@@ -34,7 +34,7 @@ public class Demo4 {
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
                 "   username STRING ," +
                 "   age INT ," +
-                "   __DORIS_DELETE_SIGN__ INT,"+
+                "   __DELETE_LABEL__ INT,"+
                 "   PRIMARY KEY (username) NOT ENFORCED " +
                 ") WITH (\n" +
                 "   'connector'='upsert-kafka'," +
@@ -53,7 +53,7 @@ public class Demo4 {
         Table upinsertTable = from_csv_kafka.select(
                 $("username").as("username"),
                 $("age").as("age")
-        ).addColumns(ifThenElse($("age").isLess(10), 1, 0).as("__DORIS_DELETE_SIGN__"));
+        ).addColumns(ifThenElse($("age").isLess(10), 1, 0).as("__DELETE_LABEL__"));
         upinsertTable.executeInsert("to_kafka");
 
 //        CREATE TABLE pageviews (
