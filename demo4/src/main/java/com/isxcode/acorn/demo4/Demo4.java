@@ -1,9 +1,17 @@
 package com.isxcode.acorn.demo4;
 
+import com.sun.istack.Nullable;
+import org.apache.flink.kafka.shaded.org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;
+import org.apache.flink.streaming.connectors.kafka.KafkaSerializationSchema;
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Expressions;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Properties;
 
 import static org.apache.flink.table.api.Expressions.$;
 import static org.apache.flink.table.api.Expressions.ifThenElse;
@@ -36,7 +44,6 @@ public class Demo4 {
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
                 "   username STRING ," +
                 "   age INT ," +
-                "   __DELETE_LABEL__ INT,"+
                 "   PRIMARY KEY (username) NOT ENFORCED " +
                 ") WITH (\n" +
                 "   'connector'='upsert-kafka'," +
@@ -49,16 +56,17 @@ public class Demo4 {
                 "   'value.format' = 'json',"+
                 "   'value.json.fail-on-missing-field' = 'false'," +
                 "   'value.fields-include' = 'ALL'" +
-                ")").print();
+                ")");
 
-        // json存入mysql
         Table from_csv_kafka = tEnv.from("from_canal_kafka");
-
         Table upinsertTable = from_csv_kafka.select(
                 $("username").as("username"),
                 $("age").as("age")
-        ).addColumns(ifThenElse($("age").isNull(), 1, 0).as("__DELETE_LABEL__"));
+        );
+        upinsertTable.executeInsert("to_kafka");
 
-        upinsertTable.executeInsert("to_kafka").print();
+        // 需要重新整理这个kafka中的数据 ispong_kafka_doris
+        // 解出key和value 重新生成json放入指定的doris中kafka
+
     }
 }
