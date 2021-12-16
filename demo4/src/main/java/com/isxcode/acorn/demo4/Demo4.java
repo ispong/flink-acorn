@@ -41,7 +41,8 @@ public class Demo4 {
                 "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
                 "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
                 "   'key.format' = 'json'," +
-                "   'value.format' = 'json'"+
+                "   'value.format' = 'json',"+
+                "   'value.fields-include' = 'EXCEPT_KEY'" +
                 ")");
 
         // json存入mysql
@@ -51,6 +52,21 @@ public class Demo4 {
                 $("age").as("age")
         ).filter($("username").isNull());
         upinsertTable.executeInsert("to_kafka");
+
+
+
+//        CREATE TABLE pageviews (
+//                user_id BIGINT,
+//                page_id BIGINT,
+//                viewtime TIMESTAMP,
+//                user_region STRING,
+//                WATERMARK FOR viewtime AS viewtime - INTERVAL '2' SECOND
+//) WITH (
+//                'connector' = 'kafka',
+//                'topic' = 'pageviews',
+//                'properties.bootstrap.servers' = '...',
+//                'format' = 'json'
+//        );
 
 
 //        tEnv.executeSql("CREATE TABLE to_delete_kafka(\n" +
