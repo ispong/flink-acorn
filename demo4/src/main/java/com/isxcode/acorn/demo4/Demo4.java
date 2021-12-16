@@ -50,7 +50,7 @@ public class Demo4 {
         Table upinsertTable = from_csv_kafka.select(
                 $("username").as("username"),
                 $("age").as("age")
-        ).filter($("username").isNull());
+        );
         upinsertTable.executeInsert("to_kafka");
 
 
