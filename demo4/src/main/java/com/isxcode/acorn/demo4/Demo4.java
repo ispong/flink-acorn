@@ -21,6 +21,7 @@ public class Demo4 {
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
                 "   'topic'='ispong_kafka'," +
+//                "   'scan.startup.mode' = 'earliest-offset'," +
                 "   'properties.group.id'='test-consumer-group'," +
                 "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
                 "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
@@ -30,16 +31,17 @@ public class Demo4 {
 
         // to upinsert kafka
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
-                "   username STRING," +
-                "   age INT" +
+                "   username STRING ," +
+                "   age INT ," +
+                "   PRIMARY KEY (username) NOT ENFORCED " +
                 ") WITH (\n" +
-                "   'connector'='kafka'," +
+                "   'connector'='upsert-kafka'," +
                 "   'topic'='ispong_kafka_doris'," +
+                "   'properties.group.id'='test-consumer-group'," +
                 "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
                 "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
-                "   'format'='json'," +
-                "   'json.fail-on-missing-field' = 'false'," +
-                "   'json.ignore-parse-errors'='true'" +
+                "   'key.format' = 'json'," +
+                "   'value.format' = 'json'"+
                 ")");
 
         // json存入mysql
