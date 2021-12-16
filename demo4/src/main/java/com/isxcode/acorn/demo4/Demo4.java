@@ -18,7 +18,6 @@ public class Demo4 {
 
         // canal 读取数据
         tEnv.executeSql("CREATE TABLE from_canal_kafka(\n" +
-                "   origin_table STRING METADATA FROM 'value.table' VIRTUAL, " +
                 "   username STRING," +
                 "   age INT" +
                 ") WITH (\n" +
@@ -34,7 +33,6 @@ public class Demo4 {
 
         // to upinsert kafka
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
-                "   origin_table STRING, "+
                 "   username STRING ," +
                 "   age INT ," +
                 "   __DELETE_LABEL__ INT,"+
@@ -56,12 +54,12 @@ public class Demo4 {
         Table from_csv_kafka = tEnv.from("from_canal_kafka");
 
         Table upinsertTable = from_csv_kafka.select(
-                $("origin_table").as("origin_table"),
                 $("username").as("username"),
                 $("age").as("age")
         ).addColumns(ifThenElse($("age").isNull(), 1, 0).as("__DELETE_LABEL__"));
 
-        upinsertTable.executeInsert("to_kafka");
+        System.out.println("===>" + from_csv_kafka.getResolvedSchema().getColumnCount());
 
+        upinsertTable.executeInsert("to_kafka");
     }
 }
