@@ -43,8 +43,8 @@ public class Demo4 {
                 "   'key.format' = 'json'," +
                 "   'key.json.ignore-parse-errors' = 'true'," +
                 "   'value.format' = 'json',"+
-                "   'value.json.fail-on-missing-field' = 'false'" +
-//                "   'value.fields-include' = 'EXCEPT_KEY'" +
+                "   'value.json.fail-on-missing-field' = 'false'," +
+                "   'value.fields-include' = 'EXCEPT_KEY'" +
                 ")");
 
         // json存入mysql
