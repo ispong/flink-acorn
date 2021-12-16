@@ -41,6 +41,7 @@ public class Demo4 {
                 "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
                 "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
                 "   'key.format' = 'json'," +
+                "   'key.fields' = 'username'," +
                 "   'key.json.ignore-parse-errors' = 'true'," +
                 "   'value.format' = 'json',"+
                 "   'value.json.fail-on-missing-field' = 'false'," +
