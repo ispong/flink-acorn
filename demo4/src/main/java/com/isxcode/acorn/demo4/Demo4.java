@@ -59,7 +59,7 @@ public class Demo4 {
                 $("username").as("username"),
                 $("age").as("age"),
                 $("origin_table").as("origin_table")
-        ).addColumns(ifThenElse($("origin_table").isNull(), 1, 0).as("__DELETE_LABEL__"));
+        ).addColumns(ifThenElse($("age").isNull(), 1, 0).as("__DELETE_LABEL__"));
 
         upinsertTable.executeInsert("to_kafka");
 
