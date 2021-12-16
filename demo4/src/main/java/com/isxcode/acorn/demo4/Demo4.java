@@ -53,45 +53,8 @@ public class Demo4 {
         Table upinsertTable = from_csv_kafka.select(
                 $("username").as("username"),
                 $("age").as("age")
-        ).addColumns(ifThenElse($("age").isLess(10), 1, 0).as("__DELETE_LABEL__"));
+        ).addColumns(ifThenElse($("age").isNull(), 1, 0).as("__DELETE_LABEL__"));
         upinsertTable.executeInsert("to_kafka");
-
-//        CREATE TABLE pageviews (
-//                user_id BIGINT,
-//                page_id BIGINT,
-//                viewtime TIMESTAMP,
-//                user_region STRING,
-//                WATERMARK FOR viewtime AS viewtime - INTERVAL '2' SECOND
-//) WITH (
-//                'connector' = 'kafka',
-//                'topic' = 'pageviews',
-//                'properties.bootstrap.servers' = '...',
-//                'format' = 'json'
-//        );
-
-
-//        tEnv.executeSql("CREATE TABLE to_delete_kafka(\n" +
-//                "   username STRING PRIMARY KEY," +
-//                "   age INT" +
-//                ") WITH (\n" +
-//                "   'connector'='kafka'," +
-//                "   'topic'='ispong_kafka_delete_job'," +
-//                "   'properties.group.id'='test-consumer-group'," +
-//                "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
-//                "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
-//                "   'key.format' = 'json'," +
-//                "   'value.format' = 'json'"+
-//                ")");
-
-
-//        Table from_json_kafka = tEnv.from("from_canal_json");
-//        Table deleteTable = from_json_kafka.select(
-//                $("username").as("username"),
-//                $("age").as("age"),
-//                $("type").as("type")
-//        );
-//        deleteTable.executeInsert("to_delete_kafka");
-
 
     }
 }
