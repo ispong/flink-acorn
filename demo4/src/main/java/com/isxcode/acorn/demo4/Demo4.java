@@ -5,6 +5,7 @@ import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
 
 import static org.apache.flink.table.api.Expressions.$;
+import static org.apache.flink.table.api.Expressions.ifThenElse;
 
 public class Demo4 {
 
@@ -33,7 +34,7 @@ public class Demo4 {
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
                 "   username STRING ," +
                 "   age INT ," +
-                "   __DORIS_DELETE_SIGN__ INT DEFAULT 0,"+
+                "   __DORIS_DELETE_SIGN__ INT,"+
                 "   PRIMARY KEY (username) NOT ENFORCED " +
                 ") WITH (\n" +
                 "   'connector'='upsert-kafka'," +
@@ -51,9 +52,8 @@ public class Demo4 {
         Table from_csv_kafka = tEnv.from("from_canal_kafka");
         Table upinsertTable = from_csv_kafka.select(
                 $("username").as("username"),
-                $("age").as("age"),
-                $("__DORIS_DELETE_SIGN__")
-        );
+                $("age").as("age")
+        ).addColumns(ifThenElse($("age").isLess(10), 1, 0).as("__DORIS_DELETE_SIGN__"));
         upinsertTable.executeInsert("to_kafka");
 
 //        CREATE TABLE pageviews (
