@@ -29,7 +29,7 @@ public class Demo4 {
                 "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
                 "   'format'='canal-json'," +
                 "   'canal-json.ignore-parse-errors'='true'" +
-                ")");
+                ")").print();
 
         // to upinsert kafka
         tEnv.executeSql("CREATE TABLE to_kafka(\n" +
@@ -48,7 +48,7 @@ public class Demo4 {
                 "   'value.format' = 'json',"+
                 "   'value.json.fail-on-missing-field' = 'false'," +
                 "   'value.fields-include' = 'ALL'" +
-                ")");
+                ")").print();
 
         // json存入mysql
         Table from_csv_kafka = tEnv.from("from_canal_kafka");
@@ -58,8 +58,6 @@ public class Demo4 {
                 $("age").as("age")
         ).addColumns(ifThenElse($("age").isNull(), 1, 0).as("__DELETE_LABEL__"));
 
-        System.out.println("===>" + from_csv_kafka.getResolvedSchema().getColumnCount());
-
-        upinsertTable.executeInsert("to_kafka");
+        upinsertTable.executeInsert("to_kafka").print();
     }
 }
