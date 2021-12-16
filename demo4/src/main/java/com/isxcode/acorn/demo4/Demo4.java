@@ -45,7 +45,8 @@ public class Demo4 {
                 "   'key.format' = 'json'," +
                 "   'key.json.ignore-parse-errors' = 'true'," +
                 "   'value.format' = 'json',"+
-                "   'value.json.fail-on-missing-field' = 'false'" +
+                "   'value.json.fail-on-missing-field' = 'false'," +
+                "   'value.fields-include' = 'ALL'" +
                 ")");
 
         // json存入mysql
@@ -54,6 +55,7 @@ public class Demo4 {
                 $("username").as("username"),
                 $("age").as("age")
         ).addColumns(ifThenElse($("age").isNull(), 1, 0).as("__DELETE_LABEL__"));
+
         upinsertTable.executeInsert("to_kafka");
 
     }
