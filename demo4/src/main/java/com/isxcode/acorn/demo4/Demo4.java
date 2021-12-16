@@ -21,7 +21,7 @@ public class Demo4 {
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
                 "   'topic'='ispong_kafka'," +
-//                "   'scan.startup.mode' = 'earliest-offset'," +
+                "   'scan.startup.mode' = 'earliest-offset'," +
                 "   'properties.group.id'='test-consumer-group'," +
                 "   'properties.zookeeper.connect'='192.168.66.66:30121'," +
                 "   'properties.bootstrap.servers'='192.168.66.66:30120'," +
