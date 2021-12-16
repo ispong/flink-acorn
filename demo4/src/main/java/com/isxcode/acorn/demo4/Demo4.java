@@ -56,9 +56,9 @@ public class Demo4 {
         Table from_csv_kafka = tEnv.from("from_canal_kafka");
 
         Table upinsertTable = from_csv_kafka.select(
+                $("origin_table").as("origin_table"),
                 $("username").as("username"),
-                $("age").as("age"),
-                $("origin_table").as("origin_table")
+                $("age").as("age")
         ).addColumns(ifThenElse($("age").isNull(), 1, 0).as("__DELETE_LABEL__"));
 
         upinsertTable.executeInsert("to_kafka");
