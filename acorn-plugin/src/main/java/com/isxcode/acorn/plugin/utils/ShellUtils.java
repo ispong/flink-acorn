@@ -14,7 +14,10 @@ public class ShellUtils {
 
     public static void executeCommand(String command, String logPath) {
 
-        CommandLine cmdLine = CommandLine.parse(command);
+        String [] cmd ={"-c",command};
+        CommandLine cmdLine = CommandLine.parse("/bin/sh");
+        cmdLine.addArguments( cmd,false );
+
         DefaultExecutor executor = new DefaultExecutor();
         executor.setExitValues(null);
 

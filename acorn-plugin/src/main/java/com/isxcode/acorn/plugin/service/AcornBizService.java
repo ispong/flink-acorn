@@ -70,10 +70,12 @@ public class AcornBizService {
 
         // 执行编译且运行的命令
         String mvnBuildCommand = "mvn clean package -f " + flinkPomFilePath;
-        ShellUtils.executeCommand(mvnBuildCommand, logPath);
+//        ShellUtils.executeCommand(mvnBuildCommand, logPath);
 
         String submitFlinkJob = "flink run " + acornProperties.getTmpDir() + File.separator + acornModel1.getExecuteId() + File.separator + "target" + File.separator + "flinkJob-1.0.0.jar";
-        ShellUtils.executeCommand(submitFlinkJob, logPath);
+//        ShellUtils.executeCommand(submitFlinkJob, logPath);
+
+        ShellUtils.executeCommand(mvnBuildCommand + " && " + submitFlinkJob, logPath);
 
         return new AcornResponse("10009", "运行成功");
     }
