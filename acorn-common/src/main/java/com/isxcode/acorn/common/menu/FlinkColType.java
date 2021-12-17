@@ -1,6 +1,6 @@
 package com.isxcode.acorn.common.menu;
 
-public enum FlinkSqlType {
+public enum FlinkColType {
 
     CHAR,
 

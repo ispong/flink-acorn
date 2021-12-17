@@ -1,4 +1,4 @@
-package com.isxcode.acorn.plugin.constant;
+package com.isxcode.acorn.common.constant;
 
 import java.io.File;
 

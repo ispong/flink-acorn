@@ -12,9 +12,6 @@ public class AcornResponse {
 
     private String message;
 
-    public AcornResponse() {
-    }
-
     public AcornResponse(String message, String code) {
 
         this.code = code;

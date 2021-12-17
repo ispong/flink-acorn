@@ -1,13 +1,11 @@
-package com.isxcode.acorn.common.pojo.req;
+package com.isxcode.acorn.common.pojo.request;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class AcornModel1 implements AcornRequest {
-
-    private String jobName;
-
-    private String executeId;
+@EqualsAndHashCode(callSuper = true)
+public class AcornModel3 extends AcornRequest {
 
     private String filterCode;
 

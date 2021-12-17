@@ -1,6 +1,6 @@
 package com.isxcode.acorn.common.pojo.dto;
 
-import com.isxcode.acorn.common.menu.FlinkSqlType;
+import com.isxcode.acorn.common.menu.FlinkColType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,5 +12,5 @@ public class FlinkCol {
 
     private String name;
 
-    private FlinkSqlType type;
+    private FlinkColType type;
 }

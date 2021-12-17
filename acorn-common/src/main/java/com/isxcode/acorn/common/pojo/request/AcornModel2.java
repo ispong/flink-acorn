@@ -1,32 +1,17 @@
-package com.isxcode.acorn.common.pojo.dto;
+package com.isxcode.acorn.common.pojo.request;
 
-import com.isxcode.acorn.common.menu.WorkType;
+import com.isxcode.acorn.common.pojo.dto.ColumnMapping;
 import com.isxcode.acorn.common.pojo.node.KafkaInput;
 import com.isxcode.acorn.common.pojo.node.KafkaOutput;
 import com.isxcode.acorn.common.pojo.node.MysqlOutput;
-import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
 @Data
-@Builder
-public class ExecuteConfig {
-
-    /**
-     * 执行id
-     */
-    private String executeId;
-
-    /**
-     * 作业类型
-     */
-    private WorkType workType;
-
-    /**
-     * 工作流id
-     */
-    private String flowId;
+@EqualsAndHashCode(callSuper = true)
+public class AcornModel2 extends AcornRequest {
 
     /**
      * kafka输入
@@ -42,7 +27,6 @@ public class ExecuteConfig {
      * mysql输出
      */
     private MysqlOutput mysqlOutput;
-
 
     /**
      * 字段映射
