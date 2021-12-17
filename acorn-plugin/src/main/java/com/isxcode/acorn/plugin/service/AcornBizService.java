@@ -72,7 +72,7 @@ public class AcornBizService {
         String mvnBuildCommand = "mvn clean package -f " + flinkPomFilePath;
 //        ShellUtils.executeCommand(mvnBuildCommand, logPath);
 
-        String submitFlinkJob = "flink run " + acornProperties.getTmpDir() + File.separator + acornModel1.getExecuteId() + File.separator + "target" + File.separator + "flinkJob-1.0.0.jar";
+        String submitFlinkJob = "flink run " + acornProperties.getTmpDir() + File.separator + acornModel1.getExecuteId() + File.separator + "target" + File.separator + "acorn.jar";
 //        ShellUtils.executeCommand(submitFlinkJob, logPath);
 
         ShellUtils.executeCommand(mvnBuildCommand + " && " + submitFlinkJob, logPath);
