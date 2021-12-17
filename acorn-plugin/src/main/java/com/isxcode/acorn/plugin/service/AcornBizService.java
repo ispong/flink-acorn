@@ -35,9 +35,9 @@ public class AcornBizService {
         this.freeMarkerConfigurer = freeMarkerConfigurer;
     }
 
-    public AcornResponse execute(AcornRequest acornRequest) {
+    public AcornResponse execute(AcornModel1 acornModel1) {
 
-        AcornModel1 acornModel1 = acornRequest instanceof AcornModel1 ? ((AcornModel1) acornRequest) : null;
+//        AcornModel1 acornModel1 = acornRequest instanceof AcornModel1 ? ((AcornModel1) acornRequest) : null;
 
         // 检查配置文件合法性
         assert acornModel1 != null;
