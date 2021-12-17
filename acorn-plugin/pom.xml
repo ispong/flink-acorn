@@ -101,7 +101,6 @@
             <artifactId>micrometer-core</artifactId>
             <version>1.8.0</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-exec</artifactId>

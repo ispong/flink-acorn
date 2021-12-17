@@ -30,7 +30,6 @@ public class ShellUtils {
 
             // 执行命令
             int exitValue = executor.execute(cmdLine);
-            log.info(String.valueOf(exitValue));
         } catch (IOException e) {
             e.printStackTrace();
         }
