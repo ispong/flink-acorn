@@ -36,20 +36,34 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- version config -->
+        <acorn-common.version>0.0.4-SNAPSHOT</acorn-common.version>
+        <isxcode.version>0.12.6</isxcode.version>
+        <log4j.version>[2.15.0,)</log4j.version>
     </properties>
 
     <dependencies>
 
+        <!-- acorn-common -->
+        <dependency>
+            <groupId>com.isxcode.acorn</groupId>
+            <artifactId>acorn-common</artifactId>
+            <version>${acorn-common.version}</version>
+        </dependency>
+
+        <!-- log4j2 -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>[2.15.0,)</version>
+            <version>${log4j.version}</version>
         </dependency>
 
+        <!-- isxcode -->
         <dependency>
             <groupId>com.isxcode.oxygen</groupId>
             <artifactId>spring-oxygen-core</artifactId>
-            <version>0.12.6</version>
+            <version>${isxcode.version}</version>
         </dependency>
 
         <dependency>
@@ -77,12 +91,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.78</version>
@@ -98,12 +106,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-exec</artifactId>
             <version>1.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.isxcode.acorn</groupId>
-            <artifactId>acorn-common</artifactId>
-            <version>0.0.3-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

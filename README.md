@@ -52,13 +52,38 @@ sudo cp mysql-connector-java-8.0.22/mysql-connector-java-8.0.22.jar /opt/flink/l
 sudo cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-jdbc_2.12/1.14.0/flink-connector-jdbc_2.12-1.14.0.jar /opt/flink/lib/
 ```
 
+####### 添加镜像仓库
+
 ```xml
-<!-- 添加maven依赖 -->
+<repositories>
+    <repository>
+        <id>s01.apache.snapshots</id>
+        <name>S01 Apache Development Snapshot Repository</name>
+        <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        <releases>
+            <enabled>false</enabled>
+        </releases>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </repository>
+</repositories>
+```
+
+####### 添加依赖
+
+```xml
 <dependency>
     <groupId>com.isxcode.acorn</groupId>
     <artifactId>acorn-common</artifactId>
     <version>0.0.3-SNAPSHOT</version>
 </dependency>
+```
+
+####### 配置环境变量
+
+```yaml
+
 ```
 
 ```java

@@ -60,6 +60,13 @@ public class Demo {
                 Expressions.$("lucky_datetime").as("lucky_datetime")
         );
 
+//        CREATE CATALOG hive WITH (
+//'type'='hive',
+//'property-version'='1',
+//'hive-version'='2.3.6',
+//'hive-conf-dir'='/opt/hive-conf'
+//);
+
         // 输出数据流
         fromData.executeInsert("to_mysql");
     }

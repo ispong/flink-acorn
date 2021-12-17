@@ -1,14 +1,12 @@
-package com.isxcode.acorn.plugin.properties;
+package com.isxcode.acorn.common.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 
 @Data
-@Component
-@ConfigurationProperties(prefix = "acorn.config")
+@ConfigurationProperties("acorn.config")
 public class AcornProperties {
 
     /**
@@ -20,4 +18,14 @@ public class AcornProperties {
      * 日志存储位置
      */
     private String logDir = System.getProperty("user.home") + File.separator + "acorn-plugin" + File.separator + "log";
+
+    /**
+     * 服务器密钥
+     */
+    private String serverKey = "acorn-key";
+
+    /**
+     * 默认node
+     */
+    private AcornNode node;
 }

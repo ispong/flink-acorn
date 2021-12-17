@@ -2,8 +2,10 @@ package com.isxcode.acorn.plugin.service;
 
 import com.isxcode.acorn.common.pojo.dto.AcornResponse;
 import com.isxcode.acorn.common.pojo.dto.ExecuteConfig;
+import com.isxcode.acorn.common.pojo.req.AcornModel1;
+import com.isxcode.acorn.common.pojo.req.AcornRequest;
+import com.isxcode.acorn.common.properties.AcornProperties;
 import com.isxcode.acorn.plugin.constant.FlinkConstants;
-import com.isxcode.acorn.plugin.properties.AcornProperties;
 import com.isxcode.acorn.plugin.utils.ShellUtils;
 import com.isxcode.oxygen.core.file.FileUtils;
 import freemarker.template.Template;
@@ -33,53 +35,44 @@ public class AcornBizService {
         this.freeMarkerConfigurer = freeMarkerConfigurer;
     }
 
-    public AcornResponse executeFlink(ExecuteConfig executeConfig) {
+    public AcornResponse execute(AcornRequest acornRequest) {
+
+        AcornModel1 acornModel1 = acornRequest instanceof AcornModel1 ? ((AcornModel1) acornRequest) : null;
 
         // 检查配置文件合法性
-        if (Strings.isEmpty(executeConfig.getExecuteId())) {
+        assert acornModel1 != null;
+        if (Strings.isEmpty(acornModel1.getExecuteId())) {
             return new AcornResponse("10001", "executeId为空");
-        }
-        if (Strings.isEmpty(executeConfig.getWorkType().name())) {
-            return new AcornResponse("10002", "workType为空");
         }
 
         // 生成FlinkJob.java代码
         String flinkJobJavaCode;
+        Template template;
         try {
-            Template template;
-            switch (executeConfig.getWorkType()) {
-                case KAFKA_INPUT_MYSQL_OUTPUT:
-                    template = freeMarkerConfigurer.getConfiguration().getTemplate("FlinkKafkaToMysqlTemplate.ftl");
-                    break;
-                case KAFKA_INPUT_KAFKA_OUTPUT:
-                    return new AcornResponse("10004", "作业类型暂不支持");
-                case KAFKA_INPUT_HIVE_OUTPUT:
-                    return new AcornResponse("10006", "作业类型暂不支持");
-                default:
-                    return new AcornResponse("10003", "作业类型不支持");
-            }
-            flinkJobJavaCode = FreeMarkerTemplateUtils.processTemplateIntoString(template, executeConfig);
-        }catch (IOException | TemplateException e) {
-            return new AcornResponse("10004", "初始化代码失败");
+            template = freeMarkerConfigurer.getConfiguration().getTemplate("Model1-kafkaToMysql.ftl");
+            flinkJobJavaCode = FreeMarkerTemplateUtils.processTemplateIntoString(template, acornModel1);
+        } catch (IOException | TemplateException e) {
+            e.printStackTrace();
+            return new AcornResponse("10001", "executeId为空");
         }
 
         // 创建FlinkJob.java文件
-        String flinkJobPath = acornProperties.getTmpDir() + File.separator + executeConfig.getExecuteId() + FlinkConstants.JOB_HOME_PATH + File.separator + FlinkConstants.JOB_FILE_NAME;
+        String flinkJobPath = acornProperties.getTmpDir() + File.separator + acornModel1.getExecuteId() + FlinkConstants.JOB_HOME_PATH + File.separator + FlinkConstants.JOB_FILE_NAME;
         FileUtils.StringToFile(flinkJobJavaCode, flinkJobPath, StandardOpenOption.WRITE);
 
         // 创建pom.xml文件
-        String flinkPomFilePath = acornProperties.getTmpDir() + File.separator + executeConfig.getExecuteId() + File.separator + FlinkConstants.POM_XML;
+        String flinkPomFilePath = acornProperties.getTmpDir() + File.separator + acornModel1.getExecuteId() + File.separator + FlinkConstants.POM_XML;
         FileUtils.copyResourceFile("templates/pom.xml", flinkPomFilePath, StandardOpenOption.WRITE);
 
         // 创建日志文件
-        String logPath = acornProperties.getLogDir() + File.separator + executeConfig.getExecuteId() + FlinkConstants.LOG_SUFFIX;
+        String logPath = acornProperties.getLogDir() + File.separator + acornModel1.getExecuteId() + FlinkConstants.LOG_SUFFIX;
         FileUtils.generateFile(logPath);
 
         // 执行编译且运行的命令
         String mvnBuildCommand = "mvn clean package -f " + flinkPomFilePath;
         ShellUtils.executeCommand(mvnBuildCommand, logPath);
 
-        String submitFlinkJob = "flink run " + acornProperties.getTmpDir() + File.separator + executeConfig.getExecuteId() + File.separator + "target" + File.separator + "flinkJob-1.0.0.jar";
+        String submitFlinkJob = "flink run " + acornProperties.getTmpDir() + File.separator + acornModel1.getExecuteId() + File.separator + "target" + File.separator + "flinkJob-1.0.0.jar";
         ShellUtils.executeCommand(submitFlinkJob, logPath);
 
         return new AcornResponse("10009", "运行成功");

@@ -2,6 +2,7 @@ package com.isxcode.acorn.plugin.controller;
 
 import com.isxcode.acorn.common.pojo.dto.AcornResponse;
 import com.isxcode.acorn.common.pojo.dto.ExecuteConfig;
+import com.isxcode.acorn.common.pojo.req.AcornRequest;
 import com.isxcode.acorn.plugin.service.AcornBizService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,9 +26,9 @@ public class AcornController {
      * @return code 错误码
      */
     @PostMapping("/execute")
-    public AcornResponse executeFlink(@RequestBody ExecuteConfig executeConfig) {
+    public AcornResponse executeFlink(@RequestBody AcornRequest acornRequest) {
 
-        return acornBizService.executeFlink(executeConfig);
+        return acornBizService.execute(acornRequest);
     }
 
 }

@@ -1,15 +1,29 @@
 package com.isxcode.acorn.common.pojo.dto;
 
-import lombok.AllArgsConstructor;
+import com.isxcode.acorn.common.menu.ResponseEnum;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-@AllArgsConstructor
 public class AcornResponse {
 
     private String code;
 
-    private String msg;
+    private String message;
+
+    public AcornResponse() {
+    }
+
+    public AcornResponse(String message, String code) {
+
+        this.code = code;
+        this.message = message;
+    }
+
+    public AcornResponse(ResponseEnum responseEnum) {
+
+        this.code = responseEnum.getCode();
+        this.message = responseEnum.getMessage();
+    }
 }

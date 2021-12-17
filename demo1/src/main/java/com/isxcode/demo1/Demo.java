@@ -26,8 +26,12 @@ public class Demo {
                 "   'properties.zookeeper.connect'='101.132.135.228:30099'," +
                 "   'properties.bootstrap.servers'='101.132.135.228:30098'," +
                 "   'format' = 'csv'," +
-                "   'csv.ignore-parse-errors' = 'true'" +
+                "   'csv.ignore-parse-errors' = 'true'," +
+                "   'csv.field-delimiter'=','"+
                 ")");
+
+//        'scan.startup.mode'='earliest-offset',
+        // 'properties.group.id'='testGroup',
 
         // --- to kafka ---
         tEnv.executeSql("CREATE TABLE to_kafka (\n" +

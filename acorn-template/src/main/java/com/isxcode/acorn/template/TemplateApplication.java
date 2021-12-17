@@ -8,7 +8,7 @@ import com.isxcode.acorn.common.pojo.dto.ExecuteConfig;
 import com.isxcode.acorn.common.pojo.dto.FlinkCol;
 import com.isxcode.acorn.common.pojo.node.KafkaInput;
 import com.isxcode.acorn.common.pojo.node.MysqlOutput;
-import com.isxcode.acorn.common.service.AcornTemplate;
+import com.isxcode.acorn.common.template.AcornTemplate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
