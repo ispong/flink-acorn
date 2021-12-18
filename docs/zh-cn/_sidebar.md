@@ -1,9 +1,15 @@
 - **开始使用**
     - [总览](#/README)
     - [快速使用](/zh-cn/start/快速使用.md)
-- **插件**
-    - 小栗子
-- **博客**
+- **模型说明**
+    - 模型1
+    - 模型2
+    - 模型3
+- **开发维护**
+    - [开发维护](/zh-cn/contributing/开发手册.md)
+- **版本历史**
+    - [变更历史](/zh-cn/changelog/版本历史.md) 
+- **相关文档**
     - 2021
       - [Flink集群安装](/zh-cn/blogs/Flink集群安装.md)
       - [Flink常用命令](/zh-cn/blogs/Flink常用命令.md)

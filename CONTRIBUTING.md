@@ -1,22 +1,3 @@
-#### 如何加入我们
+## contributing
 
-#### 如何运行 如何调试
-
-#### 如何部署新版本
-
-#### 提交代码规范
-
-0.0.1-f-1.14.0
-
-#### 如何提交新的demo
-
-#### 如何维护官方网站
-
-
-mvn clean deploy -P release
-
-
-https://s01.oss.sonatype.org/
-
-https://search.maven.org/search?q=isxcode
-
+- https://ispong.github.io/flink-acorn/#/zh-cn/start/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8

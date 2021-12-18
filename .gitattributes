@@ -1,0 +1,13 @@
+*               text=auto
+*.bat           text eol=crlf
+*.bash          text eol=lf
+*.sh            text eol=lf
+*.java          text diff=java
+
+*.png           binary
+*.jpg           binary
+*.jpeg          binary
+*.gif           binary
+*.ico           binary
+*.zip           binary
+*.gpg           binary
