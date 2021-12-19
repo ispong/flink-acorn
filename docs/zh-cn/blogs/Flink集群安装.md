@@ -1,22 +1,3 @@
----
-title: Flink 集群安装
-subtitle: Flink 集群安装
-tags:
-- flink
-  categories:
-- Flink
-  index_img: 'https://gitee.com/isxcode/blogs-galaxy-images/raw/master/flink/flink.png'
-  excerpt: flink 1.13.3 scala 2.12 集群flink on yarn安装
-  mermaid: false
-  math: false
-  hide: false
-  comments: true
-  date: 2021-11-27 12:02:43
----
-
-## 🧙 Questions
-
-- [](#)
 
 ## ☄️ Ideas
 

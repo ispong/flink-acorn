@@ -1,20 +1,3 @@
----
-title: Flink 单节点安装
-subtitle: Flink 单节点安装
-tags:
-- flink
-  categories:
-- Flink
-  index_img: 'https://gitee.com/isxcode/blogs-galaxy-images/raw/master/flink/flink.png'
-  mermaid: false
-  math: false
-  hide: false
-  comments: true
-  date: 2021-08-09 11:16:38
----
-
-## 🧙 Questions
-
 > flink 安装文档 (1.14.0 scala-2.12)
 
 ## ☄️ Ideas

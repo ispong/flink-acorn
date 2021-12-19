@@ -1,20 +1,3 @@
----
-title: Flink 常用命令
-subtitle: Flink 常用命令
-tags:
-- flink
-  categories:
-- Flink
-  index_img: 'https://gitee.com/isxcode/blogs-galaxy-images/raw/master/flink/flink.png'
-  mermaid: false
-  math: false
-  hide: false
-  comments: true
-  date: 2021-08-09 12:19:27
----
-
-## 🧙 Questions
-
 > flink常用命令
 
 ## ☄️ Ideas
