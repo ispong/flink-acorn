@@ -1,15 +1,16 @@
-- **开始使用**
-    - [总览](#/README)
+- [**开始**](#/README)
+    - [Flink Acorn 是什么](_homepage.md)
     - [快速使用](/zh-cn/start/快速使用.md)
-- **模型说明**
-    - 模型1
-    - 模型2
-    - 模型3
-- **开发维护**
-    - [开发维护](/zh-cn/contributing/开发手册.md)
-- **版本历史**
-    - [变更历史](/zh-cn/changelog/版本历史.md) 
-- **相关文档**
-    - 2021
-      - [Flink集群安装](/zh-cn/blogs/Flink集群安装.md)
-      - [Flink常用命令](/zh-cn/blogs/Flink常用命令.md)
+- [**使用手册**](_homepage.md)
+    - [插件部署](/zh-cn/reference/插件部署.md)
+    - [插件使用](/zh-cn/reference/插件使用.md)
+    - [模型说明](/zh-cn/reference/模型说明.md)
+- [**维护手册**](/zh-cn/contributing.md)
+- [**版本历史**](/zh-cn/changelog.md)
+- [**小栗子博客**](_homepage.md)
+  - [Flink 单节点安装](/zh-cn/blogs/Flink单节点安装.md) 
+  - [Flink 集群安装](/zh-cn/blogs/Flink集群安装.md)
+  - [Flink 常用命令](/zh-cn/blogs/Flink常用命令.md)
+  - [Flink 基础概念](/zh-cn/blogs/Flink基础概念.md)
+  - [Flink 配置说明](/zh-cn/blogs/Flink配置说明.md)
+  - [Flink 常见问题](/zh-cn/blogs/Flink常见问题.md)
