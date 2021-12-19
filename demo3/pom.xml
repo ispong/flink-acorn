@@ -18,7 +18,7 @@
         <!-- version config -->
         <flink.version>1.12.4</flink.version>
         <scala.binary.version>2.11</scala.binary.version>
-        <log4j.version>2.13.2</log4j.version>
+        <log4j.version>[2.16.0,)</log4j.version>
         <hive.version>3.1.2</hive.version>
     </properties>
 
@@ -37,11 +37,6 @@
     </repositories>
 
     <dependencies>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>[2.16.0,)</version>
-        </dependency>
         <dependency>
             <groupId>org.apache.hive</groupId>
             <artifactId>hive-exec</artifactId>

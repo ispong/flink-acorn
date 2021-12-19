@@ -7,7 +7,7 @@
     小栗子
 </h3>
 
-- 🐿️ Flink服务器插件，通过Restful接口发布Flink的作业。
+- 🐿️ Flink服务器插件，通过Restful接口管理Flink作业。
 
 <div class="buttons">
   <a href="https://github.com/ispong/flink-acorn/" target="_blank"><span>GitHub</span></a>
