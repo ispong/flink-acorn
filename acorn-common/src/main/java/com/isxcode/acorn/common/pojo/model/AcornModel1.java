@@ -1,5 +1,6 @@
 package com.isxcode.acorn.common.pojo.model;
 
+import com.isxcode.acorn.common.menu.TemplateType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class AcornModel1 {
 
-    private String templateName;
+    private TemplateType templateName;
 
     private String executeId;
 
