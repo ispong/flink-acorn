@@ -1,21 +1,26 @@
 package com.isxcode.acorn.common.pojo.model;
 
 import com.isxcode.acorn.common.menu.TemplateType;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.util.Assert;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public abstract class AcornModel {
 
-    private TemplateType templateName;
+    private String templateName;
 
     private String executeId;
 
     private String jobName;
+
+    public AcornModel() {
+    }
+
+    public AcornModel(TemplateType templateName, String executeId, String jobName) {
+        this.templateName = templateName.getTemplateFileName();
+        this.executeId = executeId;
+        this.jobName = jobName;
+    }
 
     public void check() {
 

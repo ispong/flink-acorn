@@ -3,6 +3,7 @@ package com.isxcode.acorn.plugin.service;
 import com.isxcode.acorn.common.constant.FlinkConstants;
 import com.isxcode.acorn.common.pojo.dto.AcornResponse;
 import com.isxcode.acorn.common.pojo.model.AcornModel;
+import com.isxcode.acorn.common.pojo.model.AcornModel1;
 import com.isxcode.acorn.common.properties.AcornPluginProperties;
 import com.isxcode.acorn.common.utils.CommandUtils;
 import com.isxcode.oxygen.core.file.FileUtils;
@@ -37,7 +38,7 @@ public class AcornBizService {
     /**
      * 执行flink任务
      */
-    public AcornResponse execute(AcornModel acornModel) {
+    public AcornResponse execute(AcornModel1 acornModel) {
 
         // 检测数据合法性
         acornModel.check();
@@ -45,7 +46,7 @@ public class AcornBizService {
         // 选择模板
         Template template;
         try {
-            template = freeMarkerConfigurer.getConfiguration().getTemplate(acornModel.getTemplateName().getTemplateFileName());
+            template = freeMarkerConfigurer.getConfiguration().getTemplate(acornModel.getTemplateName());
         } catch (IOException e) {
             e.printStackTrace();
             return new AcornResponse("10001", "executeId为空");

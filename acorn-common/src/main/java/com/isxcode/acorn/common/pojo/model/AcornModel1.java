@@ -20,6 +20,7 @@ public class AcornModel1 extends AcornModel {
     private String toTableName;
 
     public AcornModel1() {
+        super();
     }
 
     @Builder
