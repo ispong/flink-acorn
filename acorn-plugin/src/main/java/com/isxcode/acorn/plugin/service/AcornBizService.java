@@ -68,6 +68,7 @@ public class AcornBizService {
         // 生成FlinkJob.java代码
         String flinkJobJavaCode;
         try {
+            System.out.println(acornModel.toString());
             flinkJobJavaCode = FreeMarkerTemplateUtils.processTemplateIntoString(template, acornModel);
         } catch (IOException | TemplateException e) {
             e.printStackTrace();
