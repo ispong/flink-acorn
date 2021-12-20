@@ -8,4 +8,11 @@ import lombok.Data;
 public class AcornData {
 
     private String jobId;
+
+    public AcornData() {
+    }
+
+    public AcornData(String jobId) {
+        this.jobId = jobId;
+    }
 }
