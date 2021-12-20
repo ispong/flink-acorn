@@ -16,9 +16,11 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -91,13 +93,21 @@ public class AcornBizService {
         CommandUtils.executeCommand(executeCommand, logPath);
 
         // 删除项目
-        try {
-            Files.deleteIfExists(Paths.get(tmpPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new AcornResponse("10005", "文件删除异常");
-        }
+        RecursionDeleteFile(Paths.get(logPath));
 
         return new AcornResponse("200", "发布作业成功");
+    }
+
+    public static void RecursionDeleteFile(Path path) {
+
+        try {
+            if (Files.isDirectory(path)) {
+                Files.list(path).forEach(AcornBizService::RecursionDeleteFile);
+            } else {
+                Files.delete(path);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
