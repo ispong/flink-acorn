@@ -24,9 +24,10 @@
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
             <releases>
                 <enabled>false</enabled>
-            </releases>   <snapshots>
-            <enabled>true</enabled>
-        </snapshots>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
 
     </repositories>
@@ -38,7 +39,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- version config -->
-        <acorn-common.version>0.0.6-SNAPSHOT</acorn-common.version>
+        <acorn-common.version>0.0.7-SNAPSHOT</acorn-common.version>
         <isxcode.version>0.12.6</isxcode.version>
     </properties>
 
