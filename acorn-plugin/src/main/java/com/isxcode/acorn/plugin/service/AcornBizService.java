@@ -93,20 +93,16 @@ public class AcornBizService {
         CommandUtils.executeCommand(executeCommand, logPath);
 
         // 删除项目
-        RecursionDeleteFile(Paths.get(logPath));
+        RecursionDeleteFile(Paths.get(tmpPath));
 
         return new AcornResponse("200", "发布作业成功");
     }
 
     public static void RecursionDeleteFile(Path path) {
-
-        System.out.println("开始删除");
         try {
             if (Files.isDirectory(path)) {
-                System.out.println("删除文件夹");
                 Files.list(path).forEach(AcornBizService::RecursionDeleteFile);
             } else {
-                System.out.println("删除文件");
                 Files.deleteIfExists(path);
             }
         } catch (IOException e) {
