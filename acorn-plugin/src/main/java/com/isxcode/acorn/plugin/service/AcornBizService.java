@@ -60,9 +60,6 @@ public class AcornBizService {
             return new AcornResponse("10001", "executeId为空");
         }
 
-        // 校验jobName名称重复
-
-
         // 解析表名
         acornModel.setFromTableName(getTableName(acornModel.getFromConnectorSql()));
         acornModel.setToTableName(getTableName(acornModel.getToConnectorSql()));
@@ -122,10 +119,5 @@ public class AcornBizService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public AcornResponse checkJobNameExist(String jobName) {
-
-        return new AcornResponse("10006", "jobName已存在");
     }
 }
