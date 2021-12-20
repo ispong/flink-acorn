@@ -1,7 +1,7 @@
 package com.isxcode.acorn.plugin.filter;
 
 import com.isxcode.acorn.common.constant.SecurityConstants;
-import com.isxcode.acorn.common.properties.AcornProperties;
+import com.isxcode.acorn.common.properties.AcornPluginProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -14,11 +14,11 @@ import java.io.IOException;
 @Service
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final AcornProperties acornProperties;
+    private final AcornPluginProperties acornPluginProperties;
 
-    public JwtAuthenticationFilter(AcornProperties acornProperties) {
+    public JwtAuthenticationFilter(AcornPluginProperties acornPluginProperties) {
 
-        this.acornProperties = acornProperties;
+        this.acornPluginProperties = acornPluginProperties;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        if (!authorization.equals(acornProperties.getServerKey())) {
+        if (!authorization.equals(acornPluginProperties.getServerKey())) {
             request.getRequestDispatcher(SecurityConstants.AUTH_ERROR_PATH).forward(request, response);
             return;
         }

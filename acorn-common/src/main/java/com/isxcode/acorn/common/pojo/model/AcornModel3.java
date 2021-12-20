@@ -1,11 +1,11 @@
-package com.isxcode.acorn.common.pojo.request;
+package com.isxcode.acorn.common.pojo.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AcornModel3 extends AcornRequest {
+public class AcornModel3 extends AcornModel {
 
     private String filterCode;
 

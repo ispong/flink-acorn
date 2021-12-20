@@ -1,4 +1,4 @@
-package com.isxcode.acorn.common.pojo.request;
+package com.isxcode.acorn.common.pojo.model;
 
 import com.isxcode.acorn.common.pojo.dto.ColumnMapping;
 import com.isxcode.acorn.common.pojo.node.KafkaInput;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AcornModel2 extends AcornRequest {
+public class AcornModel2 extends AcornModel {
 
     /**
      * kafka输入
