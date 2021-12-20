@@ -39,7 +39,7 @@ public class AcornBizService {
 
     public String getTableName(String sql) {
 
-        sql = Pattern.compile("CREATE * TABLE").matcher(sql.toUpperCase()).replaceAll("");
+        sql = Pattern.compile("CREATE * TABLE").matcher(sql).replaceAll("");
         return Pattern.compile("\\( .*").matcher(sql).replaceAll("");
     }
 
@@ -90,7 +90,7 @@ public class AcornBizService {
         // 执行编译且运行作业
         String targetFilePath = acornPluginProperties.getTmpDir() + File.separator + acornModel.getExecuteId() + File.separator + "target" + File.separator + "acorn.jar";
         String executeCommand = "mvn clean package -f " + flinkPomFilePath + " && " + "flink run " + targetFilePath;
-        int exitCode = CommandUtils.executeCommand(executeCommand, logPath);
+        CommandUtils.executeCommand(executeCommand, logPath);
 
         // 删除缓存中的文件
         try {

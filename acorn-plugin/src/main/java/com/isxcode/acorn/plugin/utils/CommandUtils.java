@@ -27,7 +27,6 @@ public class CommandUtils {
         cmdLine.addArguments(cmd, false);
 
         DefaultExecutor executor = new DefaultExecutor();
-        executor.setExitValue(0);
 
         try {
 
