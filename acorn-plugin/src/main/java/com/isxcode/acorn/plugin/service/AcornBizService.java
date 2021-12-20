@@ -103,6 +103,7 @@ public class AcornBizService {
         System.out.println("开始删除");
         try {
             if (Files.isDirectory(path)) {
+                System.out.println("删除文件夹");
                 Files.list(path).forEach(AcornBizService::RecursionDeleteFile);
             } else {
                 System.out.println("删除文件");
