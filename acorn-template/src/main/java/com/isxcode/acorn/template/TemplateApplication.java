@@ -1,10 +1,8 @@
 package com.isxcode.acorn.template;
 
 import com.isxcode.acorn.common.menu.DataFormat;
-import com.isxcode.acorn.common.menu.FlinkSqlType;
-import com.isxcode.acorn.common.menu.WorkType;
+import com.isxcode.acorn.common.menu.FlinkColType;
 import com.isxcode.acorn.common.pojo.dto.AcornResponse;
-import com.isxcode.acorn.common.pojo.dto.ExecuteConfig;
 import com.isxcode.acorn.common.pojo.dto.FlinkCol;
 import com.isxcode.acorn.common.pojo.node.KafkaInput;
 import com.isxcode.acorn.common.pojo.node.MysqlOutput;
@@ -39,8 +37,8 @@ public class TemplateApplication {
 
         // 输入点
         List<FlinkCol> kafkaInputColumns = new ArrayList<>();
-        kafkaInputColumns.add(new FlinkCol("username", FlinkSqlType.STRING));
-        kafkaInputColumns.add(new FlinkCol("age", FlinkSqlType.INT));
+        kafkaInputColumns.add(new FlinkCol("username", FlinkColType.STRING));
+        kafkaInputColumns.add(new FlinkCol("age", FlinkColType.INT));
 
         KafkaInput kafkaInput = KafkaInput.builder()
                 .brokerList("39.103.230.188:30120")
@@ -52,8 +50,8 @@ public class TemplateApplication {
 
         // 输出点
         List<FlinkCol> mysqlOutputColumns = new ArrayList<>();
-        mysqlOutputColumns.add(new FlinkCol("username", FlinkSqlType.STRING));
-        mysqlOutputColumns.add(new FlinkCol("age", FlinkSqlType.INT));
+        mysqlOutputColumns.add(new FlinkCol("username", FlinkColType.STRING));
+        mysqlOutputColumns.add(new FlinkCol("age", FlinkColType.INT));
 
         MysqlOutput mysqlOutput = MysqlOutput.builder()
                 .url("jdbc:mysql://47.103.203.73:3306/VATtest")
@@ -65,15 +63,9 @@ public class TemplateApplication {
                 .build();
 
         // 构建请求对象
-        ExecuteConfig executeConfig = ExecuteConfig.builder()
-                .executeId("executeId123")
-                .flowId("flowId123")
-                .workType(WorkType.KAFKA_INPUT_MYSQL_OUTPUT)
-                .kafkaInput(kafkaInput)
-                .mysqlOutput(mysqlOutput)
-                .build();
+
 
         // 运行
-        return acornTemplate.executeFlink("39.103.230.188", "30155", "key", executeConfig);
+        return acornTemplate.build("39.103.230.188", 30155, "key").execute(null);
     }
 }

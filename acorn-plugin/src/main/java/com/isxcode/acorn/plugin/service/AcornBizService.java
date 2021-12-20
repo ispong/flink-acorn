@@ -15,6 +15,8 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 @Slf4j
@@ -59,7 +61,8 @@ public class AcornBizService {
         }
 
         // 创建FlinkJob.java文件
-        String flinkJobPath = acornPluginProperties.getTmpDir() + File.separator + acornModel.getExecuteId() + FlinkConstants.JOB_HOME_PATH + File.separator + FlinkConstants.JOB_FILE_NAME;
+        String tmpPath = acornPluginProperties.getTmpDir() + File.separator + acornModel.getExecuteId();
+        String flinkJobPath = tmpPath + FlinkConstants.JOB_HOME_PATH + File.separator + FlinkConstants.JOB_FILE_NAME;
         FileUtils.StringToFile(flinkJobJavaCode, flinkJobPath, StandardOpenOption.WRITE);
 
         // 创建pom.xml文件
@@ -73,7 +76,14 @@ public class AcornBizService {
         // 执行编译且运行作业
         String targetFilePath = acornPluginProperties.getTmpDir() + File.separator + acornModel.getExecuteId() + File.separator + "target" + File.separator + "acorn.jar";
         String executeCommand = "mvn clean package -f " + flinkPomFilePath + " && " + "flink run " + targetFilePath;
-        CommandUtils.executeCommand(executeCommand, logPath);
+        int exitCode = CommandUtils.executeCommand(executeCommand, logPath);
+
+        // 删除缓存中的文件
+        try {
+            Files.delete(Paths.get(tmpPath));
+        } catch (IOException e) {
+            return new AcornResponse("10005", "文件删除异常");
+        }
 
         return new AcornResponse("10001", "executeId为空");
     }

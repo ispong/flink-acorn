@@ -23,4 +23,9 @@ public class AcornPluginProperties {
      * 服务器密钥
      */
     private String serverKey = "acorn-key";
+
+    /**
+     * 保存tmp中文件
+     */
+    private boolean storageTmp = false;
 }

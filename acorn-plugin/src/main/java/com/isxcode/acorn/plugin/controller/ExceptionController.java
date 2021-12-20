@@ -30,7 +30,7 @@ public class ExceptionController {
     /**
      * 权限不足异常
      */
-    @RequestMapping("/exception/authError")
+    @RequestMapping("/authError")
     public AcornResponse exceptionAuthError() {
 
         return new AcornResponse(ResponseEnum.REMOTE_ERROR);
