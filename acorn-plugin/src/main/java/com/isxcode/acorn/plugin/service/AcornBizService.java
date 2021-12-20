@@ -20,8 +20,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.regex.Pattern;
 
-import static java.util.regex.Pattern.compile;
-
 @Slf4j
 @Service
 public class AcornBizService {
@@ -96,10 +94,10 @@ public class AcornBizService {
         try {
             Files.delete(Paths.get(tmpPath));
         } catch (IOException e) {
+            e.printStackTrace();
             return new AcornResponse("10005", "文件删除异常");
         }
 
-        return new AcornResponse("10001", "executeId为空");
+        return new AcornResponse("200", "发布作业成功");
     }
-
 }
