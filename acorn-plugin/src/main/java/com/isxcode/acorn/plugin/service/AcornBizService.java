@@ -104,7 +104,7 @@ public class AcornBizService {
             if (Files.isDirectory(path)) {
                 Files.list(path).forEach(AcornBizService::RecursionDeleteFile);
             } else {
-                Files.delete(path);
+                Files.deleteIfExists(path);
             }
         } catch (IOException e) {
             e.printStackTrace();
