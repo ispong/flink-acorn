@@ -55,7 +55,7 @@ public class AcornBizService {
         // 选择模板
         Template template;
         try {
-            template = freeMarkerConfigurer.getConfiguration().getTemplate(acornModel.getTemplateName());
+            template = freeMarkerConfigurer.getConfiguration().getTemplate(acornModel.getTemplateName().getTemplateFileName());
         } catch (IOException e) {
             e.printStackTrace();
             return new AcornResponse("10001", "executeId为空");
