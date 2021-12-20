@@ -1,6 +1,7 @@
 package com.isxcode.acorn.plugin.service;
 
 import com.isxcode.acorn.common.constant.FlinkConstants;
+import com.isxcode.acorn.common.pojo.dto.AcornData;
 import com.isxcode.acorn.common.pojo.dto.AcornResponse;
 import com.isxcode.acorn.common.pojo.model.AcornModel1;
 import com.isxcode.acorn.common.properties.AcornPluginProperties;
@@ -59,6 +60,9 @@ public class AcornBizService {
             return new AcornResponse("10001", "executeId为空");
         }
 
+        // 校验jobName名称重复
+
+
         // 解析表名
         acornModel.setFromTableName(getTableName(acornModel.getFromConnectorSql()));
         acornModel.setToTableName(getTableName(acornModel.getToConnectorSql()));
@@ -94,7 +98,17 @@ public class AcornBizService {
         // 删除项目
         RecursionDeleteFile(Paths.get(tmpPath));
 
-        return new AcornResponse("200", "发布作业成功");
+        // 读取日志最后一行 Job has been submitted with JobID 133d87e09f586e72e1f1fe2575d1a3c4
+        String flinkSuccessLog = "Job has been submitted with JobID";
+        String backlog = CommandUtils.executeBackCommand("sed -n '$p' " + logPath);
+        if (backlog.contains(flinkSuccessLog)) {
+            String jobId = backlog.replaceAll(flinkSuccessLog, "").trim();
+            AcornData acornData = AcornData.builder().jobId(jobId).build();
+            log.debug("jobId ==>" + jobId);
+            return new AcornResponse("200", "发布作业成功", acornData);
+        } else {
+            return new AcornResponse("500", "发布失败");
+        }
     }
 
     public static void RecursionDeleteFile(Path path) {
@@ -108,5 +122,10 @@ public class AcornBizService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public AcornResponse checkJobNameExist(String jobName) {
+
+        return new AcornResponse("10006", "jobName已存在");
     }
 }

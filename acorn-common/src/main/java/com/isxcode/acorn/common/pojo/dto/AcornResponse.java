@@ -10,7 +10,15 @@ public class AcornResponse {
 
     private String message;
 
+    private AcornData acornData;
+
     public AcornResponse() {
+    }
+
+    public AcornResponse(String code, String message, AcornData acornData) {
+        this.code = code;
+        this.message = message;
+        this.acornData = acornData;
     }
 
     public AcornResponse(String code, String message) {

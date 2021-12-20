@@ -7,6 +7,8 @@ import org.apache.commons.exec.DefaultExecutor;
 import org.apache.commons.exec.ExecuteWatchdog;
 import org.apache.commons.exec.PumpStreamHandler;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -58,4 +60,50 @@ public class CommandUtils {
 
         return executeCommand(command, logPath, 60000);
     }
+
+    /**
+     * execute command to log file
+     *
+     * @param command     command
+     * @param waitingTime waiting timeMillis
+     */
+    public static String executeBackCommand(String command, long waitingTime) {
+
+        String[] cmd = {"-c", command};
+        CommandLine cmdLine = CommandLine.parse("/bin/sh");
+        cmdLine.addArguments(cmd, false);
+
+        DefaultExecutor executor = new DefaultExecutor();
+
+        try {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+            PumpStreamHandler streamHandler = new PumpStreamHandler(byteArrayOutputStream, byteArrayOutputStream, null);
+            executor.setStreamHandler(streamHandler);
+
+            // set watchdog for waiting
+            ExecuteWatchdog watchdog = new ExecuteWatchdog(waitingTime);
+            executor.setWatchdog(watchdog);
+            executor.execute(cmdLine);
+
+
+            byte[] bytes = byteArrayOutputStream.toByteArray();
+            return new String(bytes, 0, bytes.length);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new OxygenException("execute command error");
+        }
+    }
+
+    /**
+     * execute command to log file
+     *
+     * @param command command
+     */
+    public static String executeBackCommand(String command) {
+
+        return executeBackCommand(command, 60000);
+    }
+
 }
