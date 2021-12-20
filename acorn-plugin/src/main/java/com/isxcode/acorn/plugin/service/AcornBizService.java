@@ -20,7 +20,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -99,10 +98,13 @@ public class AcornBizService {
     }
 
     public static void RecursionDeleteFile(Path path) {
+
         try {
             if (Files.isDirectory(path)) {
+                log.debug("开始删除文件夹" + path.getFileName());
                 Files.list(path).forEach(AcornBizService::RecursionDeleteFile);
             } else {
+                log.debug("开始删除文件" + path.getFileName());
                 Files.deleteIfExists(path);
             }
         } catch (IOException e) {
