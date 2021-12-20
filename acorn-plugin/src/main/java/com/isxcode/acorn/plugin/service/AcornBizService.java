@@ -98,14 +98,6 @@ public class AcornBizService {
             return new AcornResponse("10005", "文件删除异常");
         }
 
-        // 删除日志
-        try {
-            Files.deleteIfExists(Paths.get(logPath));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new AcornResponse("10005", "文件删除异常");
-        }
-
         return new AcornResponse("200", "发布作业成功");
     }
 }
