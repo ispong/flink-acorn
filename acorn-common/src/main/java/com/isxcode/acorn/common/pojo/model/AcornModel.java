@@ -17,7 +17,7 @@ public abstract class AcornModel {
     }
 
     public AcornModel(TemplateType templateName, String executeId, String jobName) {
-        this.templateName = templateName.getTemplateFileName();
+        this.templateName = templateName.getTemplateFileName() + ".ftl";
         this.executeId = executeId;
         this.jobName = jobName;
     }
