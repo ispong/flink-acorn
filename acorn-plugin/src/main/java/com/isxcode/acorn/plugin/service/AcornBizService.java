@@ -90,9 +90,17 @@ public class AcornBizService {
         String executeCommand = "mvn clean package -f " + flinkPomFilePath + " && " + "flink run " + targetFilePath;
         CommandUtils.executeCommand(executeCommand, logPath);
 
-        // 删除缓存中的文件
+        // 删除项目
         try {
-            Files.delete(Paths.get(tmpPath));
+            Files.deleteIfExists(Paths.get(tmpPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new AcornResponse("10005", "文件删除异常");
+        }
+
+        // 删除日志
+        try {
+            Files.deleteIfExists(Paths.get(logPath));
         } catch (IOException e) {
             e.printStackTrace();
             return new AcornResponse("10005", "文件删除异常");
