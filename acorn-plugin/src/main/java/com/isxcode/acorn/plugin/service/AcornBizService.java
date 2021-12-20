@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.regex.Pattern;
+
+import static java.util.regex.Pattern.compile;
 
 @Slf4j
 @Service
@@ -33,6 +36,12 @@ public class AcornBizService {
 
         this.acornPluginProperties = acornPluginProperties;
         this.freeMarkerConfigurer = freeMarkerConfigurer;
+    }
+
+    public String getTableName(String sql) {
+
+        sql = Pattern.compile("CREATE * TABLE").matcher(sql.toUpperCase()).replaceAll("");
+        return Pattern.compile("\\( .*").matcher(sql).replaceAll("");
     }
 
     /**
@@ -51,6 +60,10 @@ public class AcornBizService {
             e.printStackTrace();
             return new AcornResponse("10001", "executeId为空");
         }
+
+        // 解析表名
+        acornModel.setFromTableName(getTableName(acornModel.getFromConnectorSql()));
+        acornModel.setToTableName(getTableName(acornModel.getToConnectorSql()));
 
         // 生成FlinkJob.java代码
         String flinkJobJavaCode;

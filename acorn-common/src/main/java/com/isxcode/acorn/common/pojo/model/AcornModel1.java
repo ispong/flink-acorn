@@ -24,23 +24,16 @@ public class AcornModel1 extends AcornModel {
     }
 
     @Builder
-    public AcornModel1(TemplateType templateName, String executeId, String jobName, String filterCode, String fromConnectorSql, String toConnectorSql, String fromTableName, String toTableName) {
+    public AcornModel1(TemplateType templateName, String executeId, String jobName, String filterCode, String fromConnectorSql, String toConnectorSql) {
 
         super(templateName, executeId, jobName);
         this.filterCode = filterCode;
         this.fromConnectorSql = fromConnectorSql;
         this.toConnectorSql = toConnectorSql;
-        this.fromTableName = fromTableName;
-        this.toTableName = toTableName;
     }
 
     @Override
     public void check() {
 
-        Assert.isNull(this.filterCode, "filterCode 不能为空");
-        Assert.isNull(this.fromConnectorSql, "fromConnectorSql 不能为空");
-        Assert.isNull(this.toConnectorSql, "toConnectorSql 不能为空");
-        Assert.isNull(this.fromTableName, "fromTableName 不能为空");
-        Assert.isNull(this.toTableName, "toTableName 不能为空");
     }
 }
