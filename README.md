@@ -38,6 +38,17 @@ cd acorn-plugin && mvn clean package
 java -jar ./target/acorn-plugin.jar
 ```
 
+```yaml
+server:
+    port: 30155
+
+acorn:
+    plugin:
+      log-dir: /home/acorn/log
+      tmp-dir: /home/acorn/tmp
+      server-key: acorn-key
+```
+
 #### 插件使用（客户端）
 
 ```xml
@@ -50,11 +61,10 @@ java -jar ./target/acorn-plugin.jar
 
 ```yaml
 acorn:
-  config:
-    server:
-      host: 192.168.66.66
-      port: 30155
-      key: acorn-key
+ node:
+    host: 192.168.66.66
+    port: 30155
+    key: acorn-key
 ```
 
 ```java

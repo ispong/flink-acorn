@@ -4,8 +4,8 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
-@ConfigurationProperties("acorn.config.node")
-public class AcornNode {
+@ConfigurationProperties("acorn.node")
+public class AcornNodeProperties {
 
     /**
      * 插件服务器ip

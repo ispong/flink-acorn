@@ -1,16 +1,16 @@
 package com.isxcode.acorn.common.template;
 
-import com.isxcode.acorn.common.properties.AcornProperties;
+import com.isxcode.acorn.common.properties.AcornPluginProperties;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AcornTemplate {
 
-    private final AcornProperties acornProperties;
+    private final AcornPluginProperties acornPluginProperties;
 
-    public AcornTemplate(AcornProperties acornProperties) {
+    public AcornTemplate(AcornPluginProperties acornPluginProperties) {
 
-        this.acornProperties = acornProperties;
+        this.acornPluginProperties = acornPluginProperties;
     }
 
 //    public AcornServiceImpl builder() {

@@ -6,8 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.io.File;
 
 @Data
-@ConfigurationProperties("acorn.config")
-public class AcornProperties {
+@ConfigurationProperties("acorn.plugin")
+public class AcornPluginProperties {
 
     /**
      * 临时存储位置
@@ -23,9 +23,4 @@ public class AcornProperties {
      * 服务器密钥
      */
     private String serverKey = "acorn-key";
-
-    /**
-     * 默认node
-     */
-    private AcornNode node;
 }
