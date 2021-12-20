@@ -5,7 +5,6 @@ import lombok.*;
 import org.springframework.util.Assert;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class AcornModel1 extends AcornModel {
@@ -19,6 +18,9 @@ public class AcornModel1 extends AcornModel {
     private String fromTableName;
 
     private String toTableName;
+
+    public AcornModel1() {
+    }
 
     @Builder
     public AcornModel1(TemplateType templateName, String executeId, String jobName, String filterCode, String fromConnectorSql, String toConnectorSql, String fromTableName, String toTableName) {
