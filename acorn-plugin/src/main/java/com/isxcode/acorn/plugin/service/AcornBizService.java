@@ -100,10 +100,12 @@ public class AcornBizService {
 
     public static void RecursionDeleteFile(Path path) {
 
+        System.out.println("开始删除");
         try {
             if (Files.isDirectory(path)) {
                 Files.list(path).forEach(AcornBizService::RecursionDeleteFile);
             } else {
+                System.out.println("删除文件");
                 Files.deleteIfExists(path);
             }
         } catch (IOException e) {
