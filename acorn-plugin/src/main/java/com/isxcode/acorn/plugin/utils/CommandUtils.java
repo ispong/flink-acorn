@@ -1,4 +1,4 @@
-package com.isxcode.acorn.common.utils;
+package com.isxcode.acorn.plugin.utils;
 
 import com.isxcode.oxygen.core.exception.OxygenException;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +44,7 @@ public class CommandUtils {
             return executor.execute(cmdLine);
 
         } catch (IOException e) {
+            e.printStackTrace();
             throw new OxygenException("execute command error");
         }
     }

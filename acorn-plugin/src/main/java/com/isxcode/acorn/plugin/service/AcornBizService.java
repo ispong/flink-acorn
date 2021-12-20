@@ -2,10 +2,9 @@ package com.isxcode.acorn.plugin.service;
 
 import com.isxcode.acorn.common.constant.FlinkConstants;
 import com.isxcode.acorn.common.pojo.dto.AcornResponse;
-import com.isxcode.acorn.common.pojo.model.AcornModel;
 import com.isxcode.acorn.common.pojo.model.AcornModel1;
 import com.isxcode.acorn.common.properties.AcornPluginProperties;
-import com.isxcode.acorn.common.utils.CommandUtils;
+import com.isxcode.acorn.plugin.utils.CommandUtils;
 import com.isxcode.oxygen.core.file.FileUtils;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
