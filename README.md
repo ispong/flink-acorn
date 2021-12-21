@@ -128,5 +128,5 @@ public class DemoController {
 
 ### 👏 社区开发
 
-> 欢迎大家一同维护开发，请参照具体[开发文档](https://github.com/ispong/flink-acorn/blob/main/CONTRIBUTING.md) 。
-> 如需加入我们，请联系邮箱 ispong@outlook.com 。
+欢迎大家一同维护开发，请参照具体[开发文档](https://github.com/ispong/flink-acorn/blob/main/CONTRIBUTING.md) 。
+如需加入我们，请联系邮箱 ispong@outlook.com 。
