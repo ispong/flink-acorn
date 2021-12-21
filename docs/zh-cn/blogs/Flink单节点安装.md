@@ -1,7 +1,3 @@
-> flink 安装文档 (1.14.0 scala-2.12)
-
-## ☄️ Ideas
-
 #### 下载安装包
 
 ```bash
@@ -54,17 +50,6 @@ sudo bash ./bin/start-cluster.sh
 ```bash
 flink run /opt/flink/examples/streaming/WordCount.jar
 tail /opt/flink/log/flink-*-taskexecutor-*.out
-```
-
-#### 移动jar
-
-```bash
-wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.22.tar.gz
-tar -vzxf mysql-connector-java-8.0.22.tar.gz 
-mv mysql-connector-java-8.0.22/mysql-connector-java-8.0.22.jar /opt/flink/lib/
-
-mvn -version
-cp /data/dehoop/maven/repository/org/apache/flink/flink-connector-jdbc_2.12/1.14.0/flink-connector-jdbc_2.12-1.14.0.jar /opt/flink/lib/ 
 ```
 
 ## 🔗 Links

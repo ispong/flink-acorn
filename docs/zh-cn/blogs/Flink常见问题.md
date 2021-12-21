@@ -70,6 +70,36 @@ classloader.resolve-order: parent-first
 # --- sudo vim /opt/flink/conf/flink-conf.yaml ---
 ```
 
+##### 不支持jdbc
+
+```log
+Caused by: org.apache.flink.table.api.ValidationException: Cannot discover a connector using option: 'connector'='jdbc'
+        at org.apache.flink.table.factories.FactoryUtil.enrichNoMatchingConnectorError(FactoryUtil.java:367)
+        at org.apache.flink.table.factories.FactoryUtil.getDynamicTableFactory(FactoryUtil.java:354)
+        at org.apache.flink.table.factories.FactoryUtil.createTableSink(FactoryUtil.java:152)
+        ... 34 more
+Caused by: org.apache.flink.table.api.ValidationException: Could not find any factory for identifier 'jdbc' that implements 'org.apache.flink.table.factories.DynamicTableFactory' in the classpath.
+```
+
+##### 解决方案1
+
+- 看看flink的lib下是否存在jdbc驱动 是否存在 connector-jdbc
+
+```bash
+cd /opt/flink/lib
+
+wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.22.tar.gz
+tar -vzxf mysql-connector-java-8.0.22.tar.gz 
+mv mysql-connector-java-8.0.22/mysql-connector-java-8.0.22.jar /opt/flink/lib/
+
+cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-jdbc_2.12/1.14.0/flink-connector-jdbc_2.12-1.14.0.jar /opt/flink/lib/ 
+
+# 重启flink
+cd /opt/flink
+sudo bash ./bin/start-cluster.sh
+# sudo bash ./bin/stop-cluster.sh
+```
+
 ## 🔗 Links
 
 - [flink website](https://flink.apache.org/)

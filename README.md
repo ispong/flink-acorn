@@ -34,19 +34,28 @@
 
 ```bash
 git clone https://github.com/ispong/flink-acorn.git
-cd acorn-plugin && mvn clean package
-java -jar ./target/acorn-plugin.jar
+```
+
+```bash
+vim flink-acorn/acorn-plugin/src/main/resources/application.yml 
 ```
 
 ```yaml
 server:
-  port: 30155
+    port: 30155
 
 acorn:
-  plugin:
-    log-dir: /home/acorn/log
-    tmp-dir: /home/acorn/tmp
-    server-key: acorn-key
+    plugin:
+        log-dir: /home/acorn/log
+        tmp-dir: /home/acorn/tmp
+        server-key: acorn-key
+        flink-port: 8081
+        storage-tmp: true
+```
+
+```bash
+cd flink-acorn/acorn-plugin && mvn clean package
+java -jar ./target/acorn-plugin.jar
 ```
 
 #### 插件使用（客户端）
@@ -62,9 +71,9 @@ acorn:
 ```yaml
 acorn:
   node:
-    host: 192.168.66.66
+    host: 39.103.230.188
     port: 30155
-    key: acorn-key
+    key: dehoop-key
 ```
 
 ```java
@@ -80,17 +89,20 @@ public class DemoController {
     }
 
     @GetMapping("/demo")
-    public AcornResponse execute() {
+    public String execute() {
 
-        AcornModel1 model1 = AcornModelBuilder.model1().build()
-                .jobName("demo-job")
-                .executeId("1234567890")
-                .fromConnectorSql("CREATE TABLE from_table (  ) WITH ( connect='kafka',... )")
-                .toConnectorSql("CREATE TABLE to_table (  ) WITH ( connect='kafka',... )")
-                .filterCode("fromdata.filter()")
-                .builder();
-        
-        return acornTemplate.build().execute(model1);
+        AcornModel1 acornModel1 = AcornModel1.builder()
+            .jobName("demo-job-name")
+            .executeId("1234567890")
+            .fromConnectorSql("CREATE TABLE from_table ( ... ) WITH ( connect='kafka',... )")
+            .toConnectorSql("CREATE TABLE to_table ( ... ) WITH ( connect='kafka',... )")
+            .filterCode("Data fromData = fromData.select(...)")
+            .templateName(TemplateType.KAFKA_INPUT_KAFKA_OUTPUT)
+            .builder();
+
+        AcornResponse acornResponse = acornTemplate.build().execute(acornModel1);
+
+        return acornResponse.getMessage();
     }
 }
 ```

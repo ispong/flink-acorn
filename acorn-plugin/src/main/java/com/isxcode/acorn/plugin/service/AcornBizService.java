@@ -91,7 +91,7 @@ public class AcornBizService {
         FileUtils.generateFile(logPath);
 
         // 执行编译且运行作业
-        String targetFilePath = tmpPath + File.separator + "target" + File.separator + "acorn-plugin.jar";
+        String targetFilePath = tmpPath + File.separator + "target" + File.separator + "acorn.jar";
         String executeCommand = "mvn clean package -f " + flinkPomFilePath + " && " + "flink run " + targetFilePath;
         CommandUtils.executeCommand(executeCommand, logPath);
 
