@@ -42,22 +42,19 @@ vim flink-acorn/acorn-plugin/src/main/resources/application.yml
 
 ```yaml
 server:
-    port: 30155
+  port: 30155
 
 acorn:
-    plugin:
-        log-dir: /home/acorn/log
-        tmp-dir: /home/acorn/tmp
-        server-key: acorn-key
-        flink-port: 8081
-        storage-tmp: true
+  plugin:
+    log-dir: /home/acorn/log
+    tmp-dir: /home/acorn/tmp
+    server-key: acorn-key
+    flink-port: 8081
+    storage-tmp: false
 ```
 
 ```bash
-cd flink-acorn/acorn-plugin && mvn clean package
-java -jar ./target/acorn-plugin.jar
-# nohup java -jar -Xmx1024m /home/dehoop/flink-acorn/acorn-plugin/target/acorn-plugin.jar >> /home/dehoop/acorn/acorn.log 2>&1 &
-# tail -f /home/dehoop/acorn/acorn.log
+cd flink-acorn/acorn-plugin && mvn clean package && java -jar ./target/acorn-plugin.jar
 ```
 
 #### 插件使用（客户端）
@@ -75,7 +72,7 @@ acorn:
   node:
     host: 39.103.230.188
     port: 30155
-    key: dehoop-key
+    key: acorn-key
 ```
 
 ```java
@@ -90,22 +87,42 @@ public class DemoController {
         this.acornTemplate = acornTemplate;
     }
 
-    @GetMapping("/demo")
+    @GetMapping("/execute")
     public String execute() {
 
         AcornModel1 acornModel1 = AcornModel1.builder()
-            .jobName("demo-job-name")
-            .executeId("1234567890")
-            .fromConnectorSql("CREATE TABLE from_table ( ... ) WITH ( connect='kafka',... )")
-            .toConnectorSql("CREATE TABLE to_table ( ... ) WITH ( connect='kafka',... )")
-            .filterCode("Data fromData = fromData.select(...)")
+            .jobName("job-name")
+            .executeId("1314520")
+            .fromConnectorSql("CREATE TABLE from_table ( ... ) WITH ( ... )")
+            .toConnectorSql("CREATE TABLE to_table ( ... ) WITH ( ... )")
+            .filterCode("Table fromData = fromData.select( ... )")
             .templateName(TemplateType.KAFKA_INPUT_KAFKA_OUTPUT)
             .builder();
 
         AcornResponse acornResponse = acornTemplate.build().execute(acornModel1);
-
-        return acornResponse.getMessage();
+        return acornResponse.getAcornData().getJobId();
     }
+
+    @GetMapping("/getLog")
+    public String getLog() {
+
+        AcornResponse log = acornTemplate.build().getLog("1314520");
+        return log.getAcornData().getJobLog();
+    }
+
+    @GetMapping("/getJobStatus")
+    public String getJobStatus() {
+
+        AcornResponse jobInfo = acornTemplate.build().getJobInfo("jobId");
+        return jobInfo.getAcornData().getJobInfo().getState();
+    }
+
+    @GetMapping("/stop")
+    public void stop() {
+
+        acornTemplate.build().stop("jobId");
+    }
+    
 }
 ```
 
