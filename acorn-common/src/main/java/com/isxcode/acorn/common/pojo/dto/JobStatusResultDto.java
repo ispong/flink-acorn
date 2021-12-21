@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 public class JobStatusResultDto {
 
-    private List<JobInfoDto> jobList;
+    private List<JobInfoDto> jobs;
 }

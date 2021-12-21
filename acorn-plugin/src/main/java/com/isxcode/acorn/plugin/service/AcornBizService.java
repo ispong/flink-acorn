@@ -155,7 +155,11 @@ public class AcornBizService {
 
         JobStatusResultDto jobStatusResultDto = HttpUtils.doGet("http://127.0.0.1:" + acornPluginProperties.getFlinkPort() + "/jobs/overview", JobStatusResultDto.class);
 
-        for (JobInfoDto metaJob : jobStatusResultDto.getJobList()) {
+        if (jobStatusResultDto.getJobs() == null) {
+            return null;
+        }
+
+        for (JobInfoDto metaJob : jobStatusResultDto.getJobs()) {
             if (metaJob.getJid().equals(jobId)) {
                 return AcornData.builder().jobInfo(metaJob).build();
             }
