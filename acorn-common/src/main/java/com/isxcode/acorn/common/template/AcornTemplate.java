@@ -67,19 +67,25 @@ public class AcornTemplate {
         public AcornResponse getLog(String executeId) {
 
             String executeUrl = String.format(UrlConstants.GET_FLINK_LOG_URL + "?executeId=" + executeId, acornNodeProperties.getHost(), acornNodeProperties.getPort());
-            return HttpUtils.doGet(executeUrl, AcornResponse.class);
+            Map<String, String> headers = new HashMap<>();
+            headers.put(SecurityConstants.HEADER_AUTHORIZATION, acornNodeProperties.getKey());
+            return HttpUtils.doGet(executeUrl, headers, AcornResponse.class);
         }
 
         public AcornResponse stopJob(String jobId) {
 
             String executeUrl = String.format(UrlConstants.STOP_FLINK_URL + "?jobId=" + jobId, acornNodeProperties.getHost(), acornNodeProperties.getPort());
-            return HttpUtils.doGet(executeUrl, AcornResponse.class);
+            Map<String, String> headers = new HashMap<>();
+            headers.put(SecurityConstants.HEADER_AUTHORIZATION, acornNodeProperties.getKey());
+            return HttpUtils.doGet(executeUrl, headers, AcornResponse.class);
         }
 
         public AcornResponse getJobInfo(String jobId) {
 
             String executeUrl = String.format(UrlConstants.GET_FLINK_URL + "?jobId=" + jobId, acornNodeProperties.getHost(), acornNodeProperties.getPort());
-            return HttpUtils.doGet(executeUrl, AcornResponse.class);
+            Map<String, String> headers = new HashMap<>();
+            headers.put(SecurityConstants.HEADER_AUTHORIZATION, acornNodeProperties.getKey());
+            return HttpUtils.doGet(executeUrl, headers, AcornResponse.class);
         }
     }
 

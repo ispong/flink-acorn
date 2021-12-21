@@ -4,8 +4,8 @@
 nohup wget https://archive.apache.org/dist/flink/flink-1.14.0/flink-1.14.0-bin-scala_2.12.tgz >> download_flink.log 2>&1 &
 tail -f download_flink.log
 
-sudo tar -vzxf ~/flink-1.14.0-bin-scala_2.12.tgz -C /data/dehoop/
-sudo ln -s /data/dehoop/flink-1.14.0 /opt/flink 
+sudo tar -vzxf ~/flink-1.14.0-bin-scala_2.12.tgz -C /data/
+sudo ln -s /data/flink-1.14.0 /opt/flink 
 
 sudo vim /etc/profile
 # === sudo vim /etc/profile ===
@@ -15,13 +15,14 @@ export PATH=$PATH:$FLINK_HOME/bin
 source /etc/profile
 
 # 查看版本号
+sudo chown -R dehoop:dehoop /data/flink-1.14.0
 flink --version
 ```
 
 #### 修改端口号
 
 ```bash
-sudo vim /opt/flink/conf/flink-conf.yaml
+vim /opt/flink/conf/flink-conf.yaml
 
 # --- vim $flink/conf/flink-conf.yaml ---
 

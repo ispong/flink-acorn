@@ -90,7 +90,7 @@ cd /opt/flink/lib
 
 wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.22.tar.gz
 tar -vzxf mysql-connector-java-8.0.22.tar.gz 
-mv mysql-connector-java-8.0.22/mysql-connector-java-8.0.22.jar /opt/flink/lib/
+cp mysql-connector-java-8.0.22/mysql-connector-java-8.0.22.jar /opt/flink/lib/
 
 cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-jdbc_2.12/1.14.0/flink-connector-jdbc_2.12-1.14.0.jar /opt/flink/lib/ 
 
@@ -98,6 +98,82 @@ cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-jdbc_2.12/1.14.0
 cd /opt/flink
 sudo bash ./bin/start-cluster.sh
 # sudo bash ./bin/stop-cluster.sh
+```
+
+#####
+
+```log
+Table options are:
+
+'connector'='kafka'
+'csv.ignore-parse-errors'='true'
+'format'='csv'
+'properties.bootstrap.servers'='39.103.230.188:30120'
+'properties.group.id'='test-consumer-group'
+'properties.zookeeper.connect'='39.103.230.188:30121'
+'topic'='ispong-input-2'
+        at org.apache.flink.table.factories.FactoryUtil.createTableSource(FactoryUtil.java:122)
+        at org.apache.flink.table.planner.plan.schema.CatalogSourceTable.createDynamicTableSource(CatalogSourceTable.java:254)
+        at org.apache.flink.table.planner.plan.schema.CatalogSourceTable.toRel(CatalogSourceTable.java:100)
+        at org.apache.calcite.rel.core.RelFactories$TableScanFactoryImpl.createScan(RelFactories.java:495)
+        at org.apache.calcite.tools.RelBuilder.scan(RelBuilder.java:1099)
+        at org.apache.calcite.tools.RelBuilder.scan(RelBuilder.java:1123)
+        at org.apache.flink.table.planner.plan.QueryOperationConverter$SingleRelVisitor.visit(QueryOperationConverter.java:346)
+        at org.apache.flink.table.planner.plan.QueryOperationConverter$SingleRelVisitor.visit(QueryOperationConverter.java:149)
+        at org.apache.flink.table.operations.CatalogQueryOperation.accept(CatalogQueryOperation.java:68)
+        at org.apache.flink.table.planner.plan.QueryOperationConverter.defaultMethod(QueryOperationConverter.java:146)
+        at org.apache.flink.table.planner.plan.QueryOperationConverter.defaultMethod(QueryOperationConverter.java:128)
+        at org.apache.flink.table.operations.utils.QueryOperationDefaultVisitor.visit(QueryOperationDefaultVisitor.java:92)
+        at org.apache.flink.table.operations.CatalogQueryOperation.accept(CatalogQueryOperation.java:68)
+        at org.apache.flink.table.planner.plan.QueryOperationConverter.lambda$defaultMethod$0(QueryOperationConverter.java:145)
+        at java.util.Collections$SingletonList.forEach(Collections.java:4822)
+        at org.apache.flink.table.planner.plan.QueryOperationConverter.defaultMethod(QueryOperationConverter.java:145)
+        at org.apache.flink.table.planner.plan.QueryOperationConverter.defaultMethod(QueryOperationConverter.java:128)
+        at org.apache.flink.table.operations.utils.QueryOperationDefaultVisitor.visit(QueryOperationDefaultVisitor.java:47)
+        at org.apache.flink.table.operations.ProjectQueryOperation.accept(ProjectQueryOperation.java:74)
+        at org.apache.flink.table.planner.calcite.FlinkRelBuilder.queryOperation(FlinkRelBuilder.scala:186)
+        at org.apache.flink.table.planner.delegation.PlannerBase.translateToRel(PlannerBase.scala:218)
+        at org.apache.flink.table.planner.delegation.PlannerBase$$anonfun$1.apply(PlannerBase.scala:159)
+        at org.apache.flink.table.planner.delegation.PlannerBase$$anonfun$1.apply(PlannerBase.scala:159)
+        at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:234)
+        at scala.collection.TraversableLike$$anonfun$map$1.apply(TraversableLike.scala:234)
+        at scala.collection.Iterator$class.foreach(Iterator.scala:891)
+        at scala.collection.AbstractIterator.foreach(Iterator.scala:1334)
+        at scala.collection.IterableLike$class.foreach(IterableLike.scala:72)
+        at scala.collection.AbstractIterable.foreach(Iterable.scala:54)
+        at scala.collection.TraversableLike$class.map(TraversableLike.scala:234)
+        at scala.collection.AbstractTraversable.map(Traversable.scala:104)
+        at org.apache.flink.table.planner.delegation.PlannerBase.translate(PlannerBase.scala:159)
+        at org.apache.flink.table.api.internal.TableEnvironmentImpl.translate(TableEnvironmentImpl.java:1329)
+        at org.apache.flink.table.api.internal.TableEnvironmentImpl.executeInternal(TableEnvironmentImpl.java:676)
+        at org.apache.flink.table.api.internal.TableImpl.executeInsert(TableImpl.java:572)
+        at org.apache.flink.table.api.internal.TableImpl.executeInsert(TableImpl.java:554)
+        at com.isxcode.acorn.template.FlinkJob.main(FlinkJob.java:31)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.flink.client.program.PackagedProgram.callMainMethod(PackagedProgram.java:349)
+        ... 11 more
+Caused by: org.apache.flink.table.api.TableException: Could not load service provider for factories.
+        at org.apache.flink.table.factories.FactoryUtil.discoverFactories(FactoryUtil.java:407)
+        at org.apache.flink.table.factories.FactoryUtil.discoverFactory(FactoryUtil.java:214)
+        at org.apache.flink.table.factories.FactoryUtil.getDynamicTableFactory(FactoryUtil.java:352)
+        at org.apache.flink.table.factories.FactoryUtil.createTableSource(FactoryUtil.java:118)
+        ... 52 more
+Caused by: java.util.ServiceConfigurationError: org.apache.flink.table.factories.Factory: Provider org.apache.flink.connector.jdbc.catalog.factory.JdbcCatalogFactory not a subtype
+        at java.util.ServiceLoader.fail(ServiceLoader.java:239)
+        at java.util.ServiceLoader.access$300(ServiceLoader.java:185)
+        at java.util.ServiceLoader$LazyIterator.nextService(ServiceLoader.java:376)
+        at java.util.ServiceLoader$LazyIterator.next(ServiceLoader.java:404)
+        at java.util.ServiceLoader$1.next(ServiceLoader.java:480)
+        at java.util.Iterator.forEachRemaining(Iterator.java:116)
+        at org.apache.flink.table.factories.FactoryUtil.discoverFactories(FactoryUtil.java:403)
+        ... 55 more
+```
+
+```bash
+cd /opt/flink/lib
 ```
 
 ## 🔗 Links
