@@ -96,7 +96,9 @@ public class AcornBizService {
         CommandUtils.executeCommand(executeCommand, logPath);
 
         // 删除临时项目文件
-        AcornFileUtils.RecursionDeleteFile(Paths.get(tmpPath));
+        if (!acornPluginProperties.isStorageTmp()) {
+            AcornFileUtils.RecursionDeleteFile(Paths.get(tmpPath));
+        }
 
         // 读取日志最后一行 Job has been submitted with JobID 133d87e09f586e72e1f1fe2575d1a3c4
         String flinkSuccessLog = "Job has been submitted with JobID";
