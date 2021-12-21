@@ -29,6 +29,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @Service
@@ -93,7 +94,11 @@ public class AcornBizService {
         // 执行编译且运行作业
         String targetFilePath = tmpPath + File.separator + "target" + File.separator + "acorn.jar";
         String executeCommand = "mvn clean package -f " + flinkPomFilePath + " && " + "flink run " + targetFilePath;
-        CommandUtils.executeCommand(executeCommand, logPath);
+        try {
+            CommandUtils.executeCommand(executeCommand, logPath);
+        } catch (Exception e) {
+            throw new AcornException("10004", "flink运行错误");
+        }
 
         // 删除临时项目文件
         if (!acornPluginProperties.isStorageTmp()) {
