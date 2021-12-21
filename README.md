@@ -56,6 +56,8 @@ acorn:
 ```bash
 cd flink-acorn/acorn-plugin && mvn clean package
 java -jar ./target/acorn-plugin.jar
+# nohup java -jar -Xmx1024m /home/dehoop/flink-acorn/acorn-plugin/target/acorn-plugin.jar >> /home/dehoop/acorn/acorn.log 2>&1 &
+# tail -f /home/dehoop/acorn/acorn.log
 ```
 
 #### 插件使用（客户端）
