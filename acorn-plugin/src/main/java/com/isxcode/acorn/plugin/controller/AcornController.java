@@ -42,7 +42,7 @@ public class AcornController {
      * 获取实时作业日志
      */
     @GetMapping("/getJobLog")
-    public AcornResponse getJobLog(@RequestBody String executeId) {
+    public AcornResponse getJobLog(@RequestParam String executeId) {
 
         AcornResponse acornResponse = new AcornResponse();
 
@@ -62,7 +62,7 @@ public class AcornController {
      * 停止实时作业
      */
     @GetMapping("/stopJob")
-    public AcornResponse stopJob(@RequestBody String jobId) {
+    public AcornResponse stopJob(@RequestParam String jobId) {
 
         AcornResponse acornResponse = new AcornResponse();
 
@@ -82,7 +82,7 @@ public class AcornController {
      * 获取实时作业运行状态
      */
     @GetMapping("/getJobInfo")
-    public AcornResponse getJobInfo(@RequestBody String jobId) {
+    public AcornResponse getJobInfo(@RequestParam String jobId) {
 
         AcornResponse acornResponse = new AcornResponse();
 
