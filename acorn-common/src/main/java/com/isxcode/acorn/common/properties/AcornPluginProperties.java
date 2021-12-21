@@ -25,6 +25,16 @@ public class AcornPluginProperties {
     private String serverKey = "acorn-key";
 
     /**
+     * flink默认端口
+     */
+    private int flinkPort = 8081;
+
+    /**
+     * 配置hive文件路径
+     */
+    private String hiveConfPath = "/opt/flink/conf";
+
+    /**
      * 保存tmp中文件
      */
     private boolean storageTmp = false;

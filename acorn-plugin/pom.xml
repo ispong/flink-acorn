@@ -39,7 +39,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- version config -->
-        <acorn-common.version>0.0.12-SNAPSHOT</acorn-common.version>
+        <acorn-common.version>0.0.14-SNAPSHOT</acorn-common.version>
         <isxcode.version>0.12.6</isxcode.version>
     </properties>
 
@@ -55,14 +55,12 @@
             <artifactId>acorn-common</artifactId>
             <version>${acorn-common.version}</version>
         </dependency>
-
         <!-- isxcode -->
         <dependency>
             <groupId>com.isxcode.oxygen</groupId>
             <artifactId>spring-oxygen-core</artifactId>
             <version>${isxcode.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -70,7 +68,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>1.18.22</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -86,7 +85,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>

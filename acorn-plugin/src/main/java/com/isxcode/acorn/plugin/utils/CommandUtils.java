@@ -86,7 +86,6 @@ public class CommandUtils {
             executor.setWatchdog(watchdog);
             executor.execute(cmdLine);
 
-
             byte[] bytes = byteArrayOutputStream.toByteArray();
             return new String(bytes, 0, bytes.length);
 
@@ -104,6 +103,43 @@ public class CommandUtils {
     public static String executeBackCommand(String command) {
 
         return executeBackCommand(command, 60000);
+    }
+
+    /**
+     * execute command to log file
+     *
+     * @param command     command
+     * @param waitingTime waiting timeMillis
+     */
+    public static int executeNoBackCommand(String command, long waitingTime) {
+
+        String[] cmd = {"-c", command};
+        CommandLine cmdLine = CommandLine.parse("/bin/sh");
+        cmdLine.addArguments(cmd, false);
+
+        DefaultExecutor executor = new DefaultExecutor();
+
+        try {
+
+            // set watchdog for waiting
+            ExecuteWatchdog watchdog = new ExecuteWatchdog(waitingTime);
+            executor.setWatchdog(watchdog);
+            return executor.execute(cmdLine);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new OxygenException("execute command error");
+        }
+    }
+
+    /**
+     * execute command to log file
+     *
+     * @param command command
+     */
+    public static int executeNoBackCommand(String command) {
+
+        return executeNoBackCommand(command, 60000);
     }
 
 }

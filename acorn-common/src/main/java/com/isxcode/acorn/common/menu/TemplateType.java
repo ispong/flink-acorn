@@ -15,12 +15,12 @@ public enum TemplateType {
     /**
      * kafka输入kafka输出
      */
-    KAFKA_INPUT_KAFKA_OUTPUT(""),
+    KAFKA_INPUT_KAFKA_OUTPUT("KAFKA_INPUT_KAFKA_OUTPUT.ftl"),
 
     /**
      * kafka输入hive输出
      */
-    KAFKA_INPUT_HIVE_OUTPUT("");
+    KAFKA_INPUT_HIVE_OUTPUT("KAFKA_INPUT_HIVE_OUTPUT.ftl"),;
 
     @Getter
     private final String templateFileName;

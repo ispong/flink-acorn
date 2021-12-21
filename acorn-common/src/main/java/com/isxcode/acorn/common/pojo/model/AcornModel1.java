@@ -26,6 +26,14 @@ public class AcornModel1 {
 
     private String toTableName;
 
+    private String hiveTable;
+
+    private String hiveDatabase;
+
+    private String hiveConfigPath;
+
+    private String hiveInsertColumns;
+
     public void check() {
 
     }

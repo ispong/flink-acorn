@@ -4,7 +4,6 @@ import com.isxcode.acorn.common.constant.SecurityConstants;
 import com.isxcode.acorn.common.constant.UrlConstants;
 import com.isxcode.acorn.common.pojo.dto.AcornResponse;
 import com.isxcode.acorn.common.pojo.model.AcornModel;
-import com.isxcode.acorn.common.pojo.model.AcornModel1;
 import com.isxcode.acorn.common.properties.AcornNodeProperties;
 import com.isxcode.oxygen.core.http.HttpUtils;
 import org.springframework.stereotype.Service;
@@ -51,7 +50,7 @@ public class AcornTemplate {
             this.acornNodeProperties = acornNodeProperties;
         }
 
-        public AcornResponse execute(AcornModel1 acornRequest) {
+        public AcornResponse execute(AcornModel acornRequest) {
 
             try {
                 String executeUrl = String.format(UrlConstants.EXECUTE_URL, acornNodeProperties.getHost(), acornNodeProperties.getPort());
@@ -62,6 +61,24 @@ public class AcornTemplate {
                 e.printStackTrace();
                 return null;
             }
+        }
+
+        public AcornResponse getLog(String executeId) {
+
+            String executeUrl = String.format(UrlConstants.GET_FLINK_LOG_URL + "?executeId=" + executeId, acornNodeProperties.getHost(), acornNodeProperties.getPort());
+            return HttpUtils.doGet(executeUrl, AcornResponse.class);
+        }
+
+        public AcornResponse stopJob(String jobId) {
+
+            String executeUrl = String.format(UrlConstants.STOP_FLINK_URL + "?jobId=" + jobId, acornNodeProperties.getHost(), acornNodeProperties.getPort());
+            return HttpUtils.doGet(executeUrl, AcornResponse.class);
+        }
+
+        public AcornResponse getJobInfo(String jobId) {
+
+            String executeUrl = String.format(UrlConstants.GET_FLINK_URL + "?jobId=" + jobId, acornNodeProperties.getHost(), acornNodeProperties.getPort());
+            return HttpUtils.doGet(executeUrl, AcornResponse.class);
         }
     }
 
