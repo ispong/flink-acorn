@@ -22,7 +22,7 @@ public class FlinkJob {
             // mysql输出
             tEnv.executeSql("${toConnectorSql}");
 
-             Table fromData = tEnv.from("${fromTableName}");
+            Table fromData = tEnv.from("${fromTableName}");
 
              ${filterCode}
 

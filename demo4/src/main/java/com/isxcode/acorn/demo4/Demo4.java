@@ -25,6 +25,8 @@ public class Demo4 {
         tEnv.getConfig().getConfiguration().setString("pipeline.name", "isxcode-pipeline");
         tEnv.getConfig().getConfiguration().setString("table.exec.sink.not-null-enforcer", "drop");
 
+
+        // scan.startup.mode latest-offset
         // canal 读取数据
         tEnv.executeSql("CREATE TABLE from_canal_kafka(\n" +
                 "   username STRING," +
