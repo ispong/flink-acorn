@@ -44,7 +44,7 @@ public class FlinkJob {
         tEnv.createTemporaryView("${fromTableName}_tmp", fromData);
 
         tEnv.getConfig().setSqlDialect(SqlDialect.DEFAULT);
-        tEnv.executeSql(\\\"INSERT INTO ${hiveTable} SELECT ${hiveInsertColumns} FROM ${fromTableName}_tmp");
+        tEnv.executeSql("INSERT INTO ${hiveTable} SELECT ${hiveInsertColumns} FROM ${fromTableName}_tmp");
     }
 }
 
