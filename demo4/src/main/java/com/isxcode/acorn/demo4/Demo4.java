@@ -10,7 +10,7 @@ import org.apache.flink.table.api.Expressions;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
 import org.apache.thrift.TException;
-import org.apache.calcite.sql.parser.SqlParse;
+import org.apache.calcite.sql.parser.SqlParser;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
@@ -26,7 +26,6 @@ public class Demo4 {
         TableEnvironment tEnv = TableEnvironment.create(settings);
         tEnv.getConfig().getConfiguration().setString("pipeline.name", "isxcode-pipeline");
         tEnv.getConfig().getConfiguration().setString("table.exec.sink.not-null-enforcer", "drop");
-
 
         // scan.startup.mode latest-offset
         // canal 读取数据

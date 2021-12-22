@@ -243,8 +243,8 @@ java.lang.NoSuchMethodError: org.apache.calcite.sql.parser.SqlParser.config()Lor
 ```
 
 ```bash
-cp /home/dehoop/.m2/repository/org/apache/flink/flink-table-planner-blink_2.12/1.13.0/flink-table-planner-blink_2.12-1.13.0.jar  /opt/flink/lib
-
+#cp /home/dehoop/.m2/repository/org/apache/flink/flink-table-planner-blink_2.12/1.13.0/flink-table-planner-blink_2.12-1.13.0.jar  /opt/flink/lib
+cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-hive_2.12/1.14.0/flink-connector-hive_2.12-1.14.0.jar /opt/flink/lib/
 # 重启flink
 cd /opt/flink
 sudo bash ./bin/start-cluster.sh

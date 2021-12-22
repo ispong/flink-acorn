@@ -135,7 +135,6 @@
 			<version>${log4j.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner-blink_2.12</artifactId>
