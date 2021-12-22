@@ -1,6 +1,3 @@
-
-## ☄️ Ideas
-
 #### 前提
 
 - 安装java
@@ -69,9 +66,3 @@ yarn application -kill application_1638001959645_0002
 
 jobmanager.web.access-control-allow-origin: 192.168.252.35,192.168.24.216
 jobmanager.web.allow-access-address: 192.168.252.35,192.168.24.216
-
-## 🔗 Links
-
-- [flink website](https://flink.apache.org/)
-- [flink install docs](https://nightlies.apache.org/flink/flink-docs-release-1.13/docs/try-flink/local_installation/)
-- [flink zk ha](https://nightlies.apache.org/flink/flink-docs-release-1.13/docs/deployment/ha/zookeeper_ha/)

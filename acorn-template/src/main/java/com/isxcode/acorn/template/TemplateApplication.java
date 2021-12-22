@@ -1,20 +1,14 @@
 package com.isxcode.acorn.template;
 
-import com.isxcode.acorn.common.menu.DataFormat;
-import com.isxcode.acorn.common.menu.FlinkColType;
+import com.isxcode.acorn.common.menu.TemplateType;
 import com.isxcode.acorn.common.pojo.dto.AcornResponse;
-import com.isxcode.acorn.common.pojo.dto.FlinkCol;
-import com.isxcode.acorn.common.pojo.node.KafkaInput;
-import com.isxcode.acorn.common.pojo.node.MysqlOutput;
+import com.isxcode.acorn.common.pojo.model.AcornModel1;
 import com.isxcode.acorn.common.template.AcornTemplate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping
@@ -24,6 +18,7 @@ public class TemplateApplication {
     private final AcornTemplate acornTemplate;
 
     public TemplateApplication(AcornTemplate acornTemplate) {
+
         this.acornTemplate = acornTemplate;
     }
 
@@ -32,40 +27,52 @@ public class TemplateApplication {
         SpringApplication.run(TemplateApplication.class, args);
     }
 
-    @GetMapping("/demo")
-    public AcornResponse testExecuteFlink() {
+    /**
+     * 发布作业  返回jobId
+     */
+    @GetMapping("/execute")
+    public String execute() {
 
-        // 输入点
-        List<FlinkCol> kafkaInputColumns = new ArrayList<>();
-        kafkaInputColumns.add(new FlinkCol("username", FlinkColType.STRING));
-        kafkaInputColumns.add(new FlinkCol("age", FlinkColType.INT));
+        AcornModel1 acornModel1 = AcornModel1.builder()
+            .jobName("job-name")
+            .executeId("1314520")
+            .fromConnectorSql("CREATE TABLE from_table ( ... ) WITH ( ... )")
+            .toConnectorSql("CREATE TABLE to_table ( ... ) WITH ( ... )")
+            .filterCode("Table fromData = fromData.select( ... )")
+            .templateName(TemplateType.KAFKA_INPUT_KAFKA_OUTPUT)
+            .build();
 
-        KafkaInput kafkaInput = KafkaInput.builder()
-                .brokerList("39.103.230.188:30120")
-                .zookeeper("39.103.230.188:30121")
-                .topic("ispong_kafka")
-                .dataFormat(DataFormat.CSV)
-                .columnList(kafkaInputColumns)
-                .build();
-
-        // 输出点
-        List<FlinkCol> mysqlOutputColumns = new ArrayList<>();
-        mysqlOutputColumns.add(new FlinkCol("username", FlinkColType.STRING));
-        mysqlOutputColumns.add(new FlinkCol("age", FlinkColType.INT));
-
-        MysqlOutput mysqlOutput = MysqlOutput.builder()
-                .url("jdbc:mysql://47.103.203.73:3306/VATtest")
-                .tableName("ispong_table")
-                .driver("com.mysql.cj.jdbc.Driver")
-                .username("admin")
-                .password("gsw921226")
-                .columnList(mysqlOutputColumns)
-                .build();
-
-        // 构建请求对象
-
-
-        // 运行
-        return acornTemplate.build("39.103.230.188", 30155, "key").execute(null);
+        AcornResponse acornResponse = acornTemplate.build().execute(acornModel1);
+        return acornResponse.getAcornData().getJobId();
     }
+
+    /**
+     * 获取作业日志
+     */
+    @GetMapping("/getLog")
+    public String getLog() {
+
+        AcornResponse log = acornTemplate.build().getLog("1314520");
+        return log.getAcornData().getJobLog();
+    }
+
+    /**
+     * 获取作业运行状态
+     */
+    @GetMapping("/getJobStatus")
+    public String getJobStatus() {
+
+        AcornResponse jobInfo = acornTemplate.build().getJobInfo("jobId");
+        return jobInfo.getAcornData().getJobInfo().getState();
+    }
+
+    /**
+     * 停止作业
+     */
+    @GetMapping("/stopJob")
+    public void stop() {
+
+        acornTemplate.build().stopJob("jobId");
+    }
+
 }

@@ -16,6 +16,12 @@
 
 目前，插件主要针对`flink-1.14.0-scala-2.12`版本进行开发。
 
+- kafka --> mysql
+- kafka --> kafka
+- kafka --> hive
+- binlog --> kafka
+- kafka --> doris
+
 ### ✨ 模块说明
 
 | 模块名                                          | 状态                 | 说明                                                  |
@@ -87,6 +93,9 @@ public class DemoController {
         this.acornTemplate = acornTemplate;
     }
 
+    /**
+     * 发布作业  返回jobId
+     */
     @GetMapping("/execute")
     public String execute() {
 
@@ -97,12 +106,15 @@ public class DemoController {
             .toConnectorSql("CREATE TABLE to_table ( ... ) WITH ( ... )")
             .filterCode("Table fromData = fromData.select( ... )")
             .templateName(TemplateType.KAFKA_INPUT_KAFKA_OUTPUT)
-            .builder();
+            .build();
 
         AcornResponse acornResponse = acornTemplate.build().execute(acornModel1);
         return acornResponse.getAcornData().getJobId();
     }
 
+    /**
+     * 获取作业日志
+     */
     @GetMapping("/getLog")
     public String getLog() {
 
@@ -110,6 +122,9 @@ public class DemoController {
         return log.getAcornData().getJobLog();
     }
 
+    /**
+     * 获取作业运行状态
+     */
     @GetMapping("/getJobStatus")
     public String getJobStatus() {
 
@@ -117,12 +132,14 @@ public class DemoController {
         return jobInfo.getAcornData().getJobInfo().getState();
     }
 
-    @GetMapping("/stop")
+    /**
+     * 停止作业
+     */
+    @GetMapping("/stopJob")
     public void stop() {
 
-        acornTemplate.build().stop("jobId");
+        acornTemplate.build().stopJob("jobId");
     }
-    
 }
 ```
 

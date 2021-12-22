@@ -1,8 +1,4 @@
 
-> flink配置文件说明
-
-## ☄️ Ideas
-
 `vim /opt/flink/conf/flink-conf.yaml`
 
 ```yml
@@ -262,7 +258,3 @@ rest.port: 30114
 # Interval in milliseconds for refreshing the monitored directories.
 #historyserver.archive.fs.refresh-interval: 10000
 ```
-
-## 🔗 Links
-
-- [flink website](https://flink.apache.org/)

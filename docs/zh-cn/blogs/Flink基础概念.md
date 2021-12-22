@@ -1,8 +1,3 @@
-
-- [flink作业状态](#flink作业状态)
-
-## ☄️ Ideas
-
 #### flink作业状态
 
 ```txt
@@ -16,6 +11,3 @@ Canceling
 Restarting
 Suspended
 ```
-## 🔗 Links
-
-- [flink website](https://flink.apache.org/)

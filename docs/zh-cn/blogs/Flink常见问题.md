@@ -1,8 +1,4 @@
 
-- [未使用标准表](#未使用标准表)
-
-## ☄️ Ideas
-
 #### 未使用标准表
 
 ```log
@@ -173,9 +169,5 @@ Caused by: java.util.ServiceConfigurationError: org.apache.flink.table.factories
 ```
 
 ```bash
-cd /opt/flink/lib
+版本问题
 ```
-
-## 🔗 Links
-
-- [flink website](https://flink.apache.org/)

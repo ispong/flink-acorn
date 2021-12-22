@@ -52,8 +52,3 @@ sudo bash ./bin/start-cluster.sh
 flink run /opt/flink/examples/streaming/WordCount.jar
 tail /opt/flink/log/flink-*-taskexecutor-*.out
 ```
-
-## 🔗 Links
-
-- [flink website](https://flink.apache.org/)
-- [flink install docs](https://ci.apache.org/projects/flink/flink-docs-release-1.12/try-flink/local_installation.html)

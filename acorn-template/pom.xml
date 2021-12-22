@@ -61,7 +61,7 @@
         <dependency>
             <groupId>com.isxcode.acorn</groupId>
             <artifactId>acorn-common</artifactId>
-            <version>0.0.5-SNAPSHOT</version>
+            <version>0.0.18-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

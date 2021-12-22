@@ -1,7 +1,3 @@
-> flink常用命令
-
-## ☄️ Ideas
-
 ##### 查询所有的job
 
 ```bash
@@ -64,7 +60,3 @@ select
     from_unixtime(data_timestamp/1000,'HH') as `hour`
 from kafka_table;
 ```
-
-## 🔗 Links
-
-- [flink website](https://flink.apache.org/)
