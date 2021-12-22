@@ -32,7 +32,7 @@ public class FlinkJob {
         ${filterCode}
 
         // --- hive ---
-        String name = "${toTableName}";
+        String name = "to_table";
         String defaultDatabase = "${hiveDatabase}";
         String hiveConfDir = "${hiveConfigPath}";
 
