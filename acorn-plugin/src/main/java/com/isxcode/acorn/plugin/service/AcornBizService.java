@@ -141,8 +141,9 @@ public class AcornBizService {
     public AcornData stopJob(String jobId) {
 
         String stopFlinkCommand = "flink cancel " + jobId;
-        int exitCode = CommandUtils.executeNoBackCommand(stopFlinkCommand);
-        if (exitCode != 0) {
+        try {
+            CommandUtils.executeNoBackCommand(stopFlinkCommand);
+        } catch (Exception e) {
             throw new AcornException("10005", "停止实时作业失败");
         }
         return AcornData.builder().build();

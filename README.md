@@ -104,7 +104,7 @@ public class DemoController {
             .executeId("1314520")
             .fromConnectorSql("CREATE TABLE from_table ( ... ) WITH ( ... )")
             .toConnectorSql("CREATE TABLE to_table ( ... ) WITH ( ... )")
-            .filterCode("Table fromData = fromData.select( ... )")
+            .filterCode("Table fromData = tEnv.from( ... ).where( ... );")
             .templateName(TemplateType.KAFKA_INPUT_KAFKA_OUTPUT)
             .build();
 
