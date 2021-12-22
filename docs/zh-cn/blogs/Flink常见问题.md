@@ -171,3 +171,82 @@ Caused by: java.util.ServiceConfigurationError: org.apache.flink.table.factories
 ```bash
 版本问题
 ```
+
+
+##### 缺少hive依赖
+
+```log
+java.lang.NoClassDefFoundError: org/apache/thrift/TException
+        at com.isxcode.acorn.template.FlinkJob.main(FlinkJob.java:43)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.flink.client.program.PackagedProgram.callMainMethod(PackagedProgram.java:355)
+        at org.apache.flink.client.program.PackagedProgram.invokeInteractiveModeForExecution(PackagedProgram.java:222)
+        at org.apache.flink.client.ClientUtils.executeProgram(ClientUtils.java:114)
+        at org.apache.flink.client.cli.CliFrontend.executeProgram(CliFrontend.java:812)
+        at org.apache.flink.client.cli.CliFrontend.run(CliFrontend.java:246)
+        at org.apache.flink.client.cli.CliFrontend.parseAndRun(CliFrontend.java:1054)
+        at org.apache.flink.client.cli.CliFrontend.lambda$main$10(CliFrontend.java:1132)
+        at org.apache.flink.runtime.security.contexts.NoOpSecurityContext.runSecured(NoOpSecurityContext.java:28)
+        at org.apache.flink.client.cli.CliFrontend.main(CliFrontend.java:1132)
+Caused by: java.lang.ClassNotFoundException: org.apache.thrift.TException
+        at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+        at org.apache.flink.util.FlinkUserCodeClassLoader.loadClassWithoutExceptionHandling(FlinkUserCodeClassLoader.java:64)
+        at org.apache.flink.util.ChildFirstClassLoader.loadClassWithoutExceptionHandling(ChildFirstClassLoader.java:74)
+        at org.apache.flink.util.FlinkUserCodeClassLoader.loadClass(FlinkUserCodeClassLoader.java:48)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+        ... 14 more
+```
+
+```bash
+#将 hive lib下的包全部复制到flink/lib下
+cp /opt/cloudera/parcels/CDH/lib/hive/lib/*.jar  /opt/flink/lib/
+
+# 重启flink
+cd /opt/flink
+sudo bash ./bin/start-cluster.sh
+# sudo bash ./bin/stop-cluster.sh
+```
+
+##### hive报错
+
+```log
+java.lang.NoSuchMethodError: org.apache.calcite.sql.parser.SqlParser.config()Lorg/apache/calcite/sql/parser/SqlParser$Config;
+        at org.apache.flink.table.planner.delegation.PlannerContext.lambda$getSqlParserConfig$1(PlannerContext.java:258)
+        at java.util.Optional.orElseGet(Optional.java:267)
+        at org.apache.flink.table.planner.delegation.PlannerContext.getSqlParserConfig(PlannerContext.java:252)
+        at org.apache.flink.table.planner.delegation.PlannerContext.createFrameworkConfig(PlannerContext.java:144)
+        at org.apache.flink.table.planner.delegation.PlannerContext.<init>(PlannerContext.java:126)
+        at org.apache.flink.table.planner.delegation.PlannerBase.<init>(PlannerBase.scala:109)
+        at org.apache.flink.table.planner.delegation.StreamPlanner.<init>(StreamPlanner.scala:52)
+        at org.apache.flink.table.planner.delegation.DefaultPlannerFactory.create(DefaultPlannerFactory.java:61)
+        at org.apache.flink.table.factories.PlannerFactoryUtil.createPlanner(PlannerFactoryUtil.java:50)
+        at org.apache.flink.table.api.bridge.java.internal.StreamTableEnvironmentImpl.create(StreamTableEnvironmentImpl.java:151)
+        at org.apache.flink.table.api.bridge.java.StreamTableEnvironment.create(StreamTableEnvironment.java:128)
+        at com.isxcode.acorn.template.FlinkJob.main(FlinkJob.java:20)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.flink.client.program.PackagedProgram.callMainMethod(PackagedProgram.java:355)
+        at org.apache.flink.client.program.PackagedProgram.invokeInteractiveModeForExecution(PackagedProgram.java:222)
+        at org.apache.flink.client.ClientUtils.executeProgram(ClientUtils.java:114)
+        at org.apache.flink.client.cli.CliFrontend.executeProgram(CliFrontend.java:812)
+        at org.apache.flink.client.cli.CliFrontend.run(CliFrontend.java:246)
+        at org.apache.flink.client.cli.CliFrontend.parseAndRun(CliFrontend.java:1054)
+        at org.apache.flink.client.cli.CliFrontend.lambda$main$10(CliFrontend.java:1132)
+        at org.apache.flink.runtime.security.contexts.NoOpSecurityContext.runSecured(NoOpSecurityContext.java:28)
+        at org.apache.flink.client.cli.CliFrontend.main(CliFrontend.java:1132)
+```
+
+```bash
+cp /home/dehoop/.m2/repository/org/apache/flink/flink-table-planner-blink_2.12/1.13.0/flink-table-planner-blink_2.12-1.13.0.jar  /opt/flink/lib
+
+# 重启flink
+cd /opt/flink
+sudo bash ./bin/start-cluster.sh
+# sudo bash ./bin/stop-cluster.sh
+```

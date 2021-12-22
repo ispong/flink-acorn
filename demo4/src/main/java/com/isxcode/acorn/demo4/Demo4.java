@@ -9,6 +9,8 @@ import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Expressions;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.TableEnvironment;
+import org.apache.thrift.TException;
+import org.apache.calcite.sql.parser.SqlParse;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
