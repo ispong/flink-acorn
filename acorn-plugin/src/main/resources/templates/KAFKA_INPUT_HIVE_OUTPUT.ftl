@@ -27,7 +27,7 @@ public class FlinkJob {
         tEnv.executeSql("${fromConnectorSql}");
 
         // --- insert ---
-        Table fromData = tEnv.from(${fromTableName});
+        Table fromData = tEnv.from("${fromTableName}");
 
         ${filterCode}
 
