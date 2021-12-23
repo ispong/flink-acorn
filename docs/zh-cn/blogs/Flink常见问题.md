@@ -88,9 +88,6 @@ wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.22
 tar -vzxf mysql-connector-java-8.0.22.tar.gz 
 cp mysql-connector-java-8.0.22/mysql-connector-java-8.0.22.jar /opt/flink/lib/
 
-cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-jdbc_2.12/1.14.0/flink-connector-jdbc_2.12-1.14.0.jar /opt/flink/lib/ 
-
-# 重启flink
 cd /opt/flink
 sudo bash ./bin/start-cluster.sh
 # sudo bash ./bin/stop-cluster.sh
@@ -243,8 +240,106 @@ java.lang.NoSuchMethodError: org.apache.calcite.sql.parser.SqlParser.config()Lor
 ```
 
 ```bash
-#cp /home/dehoop/.m2/repository/org/apache/flink/flink-table-planner-blink_2.12/1.13.0/flink-table-planner-blink_2.12-1.13.0.jar  /opt/flink/lib
-cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-hive_2.12/1.14.0/flink-connector-hive_2.12-1.14.0.jar /opt/flink/lib/
+cp /home/dehoop/.m2/repository/org/apache/flink/flink-table-planner_2.12/1.14.0/flink-table-planner_2.12-1.14.0.jar /opt/flink/lib
+cp /home/dehoop/.m2/repository/org/apache/flink/flink-table-planner-blink_2.12/1.12.4/flink-table-planner-blink_2.12-1.12.4.jar /opt/flink/lib
+#cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-hive_2.12/1.14.0/flink-connector-hive_2.12-1.14.0.jar /opt/flink/lib/
+## 重启flink
+cd /opt/flink
+sudo bash ./bin/start-cluster.sh
+## sudo bash ./bin/stop-cluster.sh
+
+# 添加一下依赖
+    <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-planner_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+```
+
+##### 
+
+```log
+org.apache.flink.client.program.ProgramInvocationException: The main method caused an error: Could not instantiate the executor. Make sure a planner module is on the classpath
+        at org.apache.flink.client.program.PackagedProgram.callMainMethod(PackagedProgram.java:372)
+        at org.apache.flink.client.program.PackagedProgram.invokeInteractiveModeForExecution(PackagedProgram.java:222)
+        at org.apache.flink.client.ClientUtils.executeProgram(ClientUtils.java:114)
+        at org.apache.flink.client.cli.CliFrontend.executeProgram(CliFrontend.java:812)
+        at org.apache.flink.client.cli.CliFrontend.run(CliFrontend.java:246)
+        at org.apache.flink.client.cli.CliFrontend.parseAndRun(CliFrontend.java:1054)
+        at org.apache.flink.client.cli.CliFrontend.lambda$main$10(CliFrontend.java:1132)
+        at org.apache.flink.runtime.security.contexts.NoOpSecurityContext.runSecured(NoOpSecurityContext.java:28)
+        at org.apache.flink.client.cli.CliFrontend.main(CliFrontend.java:1132)
+Caused by: org.apache.flink.table.api.TableException: Could not instantiate the executor. Make sure a planner module is on the classpath
+        at org.apache.flink.table.api.bridge.java.internal.StreamTableEnvironmentImpl.lookupExecutor(StreamTableEnvironmentImpl.java:185)
+        at org.apache.flink.table.api.bridge.java.internal.StreamTableEnvironmentImpl.create(StreamTableEnvironmentImpl.java:148)
+        at org.apache.flink.table.api.bridge.java.StreamTableEnvironment.create(StreamTableEnvironment.java:128)
+        at com.isxcode.acorn.template.FlinkJob.main(FlinkJob.java:20)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.flink.client.program.PackagedProgram.callMainMethod(PackagedProgram.java:355)
+        ... 8 more
+Caused by: org.apache.flink.table.api.TableException: Could not load service provider for factories.
+        at org.apache.flink.table.factories.FactoryUtil.discoverFactories(FactoryUtil.java:625)
+        at org.apache.flink.table.factories.FactoryUtil.discoverFactory(FactoryUtil.java:376)
+        at org.apache.flink.table.api.bridge.java.internal.StreamTableEnvironmentImpl.lookupExecutor(StreamTableEnvironmentImpl.java:176)
+        ... 16 more
+Caused by: java.util.ServiceConfigurationError: org.apache.flink.table.factories.Factory: Provider org.apache.flink.table.formats.raw.RawFormatFactory could not be instantiated
+        at java.util.ServiceLoader.fail(ServiceLoader.java:232)
+        at java.util.ServiceLoader.access$100(ServiceLoader.java:185)
+        at java.util.ServiceLoader$LazyIterator.nextService(ServiceLoader.java:384)
+        at java.util.ServiceLoader$LazyIterator.next(ServiceLoader.java:404)
+        at java.util.ServiceLoader$1.next(ServiceLoader.java:480)
+        at java.util.Iterator.forEachRemaining(Iterator.java:116)
+        at org.apache.flink.table.factories.FactoryUtil.discoverFactories(FactoryUtil.java:621)
+        ... 18 more
+Caused by: java.lang.NoClassDefFoundError: org/apache/flink/shaded/guava18/com/google/common/collect/Sets
+        at org.apache.flink.table.formats.raw.RawFormatFactory.<clinit>(RawFormatFactory.java:144)
+        at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+        at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+        at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+        at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+        at java.lang.Class.newInstance(Class.java:442)
+        at java.util.ServiceLoader$LazyIterator.nextService(ServiceLoader.java:380)
+        ... 22 more
+Caused by: java.lang.ClassNotFoundException: org.apache.flink.shaded.guava18.com.google.common.collect.Sets
+        at java.net.URLClassLoader.findClass(URLClassLoader.java:381)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:424)
+        at org.apache.flink.util.FlinkUserCodeClassLoader.loadClassWithoutExceptionHandling(FlinkUserCodeClassLoader.java:64)
+        at org.apache.flink.util.ChildFirstClassLoader.loadClassWithoutExceptionHandling(ChildFirstClassLoader.java:65)
+        at org.apache.flink.util.FlinkUserCodeClassLoader.loadClass(FlinkUserCodeClassLoader.java:48)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:357)
+        ... 29 more
+```
+
+```bash
+antlr-runtime-3.5.2.jar
+```
+
+
+##### 不支持mysql
+
+```log
+Caused by: org.apache.flink.table.api.ValidationException: Could not find any factory for identifier 'jdbc' that implements 'org.apache.flink.table.factories.DynamicTableFactory' in the classpath.
+
+Available factory identifiers are:
+
+blackhole
+datagen
+filesystem
+kafka
+print
+upsert-kafka
+        at org.apache.flink.table.factories.FactoryUtil.discoverFactory(FactoryUtil.java:397)
+        at org.apache.flink.table.factories.FactoryUtil.enrichNoMatchingConnectorError(FactoryUtil.java:581)
+        ... 34 more
+```
+
+```bash
+cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-jdbc_2.12/1.14.0/flink-connector-jdbc_2.12-1.14.0.jar /opt/flink/lib/ 
+
 # 重启flink
 cd /opt/flink
 sudo bash ./bin/start-cluster.sh
