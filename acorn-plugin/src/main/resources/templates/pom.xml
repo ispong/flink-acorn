@@ -18,7 +18,7 @@
 		<!-- flink -->
 		<flink.version>1.14.0</flink.version>
 		<scala.binary.version>2.12</scala.binary.version>
-		<hive.version>2.1.1</hive.version>
+		<hive.version>2.3.4</hive.version>
 		<mysql.version>8.0.27</mysql.version>
 		<log4j.version>[2.15.0,)</log4j.version>
 	</properties>
