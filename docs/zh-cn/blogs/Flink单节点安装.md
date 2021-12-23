@@ -66,3 +66,30 @@ cd /opt/flink
 sudo bash ./bin/stop-cluster.sh
 sudo bash ./bin/start-cluster.sh
 ```
+
+#### 支持hive
+
+```bash
+# hive下的jars
+cp /opt/cloudera/parcels/CDH/jars/hive-*.jar /opt/flink/lib/ 
+# hadoop下的jars
+cp /opt/cloudera/parcels/CDH/jars/hadoop-*.jar /opt/flink/lib/
+# flink-connector-hive_xxx.jar
+cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-hive_2.12/1.14.0/flink-connector-hive_2.12-1.14.0.jar /opt/flink/lib/
+
+# 修改配置
+vim /opt/flink/conf/flink-conf.yaml
+
+# --- sudo vim /opt/flink/conf/flink-conf.yaml ---
+classloader.check-leaked-classloader: false
+# --- sudo vim /opt/flink/conf/flink-conf.yaml ---
+
+# 修改配置
+vim /opt/flink/conf/hive-site.xml
+
+# 重启flink
+cd /opt/flink
+sudo bash ./bin/stop-cluster.sh
+sudo bash ./bin/start-cluster.sh
+```
+

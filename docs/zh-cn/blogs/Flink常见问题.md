@@ -200,7 +200,7 @@ Caused by: java.lang.ClassNotFoundException: org.apache.thrift.TException
 
 ```bash
 #将 hive lib下的包全部复制到flink/lib下
-cp /opt/cloudera/parcels/CDH/lib/hive/lib/*.jar  /opt/flink/lib/
+cp /opt/cloudera/parcels/CDH/lib/hive/lib/hive-exce.jar  /opt/flink/lib/
 
 # 重启flink
 cd /opt/flink
@@ -344,4 +344,51 @@ cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-jdbc_2.12/1.14.0
 cd /opt/flink
 sudo bash ./bin/start-cluster.sh
 # sudo bash ./bin/stop-cluster.sh
+```
+
+
+####
+
+```log
+ The program finished with the following exception:
+
+org.apache.flink.client.program.ProgramInvocationException: The main method caused an error: Could not find any factory for identifier 'hive' that implements 'org.apache.flink.table.planner.delegation.ParserFactory' in the classpath.
+
+Available factory identifiers are:
+
+default
+        at org.apache.flink.client.program.PackagedProgram.callMainMethod(PackagedProgram.java:372)
+        at org.apache.flink.client.program.PackagedProgram.invokeInteractiveModeForExecution(PackagedProgram.java:222)
+        at org.apache.flink.client.ClientUtils.executeProgram(ClientUtils.java:114)
+        at org.apache.flink.client.cli.CliFrontend.executeProgram(CliFrontend.java:812)
+        at org.apache.flink.client.cli.CliFrontend.run(CliFrontend.java:246)
+        at org.apache.flink.client.cli.CliFrontend.parseAndRun(CliFrontend.java:1054)
+        at org.apache.flink.client.cli.CliFrontend.lambda$main$10(CliFrontend.java:1132)
+        at java.security.AccessController.doPrivileged(Native Method)
+        at javax.security.auth.Subject.doAs(Subject.java:422)
+        at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1875)
+        at org.apache.flink.runtime.security.contexts.HadoopSecurityContext.runSecured(HadoopSecurityContext.java:41)
+        at org.apache.flink.client.cli.CliFrontend.main(CliFrontend.java:1132)
+Caused by: org.apache.flink.table.api.ValidationException: Could not find any factory for identifier 'hive' that implements 'org.apache.flink.table.planner.delegation.ParserFactory' in the classpath.
+
+Available factory identifiers are:
+
+default
+        at org.apache.flink.table.factories.FactoryUtil.discoverFactory(FactoryUtil.java:397)
+        at org.apache.flink.table.planner.delegation.PlannerBase.createNewParser(PlannerBase.scala:161)
+        at org.apache.flink.table.planner.delegation.PlannerBase.getParser(PlannerBase.scala:169)
+        at org.apache.flink.table.api.internal.TableEnvironmentImpl.getParser(TableEnvironmentImpl.java:1613)
+        at org.apache.flink.table.api.internal.TableEnvironmentImpl.createTemporaryView(TableEnvironmentImpl.java:495)
+        at com.isxcode.acorn.template.FlinkJob.main(FlinkJob.java:47)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:498)
+        at org.apache.flink.client.program.PackagedProgram.callMainMethod(PackagedProgram.java:355)
+        ... 11 more
+
+```
+
+```bash
+
 ```
