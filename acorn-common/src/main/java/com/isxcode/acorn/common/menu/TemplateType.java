@@ -20,7 +20,12 @@ public enum TemplateType {
     /**
      * kafka输入hive输出
      */
-    KAFKA_INPUT_HIVE_OUTPUT("KAFKA_INPUT_HIVE_OUTPUT.ftl"),;
+    KAFKA_INPUT_HIVE_OUTPUT("KAFKA_INPUT_HIVE_OUTPUT.ftl"),
+
+    /**
+     * kafka输入doris输出
+     */
+    KAFKA_INPUT_DORIS_OUTPUT("KAFKA_INPUT_DORIS_OUTPUT.ftl"),;
 
     @Getter
     private final String templateFileName;
