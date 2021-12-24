@@ -4,7 +4,7 @@
 
 <h4 align="center">
     <a href="https://ispong.github.io/flink-acorn" >
-        https://ispong.github.io/flink-acorn
+        👉🏻👉🏻👉🏻 https://ispong.github.io/flink-acorn
     </a>
 </h4>
 
@@ -36,35 +36,6 @@
 
 ### 📦 安装使用
 
-#### 插件安装（服务器端）
-
-```bash
-git clone https://github.com/ispong/flink-acorn.git
-```
-
-```bash
-vim flink-acorn/acorn-plugin/src/main/resources/application.yml 
-```
-
-```yaml
-server:
-  port: 30155
-
-acorn:
-  plugin:
-    log-dir: /home/acorn/log
-    tmp-dir: /home/acorn/tmp
-    server-key: acorn-key
-    flink-port: 8081
-    storage-tmp: false
-```
-
-```bash
-cd flink-acorn/acorn-plugin && mvn clean package && java -jar ./target/acorn-plugin.jar
-```
-
-#### 插件使用（客户端）
-
 ```xml
 <dependency>
     <groupId>com.isxcode.acorn</groupId>
@@ -89,13 +60,9 @@ public class DemoController {
     private final AcornTemplate acornTemplate;
 
     public DemoController(AcornTemplate acornTemplate) {
-        
         this.acornTemplate = acornTemplate;
     }
-
-    /**
-     * 发布作业  返回jobId
-     */
+    
     @GetMapping("/execute")
     public String execute() {
 
@@ -110,35 +77,6 @@ public class DemoController {
 
         AcornResponse acornResponse = acornTemplate.build().execute(acornModel1);
         return acornResponse.getAcornData().getJobId();
-    }
-
-    /**
-     * 获取作业日志
-     */
-    @GetMapping("/getLog")
-    public String getLog() {
-
-        AcornResponse log = acornTemplate.build().getLog("1314520");
-        return log.getAcornData().getJobLog();
-    }
-
-    /**
-     * 获取作业运行状态
-     */
-    @GetMapping("/getJobStatus")
-    public String getJobStatus() {
-
-        AcornResponse jobInfo = acornTemplate.build().getJobInfo("jobId");
-        return jobInfo.getAcornData().getJobInfo().getState();
-    }
-
-    /**
-     * 停止作业
-     */
-    @GetMapping("/stopJob")
-    public void stop() {
-
-        acornTemplate.build().stopJob("jobId");
     }
 }
 ```
