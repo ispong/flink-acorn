@@ -8,20 +8,16 @@ import com.isxcode.acorn.common.pojo.dto.JobStatusResultDto;
 import com.isxcode.acorn.common.pojo.model.AcornModel1;
 import com.isxcode.acorn.common.properties.AcornPluginProperties;
 import com.isxcode.acorn.plugin.exception.AcornException;
-import com.isxcode.acorn.plugin.utils.AcornFileUtils;
-import com.isxcode.acorn.plugin.utils.CommandUtils;
 import com.isxcode.acorn.plugin.utils.ParseSqlUtils;
+import com.isxcode.oxygen.core.command.CommandUtils;
 import com.isxcode.oxygen.core.file.FileUtils;
+import com.isxcode.oxygen.core.freemarker.FreemarkerUtils;
 import com.isxcode.oxygen.core.http.HttpUtils;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import io.micrometer.core.instrument.util.IOUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,13 +32,9 @@ public class AcornBizService {
 
     private final AcornPluginProperties acornPluginProperties;
 
-    private final FreeMarkerConfigurer freeMarkerConfigurer;
-
-    public AcornBizService(AcornPluginProperties acornPluginProperties,
-                           FreeMarkerConfigurer freeMarkerConfigurer) {
+    public AcornBizService(AcornPluginProperties acornPluginProperties) {
 
         this.acornPluginProperties = acornPluginProperties;
-        this.freeMarkerConfigurer = freeMarkerConfigurer;
     }
 
     /**
@@ -50,17 +42,9 @@ public class AcornBizService {
      */
     public AcornData execute(AcornModel1 acornModel) throws AcornException {
 
+        // 如果需要支持hive需要加载配置路径
         if (TemplateType.KAFKA_INPUT_HIVE_OUTPUT.equals(acornModel.getTemplateName())) {
             acornModel.setHiveConfigPath(acornPluginProperties.getHiveConfPath());
-        }
-
-        // 获取模板
-        Template template;
-        try {
-            template = freeMarkerConfigurer.getConfiguration().getTemplate(acornModel.getTemplateName().getTemplateFileName());
-        } catch (IOException e) {
-            log.debug(e.getMessage());
-            throw new AcornException("10001", "模板不存在");
         }
 
         // 解析connectorSql中表名
@@ -68,18 +52,12 @@ public class AcornBizService {
         acornModel.setToTableName(ParseSqlUtils.getTableName(acornModel.getToConnectorSql()));
 
         // 生成FlinkJob.java代码
-        String flinkJobJavaCode;
-        try {
-            flinkJobJavaCode = FreeMarkerTemplateUtils.processTemplateIntoString(template, acornModel);
-            log.debug(flinkJobJavaCode);
-        } catch (IOException | TemplateException e) {
-            log.debug(e.getMessage());
-            throw new AcornException("10002", "代码生成错误");
-        }
+        String flinkJobJavaCode = FreemarkerUtils.templateToString(acornModel.getTemplateName().getTemplateFileName(), acornModel);
+        log.debug(flinkJobJavaCode);
 
         // 创建FlinkJob.java文件
         String tmpPath = acornPluginProperties.getTmpDir() + File.separator + acornModel.getExecuteId();
-        String flinkJobPath = tmpPath + FileConstants.JOB_HOME_PATH + File.separator + FileConstants.JOB_FILE_NAME;
+        String flinkJobPath = tmpPath + FileConstants.JOB_TMP_PATH + File.separator + FileConstants.JOB_FILE_NAME;
         FileUtils.StringToFile(flinkJobJavaCode, flinkJobPath, StandardOpenOption.WRITE);
 
         // 创建pom.xml文件
@@ -101,7 +79,7 @@ public class AcornBizService {
 
         // 删除临时项目文件
         if (!acornPluginProperties.isStorageTmp()) {
-            AcornFileUtils.RecursionDeleteFile(Paths.get(tmpPath));
+            FileUtils.RecursionDeleteFile(Paths.get(tmpPath));
         }
 
         // 读取日志最后一行 Job has been submitted with JobID 133d87e09f586e72e1f1fe2575d1a3c4
@@ -154,17 +132,14 @@ public class AcornBizService {
     public AcornData getJobInfo(String jobId) {
 
         JobStatusResultDto jobStatusResultDto = HttpUtils.doGet("http://127.0.0.1:" + acornPluginProperties.getFlinkPort() + "/jobs/overview", JobStatusResultDto.class);
-
         if (jobStatusResultDto.getJobs() == null) {
             return null;
         }
-
         for (JobStatusDto metaJob : jobStatusResultDto.getJobs()) {
             if (metaJob.getJid().equals(jobId)) {
                 return AcornData.builder().jobInfo(metaJob).build();
             }
         }
-
         return null;
     }
 }

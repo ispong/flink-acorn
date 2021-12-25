@@ -8,5 +8,7 @@ acorn:
     storage-tmp: true
 
 logging:
+  group:
+    acorn: com.isxcode.acorn.plugin
   level:
-    root: debug
+    acorn: debug

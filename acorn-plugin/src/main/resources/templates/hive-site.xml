@@ -6,7 +6,7 @@
     <!-- hive配置的数据库 -->
     <property>
         <name>javax.jdo.option.ConnectionURL</name>
-        <value>jdbc:mysql://dcloud-dev:30102/cdh_hive</value>
+        <value>jdbc:mysql://xxx:xxx/xxx</value>
     </property>
 
     <!-- 驱动 -->
@@ -18,18 +18,19 @@
     <!-- 账号 -->
     <property>
         <name>javax.jdo.option.ConnectionUserName</name>
-        <value>dehoop</value>
+        <value>xxx</value>
     </property>
 
     <!-- 密码 -->
     <property>
         <name>javax.jdo.option.ConnectionPassword</name>
-        <value>dehoop2021</value>
+        <value>xxx</value>
     </property>
 
+    <!-- thrift url s-->
     <property>
         <name>hive.metastore.uris</name>
-        <value>thrift://dcloud-dev:30123</value>
+        <value>thrift://xxx:xxx</value>
     </property>
 
 </configuration>

@@ -6,20 +6,22 @@ import com.isxcode.acorn.plugin.exception.AcornException;
 import com.isxcode.acorn.plugin.service.AcornBizService;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 作业相关接口
+ */
 @RestController
-@RequestMapping("job")
-public class AcornController {
+@RequestMapping("/job")
+public class JobController {
 
     private final AcornBizService acornBizService;
 
-    public AcornController(AcornBizService acornBizService) {
+    public JobController(AcornBizService acornBizService) {
+
         this.acornBizService = acornBizService;
     }
 
     /**
      * 执行flink作业
-     *
-     * @return code 错误码
      */
     @PostMapping("/execute")
     public AcornResponse executeFlink(@RequestBody AcornModel1 acornModel) {
@@ -45,7 +47,6 @@ public class AcornController {
     public AcornResponse getJobLog(@RequestParam String executeId) {
 
         AcornResponse acornResponse = new AcornResponse();
-
         try {
             acornResponse.setCode("200");
             acornResponse.setMessage("查询日志成功");
@@ -54,7 +55,6 @@ public class AcornController {
             acornResponse.setCode(e.getCode());
             acornResponse.setMessage(e.getMsg());
         }
-
         return acornResponse;
     }
 
@@ -65,7 +65,6 @@ public class AcornController {
     public AcornResponse stopJob(@RequestParam String jobId) {
 
         AcornResponse acornResponse = new AcornResponse();
-
         try {
             acornResponse.setCode("200");
             acornResponse.setMessage("停止实时作业成功");
@@ -74,7 +73,6 @@ public class AcornController {
             acornResponse.setCode(e.getCode());
             acornResponse.setMessage(e.getMsg());
         }
-
         return acornResponse;
     }
 
@@ -82,10 +80,9 @@ public class AcornController {
      * 获取实时作业运行状态
      */
     @GetMapping("/getJobStatus")
-    public AcornResponse getJobInfo(@RequestParam String jobId) {
+    public AcornResponse getJobStatus(@RequestParam String jobId) {
 
         AcornResponse acornResponse = new AcornResponse();
-
         try {
             acornResponse.setCode("200");
             acornResponse.setMessage("获取实时作业成功");
@@ -94,7 +91,6 @@ public class AcornController {
             acornResponse.setCode(e.getCode());
             acornResponse.setMessage(e.getMsg());
         }
-
         return acornResponse;
     }
 

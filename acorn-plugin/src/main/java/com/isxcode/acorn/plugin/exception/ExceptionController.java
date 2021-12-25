@@ -1,4 +1,4 @@
-package com.isxcode.acorn.plugin.controller;
+package com.isxcode.acorn.plugin.exception;
 
 import com.isxcode.acorn.common.menu.ResponseEnum;
 import com.isxcode.acorn.common.pojo.dto.AcornResponse;
@@ -10,28 +10,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExceptionController {
 
     /**
-     * token为null异常
+     * key为null
      */
-    @RequestMapping("/tokenIsNull")
-    public AcornResponse tokenIsNull() {
+    @RequestMapping("/keyIsNull")
+    public AcornResponse keyIsNull() {
 
         return new AcornResponse(ResponseEnum.REMOTE_ERROR);
     }
 
     /**
-     * token不合法异常
+     * key错误
      */
-    @RequestMapping("/tokenIsInvalid")
-    public AcornResponse tokenIsInvalid() {
-
-        return new AcornResponse(ResponseEnum.REMOTE_ERROR);
-    }
-
-    /**
-     * 权限不足异常
-     */
-    @RequestMapping("/authError")
-    public AcornResponse exceptionAuthError() {
+    @RequestMapping("/keyIsError")
+    public AcornResponse keyIsError() {
 
         return new AcornResponse(ResponseEnum.REMOTE_ERROR);
     }
