@@ -5,6 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.io.File;
 
+/**
+ * 服务器查询相关配置
+ */
 @Data
 @ConfigurationProperties("acorn.plugin")
 public class AcornPluginProperties {

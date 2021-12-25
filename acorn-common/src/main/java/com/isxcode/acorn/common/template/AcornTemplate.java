@@ -2,18 +2,23 @@ package com.isxcode.acorn.common.template;
 
 import com.isxcode.acorn.common.constant.SecurityConstants;
 import com.isxcode.acorn.common.constant.UrlConstants;
+import com.isxcode.acorn.common.menu.ResponseEnum;
 import com.isxcode.acorn.common.pojo.dto.AcornResponse;
-import com.isxcode.acorn.common.pojo.model.AcornModel;
 import com.isxcode.acorn.common.pojo.model.AcornModel1;
 import com.isxcode.acorn.common.properties.AcornNodeProperties;
 import com.isxcode.oxygen.core.http.HttpUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * acornTemplate 提供快捷方式访问
+ */
 @Service
+@Slf4j
 public class AcornTemplate {
 
     private final AcornNodeProperties acornNodeProperties;
@@ -25,15 +30,15 @@ public class AcornTemplate {
 
     public AcornTemplate.Builder build() {
 
-        return new AcornTemplate.Builder(acornNodeProperties);
+        return new Builder(acornNodeProperties);
     }
 
     public AcornTemplate.Builder build(String host, int port, String key) {
 
-        return new AcornTemplate.Builder(host, port, key);
+        return new Builder(host, port, key);
     }
 
-    public class Builder {
+    public static class Builder {
 
         private final AcornNodeProperties acornNodeProperties;
 
@@ -54,37 +59,46 @@ public class AcornTemplate {
         public AcornResponse execute(AcornModel1 acornModel1) {
 
             try {
+
                 String executeUrl = String.format(UrlConstants.EXECUTE_URL, acornNodeProperties.getHost(), acornNodeProperties.getPort());
+
                 Map<String, String> headers = new HashMap<>();
                 headers.put(SecurityConstants.HEADER_AUTHORIZATION, acornNodeProperties.getKey());
+
                 return HttpUtils.doPost(executeUrl, headers, acornModel1, AcornResponse.class);
             } catch (IOException e) {
-                e.printStackTrace();
-                return null;
+                log.debug(e.getMessage());
+                return new AcornResponse(ResponseEnum.REMOTE_ERROR);
             }
         }
 
-        public AcornResponse getLog(String executeId) {
+        public AcornResponse getJobLog(String executeId) {
 
-            String executeUrl = String.format(UrlConstants.GET_FLINK_LOG_URL + "?executeId=" + executeId, acornNodeProperties.getHost(), acornNodeProperties.getPort());
+            String executeUrl = String.format(UrlConstants.GET_JOB_LOG_URL + executeId, acornNodeProperties.getHost(), acornNodeProperties.getPort());
+
             Map<String, String> headers = new HashMap<>();
             headers.put(SecurityConstants.HEADER_AUTHORIZATION, acornNodeProperties.getKey());
+
             return HttpUtils.doGet(executeUrl, headers, AcornResponse.class);
         }
 
         public AcornResponse stopJob(String jobId) {
 
-            String executeUrl = String.format(UrlConstants.STOP_FLINK_URL + "?jobId=" + jobId, acornNodeProperties.getHost(), acornNodeProperties.getPort());
+            String executeUrl = String.format(UrlConstants.STOP_JOB_URL + jobId, acornNodeProperties.getHost(), acornNodeProperties.getPort());
+
             Map<String, String> headers = new HashMap<>();
             headers.put(SecurityConstants.HEADER_AUTHORIZATION, acornNodeProperties.getKey());
+
             return HttpUtils.doGet(executeUrl, headers, AcornResponse.class);
         }
 
-        public AcornResponse getJobInfo(String jobId) {
+        public AcornResponse getJobStatus(String jobId) {
 
-            String executeUrl = String.format(UrlConstants.GET_FLINK_URL + "?jobId=" + jobId, acornNodeProperties.getHost(), acornNodeProperties.getPort());
+            String executeUrl = String.format(UrlConstants.GET_JOB_STATUS_URL + jobId, acornNodeProperties.getHost(), acornNodeProperties.getPort());
+
             Map<String, String> headers = new HashMap<>();
             headers.put(SecurityConstants.HEADER_AUTHORIZATION, acornNodeProperties.getKey());
+
             return HttpUtils.doGet(executeUrl, headers, AcornResponse.class);
         }
     }

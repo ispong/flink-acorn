@@ -1,5 +1,8 @@
 package com.isxcode.acorn.common.menu;
 
+/**
+ * flink 支持的字段类型
+ */
 public enum FlinkColType {
 
     CHAR,

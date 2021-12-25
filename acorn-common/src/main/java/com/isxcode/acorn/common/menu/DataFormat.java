@@ -1,7 +1,7 @@
 package com.isxcode.acorn.common.menu;
 
 /**
- * 数据类型
+ * Flink 支持的数据类型
  */
 public enum DataFormat {
 

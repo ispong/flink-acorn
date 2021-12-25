@@ -11,8 +11,14 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties({AcornPluginProperties.class, AcornNodeProperties.class})
 public class AcornAutoConfig {
 
+    /**
+     * 初始化用户默认配置的节点信息
+     *
+     * @param acornNodeProperties acornNodeProperties
+     * @return AcornTemplate
+     */
     @Bean("acornTemplate")
-    public AcornTemplate initAcornTemplate(AcornNodeProperties acornNodeProperties) {
+    public AcornTemplate acornTemplate(AcornNodeProperties acornNodeProperties) {
 
         return new AcornTemplate(acornNodeProperties);
     }

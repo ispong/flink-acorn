@@ -1,9 +1,14 @@
 package com.isxcode.acorn.common.pojo.dto;
 
 import com.isxcode.acorn.common.menu.ResponseEnum;
+import lombok.Builder;
 import lombok.Data;
 
+/**
+ * acorn 请求返回体
+ */
 @Data
+@Builder
 public class AcornResponse {
 
     private String code;

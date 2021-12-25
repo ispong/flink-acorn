@@ -3,6 +3,9 @@ package com.isxcode.acorn.common.properties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+/**
+ * flink节点配置
+ */
 @Data
 @ConfigurationProperties("acorn.node")
 public class AcornNodeProperties {

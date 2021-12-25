@@ -7,7 +7,7 @@ import com.isxcode.acorn.plugin.service.AcornBizService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("flink-acorn")
+@RequestMapping("job")
 public class AcornController {
 
     private final AcornBizService acornBizService;
@@ -81,7 +81,7 @@ public class AcornController {
     /**
      * 获取实时作业运行状态
      */
-    @GetMapping("/getJobInfo")
+    @GetMapping("/getJobStatus")
     public AcornResponse getJobInfo(@RequestParam String jobId) {
 
         AcornResponse acornResponse = new AcornResponse();

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ColumnMapping {
+public class ColMapping {
 
     private String fromCol;
 

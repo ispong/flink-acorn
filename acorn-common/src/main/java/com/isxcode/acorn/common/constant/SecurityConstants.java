@@ -1,19 +1,22 @@
 package com.isxcode.acorn.common.constant;
 
+/**
+ * 安全相关静态参数
+ */
 public interface SecurityConstants {
 
     /**
-     * 请求头参数
+     * 请求头中key的名称
      */
-    String HEADER_AUTHORIZATION = "acornkey";
+    String HEADER_AUTHORIZATION = "Acorn-Key";
 
     /**
-     * token为null跳转路径
+     * 请求中没有key
      */
-    String TOKEN_IS_NULL_PATH = "/exception/tokenIsNull";
+    String KEY_IS_NULL_EXCEPTION = "/exception/keyIsNull";
 
     /**
-     * 权限不足跳转路径
+     * 请求中key错误
      */
-    String AUTH_ERROR_PATH = "/exception/authError";
+    String KEY_IS_ERROR_EXCEPTION = "/exception/keyIsError";
 }

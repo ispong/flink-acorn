@@ -3,7 +3,7 @@ package com.isxcode.acorn.common.menu;
 import lombok.Getter;
 
 /**
- * 作业类型
+ * 作业类型对应的模板名称
  */
 public enum TemplateType {
 
@@ -25,7 +25,8 @@ public enum TemplateType {
     /**
      * kafka输入doris输出
      */
-    KAFKA_INPUT_DORIS_OUTPUT("KAFKA_INPUT_DORIS_OUTPUT.ftl"),;
+    KAFKA_INPUT_DORIS_OUTPUT("KAFKA_INPUT_DORIS_OUTPUT.ftl"),
+    ;
 
     @Getter
     private final String templateFileName;
@@ -33,6 +34,5 @@ public enum TemplateType {
     TemplateType(String templateFileName) {
 
         this.templateFileName = templateFileName;
-    };
-
+    }
 }

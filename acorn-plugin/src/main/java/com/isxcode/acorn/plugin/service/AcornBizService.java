@@ -1,9 +1,9 @@
 package com.isxcode.acorn.plugin.service;
 
-import com.isxcode.acorn.common.constant.FlinkConstants;
+import com.isxcode.acorn.common.constant.FileConstants;
 import com.isxcode.acorn.common.menu.TemplateType;
 import com.isxcode.acorn.common.pojo.dto.AcornData;
-import com.isxcode.acorn.common.pojo.dto.JobInfoDto;
+import com.isxcode.acorn.common.pojo.dto.JobStatusDto;
 import com.isxcode.acorn.common.pojo.dto.JobStatusResultDto;
 import com.isxcode.acorn.common.pojo.model.AcornModel1;
 import com.isxcode.acorn.common.properties.AcornPluginProperties;
@@ -29,7 +29,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @Service
@@ -80,15 +79,15 @@ public class AcornBizService {
 
         // 创建FlinkJob.java文件
         String tmpPath = acornPluginProperties.getTmpDir() + File.separator + acornModel.getExecuteId();
-        String flinkJobPath = tmpPath + FlinkConstants.JOB_HOME_PATH + File.separator + FlinkConstants.JOB_FILE_NAME;
+        String flinkJobPath = tmpPath + FileConstants.JOB_HOME_PATH + File.separator + FileConstants.JOB_FILE_NAME;
         FileUtils.StringToFile(flinkJobJavaCode, flinkJobPath, StandardOpenOption.WRITE);
 
         // 创建pom.xml文件
-        String flinkPomFilePath = acornPluginProperties.getTmpDir() + File.separator + acornModel.getExecuteId() + File.separator + FlinkConstants.POM_XML;
+        String flinkPomFilePath = acornPluginProperties.getTmpDir() + File.separator + acornModel.getExecuteId() + File.separator + FileConstants.POM_XML;
         FileUtils.copyResourceFile("templates/pom.xml", flinkPomFilePath, StandardOpenOption.WRITE);
 
         // 创建日志文件
-        String logPath = acornPluginProperties.getLogDir() + File.separator + acornModel.getExecuteId() + FlinkConstants.LOG_SUFFIX;
+        String logPath = acornPluginProperties.getLogDir() + File.separator + acornModel.getExecuteId() + FileConstants.LOG_SUFFIX;
         FileUtils.generateFile(logPath);
 
         // 执行编译且运行作业
@@ -122,7 +121,7 @@ public class AcornBizService {
      */
     public AcornData getJobLog(String executeId) {
 
-        String logPath = acornPluginProperties.getLogDir() + File.separator + executeId + FlinkConstants.LOG_SUFFIX;
+        String logPath = acornPluginProperties.getLogDir() + File.separator + executeId + FileConstants.LOG_SUFFIX;
         Path path = Paths.get(logPath);
         Resource resource;
         try {
@@ -160,7 +159,7 @@ public class AcornBizService {
             return null;
         }
 
-        for (JobInfoDto metaJob : jobStatusResultDto.getJobs()) {
+        for (JobStatusDto metaJob : jobStatusResultDto.getJobs()) {
             if (metaJob.getJid().equals(jobId)) {
                 return AcornData.builder().jobInfo(metaJob).build();
             }
