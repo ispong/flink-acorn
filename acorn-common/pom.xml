@@ -118,8 +118,6 @@
                         </goals>
                         <configuration>
                             <executable>gpg</executable>
-                            <keyname>7219EB0C</keyname>
-                            <passphrase>Song151617..</passphrase>
                         </configuration>
                     </execution>
                 </executions>
