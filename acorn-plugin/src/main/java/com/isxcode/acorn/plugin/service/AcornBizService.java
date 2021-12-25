@@ -10,6 +10,7 @@ import com.isxcode.acorn.common.properties.AcornPluginProperties;
 import com.isxcode.acorn.plugin.exception.AcornException;
 import com.isxcode.acorn.plugin.utils.ParseSqlUtils;
 import com.isxcode.oxygen.core.command.CommandUtils;
+import com.isxcode.oxygen.core.exception.OxygenException;
 import com.isxcode.oxygen.core.file.FileUtils;
 import com.isxcode.oxygen.core.freemarker.FreemarkerUtils;
 import com.isxcode.oxygen.core.http.HttpUtils;
@@ -52,7 +53,12 @@ public class AcornBizService {
         acornModel.setToTableName(ParseSqlUtils.getTableName(acornModel.getToConnectorSql()));
 
         // 生成FlinkJob.java代码
-        String flinkJobJavaCode = FreemarkerUtils.templateToString(acornModel.getTemplateName().getTemplateFileName(), acornModel);
+        String flinkJobJavaCode;
+        try {
+            flinkJobJavaCode = FreemarkerUtils.templateToString(acornModel.getTemplateName().getTemplateFileName(), acornModel);
+        } catch (OxygenException e) {
+            throw new AcornException("10007", "代码初始化失败");
+        }
         log.debug(flinkJobJavaCode);
 
         // 创建FlinkJob.java文件
