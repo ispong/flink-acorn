@@ -1,0 +1,7 @@
+server:
+  port: 30155
+
+acorn:
+  plugin:
+    server-key: dehoop-key
+    flink-port: 30114
