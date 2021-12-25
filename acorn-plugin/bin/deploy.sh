@@ -7,6 +7,10 @@ do
     ENV=${key#*=}
 done
 
+# mvn打包
+POM_PATH=../pom.xml
+mvn clean package -f "${POM_PATH}"
+
 # 关闭原有进程
 for metaResult in $(ps -e -o pid,command | grep acorn-plugin.jar)
 do
