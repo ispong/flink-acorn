@@ -45,8 +45,8 @@ taskmanager.numberOfTaskSlots: 20
 
 ```bash
 cd /opt/flink
-sudo bash ./bin/start-cluster.sh
-sudo bash ./bin/stop-cluster.sh
+bash ./bin/start-cluster.sh
+bash ./bin/stop-cluster.sh
 ```
 
 #### 安装测试
@@ -59,23 +59,25 @@ tail /opt/flink/log/flink-*-taskexecutor-*.out
 #### 支持mysql
 
 ```bash
-cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-jdbc_2.12/1.14.0/flink-connector-jdbc_2.12-1.14.0.jar /opt/flink/lib/ 
+cp ~/.m2/repository/org/apache/flink/flink-connector-jdbc_2.12/1.14.0/flink-connector-jdbc_2.12-1.14.0.jar /opt/flink/lib/ 
 
 # 重启flink
 cd /opt/flink
-sudo bash ./bin/stop-cluster.sh
-sudo bash ./bin/start-cluster.sh
+bash ./bin/stop-cluster.sh
+bash ./bin/start-cluster.sh
 ```
 
 #### 支持hive
 
 ```bash
 # hive下的jars
+scp dcloud@cdh-master:/opt/cloudera/parcels/CDH/jars/hive-*.jar /opt/flink/lib/ 
 cp /opt/cloudera/parcels/CDH/jars/hive-*.jar /opt/flink/lib/ 
 # hadoop下的jars
+scp dcloud@cdh-master:/opt/cloudera/parcels/CDH/jars/hadoop-*.jar /opt/flink/lib/ 
 cp /opt/cloudera/parcels/CDH/jars/hadoop-*.jar /opt/flink/lib/
 # flink-connector-hive_xxx.jar
-cp /home/dehoop/.m2/repository/org/apache/flink/flink-connector-hive_2.12/1.14.0/flink-connector-hive_2.12-1.14.0.jar /opt/flink/lib/
+cp ~/.m2/repository/org/apache/flink/flink-connector-hive_2.12/1.14.0/flink-connector-hive_2.12-1.14.0.jar /opt/flink/lib/
 
 # 修改配置
 vim /opt/flink/conf/flink-conf.yaml

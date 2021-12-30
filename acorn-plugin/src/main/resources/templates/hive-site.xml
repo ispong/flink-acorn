@@ -3,7 +3,7 @@
 
 <configuration>
 
-    <!-- hive配置的数据库 -->
+    <!-- hive配置的数据库 3306-->
     <property>
         <name>javax.jdo.option.ConnectionURL</name>
         <value>jdbc:mysql://xxx:xxx/xxx</value>
@@ -27,7 +27,7 @@
         <value>xxx</value>
     </property>
 
-    <!-- thrift url s-->
+    <!-- hive.metastore.port 默认端口号 9083 -->
     <property>
         <name>hive.metastore.uris</name>
         <value>thrift://xxx:xxx</value>
