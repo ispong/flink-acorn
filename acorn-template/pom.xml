@@ -24,7 +24,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <log4j.version>[2.16.0,)</log4j.version>
-        <acorn-common.version>0.0.21-SNAPSHOT</acorn-common.version>
+        <acorn-common.version>0.0.22-SNAPSHOT</acorn-common.version>
     </properties>
 
     <repositories>
