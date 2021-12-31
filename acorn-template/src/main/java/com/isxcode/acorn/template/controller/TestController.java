@@ -27,7 +27,7 @@ public class TestController {
 
         AcornModel1 acornModel1 = AcornModel1.builder()
             .jobName("ispong-test-flink-job")
-//            .executeId("1314520")
+            .executeId("1314520")
             .fromConnectorSql("CREATE TABLE from_table ( " +
                 "  username STRING," +
                 "  age INT " +
@@ -79,9 +79,9 @@ public class TestController {
     }
 
     @GetMapping("/stopJob")
-    public void stop() {
+    public void stop(@RequestParam String jobId) {
 
-        AcornResponse jobId = acornTemplate.build().stopJob("jobId");
-        log.info(jobId.toString());
+        AcornResponse d = acornTemplate.build().stopJob(jobId);
+        log.info(d.toString());
     }
 }
