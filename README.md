@@ -29,7 +29,7 @@
 | [acorn-common](https://ispong.github.io/flink-acorn)   | :white_check_mark: | 提供AcornTemplate组件，方便用户调用插件服务。 |
 | [acorn-plugin](https://ispong.github.io/flink-acorn)   | :white_check_mark: | 服务器插件本体。                      |
 | [acorn-template](https://ispong.github.io/flink-acorn) | :white_check_mark: | 演示客户端如何使用插件。                  |
-| [demos](https://ispong.github.io/flink-acorn)          | :white_check_mark: | 各种flink相关的小demo               |
+| [demos](https://ispong.github.io/flink-acorn)          | :white_check_mark: | 各种flink相关的小demo。              |
 
 ### 📒 相关文档
 
@@ -50,7 +50,7 @@
 ```yaml
 acorn:
   node:
-    host: 39.103.230.188
+    host: xxx.xxx.xxx.xxx
     port: 30155
     key: acorn-key
 ```

@@ -1,7 +1,9 @@
 package com.isxcode.acorn.common.pojo.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -10,6 +12,8 @@ import java.util.List;
  */
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AcornData {
 
     private String jobId;
@@ -19,14 +23,4 @@ public class AcornData {
     private String jobLog;
 
     private List<JobStatusDto> jobInfoList;
-
-    public AcornData() {
-    }
-
-    public AcornData(String jobId, JobStatusDto jobInfo, String jobLog, List<JobStatusDto> jobInfoList) {
-        this.jobId = jobId;
-        this.jobInfo = jobInfo;
-        this.jobLog = jobLog;
-        this.jobInfoList = jobInfoList;
-    }
 }
