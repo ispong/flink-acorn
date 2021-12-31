@@ -1,6 +1,5 @@
 acorn:
   node:
-    host: 127.0.0.1
-#    host: 39.103.230.188
+    host: 39.103.230.188
     port: 30155
-    key: acorn-key
+    key: dehoop-key
