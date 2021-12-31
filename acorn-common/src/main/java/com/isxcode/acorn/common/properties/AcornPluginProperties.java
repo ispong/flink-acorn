@@ -33,6 +33,11 @@ public class AcornPluginProperties {
     private int flinkPort = 8081;
 
     /**
+     * flink默认host
+     */
+    private String flinkHost = "127.0.0.1";
+
+    /**
      * 配置hive文件路径
      */
     private String hiveConfPath = "/opt/flink/conf";

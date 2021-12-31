@@ -1,5 +1,5 @@
 <h1 align="center">
-    Flink Acorn
+    Flink Acorn | 小栗子
 </h1>
 
 <h3 align="center">
@@ -24,17 +24,14 @@
 
 ### ✨ 模块说明
 
-| 模块名                                                    | 状态                 | 说明                                                  |
-|:-------------------------------------------------------|--------------------|:----------------------------------------------------|
-| [acorn-common](https://ispong.github.io/flink-acorn)   | :white_check_mark: | 提供AcornTemplate组件，方便用户调用插件服务。                       |
-| [acorn-plugin](https://ispong.github.io/flink-acorn)   | :white_check_mark: | 服务器插件本体。                                            |
-| [acorn-template](https://ispong.github.io/flink-acorn) | :white_check_mark: | 演示客户端如何使用插件。                                        |
-| [demo1](https://ispong.github.io/flink-acorn)          | :white_check_mark: | kafka -> kafka                                      |
-| [demo2](https://ispong.github.io/flink-acorn)          | :white_check_mark: | kafka -> mysql                                      |
-| [demo3](https://ispong.github.io/flink-acorn)          | :white_check_mark: | kafka -> hive                                       |
-| [demo4](https://ispong.github.io/flink-acorn)          | :white_check_mark: | mysql -> binlog -> kafka -> flink -> kafka -> doris |
+| 模块名                                                    | 状态                 | 说明                            |
+|:-------------------------------------------------------|--------------------|:------------------------------|
+| [acorn-common](https://ispong.github.io/flink-acorn)   | :white_check_mark: | 提供AcornTemplate组件，方便用户调用插件服务。 |
+| [acorn-plugin](https://ispong.github.io/flink-acorn)   | :white_check_mark: | 服务器插件本体。                      |
+| [acorn-template](https://ispong.github.io/flink-acorn) | :white_check_mark: | 演示客户端如何使用插件。                  |
+| [demos](https://ispong.github.io/flink-acorn)          | :white_check_mark: | 各种flink相关的小demo               |
 
-### 📒 文档说明
+### 📒 相关文档
 
 - [快速使用入口](https://ispong.github.io/flink-acorn/#/zh-cn/start/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8)
 - [开发者手册](https://ispong.github.io/flink-acorn/#/zh-cn/contributing)
@@ -77,7 +74,7 @@ public class DemoController {
             .executeId("1314520")
             .fromConnectorSql("CREATE TABLE from_table ( ... ) WITH ( ... )")
             .toConnectorSql("CREATE TABLE to_table ( ... ) WITH ( ... )")
-            .filterCode("Table fromData = tEnv.from( ... ).where( ... );")
+            .filterCode("fromData = tEnv.from( ... ).where( ... );")
             .templateName(TemplateType.KAFKA_INPUT_KAFKA_OUTPUT)
             .build();
 

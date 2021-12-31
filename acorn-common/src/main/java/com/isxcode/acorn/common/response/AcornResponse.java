@@ -1,6 +1,7 @@
-package com.isxcode.acorn.common.pojo.dto;
+package com.isxcode.acorn.common.response;
 
-import com.isxcode.acorn.common.menu.ResponseEnum;
+import com.isxcode.acorn.common.exception.AcornExceptionEnum;
+import com.isxcode.acorn.common.pojo.dto.AcornData;
 import lombok.Builder;
 import lombok.Data;
 
@@ -31,9 +32,9 @@ public class AcornResponse {
         this.message = message;
     }
 
-    public AcornResponse(ResponseEnum responseEnum) {
+    public AcornResponse(AcornExceptionEnum acornExceptionEnum) {
 
-        this.code = responseEnum.getCode();
-        this.message = responseEnum.getMessage();
+        this.code = acornExceptionEnum.getCode();
+        this.message = acornExceptionEnum.getMessage();
     }
 }

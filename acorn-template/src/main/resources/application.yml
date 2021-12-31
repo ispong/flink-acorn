@@ -1,0 +1,5 @@
+acorn:
+  node:
+    host: 127.0.0.1
+    port: 8081
+    key: acorn-key

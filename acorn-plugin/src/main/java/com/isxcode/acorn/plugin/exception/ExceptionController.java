@@ -1,7 +1,7 @@
 package com.isxcode.acorn.plugin.exception;
 
-import com.isxcode.acorn.common.menu.ResponseEnum;
-import com.isxcode.acorn.common.pojo.dto.AcornResponse;
+import com.isxcode.acorn.common.exception.AcornExceptionEnum;
+import com.isxcode.acorn.common.response.AcornResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +15,7 @@ public class ExceptionController {
     @RequestMapping("/keyIsNull")
     public AcornResponse keyIsNull() {
 
-        return new AcornResponse(ResponseEnum.REMOTE_ERROR);
+        return new AcornResponse(AcornExceptionEnum.KEY_IS_NULL);
     }
 
     /**
@@ -24,6 +24,6 @@ public class ExceptionController {
     @RequestMapping("/keyIsError")
     public AcornResponse keyIsError() {
 
-        return new AcornResponse(ResponseEnum.REMOTE_ERROR);
+        return new AcornResponse(AcornExceptionEnum.KEY_IS_ERROR);
     }
 }

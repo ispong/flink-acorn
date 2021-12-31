@@ -9,7 +9,6 @@
 - [**维护手册**](/zh-cn/contributing.md)
 - [**版本历史**](/zh-cn/changelog.md)
 - [**小栗子博客**](_homepage.md)
-  - [Flink 相关链接](/zh-cn/blogs/Flink相关链接.md)
   - [Flink 单节点安装](/zh-cn/blogs/Flink单节点安装.md) 
   - [Flink 集群安装](/zh-cn/blogs/Flink集群安装.md)
   - [Flink 常用命令](/zh-cn/blogs/Flink常用命令.md)

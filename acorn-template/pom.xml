@@ -8,7 +8,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.7.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <groupId>com.isxcode.acorn</groupId>
@@ -22,6 +22,9 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <log4j.version>[2.16.0,)</log4j.version>
+        <acorn-common.version>0.0.21-SNAPSHOT</acorn-common.version>
     </properties>
 
     <repositories>
@@ -39,11 +42,19 @@
     </repositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.isxcode.acorn</groupId>
+            <artifactId>acorn-common</artifactId>
+            <version>${acorn-common.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>[2.16.0,)</version>
+            <version>${log4j.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -51,17 +62,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.isxcode.acorn</groupId>
-            <artifactId>acorn-common</artifactId>
-            <version>0.0.18-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

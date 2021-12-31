@@ -1,16 +1,14 @@
 package com.isxcode.acorn.plugin.controller;
 
-import com.isxcode.acorn.common.pojo.dto.AcornResponse;
+import com.isxcode.acorn.common.constant.UrlConstants;
+import com.isxcode.acorn.common.pojo.dto.AcornData;
 import com.isxcode.acorn.common.pojo.model.AcornModel1;
-import com.isxcode.acorn.plugin.exception.AcornException;
+import com.isxcode.acorn.plugin.response.SuccessResponse;
 import com.isxcode.acorn.plugin.service.AcornBizService;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * 作业相关接口
- */
 @RestController
-@RequestMapping("/job")
+@RequestMapping
 public class JobController {
 
     private final AcornBizService acornBizService;
@@ -21,77 +19,52 @@ public class JobController {
     }
 
     /**
-     * 执行flink作业
+     * 发布flink作业接口
      */
-    @PostMapping("/execute")
-    public AcornResponse executeFlink(@RequestBody AcornModel1 acornModel) {
+    @SuccessResponse
+    @PostMapping(UrlConstants.EXECUTE_URL)
+    public AcornData executeFlink(@RequestBody AcornModel1 acornModel) {
 
-        AcornResponse acornResponse = new AcornResponse();
-
-        try {
-            acornResponse.setCode("200");
-            acornResponse.setMessage("发布成功");
-            acornResponse.setAcornData(acornBizService.execute(acornModel));
-        } catch (AcornException e) {
-            acornResponse.setCode(e.getCode());
-            acornResponse.setMessage(e.getMsg());
-        }
-
-        return acornResponse;
+        return acornBizService.execute(acornModel);
     }
 
     /**
-     * 获取实时作业日志
+     * 获取flink作业发布日志接口
      */
-    @GetMapping("/getJobLog")
-    public AcornResponse getJobLog(@RequestParam String executeId) {
+    @SuccessResponse
+    @PostMapping(UrlConstants.GET_JOB_LOG_URL)
+    public AcornData getJobLog(@RequestBody AcornModel1 acornModel) {
 
-        AcornResponse acornResponse = new AcornResponse();
-        try {
-            acornResponse.setCode("200");
-            acornResponse.setMessage("查询日志成功");
-            acornResponse.setAcornData(acornBizService.getJobLog(executeId));
-        } catch (AcornException e) {
-            acornResponse.setCode(e.getCode());
-            acornResponse.setMessage(e.getMsg());
-        }
-        return acornResponse;
+        return acornBizService.getJobLog(acornModel);
     }
 
     /**
-     * 停止实时作业
+     * 停止flink作业接口
      */
-    @GetMapping("/stopJob")
-    public AcornResponse stopJob(@RequestParam String jobId) {
+    @SuccessResponse
+    @PostMapping(UrlConstants.STOP_JOB_URL)
+    public AcornData stopJob(@RequestBody AcornModel1 acornModel) {
 
-        AcornResponse acornResponse = new AcornResponse();
-        try {
-            acornResponse.setCode("200");
-            acornResponse.setMessage("停止实时作业成功");
-            acornResponse.setAcornData(acornBizService.stopJob(jobId));
-        } catch (AcornException e) {
-            acornResponse.setCode(e.getCode());
-            acornResponse.setMessage(e.getMsg());
-        }
-        return acornResponse;
+        return acornBizService.stopJob(acornModel);
     }
 
     /**
-     * 获取实时作业运行状态
+     * 获取指定flink作业的状态
      */
-    @GetMapping("/getJobStatus")
-    public AcornResponse getJobStatus(@RequestParam String jobId) {
+    @SuccessResponse
+    @PostMapping(UrlConstants.GET_JOB_STATUS_URL)
+    public AcornData getJobStatus(@RequestBody AcornModel1 acornModel) {
 
-        AcornResponse acornResponse = new AcornResponse();
-        try {
-            acornResponse.setCode("200");
-            acornResponse.setMessage("获取实时作业成功");
-            acornResponse.setAcornData(acornBizService.getJobInfo(jobId));
-        } catch (AcornException e) {
-            acornResponse.setCode(e.getCode());
-            acornResponse.setMessage(e.getMsg());
-        }
-        return acornResponse;
+        return acornBizService.getJobInfo(acornModel);
     }
 
+    /**
+     * 查询所有flink作业的状态
+     */
+    @SuccessResponse
+    @GetMapping(UrlConstants.QUERY_JOB_STATUS_URL)
+    public AcornData queryJobStatus() {
+
+        return acornBizService.queryJobStatus();
+    }
 }

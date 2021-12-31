@@ -15,6 +15,11 @@ import lombok.Data;
 public class AcornModel1 {
 
     /**
+     * flink job Id
+     */
+    private String jobId;
+
+    /**
      * 模板类型
      */
     private TemplateType templateName;
@@ -68,7 +73,7 @@ public class AcornModel1 {
      * 不用传入
      */
     private String hiveConfigPath;
-    
+
     /**
      * hive中选择需要同步的字段
      */

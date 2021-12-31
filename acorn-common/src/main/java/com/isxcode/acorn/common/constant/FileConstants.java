@@ -27,4 +27,18 @@ public interface FileConstants {
      */
     String LOG_SUFFIX = ".log";
 
+    /**
+     * pom文件模板位置
+     */
+    String POM_TEMPLATE_PATH = "templates/pom.xml";
+
+    /**
+     * 生成jar包的名字
+     */
+    String FLINK_JAR_NAME = "acorn.jar";
+
+    /**
+     * 成功返回flink的日志内容
+     */
+    String SUCCESS_FLINK_LOG = "Job has been submitted with JobID";
 }
