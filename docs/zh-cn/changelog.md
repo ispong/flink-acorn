@@ -1,19 +1,22 @@
-## **v0.0.1**
+## **v1.0.0**
 
 > 发布时间 2021-12-11
 
 ##### 💥️ 重大变动
 
-- nothing
+- 无
 
 ##### ✨ 新功能
 
-- nothing
+- 支持kafka同步到mysql
+- 支持kafka同步到kafka
+- 支持kafka同步到doris
+- 支持kafka同步到hive
 
 ##### 🎨 优化
 
-- nothing
+- 无
 
 ##### 🐛 优化
 
-- nothing
+- 无

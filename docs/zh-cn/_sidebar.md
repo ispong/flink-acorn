@@ -5,7 +5,7 @@
     - [插件部署](/zh-cn/reference/插件部署.md)
     - [插件使用](/zh-cn/reference/插件使用.md)
     - [模型说明](/zh-cn/reference/模型说明.md)
-    - [离线插件部署](/zh-cn/reference/离线插件部署.md)
+    - [插件离线部署](/zh-cn/reference/插件离线部署.md)
 - [**维护手册**](/zh-cn/contributing.md)
 - [**版本历史**](/zh-cn/changelog.md)
 - [**小栗子博客**](_homepage.md)

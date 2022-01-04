@@ -1,5 +1,5 @@
 <h1 align="center">
-    Flink Acorn | 小栗子
+    Flink Acorn
 </h1>
 
 <h3 align="center">
@@ -43,7 +43,7 @@
 <dependency>
     <groupId>com.isxcode.acorn</groupId>
     <artifactId>acorn-common</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -74,7 +74,7 @@ public class DemoController {
             .executeId("1314520")
             .fromConnectorSql("CREATE TABLE from_table ( ... ) WITH ( ... )")
             .toConnectorSql("CREATE TABLE to_table ( ... ) WITH ( ... )")
-            .filterCode("fromData = tEnv.from( ... ).where( ... );")
+            .filterCode("fromData = fromData.from( ... ).where( ... );")
             .templateName(TemplateType.KAFKA_INPUT_KAFKA_OUTPUT)
             .build();
 
