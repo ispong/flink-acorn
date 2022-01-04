@@ -1,7 +1,7 @@
 package com.isxcode.acorn.common.constant;
 
 /**
- * 安全相关静态参数
+ * 安全相关静态常量
  */
 public interface SecurityConstants {
 

@@ -3,7 +3,7 @@ package com.isxcode.acorn.common.menu;
 import lombok.Getter;
 
 /**
- * 作业类型对应的模板名称
+ * 模板类型对应的模板文件名称
  */
 public enum TemplateType {
 

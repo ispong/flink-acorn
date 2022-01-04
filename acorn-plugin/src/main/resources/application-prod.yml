@@ -5,7 +5,7 @@ acorn:
   plugin:
     server-key: acorn-key
     flink-port: 8081
-    storage-tmp: true
+    storage-tmp: false
 
 logging:
   group:

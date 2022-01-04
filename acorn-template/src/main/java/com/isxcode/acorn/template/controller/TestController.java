@@ -36,8 +36,8 @@ public class TestController {
                 "  'properties.group.id'='test-consumer-group'," +
                 "  'connector'='kafka'," +
                 "  'topic'='ispong_3'," +
-                "  'properties.zookeeper.connect'='39.103.230.188:30121'," +
-                "  'properties.bootstrap.servers'='39.103.230.188:30120'," +
+                "  'properties.zookeeper.connect'='xxx.xxx.xxx.xxx:xxx'," +
+                "  'properties.bootstrap.servers'='xxx.xxx.xxx.xxx:xxx'," +
                 "  'format'='csv'," +
                 "  'csv.ignore-parse-errors' = 'true')")
             .toConnectorSql("CREATE TABLE to_table ( " +
@@ -45,11 +45,11 @@ public class TestController {
                 "  age int" +
                 ") WITH (" +
                 "  'connector'='jdbc'," +
-                "  'url'='jdbc:mysql://47.103.203.73:3306/VATtest'," +
+                "  'url'='jdbc:mysql://xxx.xxx.xxx.xxx:xxx/xxx'," +
                 "  'table-name'='ispong_flink_table'," +
                 "  'driver'='com.mysql.cj.jdbc.Driver'," +
-                "  'username'='admin'," +
-                "  'password'='gsw921226')")
+                "  'username'='xxx'," +
+                "  'password'='xxx')")
             .filterCode("fromData = fromData.select($(\"username\").as(\"username\"),$(\"age\").as(\"age\"));")
             .templateName(TemplateType.KAFKA_INPUT_MYSQL_OUTPUT)
             .build();

@@ -13,7 +13,7 @@ public enum AcornExceptionEnum {
 
     EXECUTE_COMMAND_ERROR("50003", "执行发布命令错误，请查看日志"),
 
-    READ_LOG_FILE_ERROR("50004", "读取日志文件失败"),
+    READ_LOG_FILE_ERROR("50004", "读取日志失败"),
 
     KEY_IS_NULL("50005", "key为null"),
 

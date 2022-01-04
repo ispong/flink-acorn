@@ -3,7 +3,7 @@ package com.isxcode.acorn.common.constant;
 import java.io.File;
 
 /**
- * 生成文件的相关静态参数
+ * 生成文件的相关的静态常量
  */
 public interface FileConstants {
 
@@ -13,9 +13,14 @@ public interface FileConstants {
     String JOB_TMP_PATH = File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator + "com" + File.separator + "isxcode" + File.separator + "acorn" + File.separator + "template";
 
     /**
-     * 需要生成java文件的名称
+     * 生成java文件的名称
      */
     String JOB_FILE_NAME = "FlinkJob.java";
+
+    /**
+     * pom文件模板位置
+     */
+    String POM_TEMPLATE_PATH = "templates/pom.xml";
 
     /**
      * pom文件的名称
@@ -26,11 +31,6 @@ public interface FileConstants {
      * 日志文件的后缀
      */
     String LOG_SUFFIX = ".log";
-
-    /**
-     * pom文件模板位置
-     */
-    String POM_TEMPLATE_PATH = "templates/pom.xml";
 
     /**
      * 生成jar包的名字
