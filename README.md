@@ -43,7 +43,7 @@
 <dependency>
     <groupId>com.isxcode.acorn</groupId>
     <artifactId>acorn-common</artifactId>
-    <version>1.0.0</version>
+    <version>[![Maven Version](https://img.shields.io/maven-central/v/com.isxcode.acorn/acorn-common)](https://search.maven.org/artifact/com.isxcode.acorn/acorn-common)</version>
 </dependency>
 ```
 
