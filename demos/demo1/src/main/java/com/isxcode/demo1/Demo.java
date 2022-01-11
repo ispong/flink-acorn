@@ -32,7 +32,8 @@ public class Demo {
 
         // --- to mysql ---
         tEnv.executeSql("CREATE TABLE to_mysql (\n" +
-                "   username STRING" +
+                "   username STRING," +
+                "   age INT" +
                 ") WITH (\n" +
                 "   'connector'='jdbc'," +
                 "   'url'='jdbc:mysql://47.103.203.73:3306/VATtest'," +
