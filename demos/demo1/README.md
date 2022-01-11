@@ -1,12 +1,14 @@
 ### kafka 同步到 mysql
 
+###### 打包方式
+
 ```bash
 cd flink-acorn/demos/demo1
 mvn clean package
 flink run target/demo1-0.0.1.jar
 ```
 
-### kafka相关命令
+###### kafka相关命令
 
 ```bash
 sudo kafka-topics --list --zookeeper 39.103.230.188:30121
