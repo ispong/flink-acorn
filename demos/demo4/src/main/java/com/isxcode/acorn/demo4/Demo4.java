@@ -15,6 +15,8 @@ import org.apache.calcite.sql.parser.SqlParser;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+import org.apache.flink.table.planner.delegation.BlinkExecutorFactory;
+
 import static org.apache.flink.table.api.Expressions.$;
 import static org.apache.flink.table.api.Expressions.ifThenElse;
 

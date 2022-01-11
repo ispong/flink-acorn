@@ -4,4 +4,4 @@ server:
 
 spring:
   profiles:
-    active: prod
+    active: acorn

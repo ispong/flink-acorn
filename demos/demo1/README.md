@@ -1,25 +1,15 @@
-> demo1
-> kafka到flink  然后flink再推出到另一个kafka  
+### kafka 同步到 mysql
 
-```shell
-cd demo1
+```bash
+cd flink-acorn/demos/demo1
 mvn clean package
-cd target
-flink run demo1-0.0.1.jar
+flink run target/demo1-0.0.1.jar
 ```
 
-```shell
-# 创建管道
-sudo ./kafka-topics.sh --create --zookeeper 101.132.135.228:30099 --replication-factor 1 --partitions 1 --topic ispong-input-1
-# 检查管道是否存在
-sudo ./kafka-topics.sh --list --zookeeper 101.132.135.228:30099
-# 先检查管道是否正常传输
-sudo ./kafka-console-producer.sh --broker-list 101.132.135.228:30098 --topic ispong-input-1
-sudo ./kafka-console-consumer.sh --bootstrap-server 101.132.135.228:30098 --topic ispong-input-2 --from-beginning
-```
+### kafka相关命令
 
-```shell
-# 输入管道1 ispong-kafka-input1
-# 输入管道2 ispong-kafka-input2
-# 检查输出管道 ispong-kafka-input2是否有数据
+```bash
+sudo kafka-topics --list --zookeeper 39.103.230.188:30121
+sudo kafka-topics --create --zookeeper 39.103.230.188:30121 --replication-factor 1 --partitions 1 --topic ispong-test
+sudo kafka-console-producer --broker-list 39.103.230.188:30120 --topic ispong-test
 ```

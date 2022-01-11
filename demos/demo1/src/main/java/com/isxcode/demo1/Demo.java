@@ -1,20 +1,18 @@
 package com.isxcode.demo1;
 
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
-import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
+import org.apache.flink.table.api.TableEnvironment;
 
 import static org.apache.flink.table.api.Expressions.$;
 
 public class Demo {
+
     public static void main(String[] args) {
 
-        StreamExecutionEnvironment bsEnv = StreamExecutionEnvironment.getExecutionEnvironment();
-        bsEnv.enableCheckpointing(5000);
-        EnvironmentSettings settings = EnvironmentSettings.newInstance().useBlinkPlanner().inStreamingMode().build();
-        StreamTableEnvironment tEnv = StreamTableEnvironment.create(bsEnv,settings);
-        tEnv.getConfig().getConfiguration().setString("pipeline.name", "isxcode-flink-pipeline");
+        EnvironmentSettings settings = EnvironmentSettings.newInstance().build();
+        TableEnvironment tEnv = TableEnvironment.create(settings);
+        tEnv.getConfig().getConfiguration().setString("pipeline.name", "ispong-test");
 
         // --- from kafka ---
         tEnv.executeSql("CREATE TABLE from_kafka (\n" +
@@ -22,37 +20,32 @@ public class Demo {
                 "   age INT" +
                 ") WITH (\n" +
                 "   'connector'='kafka'," +
-                "   'topic'='ispong-input-1'," +
-                "   'properties.zookeeper.connect'='101.132.135.228:30099'," +
-                "   'properties.bootstrap.servers'='101.132.135.228:30098'," +
+                "   'topic'='ispong-test'," +
+                "   'properties.zookeeper.connect'='39.103.230.188:30121'," +
+                "   'properties.bootstrap.servers'='39.103.230.188:30120'," +
+                "   'properties.group.id'='testGroup'," +
+                "   'scan.startup.mode'='latest-offset',"+
                 "   'format' = 'csv'," +
                 "   'csv.ignore-parse-errors' = 'true'," +
                 "   'csv.field-delimiter'=','"+
                 ")");
 
-//        'scan.startup.mode'='earliest-offset',
-        // 'properties.group.id'='testGroup',
-
-        // --- to kafka ---
-        tEnv.executeSql("CREATE TABLE to_kafka (\n" +
+        // --- to mysql ---
+        tEnv.executeSql("CREATE TABLE to_mysql (\n" +
                 "   username STRING" +
                 ") WITH (\n" +
-                "   'connector'='kafka'," +
-                "   'topic'='ispong-input-2'," +
-                "   'properties.zookeeper.connect'='101.132.135.228:30099'," +
-                "   'properties.bootstrap.servers'='101.132.135.228:30098'," +
-                "   'format' = 'csv'," +
-                "   'csv.ignore-parse-errors' = 'true'" +
+                "   'connector'='jdbc'," +
+                "   'url'='jdbc:mysql://47.103.203.73:3306/VATtest'," +
+                "   'table-name'='ispong_flink_table'," +
+                "   'driver'='com.mysql.cj.jdbc.Driver'," +
+                "   'username'='admin'," +
+                "   'password'='gsw921226'" +
                 ")");
 
-        // from data
         Table fromData = tEnv.from("from_kafka");
 
-        // filter
-        fromData = fromData.select($("username").as("username"));
+        fromData = fromData.select($("username").as("username"), $("age").as("age"));
 
-        // to data
-        fromData.executeInsert("to_kafka");
+        fromData.executeInsert("to_mysql");
     }
-
 }
