@@ -1,6 +1,6 @@
 ### kafka 同步到 mysql
 
-###### 打包方式
+###### 打包运行命令
 
 ```bash
 cd flink-acorn/demos/demo1
