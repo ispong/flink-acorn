@@ -12,4 +12,4 @@ case "`uname`" in
 esac
 BASE_PATH=${bin_abs_path}
 
-tail -f "${BASE_PATH}"/log/
+tail -f "${BASE_PATH}"/../log/acorn-plugin.log

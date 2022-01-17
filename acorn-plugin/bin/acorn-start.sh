@@ -34,5 +34,5 @@ fi
 
 ## 启动项目
 ACORN_APP="${BASE_PATH}"/../lib/acorn-plugin.jar
-nohup java -jar -Xmx2048m "${ACORN_APP}" --spring.config.location="${BASE_PATH}"/../conf/application-star.yml --spring.profiles.active=star >> "${ACORN_LOG}" 2>&1 &
+nohup java -jar -Xmx2048m "${ACORN_APP}" --spring.config.location="${BASE_PATH}"/../conf/application-acorn.yml >> "${ACORN_LOG}" 2>&1 &
 echo "部署成功"
