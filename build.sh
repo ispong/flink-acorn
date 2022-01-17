@@ -44,9 +44,9 @@ cp "${BASE_PATH}"/acorn-plugin/target/acorn-plugin.jar "${STAR_BUILD_DIR}"/lib/a
 echo "创建 lib 成功"
 
 # 创建plugins文件夹
-mkdir -p "${STAR_BUILD_DIR}"/plugins
+mkdir -p "${ACORN_BUILD_DIR}"/plugins
 echo "创建 plugins 成功"
 
 # 创建tmp文件夹
-mkdir -p "${STAR_BUILD_DIR}"/tmp
+mkdir -p "${ACORN_BUILD_DIR}"/tmp
 echo "创建 plugins 成功"
