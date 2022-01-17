@@ -27,6 +27,7 @@ echo "创建 ACORN_BUILD_DIR 成功"
 # 复制bin文件夹
 mkdir -p "${ACORN_BUILD_DIR}"/bin
 cp "${BASE_PATH}"/acorn-plugin/bin/* "$ACORN_BUILD_DIR"/bin
+chmod a+x "$ACORN_BUILD_DIR"/bin/*.sh
 echo "创建 bin 成功"
 
 # 复制conf文件夹
@@ -49,4 +50,4 @@ echo "创建 plugins 成功"
 
 # 创建tmp文件夹
 mkdir -p "${ACORN_BUILD_DIR}"/tmp
-echo "创建 plugins 成功"
+echo "创建 tmp 成功"
