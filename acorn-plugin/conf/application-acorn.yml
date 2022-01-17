@@ -1,14 +1,20 @@
 server:
   port: 30155
+  servlet:
+    context-path: /flink-acorn
 
 logging:
   group:
     acorn: com.isxcode.acorn
   level:
-    acorn: debug
+    acorn: info
 
 acorn:
   plugin:
-    server-key: acorn-key
+    server-key: star-key
+    flink-host: 127.0.0.1
     flink-port: 8081
     storage-tmp: false
+    hive-conf-path: /opt/flink/conf
+    log-dir: /opt/acorn/log
+    tmp-dir: /opt/acorn/tmp

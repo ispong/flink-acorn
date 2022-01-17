@@ -11,7 +11,6 @@ case "`uname`" in
         ;;
 esac
 BASE_PATH=${bin_abs_path}
-echo "获取当前路径:"+ "${BASE_PATH}"
 
 ## 关闭原有进程
 for metaResult in $(ps -e -o pid,command | grep acorn-plugin.jar)

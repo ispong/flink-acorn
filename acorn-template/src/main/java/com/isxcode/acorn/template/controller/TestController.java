@@ -60,7 +60,7 @@ public class TestController {
     @GetMapping("/getLog")
     public void getLog() {
 
-        AcornResponse flinkLog = acornTemplate.build().getJobLog("1314520");
+        AcornResponse flinkLog = acornTemplate.build().getJobLog("f992fe1e3d554ba4a9b214a07012fc97");
         log.info(flinkLog.toString());
     }
 

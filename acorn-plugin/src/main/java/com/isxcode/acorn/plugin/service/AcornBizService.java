@@ -84,6 +84,7 @@ public class AcornBizService {
         // 执行编译且运行作业
         String targetFilePath = tmpPath + File.separator + "target" + File.separator + FileConstants.FLINK_JAR_NAME;
         String executeCommand = "mvn clean package -f " + flinkPomFilePath + " && " + "flink run " + targetFilePath;
+        log.debug(" 执行命令:" + executeCommand);
         try {
             CommandUtils.executeCommand(executeCommand, logPath);
         } catch (Exception e) {
@@ -92,6 +93,7 @@ public class AcornBizService {
 
         // 删除临时项目文件
         if (!acornPluginProperties.isStorageTmp()) {
+            log.debug("删除生成的文件夹");
             FileUtils.RecursionDeleteFile(Paths.get(tmpPath));
         }
 
