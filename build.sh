@@ -40,7 +40,7 @@ echo "创建 log 成功"
 
 # 创建lib文件夹
 mkdir -p "${ACORN_BUILD_DIR}"/lib
-cp "${BASE_PATH}"/acorn-plugin/target/acorn-plugin.jar "${STAR_BUILD_DIR}"/lib/acorn-plugin.jar
+cp "${BASE_PATH}"/acorn-plugin/target/acorn-plugin.jar "${ACORN_BUILD_DIR}"/lib/acorn-plugin.jar
 echo "创建 lib 成功"
 
 # 创建plugins文件夹
