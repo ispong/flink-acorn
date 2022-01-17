@@ -1,0 +1,7 @@
+server:
+  servlet:
+    context-path: /flink-acorn
+
+spring:
+  profiles:
+    active: acorn
