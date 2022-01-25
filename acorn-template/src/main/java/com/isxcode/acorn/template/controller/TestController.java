@@ -35,16 +35,17 @@ public class TestController {
                 "  'properties.group.id'='test-consumer-group'," +
                 "  'connector'='kafka'," +
                 "  'topic'='flink-topic'," +
-                "  'properties.zookeeper.connect'='8.142.131.65:2181'," +
-                "  'properties.bootstrap.servers'='8.142.131.65:9092'," +
+                "  'properties.zookeeper.connect'='172.26.34.170:2181'," +
+                "  'properties.bootstrap.servers'='172.26.34.170:9092'," +
                 "  'format'='csv'," +
-                "  'csv.ignore-parse-errors' = 'true')")
+                "  'csv.ignore-parse-errors' = 'true'" +
+                "  )")
             .toConnectorSql("CREATE TABLE to_table ( " +
                 "  username varchar(100)," +
                 "  age int" +
                 ") WITH (" +
                 "  'connector'='jdbc'," +
-                "  'url'='jdbc:mysql://8.142.131.65:30102/flink'," +
+                "  'url'='jdbc:mysql://172.26.34.170:30102/flink'," +
                 "  'table-name'='flink_test_table'," +
                 "  'driver'='com.mysql.cj.jdbc.Driver'," +
                 "  'username'='root'," +
