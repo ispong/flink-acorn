@@ -3,7 +3,7 @@
 </h1>
 
 <h3 align="center">
-    🐿️ Flink服务器插件，通过Restful接口管理Flink作业。
+    🐿️ Flink + Spring Boot 快速集成插件。
 </h3>
 
 <h4 align="center">
@@ -21,19 +21,21 @@
 - kafka --> kafka
 - kafka --> hive
 - kafka --> doris
+- binlog --> doris
+- canal --> doris
 
 ### ✨ 模块说明
 
-| 模块名                                                    | 状态                 | 说明                            |
-|:-------------------------------------------------------|--------------------|:------------------------------|
-| [acorn-common](https://ispong.github.io/flink-acorn)   | :white_check_mark: | 提供AcornTemplate组件，方便用户调用插件服务。 |
-| [acorn-plugin](https://ispong.github.io/flink-acorn)   | :white_check_mark: | 服务器插件本体。                      |
-| [acorn-template](https://ispong.github.io/flink-acorn) | :white_check_mark: | 演示客户端如何使用插件。                  |
-| [demos](https://ispong.github.io/flink-acorn)          | :white_check_mark: | 各种flink相关的小demo。              |
+| 模块名                                                    | 状态                 | 说明                                    |
+|:-------------------------------------------------------|--------------------|:--------------------------------------|
+| [acorn-common](https://ispong.github.io/flink-acorn)   | :white_check_mark: | 提供AcornTemplate组件，方便客户端直接调用Acorn插件服务。 |
+| [acorn-plugin](https://ispong.github.io/flink-acorn)   | :white_check_mark: | Acorn服务器插件。                           |
+| [acorn-template](https://ispong.github.io/flink-acorn) | :white_check_mark: | 演示客户端如何使用插件。                          |
+| [demos](https://ispong.github.io/flink-acorn)          | :white_check_mark: | 各种flink相关的小demo。                      |
 
 ### 📒 相关文档
 
-- [快速使用入口](https://ispong.github.io/flink-acorn/#/zh-cn/start/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8)
+- [快速使用入口](https://ispong.github.io/flink-acorn/#/zh-cn/start/快速使用)
 - [开发者手册](https://ispong.github.io/flink-acorn/#/zh-cn/contributing)
 - [版本历史](https://ispong.github.io/flink-acorn/#/zh-cn/changelog)
 
