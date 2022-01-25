@@ -48,6 +48,10 @@ bash ./bin/start-cluster.sh
 #bash ./bin/stop-cluster.sh
 ```
 
+#### 访问flink界面
+
+- http://localhost:30114
+
 #### 安装测试
 
 ```bash

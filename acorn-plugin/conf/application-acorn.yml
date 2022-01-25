@@ -11,7 +11,7 @@ logging:
 
 acorn:
   plugin:
-    server-key: star-key
+    server-key: acorn-key
     flink-host: 127.0.0.1
     flink-port: 8081
     storage-tmp: false

@@ -5,7 +5,7 @@ echo "Flink-Acorn ==> Go to ${BASE_PATH}"
 
 # 打包
 echo "Flink-Acorn ==> Start build"
-mvn clean package -Dmaven.test.skip -pl acorn-common,acorn-plugin|| exit
+mvn clean package -Dmaven.test.skip -pl acorn-common,acorn-plugin,demo1 || exit
 echo "Flink-Acorn ==> Build success"
 
 # 创建acorn文件夹

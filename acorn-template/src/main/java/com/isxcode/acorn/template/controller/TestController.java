@@ -7,7 +7,6 @@ import com.isxcode.acorn.common.template.AcornTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -35,9 +34,9 @@ public class TestController {
                 "  'scan.startup.mode'='latest-offset'," +
                 "  'properties.group.id'='test-consumer-group'," +
                 "  'connector'='kafka'," +
-                "  'topic'='ispong_3'," +
-                "  'properties.zookeeper.connect'='xxx.xxx.xxx.xxx:xxx'," +
-                "  'properties.bootstrap.servers'='xxx.xxx.xxx.xxx:xxx'," +
+                "  'topic'='flink-topic'," +
+                "  'properties.zookeeper.connect'='8.142.131.65:2181'," +
+                "  'properties.bootstrap.servers'='8.142.131.65:9092'," +
                 "  'format'='csv'," +
                 "  'csv.ignore-parse-errors' = 'true')")
             .toConnectorSql("CREATE TABLE to_table ( " +
@@ -45,11 +44,11 @@ public class TestController {
                 "  age int" +
                 ") WITH (" +
                 "  'connector'='jdbc'," +
-                "  'url'='jdbc:mysql://xxx.xxx.xxx.xxx:xxx/xxx'," +
-                "  'table-name'='ispong_flink_table'," +
+                "  'url'='jdbc:mysql://8.142.131.65:30102/flink'," +
+                "  'table-name'='flink_test_table'," +
                 "  'driver'='com.mysql.cj.jdbc.Driver'," +
-                "  'username'='xxx'," +
-                "  'password'='xxx')")
+                "  'username'='root'," +
+                "  'password'='flink2022')")
             .filterCode("fromData = fromData.select($(\"username\").as(\"username\"),$(\"age\").as(\"age\"));")
             .templateName(TemplateType.KAFKA_INPUT_MYSQL_OUTPUT)
             .build();
@@ -60,14 +59,14 @@ public class TestController {
     @GetMapping("/getLog")
     public void getLog() {
 
-        AcornResponse flinkLog = acornTemplate.build().getJobLog("f992fe1e3d554ba4a9b214a07012fc97");
+        AcornResponse flinkLog = acornTemplate.build().getJobLog("1314520");
         log.info(flinkLog.toString());
     }
 
     @GetMapping("/getJobStatus")
-    public void getJobStatus(@RequestParam String jobId) {
+    public void getJobStatus() {
 
-        AcornResponse jobInfo = acornTemplate.build().getJobStatus(jobId);
+        AcornResponse jobInfo = acornTemplate.build().getJobStatus("9d0694eb8f597e2547970d98dc05a2b3");
         log.info(jobInfo.toString());
     }
 
@@ -79,9 +78,9 @@ public class TestController {
     }
 
     @GetMapping("/stopJob")
-    public void stop(@RequestParam String jobId) {
+    public void stop() {
 
-        AcornResponse d = acornTemplate.build().stopJob(jobId);
+        AcornResponse d = acornTemplate.build().stopJob("9d0694eb8f597e2547970d98dc05a2b3");
         log.info(d.toString());
     }
 }
