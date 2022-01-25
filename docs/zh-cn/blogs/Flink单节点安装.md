@@ -18,14 +18,13 @@ export PATH=$PATH:$FLINK_HOME/bin
 source /etc/profile
 
 # 查看版本号
-sudo chown -R dehoop:dehoop /data/flink-1.14.0
-flink --version
+sudo flink --version
 ```
 
 #### 修改端口号
 
 ```bash
-vim /opt/flink/conf/flink-conf.yaml
+sudo vim /opt/flink/conf/flink-conf.yaml
 
 # --- vim $flink/conf/flink-conf.yaml ---
 
@@ -33,7 +32,7 @@ vim /opt/flink/conf/flink-conf.yaml
 rest.port: 30114
 
 # 平行执行管道个数，默认1
-taskmanager.numberOfTaskSlots: 20
+taskmanager.numberOfTaskSlots: 100
 
 # --- vim $flink/conf/flink-conf.yaml ---
 ```
@@ -46,14 +45,14 @@ taskmanager.numberOfTaskSlots: 20
 ```bash
 cd /opt/flink
 bash ./bin/start-cluster.sh
-bash ./bin/stop-cluster.sh
+#bash ./bin/stop-cluster.sh
 ```
 
 #### 安装测试
 
 ```bash
-flink run /opt/flink/examples/streaming/WordCount.jar
-tail /opt/flink/log/flink-*-taskexecutor-*.out
+sudo flink run /opt/flink/examples/streaming/WordCount.jar
+sudo tail /opt/flink/log/flink-*-taskexecutor-*.out
 ```
 
 #### 支持mysql
@@ -71,27 +70,68 @@ bash ./bin/start-cluster.sh
 
 ```bash
 # hive下的jars
-scp dcloud@cdh-master:/opt/cloudera/parcels/CDH/jars/hive-*.jar /opt/flink/lib/ 
-cp /opt/cloudera/parcels/CDH/jars/hive-*.jar /opt/flink/lib/ 
+#scp cdh@cdh-master:/opt/cloudera/parcels/CDH/jars/hive-*.jar /opt/flink/lib/ 
+sudo cp /opt/cloudera/parcels/CDH/jars/hive-*.jar /opt/flink/lib/ 
 # hadoop下的jars
-scp dcloud@cdh-master:/opt/cloudera/parcels/CDH/jars/hadoop-*.jar /opt/flink/lib/ 
+#scp cdh@cdh-master:/opt/cloudera/parcels/CDH/jars/hadoop-*.jar /opt/flink/lib/ 
 cp /opt/cloudera/parcels/CDH/jars/hadoop-*.jar /opt/flink/lib/
 # flink-connector-hive_xxx.jar
 cp ~/.m2/repository/org/apache/flink/flink-connector-hive_2.12/1.14.0/flink-connector-hive_2.12-1.14.0.jar /opt/flink/lib/
 
 # 修改配置
-vim /opt/flink/conf/flink-conf.yaml
+sudo vim /opt/flink/conf/flink-conf.yaml
 
 # --- sudo vim /opt/flink/conf/flink-conf.yaml ---
 classloader.check-leaked-classloader: false
 # --- sudo vim /opt/flink/conf/flink-conf.yaml ---
 
 # 修改配置
-vim /opt/flink/conf/hive-site.xml
+sudo vim /opt/flink/conf/hive-site.xml
 
 # 重启flink
 cd /opt/flink
 sudo bash ./bin/stop-cluster.sh
 sudo bash ./bin/start-cluster.sh
+```
+
+##### sudo vim /opt/flink/conf/hive-site.xml
+
+```xml
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+
+    <!-- hive配置的数据库 -->
+    <property>
+        <name>javax.jdo.option.ConnectionURL</name>
+        <value>jdbc:mysql://xxx:xxx/xxx</value>
+    </property>
+
+    <!-- 驱动 -->
+    <property>
+        <name>javax.jdo.option.ConnectionDriverName</name>
+        <value>com.mysql.cj.jdbc.Driver</value>
+    </property>
+
+    <!-- 账号 -->
+    <property>
+        <name>javax.jdo.option.ConnectionUserName</name>
+        <value>xxx</value>
+    </property>
+
+    <!-- 密码 -->
+    <property>
+        <name>javax.jdo.option.ConnectionPassword</name>
+        <value>xxx</value>
+    </property>
+
+    <!-- 默认端口号 9083 -->
+    <property>
+        <name>hive.metastore.uris</name>
+        <value>thrift://xxx:9083</value>
+    </property>
+
+</configuration>
 ```
 

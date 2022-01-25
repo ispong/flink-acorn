@@ -7,7 +7,7 @@
     小栗子
 </h3>
 
-- 🐿️ Flink服务器插件，通过Restful接口管理Flink作业。
+- 🐿️ Flink + Spring Boot 快速集成插件 🐿️
 
 <div class="buttons">
   <a href="https://github.com/ispong/flink-acorn/" target="_blank"><span>GitHub</span></a>
