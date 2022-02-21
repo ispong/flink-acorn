@@ -69,22 +69,22 @@ public class AcornBizService {
         }
 
         // 项目临时文件路径
-        String tmpPath = acornPluginProperties.getTmpDir() + File.separator + acornRequest.getExecuteId();
+        String projectPath = acornPluginProperties.getTmpDir() + File.separator + acornRequest.getExecuteId() + File.separator + FileConstants.JOB_PROJECT_NAME + File.separator;
 
         // 创建FlinkJob.java文件
-        String flinkJobPath = tmpPath + FileConstants.JOB_TMP_PATH + File.separator + FileConstants.JOB_FILE_NAME;
+        String flinkJobPath = projectPath + FileConstants.JOB_TMP_PATH + File.separator + FileConstants.JOB_FILE_NAME;
         FileUtils.StringToFile(flinkJobJavaCode, flinkJobPath, StandardOpenOption.WRITE);
 
         // 创建pom.xml文件
-        String flinkPomFilePath = acornPluginProperties.getTmpDir() + File.separator + acornRequest.getExecuteId() + File.separator + FileConstants.POM_XML;
+        String flinkPomFilePath = projectPath + FileConstants.POM_XML;
         FileUtils.copyResourceFile(FileConstants.POM_TEMPLATE_PATH, flinkPomFilePath, StandardOpenOption.WRITE);
 
         // 创建日志文件
-        String logPath = acornPluginProperties.getLogDir() + File.separator + acornRequest.getExecuteId() + FileConstants.LOG_SUFFIX;
+        String logPath = acornPluginProperties.getTmpDir() + File.separator + acornRequest.getExecuteId() + File.separator + FileConstants.JOB_LOG_NAME;
         FileUtils.generateFile(logPath);
 
         // 执行编译且运行作业
-        String targetFilePath = tmpPath + File.separator + "target" + File.separator + FileConstants.FLINK_JAR_NAME;
+        String targetFilePath = projectPath + File.separator + "target" + File.separator + FileConstants.FLINK_JAR_NAME;
         String executeCommand = "mvn clean package -f " + flinkPomFilePath + " && " + "flink run " + targetFilePath;
         log.debug(" 执行命令:" + executeCommand);
         try {
@@ -96,7 +96,7 @@ public class AcornBizService {
         // 删除临时项目文件
         if (!acornPluginProperties.isStorageTmp()) {
             log.debug("删除生成的文件夹");
-            FileUtils.RecursionDeleteFile(Paths.get(tmpPath));
+            FileUtils.RecursionDeleteFile(Paths.get(projectPath));
         }
 
         // 读取日志最后一行 Job has been submitted with JobID 133d87e09f586e72e1f1fe2575d1a3c4
@@ -112,7 +112,7 @@ public class AcornBizService {
 
     public AcornData getJobLog(AcornRequest acornRequest) {
 
-        String logPath = acornPluginProperties.getLogDir() + File.separator + acornRequest.getExecuteId() + FileConstants.LOG_SUFFIX;
+        String logPath = acornPluginProperties.getTmpDir() + File.separator + acornRequest.getExecuteId() + File.separator + FileConstants.JOB_LOG_NAME;
         Path path = Paths.get(logPath);
         Resource resource;
         try {

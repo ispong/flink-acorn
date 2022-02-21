@@ -32,7 +32,7 @@ public class AcornKeyFilter extends OncePerRequestFilter {
         }
 
         // 检查key是否合法
-        if (!authorization.equals(acornPluginProperties.getServerKey())) {
+        if (!authorization.equals(acornPluginProperties.getKey())) {
             request.getRequestDispatcher(SecurityConstants.KEY_IS_ERROR_EXCEPTION).forward(request, response);
             return;
         }

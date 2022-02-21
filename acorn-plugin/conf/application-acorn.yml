@@ -7,14 +7,11 @@ logging:
   group:
     acorn: com.isxcode.acorn
   level:
-    acorn: info
+    acorn: debug
 
 acorn:
   plugin:
-    server-key: acorn-key
-    flink-host: 127.0.0.1
+    key: acorn-key
     flink-port: 8081
     storage-tmp: false
-    hive-conf-path: /opt/flink/conf
-    log-dir: /opt/acorn/log
-    tmp-dir: /opt/acorn/tmp
+    tmp-dir: /opt/flink-acorn/tmp

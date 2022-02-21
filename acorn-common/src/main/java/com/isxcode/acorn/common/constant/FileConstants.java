@@ -18,6 +18,11 @@ public interface FileConstants {
     String JOB_FILE_NAME = "FlinkJob.java";
 
     /**
+     * 生成log文件的名称
+     */
+    String JOB_LOG_NAME = "acorn.log";
+
+    /**
      * pom文件模板位置
      */
     String POM_TEMPLATE_PATH = "templates/pom.xml";
@@ -28,11 +33,6 @@ public interface FileConstants {
     String POM_XML = "pom.xml";
 
     /**
-     * 日志文件的后缀
-     */
-    String LOG_SUFFIX = ".log";
-
-    /**
      * 生成jar包的名字
      */
     String FLINK_JAR_NAME = "acorn.jar";
@@ -41,4 +41,11 @@ public interface FileConstants {
      * 成功返回flink的日志内容
      */
     String SUCCESS_FLINK_LOG = "Job has been submitted with JobID";
+
+    /*
+     * 临时项目目录
+     *
+     * @ispong
+     */
+    String JOB_PROJECT_NAME = "acorn";
 }
