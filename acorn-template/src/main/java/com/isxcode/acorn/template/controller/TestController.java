@@ -1,9 +1,9 @@
 package com.isxcode.acorn.template.controller;
 
-import com.isxcode.acorn.common.menu.TemplateType;
-import com.isxcode.acorn.common.pojo.model.AcornModel1;
-import com.isxcode.acorn.common.response.AcornResponse;
+import com.isxcode.acorn.common.pojo.AcornRequest;
+import com.isxcode.acorn.common.pojo.AcornResponse;
 import com.isxcode.acorn.common.template.AcornTemplate;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,50 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping
+@RequiredArgsConstructor
 public class TestController {
 
     private final AcornTemplate acornTemplate;
-
-    public TestController(AcornTemplate acornTemplate) {
-
-        this.acornTemplate = acornTemplate;
-    }
-
-    @GetMapping("/execute")
-    public void execute() {
-
-        AcornModel1 acornModel1 = AcornModel1.builder()
-            .jobName("ispong-test-flink-job")
-            .executeId("1314520")
-            .fromConnectorSql("CREATE TABLE from_table ( " +
-                "  username STRING," +
-                "  age INT " +
-                ") WITH ( " +
-                "  'scan.startup.mode'='latest-offset'," +
-                "  'properties.group.id'='test-consumer-group'," +
-                "  'connector'='kafka'," +
-                "  'topic'='flink-topic'," +
-                "  'properties.zookeeper.connect'='172.26.34.170:2181'," +
-                "  'properties.bootstrap.servers'='172.26.34.170:9092'," +
-                "  'format'='csv'," +
-                "  'csv.ignore-parse-errors' = 'true'" +
-                "  )")
-            .toConnectorSql("CREATE TABLE to_table ( " +
-                "  username varchar(100)," +
-                "  age int" +
-                ") WITH (" +
-                "  'connector'='jdbc'," +
-                "  'url'='jdbc:mysql://172.26.34.170:30102/flink'," +
-                "  'table-name'='flink_test_table'," +
-                "  'driver'='com.mysql.cj.jdbc.Driver'," +
-                "  'username'='root'," +
-                "  'password'='flink2022')")
-            .filterCode("fromData = fromData.select($(\"username\").as(\"username\"),$(\"age\").as(\"age\"));")
-            .templateName(TemplateType.KAFKA_INPUT_MYSQL_OUTPUT)
-            .build();
-
-        log.info(acornTemplate.build().execute(acornModel1).toString());
-    }
 
     @GetMapping("/getLog")
     public void getLog() {
@@ -81,7 +41,49 @@ public class TestController {
     @GetMapping("/stopJob")
     public void stop() {
 
-        AcornResponse d = acornTemplate.build().stopJob("9d0694eb8f597e2547970d98dc05a2b3");
-        log.info(d.toString());
+        AcornResponse jobInfo = acornTemplate.build().stopJob("9d0694eb8f597e2547970d98dc05a2b3");
+        log.info(jobInfo.toString());
+    }
+
+    @GetMapping("/killJob")
+    public void kill() {
+
+        AcornResponse jobInfo = acornTemplate.build().stopJob("9d0694eb8f597e2547970d98dc05a2b3");
+        log.info(jobInfo.toString());
+    }
+
+    @GetMapping("/execute1")
+    public void execute1() {
+
+        AcornRequest acornRequest = AcornRequest.builder()
+            .executeId("1314520")
+            .sql("select * from a")
+            .build();
+
+        log.info(acornTemplate.build().executeJson(acornRequest).toString());
+    }
+
+    @GetMapping("/execute2")
+    public void execute2() {
+
+        AcornRequest acornRequest = AcornRequest.builder()
+            .executeId("1314520")
+            .java("String id='12'")
+            .build();
+
+        log.info(acornTemplate.build().executeJson(acornRequest).toString());
+    }
+
+    @GetMapping("/execute3")
+    public void execute3() {
+
+        AcornRequest acornRequest = AcornRequest.builder()
+            .executeId("1314520")
+            .json("{" +
+                "\"user\":\"12\"" +
+                "}")
+            .build();
+
+        log.info(acornTemplate.build().executeJson(acornRequest).toString());
     }
 }

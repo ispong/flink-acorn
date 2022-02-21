@@ -1,7 +1,7 @@
 package com.isxcode.acorn.plugin.response;
 
 import com.isxcode.acorn.common.pojo.dto.AcornData;
-import com.isxcode.acorn.common.response.AcornResponse;
+import com.isxcode.acorn.common.pojo.AcornResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;

@@ -1,21 +1,24 @@
 package com.isxcode.acorn.plugin.service;
 
+import com.alibaba.fastjson.JSON;
 import com.isxcode.acorn.common.constant.FileConstants;
 import com.isxcode.acorn.common.constant.UrlConstants;
+import com.isxcode.acorn.common.exception.AcornException;
+import com.isxcode.acorn.common.exception.AcornExceptionEnum;
 import com.isxcode.acorn.common.menu.TemplateType;
+import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.dto.AcornData;
 import com.isxcode.acorn.common.pojo.dto.JobStatusDto;
 import com.isxcode.acorn.common.pojo.dto.JobStatusResultDto;
-import com.isxcode.acorn.common.pojo.model.AcornModel1;
+import com.isxcode.acorn.common.pojo.node.JobConfig;
 import com.isxcode.acorn.common.properties.AcornPluginProperties;
-import com.isxcode.acorn.plugin.exception.AcornException;
-import com.isxcode.acorn.common.exception.AcornExceptionEnum;
 import com.isxcode.acorn.plugin.utils.ParseSqlUtils;
 import com.isxcode.oxygen.core.command.CommandUtils;
 import com.isxcode.oxygen.core.exception.OxygenException;
 import com.isxcode.oxygen.core.file.FileUtils;
 import com.isxcode.oxygen.core.freemarker.FreemarkerUtils;
 import com.isxcode.oxygen.core.http.HttpUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -32,53 +35,52 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class AcornBizService {
 
     private final AcornPluginProperties acornPluginProperties;
 
-    public AcornBizService(AcornPluginProperties acornPluginProperties) {
-
-        this.acornPluginProperties = acornPluginProperties;
-    }
-
-    public AcornData execute(AcornModel1 acornModel) {
+    public AcornData executeJson(AcornRequest acornRequest) {
 
         // 关键字检测
-        if (acornModel.getExecuteId() == null) {
+        if (acornRequest.getExecuteId() == null) {
             throw new AcornException(AcornExceptionEnum.REQUEST_VALUE_EMPTY);
         }
 
+        // 将json转成JobConfig
+        JobConfig jobConfig = JSON.parseObject(acornRequest.getJson(), JobConfig.class);
+
         // 如果需要支持hive则需要默认添加配置路径
-        if (TemplateType.KAFKA_INPUT_HIVE_OUTPUT.equals(acornModel.getTemplateName())) {
-            acornModel.setHiveConfigPath(acornPluginProperties.getHiveConfPath());
+        if (TemplateType.KAFKA_INPUT_HIVE_OUTPUT.equals(jobConfig.getTemplateName())) {
+            jobConfig.setHiveConfigPath(acornPluginProperties.getHiveConfPath());
         }
 
         // 解析connectorSql中表名
-        acornModel.setFromTableName(ParseSqlUtils.getTableName(acornModel.getFromConnectorSql()));
-        acornModel.setToTableName(ParseSqlUtils.getTableName(acornModel.getToConnectorSql()));
+        jobConfig.setFromTableName(ParseSqlUtils.getTableName(jobConfig.getFromConnectorSql()));
+        jobConfig.setToTableName(ParseSqlUtils.getTableName(jobConfig.getToConnectorSql()));
 
         // 生成FlinkJob.java代码
         String flinkJobJavaCode;
         try {
-            flinkJobJavaCode = FreemarkerUtils.templateToString(acornModel.getTemplateName().getTemplateFileName(), acornModel);
+            flinkJobJavaCode = FreemarkerUtils.templateToString(jobConfig.getTemplateName().getTemplateFileName(), jobConfig);
             log.debug("AcornBizService.execute.flinkJobJavaCode:" + flinkJobJavaCode);
         } catch (OxygenException e) {
             throw new AcornException(AcornExceptionEnum.JAVA_CODE_GENERATE_ERROR);
         }
 
         // 项目临时文件路径
-        String tmpPath = acornPluginProperties.getTmpDir() + File.separator + acornModel.getExecuteId();
+        String tmpPath = acornPluginProperties.getTmpDir() + File.separator + acornRequest.getExecuteId();
 
         // 创建FlinkJob.java文件
         String flinkJobPath = tmpPath + FileConstants.JOB_TMP_PATH + File.separator + FileConstants.JOB_FILE_NAME;
         FileUtils.StringToFile(flinkJobJavaCode, flinkJobPath, StandardOpenOption.WRITE);
 
         // 创建pom.xml文件
-        String flinkPomFilePath = acornPluginProperties.getTmpDir() + File.separator + acornModel.getExecuteId() + File.separator + FileConstants.POM_XML;
+        String flinkPomFilePath = acornPluginProperties.getTmpDir() + File.separator + acornRequest.getExecuteId() + File.separator + FileConstants.POM_XML;
         FileUtils.copyResourceFile(FileConstants.POM_TEMPLATE_PATH, flinkPomFilePath, StandardOpenOption.WRITE);
 
         // 创建日志文件
-        String logPath = acornPluginProperties.getLogDir() + File.separator + acornModel.getExecuteId() + FileConstants.LOG_SUFFIX;
+        String logPath = acornPluginProperties.getLogDir() + File.separator + acornRequest.getExecuteId() + FileConstants.LOG_SUFFIX;
         FileUtils.generateFile(logPath);
 
         // 执行编译且运行作业
@@ -108,9 +110,9 @@ public class AcornBizService {
         }
     }
 
-    public AcornData getJobLog(AcornModel1 acornModel1) {
+    public AcornData getJobLog(AcornRequest acornRequest) {
 
-        String logPath = acornPluginProperties.getLogDir() + File.separator + acornModel1.getExecuteId() + FileConstants.LOG_SUFFIX;
+        String logPath = acornPluginProperties.getLogDir() + File.separator + acornRequest.getExecuteId() + FileConstants.LOG_SUFFIX;
         Path path = Paths.get(logPath);
         Resource resource;
         try {
@@ -123,9 +125,9 @@ public class AcornBizService {
         }
     }
 
-    public AcornData stopJob(AcornModel1 acornModel1) {
+    public AcornData stopJob(AcornRequest acornRequest) {
 
-        String stopFlinkCommand = "flink cancel " + acornModel1.getJobId();
+        String stopFlinkCommand = "flink cancel " + acornRequest.getJobId();
         try {
             CommandUtils.executeNoBackCommand(stopFlinkCommand);
         } catch (Exception e) {
@@ -135,14 +137,14 @@ public class AcornBizService {
         return AcornData.builder().build();
     }
 
-    public AcornData getJobInfo(AcornModel1 acornModel1) {
+    public AcornData getJobInfo(AcornRequest acornRequest) {
 
         JobStatusResultDto jobStatusResultDto = HttpUtils.doGet("http://" + acornPluginProperties.getFlinkHost() + ":" + acornPluginProperties.getFlinkPort() + UrlConstants.FLINK_JOBS_OVERVIEW, JobStatusResultDto.class);
         if (jobStatusResultDto.getJobs() == null) {
             return null;
         }
         for (JobStatusDto metaJob : jobStatusResultDto.getJobs()) {
-            if (metaJob.getJid().equals(acornModel1.getJobId())) {
+            if (metaJob.getJid().equals(acornRequest.getJobId())) {
                 return AcornData.builder().jobInfo(metaJob).build();
             }
         }

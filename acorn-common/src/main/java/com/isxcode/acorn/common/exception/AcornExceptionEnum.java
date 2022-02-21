@@ -20,6 +20,8 @@ public enum AcornExceptionEnum {
     KEY_IS_ERROR("50006", "key不正确"),
 
     REQUEST_VALUE_EMPTY("50007", "缺少输入参数"),
+
+    ACORN_SERVER_NOT_FOUND("50008", "没有发现Acorn服务"),
     ;
 
     @Getter

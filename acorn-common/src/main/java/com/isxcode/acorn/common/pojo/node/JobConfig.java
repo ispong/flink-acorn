@@ -1,38 +1,15 @@
-package com.isxcode.acorn.common.pojo.model;
+package com.isxcode.acorn.common.pojo.node;
 
 import com.isxcode.acorn.common.menu.TemplateType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
-/**
- * 模型1
- * 只支持一个节点输入  一个节点输出  中间可以编写自己的sql
- */
 @Data
-@Builder
-@AllArgsConstructor
-public class AcornModel1 {
-
-    /**
-     * flink job Id
-     */
-    private String jobId;
+public class JobConfig {
 
     /**
      * 模板类型
      */
     private TemplateType templateName;
-
-    /**
-     * 执行id
-     */
-    private String executeId;
-
-    /**
-     * 作业的名称 会在flink的job中看到jobName
-     */
-    private String jobName;
 
     /**
      * 过滤代码

@@ -1,7 +1,7 @@
 package com.isxcode.acorn.plugin.response;
 
-import com.isxcode.acorn.common.response.AcornResponse;
-import com.isxcode.acorn.plugin.exception.AcornException;
+import com.isxcode.acorn.common.pojo.AcornResponse;
+import com.isxcode.acorn.common.exception.AcornException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

@@ -1,7 +1,7 @@
 package com.isxcode.acorn.plugin.exception;
 
 import com.isxcode.acorn.common.exception.AcornExceptionEnum;
-import com.isxcode.acorn.common.response.AcornResponse;
+import com.isxcode.acorn.common.pojo.AcornResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

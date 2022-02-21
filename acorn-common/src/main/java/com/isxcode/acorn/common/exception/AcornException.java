@@ -1,4 +1,4 @@
-package com.isxcode.acorn.plugin.exception;
+package com.isxcode.acorn.common.exception;
 
 import com.isxcode.acorn.common.exception.AcornExceptionEnum;
 import lombok.extern.slf4j.Slf4j;

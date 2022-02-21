@@ -7,6 +7,15 @@
 ispong <ispong@outlook.com>
 ```
 
+#### 开启本地文档
+
+```bash
+# 先安装nodejs
+npm i docsify-cli -g
+docsify serve docs
+```
+
+
 #### 构建环境
 
 ##### 前提
@@ -36,11 +45,3 @@ ispong <ispong@outlook.com>
 10. 测试kafka-->hive
 11. 测试canal-->doris
 12. 测试kafka-->doris
-
-#### 开启本地文档
-
-```bash
-# 先安装nodejs
-npm i docsify-cli -g
-docsify serve docs
-```

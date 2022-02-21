@@ -1,6 +1,6 @@
 package com.isxcode.acorn.plugin.response;
 
-import com.isxcode.acorn.common.response.AcornResponse;
+import com.isxcode.acorn.common.pojo.AcornResponse;
 import lombok.Getter;
 import lombok.Setter;
 

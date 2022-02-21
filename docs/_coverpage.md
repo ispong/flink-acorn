@@ -7,7 +7,7 @@
     小栗子
 </h3>
 
-- 🐿️ Flink + Spring Boot 快速集成插件 🐿️
+- 🐿️ Flink + Spring Boot 快速集成，支持flink-sql、flink-java、flink-json
 
 <div class="buttons">
   <a href="https://github.com/ispong/flink-acorn/" target="_blank"><span>GitHub</span></a>

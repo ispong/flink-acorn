@@ -1,14 +1,14 @@
 package com.isxcode.acorn.common.properties;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * flink节点配置
  */
 @Data
-@ConfigurationProperties("acorn.node")
-public class AcornNodeProperties {
+@AllArgsConstructor
+public class AcornServerInfo {
 
     /**
      * 插件服务器ip

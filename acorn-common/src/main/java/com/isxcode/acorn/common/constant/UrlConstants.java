@@ -18,7 +18,17 @@ public interface UrlConstants {
     /**
      * 发布作业接口
      */
-    String EXECUTE_URL = "/job/execute";
+    String EXECUTE_SQL_URL = "/job/executeSql";
+
+    /**
+     * 发布作业接口
+     */
+    String EXECUTE_JAVA_URL = "/job/executeJava";
+
+    /**
+     * 发布作业接口
+     */
+    String EXECUTE_JSON_URL = "/job/executeJson";
 
     /**
      * 停止作业接口
