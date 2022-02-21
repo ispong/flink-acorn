@@ -31,6 +31,7 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
 EOF
 sudo systemctl daemon-reload
 sudo systemctl restart docker
+sudo systemctl status docker
 ```
 
 ##### 安装mysql
@@ -39,14 +40,14 @@ sudo systemctl restart docker
 sudo mkdir -p /data/mysql/data
 sudo mkdir -p /data/mysql/conf.d
 
-docker run \
-  --name flink-mysql \
+sudo docker run \
+  --name acorn-mysql \
   --privileged=true \
   --restart=always \
   -d \
   -p 30102:3306 \
-  -e MYSQL_ROOT_PASSWORD=flink2022 \
-  -e MYSQL_DATABASE=flink \
+  -e MYSQL_ROOT_PASSWORD=acorn \
+  -e MYSQL_DATABASE=acorn \
   -v /data/mysql/data:/var/lib/mysql \
   -v /data/mysql/conf.d:/etc/mysql/conf.d \
   mysql
@@ -55,12 +56,12 @@ docker run \
 ##### 建表
 
 ```bash
-docker exec -it flink-mysql /bin/bash
-mysql -u  root -p
+sudo docker exec -it acorn-mysql /bin/bash
+mysql -h localhost -u root -pacorn -P 30102 
 ```
 
 ```sql
-create table flink.flink_test_table
+create table acorn.flink_test_table
 (
     username varchar(100),
     age int
