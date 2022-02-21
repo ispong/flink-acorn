@@ -13,4 +13,6 @@ import java.util.Map;
 public class AcornServerProperties {
 
     private Map<String, AcornServerInfo> server;
+
+    private Boolean checkServer = true;
 }

@@ -49,4 +49,9 @@ public interface UrlConstants {
      * 查询所有祖业状态接口
      */
     String QUERY_JOB_STATUS_URL = "/job/queryJobStatus";
+
+    /**
+     * 心跳检查接口
+     */
+    String HEART_CHECK_URL = "/heartCheck";
 }

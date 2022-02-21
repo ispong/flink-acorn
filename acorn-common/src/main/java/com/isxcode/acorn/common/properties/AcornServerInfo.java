@@ -2,12 +2,16 @@ package com.isxcode.acorn.common.properties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * flink节点配置
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@ConfigurationProperties(prefix = "acorn.client.server")
 public class AcornServerInfo {
 
     /**

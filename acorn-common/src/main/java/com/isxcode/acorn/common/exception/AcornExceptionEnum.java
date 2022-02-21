@@ -22,7 +22,8 @@ public enum AcornExceptionEnum {
     REQUEST_VALUE_EMPTY("50007", "缺少输入参数"),
 
     ACORN_SERVER_NOT_FOUND("50008", "没有发现Acorn服务"),
-    ;
+
+    ACORN_SERVER_IS_EMPTY("50009", "Acorn服务为空"),;
 
     @Getter
     private final String code;

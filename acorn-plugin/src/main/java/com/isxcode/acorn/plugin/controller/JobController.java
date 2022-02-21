@@ -15,9 +15,6 @@ public class JobController {
 
     private final AcornBizService acornBizService;
 
-    /**
-     * 发布flink作业接口
-     */
     @SuccessResponse
     @PostMapping(UrlConstants.EXECUTE_JSON_URL)
     public AcornData executeFlink(@RequestBody AcornRequest acornRequest) {
@@ -25,9 +22,6 @@ public class JobController {
         return acornBizService.executeJson(acornRequest);
     }
 
-    /**
-     * 获取flink作业发布日志接口
-     */
     @SuccessResponse
     @PostMapping(UrlConstants.GET_JOB_LOG_URL)
     public AcornData getJobLog(@RequestBody AcornRequest acornRequest) {
@@ -35,9 +29,6 @@ public class JobController {
         return acornBizService.getJobLog(acornRequest);
     }
 
-    /**
-     * 停止flink作业接口
-     */
     @SuccessResponse
     @PostMapping(UrlConstants.STOP_JOB_URL)
     public AcornData stopJob(@RequestBody AcornRequest acornRequest) {
@@ -45,9 +36,6 @@ public class JobController {
         return acornBizService.stopJob(acornRequest);
     }
 
-    /**
-     * 获取指定flink作业的状态
-     */
     @SuccessResponse
     @PostMapping(UrlConstants.GET_JOB_STATUS_URL)
     public AcornData getJobStatus(@RequestBody AcornRequest acornRequest) {
@@ -55,13 +43,18 @@ public class JobController {
         return acornBizService.getJobInfo(acornRequest);
     }
 
-    /**
-     * 查询所有flink作业的状态
-     */
     @SuccessResponse
     @GetMapping(UrlConstants.QUERY_JOB_STATUS_URL)
     public AcornData queryJobStatus() {
 
         return acornBizService.queryJobStatus();
     }
+
+    @SuccessResponse
+    @GetMapping(UrlConstants.HEART_CHECK_URL)
+    public AcornData heartCheck() {
+
+        return AcornData.builder().jobLog("正常").build();
+    }
+
 }
