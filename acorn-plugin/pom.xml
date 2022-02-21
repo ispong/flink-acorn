@@ -24,7 +24,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- 常用依赖版本号配置 -->
-        <acorn-common.version>1.0.0</acorn-common.version>
+        <acorn-common.version>1.1.0-SNAPSHOT</acorn-common.version>
         <isxcode.version>0.12.8</isxcode.version>
         <lombok.version>1.18.22</lombok.version>
         <log4j.version>[2.16.0,)</log4j.version>

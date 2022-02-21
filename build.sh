@@ -5,11 +5,11 @@ echo "Flink-Acorn ==> Go to ${BASE_PATH}"
 
 # 打包
 echo "Flink-Acorn ==> Start build"
-mvn clean package -Dmaven.test.skip -pl acorn-common,acorn-plugin,demo1 || exit
+mvn clean package -Dmaven.test.skip -pl acorn-common,acorn-plugin || exit
 echo "Flink-Acorn ==> Build success"
 
 # 创建acorn文件夹
-ACORN_BUILD_DIR="${BASE_PATH}"/acorn
+ACORN_BUILD_DIR="${BASE_PATH}"/flink-acorn
 if [ -d "${ACORN_BUILD_DIR}" ]; then
     rm -rf "${ACORN_BUILD_DIR}"
     echo "Flink-Acorn ==> Delete acorn success"
@@ -20,7 +20,7 @@ echo "Flink-Acorn ==> Create acorn success"
 # 创建bin文件夹
 mkdir -p "${ACORN_BUILD_DIR}"/bin
 cp "${BASE_PATH}"/acorn-plugin/bin/* "$ACORN_BUILD_DIR"/bin
-chmod a+x "$ACORN_BUILD_DIR"/bin/*.sh
+chmod a+x "$ACORN_BUILD_DIR"/bin/*
 echo "Flink-Acorn ==> Create bin dir success"
 
 # 创建conf文件夹
