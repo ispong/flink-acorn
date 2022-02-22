@@ -4,6 +4,8 @@ import com.isxcode.acorn.common.pojo.node.JobConfig;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * acorn 请求体
  */
@@ -46,4 +48,5 @@ public class AcornRequest {
      * @ispong
      */
     private String sql;
+
 }

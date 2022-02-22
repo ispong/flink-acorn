@@ -38,23 +38,19 @@ public class AcornBizService {
 
     private final AcornPluginProperties acornPluginProperties;
 
-    public AcornData executeJson(AcornRequest acornRequest) {
+    public AcornData executeFlinkJob(AcornRequest acornRequest) {
 
         // 关键字检测
         if (acornRequest.getExecuteId() == null) {
             throw new AcornException(AcornExceptionEnum.REQUEST_VALUE_EMPTY);
         }
 
-        // 将json转成JobConfig
-        JobConfig jobConfig = JSON.parseObject(acornRequest.getJson(), JobConfig.class);
+        String flinkJobJavaCode = null;
+        if (acornRequest.getJson() != null) {
+            flinkJobJavaCode = executeJson(acornRequest);
+        }
+        if (acornRequest.getJava() != null) {
 
-        // 生成FlinkJob.java代码
-        String flinkJobJavaCode;
-        try {
-            flinkJobJavaCode = FreemarkerUtils.templateToString(FileConstants.ACORN_TEMPLATE_NAME, jobConfig);
-            log.debug("AcornBizService.execute.flinkJobJavaCode:" + flinkJobJavaCode);
-        } catch (OxygenException e) {
-            throw new AcornException(AcornExceptionEnum.JAVA_CODE_GENERATE_ERROR);
         }
 
         // 项目临时文件路径
@@ -96,6 +92,42 @@ public class AcornBizService {
             return AcornData.builder().jobId(jobId).build();
         } else {
             throw new AcornException(AcornExceptionEnum.EXECUTE_COMMAND_ERROR);
+        }
+    }
+
+    public String executeJson(AcornRequest acornRequest) {
+
+        // 将json转成JobConfig
+        JobConfig jobConfig = JSON.parseObject(acornRequest.getJson(), JobConfig.class);
+
+        // 生成FlinkJob.java代码
+        try {
+            return FreemarkerUtils.templateToString(FileConstants.ACORN_JSON_TEMPLATE_NAME, jobConfig);
+        } catch (OxygenException e) {
+            throw new AcornException(AcornExceptionEnum.JAVA_CODE_GENERATE_ERROR);
+        }
+    }
+
+    public String executeSql(AcornRequest acornRequest) {
+
+        // 生成FlinkJob.java代码
+        try {
+            return FreemarkerUtils.templateToString(FileConstants.ACORN_JSON_TEMPLATE_NAME, acornRequest.getSql());
+        } catch (OxygenException e) {
+            throw new AcornException(AcornExceptionEnum.JAVA_CODE_GENERATE_ERROR);
+        }
+    }
+
+    public String executeJava(AcornRequest acornRequest) {
+
+        // 将json转成JobConfig
+        JobConfig jobConfig = JSON.parseObject(acornRequest.getJson(), JobConfig.class);
+
+        // 生成FlinkJob.java代码
+        try {
+            return FreemarkerUtils.templateToString(FileConstants.ACORN_JSON_TEMPLATE_NAME, acornRequest.getJava());
+        } catch (OxygenException e) {
+            throw new AcornException(AcornExceptionEnum.JAVA_CODE_GENERATE_ERROR);
         }
     }
 

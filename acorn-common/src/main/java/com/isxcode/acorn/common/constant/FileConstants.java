@@ -50,9 +50,24 @@ public interface FileConstants {
     String JOB_PROJECT_NAME = "acorn";
 
     /*
-     * acorn的模板名称
+     * acorn的json模板名称
      *
      * @ispong
      */
-    String ACORN_TEMPLATE_NAME = "FLINK_ACORN_JOB_TEMPLATE.ftl";
+    String ACORN_JSON_TEMPLATE_NAME = "ACORN_JSON_TEMPLATE.ftl";
+
+    /*
+     * acorn的java模板名称
+     *
+     * @ispong
+     */
+    String ACORN_JAVA_TEMPLATE_NAME = "ACORN_JAVA_TEMPLATE.ftl";
+
+    /*
+     * acorn的sql模板名称
+     *
+     * @ispong
+     */
+    String ACORN_SQL_TEMPLATE_NAME = "ACORN_SQL_TEMPLATE.ftl";
+
 }

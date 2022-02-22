@@ -17,9 +17,23 @@ public class JobController {
 
     @SuccessResponse
     @PostMapping(UrlConstants.EXECUTE_JSON_URL)
-    public AcornData executeFlink(@RequestBody AcornRequest acornRequest) {
+    public AcornData executeFlinkJson(@RequestBody AcornRequest acornRequest) {
 
-        return acornBizService.executeJson(acornRequest);
+        return acornBizService.executeFlinkJob(acornRequest);
+    }
+
+    @SuccessResponse
+    @PostMapping(UrlConstants.EXECUTE_SQL_URL)
+    public AcornData executeFlinkSql(@RequestBody AcornRequest acornRequest) {
+
+        return acornBizService.executeFlinkJob(acornRequest);
+    }
+
+    @SuccessResponse
+    @PostMapping(UrlConstants.EXECUTE_JAVA_URL)
+    public AcornData executeFlinkJava(@RequestBody AcornRequest acornRequest) {
+
+        return acornBizService.executeFlinkJob(acornRequest);
     }
 
     @SuccessResponse

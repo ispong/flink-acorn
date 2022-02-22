@@ -78,6 +78,12 @@ public class AcornTemplate {
             return requestAcornServer(executeUrl, acornRequest);
         }
 
+        public AcornResponse executeSql(AcornRequest acornRequest) {
+
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_SQL_URL, serverInfo.getHost(), serverInfo.getPort());
+            return requestAcornServer(executeUrl, acornRequest);
+        }
+
         public AcornResponse getJobLog(String executeId) {
 
             AcornRequest acornRequest = AcornRequest.builder().executeId(executeId).build();
