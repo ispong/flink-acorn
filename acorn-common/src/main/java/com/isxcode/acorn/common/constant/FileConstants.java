@@ -48,4 +48,11 @@ public interface FileConstants {
      * @ispong
      */
     String JOB_PROJECT_NAME = "acorn";
+
+    /*
+     * acorn的模板名称
+     *
+     * @ispong
+     */
+    String ACORN_TEMPLATE_NAME = "FLINK_ACORN_JOB_TEMPLATE.ftl";
 }

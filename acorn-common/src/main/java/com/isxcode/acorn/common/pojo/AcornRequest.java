@@ -1,5 +1,6 @@
 package com.isxcode.acorn.common.pojo;
 
+import com.isxcode.acorn.common.pojo.node.JobConfig;
 import lombok.Builder;
 import lombok.Data;
 

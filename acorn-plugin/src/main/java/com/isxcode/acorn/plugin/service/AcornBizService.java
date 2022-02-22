@@ -5,14 +5,12 @@ import com.isxcode.acorn.common.constant.FileConstants;
 import com.isxcode.acorn.common.constant.UrlConstants;
 import com.isxcode.acorn.common.exception.AcornException;
 import com.isxcode.acorn.common.exception.AcornExceptionEnum;
-import com.isxcode.acorn.common.menu.TemplateType;
 import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.dto.AcornData;
 import com.isxcode.acorn.common.pojo.dto.JobStatusDto;
 import com.isxcode.acorn.common.pojo.dto.JobStatusResultDto;
 import com.isxcode.acorn.common.pojo.node.JobConfig;
 import com.isxcode.acorn.common.properties.AcornPluginProperties;
-import com.isxcode.acorn.plugin.utils.ParseSqlUtils;
 import com.isxcode.oxygen.core.command.CommandUtils;
 import com.isxcode.oxygen.core.exception.OxygenException;
 import com.isxcode.oxygen.core.file.FileUtils;
@@ -50,19 +48,10 @@ public class AcornBizService {
         // 将json转成JobConfig
         JobConfig jobConfig = JSON.parseObject(acornRequest.getJson(), JobConfig.class);
 
-        // 如果需要支持hive则需要默认添加配置路径
-        if (TemplateType.KAFKA_INPUT_HIVE_OUTPUT.equals(jobConfig.getTemplateName())) {
-            jobConfig.setHiveConfigPath(acornPluginProperties.getHiveConfPath());
-        }
-
-        // 解析connectorSql中表名
-        jobConfig.setFromTableName(ParseSqlUtils.getTableName(jobConfig.getFromConnectorSql()));
-        jobConfig.setToTableName(ParseSqlUtils.getTableName(jobConfig.getToConnectorSql()));
-
         // 生成FlinkJob.java代码
         String flinkJobJavaCode;
         try {
-            flinkJobJavaCode = FreemarkerUtils.templateToString(jobConfig.getTemplateName().getTemplateFileName(), jobConfig);
+            flinkJobJavaCode = FreemarkerUtils.templateToString(FileConstants.ACORN_TEMPLATE_NAME, jobConfig);
             log.debug("AcornBizService.execute.flinkJobJavaCode:" + flinkJobJavaCode);
         } catch (OxygenException e) {
             throw new AcornException(AcornExceptionEnum.JAVA_CODE_GENERATE_ERROR);
