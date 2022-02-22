@@ -20,8 +20,8 @@ public class TemplateController {
 
     private final AcornTemplate acornTemplate;
 
-    @GetMapping("/execute1")
-    public void executeConfig() {
+    @GetMapping("/executeJson")
+    public void executeJson() {
 
         String jsonConfig = "{\n" +
             "  \"jobName\": \"acorn-test\",\n" +

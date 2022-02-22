@@ -2,7 +2,7 @@ acorn:
   client:
     server:
       default:
-        host: 8.142.191.242
+        host: 121.89.213.24
         port: 30155
         key: acorn-key
       node2:

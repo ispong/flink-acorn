@@ -10,6 +10,7 @@ import com.isxcode.acorn.common.properties.AcornServerProperties;
 import com.isxcode.acorn.common.template.AcornTemplate;
 import com.isxcode.oxygen.core.http.HttpUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,6 +43,7 @@ public class AcornAutoConfig {
      * @ispong
      */
     @Bean
+    @ConditionalOnProperty(name = "acorn.client.server", matchIfMissing = true)
     public void checkServerStatus() {
 
         if (!acornServerProperties.getCheckServer()) {
