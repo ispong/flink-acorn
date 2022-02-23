@@ -15,7 +15,7 @@ public interface FileConstants {
     /**
      * 生成java文件的名称
      */
-    String JOB_FILE_NAME = "FlinkJob.java";
+    String JOB_FILE_NAME = "Acorn.java";
 
     /**
      * 生成log文件的名称

@@ -192,7 +192,7 @@
 							</filters>
 							<transformers>
 								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.isxcode.acorn.template.FlinkJob</mainClass>
+									<mainClass>com.isxcode.acorn.template.Acorn</mainClass>
 								</transformer>
 							</transformers>
 						</configuration>
