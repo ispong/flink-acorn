@@ -37,7 +37,7 @@ public class TemplateController {
             "       'properties.bootstrap.servers'='172.26.34.172:9092'," +
             "       'format'='csv'," +
             "       'csv.ignore-parse-errors' = 'true'" +
-            " );");
+            " )");
         sqlList.add(1, "   CREATE TABLE to_table ( " +
             "        username STRING, " +
             "        age INT" +
@@ -47,8 +47,8 @@ public class TemplateController {
             "        'driver'='com.mysql.cj.jdbc.Driver'," +
             "        'username'='root'," +
             "        'password'='acorn'" +
-            "  );");
-        sqlList.add("   INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19;");
+            "  )");
+        sqlList.add(2, "   INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19");
 
         AcornRequest acornRequest = AcornRequest.builder()
             .executeId(String.valueOf(UUID.randomUUID()))
@@ -61,7 +61,8 @@ public class TemplateController {
     @GetMapping("/executeJava")
     public void executeJava() {
 
-        String javaCode = "import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;\n" +
+        String javaCode = "" +
+            "import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;\n" +
             "import org.apache.flink.table.api.EnvironmentSettings;\n" +
             "import org.apache.flink.table.api.Table;\n" +
             "import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;\n" +

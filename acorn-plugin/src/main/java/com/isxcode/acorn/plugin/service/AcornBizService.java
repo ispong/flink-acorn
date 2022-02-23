@@ -113,12 +113,11 @@ public class AcornBizService {
 
     public String executeJava(AcornRequest acornRequest) {
 
-        Map<String, String> freemarkerParams = new HashMap<>();
-        freemarkerParams.put("jobName", acornRequest.getJobName() == null ? "acorn-job" : acornRequest.getJobName());
+        Map<String, Object> freemarkerParams = new HashMap<>();
         freemarkerParams.put("flinkJavaCode", acornRequest.getJava());
 
         try {
-            return FreemarkerUtils.templateToString(FileConstants.ACORN_JSON_TEMPLATE_NAME, freemarkerParams);
+            return FreemarkerUtils.templateToString(FileConstants.ACORN_JAVA_TEMPLATE_NAME, freemarkerParams);
         } catch (OxygenException e) {
             throw new AcornException(AcornExceptionEnum.JAVA_CODE_GENERATE_ERROR);
         }
