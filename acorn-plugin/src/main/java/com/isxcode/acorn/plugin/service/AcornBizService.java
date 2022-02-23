@@ -101,7 +101,7 @@ public class AcornBizService {
     public String executeSql(AcornRequest acornRequest) {
 
         Map<String, String> freemarkerParams = new HashMap<>();
-        freemarkerParams.put("jobName", acornRequest.getJobName());
+        freemarkerParams.put("jobName", acornRequest.getJobName() == null ? "acorn-job" : acornRequest.getJobName());
         freemarkerParams.put("flinkSql", acornRequest.getSql());
 
         try {
@@ -114,7 +114,7 @@ public class AcornBizService {
     public String executeJava(AcornRequest acornRequest) {
 
         Map<String, String> freemarkerParams = new HashMap<>();
-        freemarkerParams.put("jobName", acornRequest.getJobName());
+        freemarkerParams.put("jobName", acornRequest.getJobName() == null ? "acorn-job" : acornRequest.getJobName());
         freemarkerParams.put("flinkJavaCode", acornRequest.getJava());
 
         try {
