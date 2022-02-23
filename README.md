@@ -3,7 +3,7 @@
 </h1>
 
 <h3 align="center">
-    🐿️ Flink + Spring Boot 快速集成插件。
+    🐿️ Flink + Spring Boot 快速集成，支持flink-sql、flink-java
 </h3>
 
 <h4 align="center">
@@ -12,17 +12,11 @@
     </a> ✨✨✨
 </h4>
 
+<h2></h2>
+
 ### 📢 公告
 
-目前，插件主要针对`flink-1.14.0-scala-2.12`版本进行开发。
-
-支持以下实时数据处理方式:
-- kafka --> mysql
-- kafka --> kafka
-- kafka --> hive
-- kafka --> doris
-- binlog --> doris
-- canal --> doris
+目前，插件主要针对**flink-1.14.0-scala-2.12**版本进行开发。
 
 ### ✨ 模块说明
 
@@ -35,8 +29,8 @@
 
 ### 📒 相关文档
 
-- [快速使用入口](https://ispong.github.io/flink-acorn/#/zh-cn/start/快速使用)
-- [开发者手册](https://ispong.github.io/flink-acorn/#/zh-cn/contributing)
+- [快速使用](https://ispong.github.io/flink-acorn/#/zh-cn/start/快速使用)
+- [维护手册](https://ispong.github.io/flink-acorn/#/zh-cn/contributing)
 - [版本历史](https://ispong.github.io/flink-acorn/#/zh-cn/changelog)
 
 ### 📦 安装使用
@@ -53,37 +47,26 @@
 
 ```yaml
 acorn:
-  node:
-    host: xxx.xxx.xxx.xxx
-    port: 30155
-    key: acorn-key
+  client:
+    server:
+      host: xxx.xxx.xxx.xxx
+      port: 30155
+      key: acorn-key
 ```
 
 ```java
-@RestController
-@RequestMapping
-public class DemoController {
+class demo {
 
     private final AcornTemplate acornTemplate;
 
-    public DemoController(AcornTemplate acornTemplate) {
-        this.acornTemplate = acornTemplate;
-    }
-    
-    @GetMapping("/execute")
-    public String execute() {
+    public void use(){
 
-        AcornModel1 acornModel1 = AcornModel1.builder()
-            .jobName("job-name")
-            .executeId("1314520")
-            .fromConnectorSql("CREATE TABLE from_table ( ... ) WITH ( ... )")
-            .toConnectorSql("CREATE TABLE to_table ( ... ) WITH ( ... )")
-            .filterCode("fromData = fromData.from( ... ).where( ... );")
-            .templateName(TemplateType.KAFKA_INPUT_KAFKA_OUTPUT)
+        AcornRequest acornRequest = AcornRequest.builder()
+            .executeId(String.valueOf(UUID.randomUUID()))
+            .sql("INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19 ")
             .build();
 
-        AcornResponse acornResponse = acornTemplate.build().execute(acornModel1);
-        return acornResponse.getAcornData().getJobId();
+        log.info(acornTemplate.build().executeSql(acornRequest).toString());
     }
 }
 ```
