@@ -11,6 +11,7 @@
   - [Flink 单节点快速安装](/zh-cn/blogs/Flink单节点安装.md) 
   - [Flink Kafka单节点快速安装](/zh-cn/blogs/Flink-kafka单节点快速安装.md)
   - [Flink Mysql单节点快速安装](/zh-cn/blogs/Flink-mysql单节点快速安装.md)
+  - [Flink 系统自启](/zh-cn/blogs/Flink系统自启.md)
   - [Flink 基础概念](/zh-cn/blogs/Flink基础概念.md)
   - [Flink 常用命令](/zh-cn/blogs/Flink常用命令.md)
   - [Flink 配置说明](/zh-cn/blogs/Flink配置说明.md)

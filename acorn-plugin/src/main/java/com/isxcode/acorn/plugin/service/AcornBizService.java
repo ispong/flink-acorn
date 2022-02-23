@@ -52,7 +52,7 @@ public class AcornBizService {
         if (acornRequest.getJava() != null) {
             flinkJobJavaCode = executeJava(acornRequest);
         }
-        if (acornRequest.getSql() != null) {
+        if (acornRequest.getSqlList() != null) {
             flinkJobJavaCode = executeSql(acornRequest);
         }
 
@@ -72,7 +72,7 @@ public class AcornBizService {
         FileUtils.generateFile(logPath);
 
         // 执行编译且运行作业
-        String targetFilePath = projectPath + File.separator + "target" + File.separator + FileConstants.FLINK_JAR_NAME;
+        String targetFilePath = projectPath + "target" + File.separator + FileConstants.FLINK_JAR_NAME;
         String executeCommand = "mvn clean package -f " + flinkPomFilePath + " && " + "flink run " + targetFilePath;
         log.debug(" 执行命令:" + executeCommand);
         try {
@@ -100,9 +100,9 @@ public class AcornBizService {
 
     public String executeSql(AcornRequest acornRequest) {
 
-        Map<String, String> freemarkerParams = new HashMap<>();
+        Map<String, Object> freemarkerParams = new HashMap<>();
         freemarkerParams.put("jobName", acornRequest.getJobName() == null ? "acorn-job" : acornRequest.getJobName());
-        freemarkerParams.put("flinkSql", acornRequest.getSql());
+        freemarkerParams.put("flinkSqlList", acornRequest.getSqlList());
 
         try {
             return FreemarkerUtils.templateToString(FileConstants.ACORN_SQL_TEMPLATE_NAME, freemarkerParams);
