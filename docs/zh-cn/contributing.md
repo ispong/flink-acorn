@@ -27,6 +27,12 @@ docsify serve docs
 - [ ] 将代码提交pr推到codeql中做代码检测
 - [ ] 从main分支上创建当前版本分支
 - [ ] 创建github的分支和版本(1.1.0)
-- [ ] 发布到中央仓库
 - [ ] 创建下一个 github 的 project
+- [ ] 发布到中央仓库
  
+```bash
+cd acorn-common
+mvn clean deploy
+```
+
+- https://s01.oss.sonatype.org/content/repositories/releases/
