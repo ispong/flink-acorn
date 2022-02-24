@@ -5,7 +5,7 @@ import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
-public class FlinkJob {
+public class Acorn {
 
     public static void main(String[] args) {
 

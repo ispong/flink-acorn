@@ -47,6 +47,6 @@ public class AcornRequest {
      *
      * @ispong
      */
-    private String sql;
+    private List<String> sqlList;
 
 }

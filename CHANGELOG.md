@@ -1,3 +1,3 @@
 ## 变更历史
 
-- https://ispong.github.io/flink-acorn/changelog
+- https://ispong.github.io/flink-acorn/#/zh-cn/changelog

@@ -43,7 +43,7 @@ public class AcornAutoConfig {
      * @ispong
      */
     @Bean
-    @ConditionalOnProperty(name = "acorn.client.server", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = "acorn.client.server.default", name = {"host", "port", "key"})
     public void checkServerStatus() {
 
         if (!acornServerProperties.getCheckServer()) {

@@ -2,7 +2,6 @@ package com.isxcode.acorn.template;
 
 import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.AcornResponse;
-import com.isxcode.acorn.common.pojo.node.JobConfig;
 import com.isxcode.acorn.common.template.AcornTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -20,90 +21,53 @@ public class TemplateController {
 
     private final AcornTemplate acornTemplate;
 
-    @GetMapping("/executeJson")
-    public void executeJson() {
-
-        String jsonConfig = "{\n" +
-            "  \"jobName\": \"acorn-test\",\n" +
-            "  \"flinkSqlList\": [\n" +
-            "      \"CREATE TABLE from_table ( " +
-            "           username STRING, " +
-            "           age INT" +
-            "       ) WITH (" +
-            "           'scan.startup.mode'='latest-offset'," +
-            "           'properties.group.id'='test-consumer-group'," +
-            "           'connector'='kafka'," +
-            "           'topic'='acorn-topic'," +
-            "           'properties.zookeeper.connect'='localhost:2181'," +
-            "           'properties.bootstrap.servers'='172.26.34.172:9092'," +
-            "           'format'='csv'," +
-            "           'csv.ignore-parse-errors' = 'true'" +
-            "       )\",\n" +
-            "      \"CREATE TABLE to_table ( " +
-            "           username STRING, " +
-            "           age INT" +
-            "       ) WITH (" +
-            "           'connector'='jdbc','url'='jdbc:mysql://localhost:30102/acorn'," +
-            "           'table-name'='flink_test_table'," +
-            "           'driver'='com.mysql.cj.jdbc.Driver'," +
-            "           'username'='root'," +
-            "           'password'='acorn'" +
-            "       )\",\n" +
-            "      \"INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19\"\n" +
-            "  ]\n" +
-            "}";
-
-        AcornRequest acornRequest = AcornRequest.builder()
-            .executeId(String.valueOf(UUID.randomUUID()))
-            .json(jsonConfig)
-            .build();
-
-        log.info(acornTemplate.build().executeJson(acornRequest).toString());
-    }
-
     @GetMapping("/executeSql")
     public void executeSql() {
 
+        List<String> sqlList = new ArrayList<>();
+        sqlList.add(0, " CREATE TABLE from_table ( " +
+            "       username STRING, " +
+            "       age INT" +
+            "    ) WITH (" +
+            "       'scan.startup.mode'='latest-offset'," +
+            "       'properties.group.id'='test-consumer-group'," +
+            "       'connector'='kafka'," +
+            "       'topic'='acorn-topic'," +
+            "       'properties.zookeeper.connect'='localhost:2181'," +
+            "       'properties.bootstrap.servers'='172.26.34.172:9092'," +
+            "       'format'='csv'," +
+            "       'csv.ignore-parse-errors' = 'true'" +
+            " )");
+        sqlList.add(1, "   CREATE TABLE to_table ( " +
+            "        username STRING, " +
+            "        age INT" +
+            "     ) WITH (" +
+            "        'connector'='jdbc','url'='jdbc:mysql://localhost:30102/acorn'," +
+            "        'table-name'='flink_test_table'," +
+            "        'driver'='com.mysql.cj.jdbc.Driver'," +
+            "        'username'='root'," +
+            "        'password'='acorn'" +
+            "  )");
+        sqlList.add(2, "   INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19");
+
         AcornRequest acornRequest = AcornRequest.builder()
             .executeId(String.valueOf(UUID.randomUUID()))
-            .sql(" CREATE TABLE from_table ( " +
-                "       username STRING, " +
-                "       age INT" +
-                "    ) WITH (" +
-                "       'scan.startup.mode'='latest-offset'," +
-                "       'properties.group.id'='test-consumer-group'," +
-                "       'connector'='kafka'," +
-                "       'topic'='acorn-topic'," +
-                "       'properties.zookeeper.connect'='localhost:2181'," +
-                "       'properties.bootstrap.servers'='172.26.34.172:9092'," +
-                "       'format'='csv'," +
-                "       'csv.ignore-parse-errors' = 'true'" +
-                " );" +
-                "   CREATE TABLE to_table ( " +
-                "        username STRING, " +
-                "        age INT" +
-                "     ) WITH (" +
-                "        'connector'='jdbc','url'='jdbc:mysql://localhost:30102/acorn'," +
-                "        'table-name'='flink_test_table'," +
-                "        'driver'='com.mysql.cj.jdbc.Driver'," +
-                "        'username'='root'," +
-                "        'password'='acorn'" +
-                "  );" +
-                "   INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19 ")
+            .sqlList(sqlList)
             .build();
 
-        log.info(acornTemplate.build().executeSql(acornRequest).toString());
+        log.info(acornTemplate.build("inner").executeSql(acornRequest).toString());
     }
 
     @GetMapping("/executeJava")
     public void executeJava() {
 
-        String javaCode = "import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;\n" +
+        String javaCode = "" +
+            "import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;\n" +
             "import org.apache.flink.table.api.EnvironmentSettings;\n" +
             "import org.apache.flink.table.api.Table;\n" +
             "import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;\n" +
             "\n" +
-            "public class FlinkJob {\n" +
+            "public class Acorn {\n" +
             "\n" +
             "    public static void main(String[] args) {\n" +
             "\n" +
@@ -124,7 +88,7 @@ public class TemplateController {
             .java(javaCode)
             .build();
 
-        log.info(acornTemplate.build().executeSql(acornRequest).toString());
+        log.info(acornTemplate.build("inner").executeSql(acornRequest).toString());
     }
 
     @GetMapping("/getLog")

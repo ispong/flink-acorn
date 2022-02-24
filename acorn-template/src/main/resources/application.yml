@@ -9,3 +9,7 @@ acorn:
         host: 5.142.131.65
         port: 30155
         key: acorn-key
+      inner:
+        host: 192.168.66.66
+        port: 30155
+        key: acorn-key
