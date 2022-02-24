@@ -14,3 +14,7 @@ ispong <ispong@outlook.com>
 npm i docsify-cli -g
 docsify serve docs
 ```
+
+#### 构建开发环境
+
+参考小栗子博客，安装flink，kafka，mysql等测试项目。
