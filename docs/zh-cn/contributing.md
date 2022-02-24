@@ -21,15 +21,12 @@ docsify serve docs
 
 #### 发布代码
 
-- [ ] 
-- [ ] Edit version number(0.11.5-SNAPSHOT)
-- [ ] Edit SECURITY.md version number
-- [ ] Edit CHANGELOG.md version number (## v0.11.5)
-- [ ] Copy README.md to /docs/_homepage.md
-- [ ] Submit and Fix GitHub Security
-- [ ] Merge to isxcode/spring-oxygen/latest
-- [ ] Check project badge status
-- [ ] Create GitHub new tag (v0.11.5) and new branch (0.11.5)
-- [ ] Run GitHub action publish to GitHub repository
-- [ ] Run GitHub action publish new version docs
-- [ ] Publish to Sonatype repository
+- [ ] 修改acorn-common版本号(1.1.0)
+- [ ] 修改SECURITY.md文件的版本号
+- [ ] 修改CHANGELOG.md文件中版本说明(从github的project中获取)
+- [ ] 将代码提交pr推到codeql中做代码检测
+- [ ] 从main分支上创建当前版本分支
+- [ ] 创建github的分支和版本(1.1.0)
+- [ ] 发布到中央仓库
+- [ ] 创建下一个 github 的 project
+ 
