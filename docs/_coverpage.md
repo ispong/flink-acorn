@@ -3,11 +3,13 @@
 <h1 align="center" style="font-weight: bold">
     Flink Acorn
 </h1>
-<h2 align="center" style="font-weight: bold">
-    小栗子
-</h2>
 
-- 🐿️ Flink + Spring Boot 快速集成，支持flink-sql、flink-java
+<p style="">
+    🐿️ 通过Spring插件的形式，实现对不同服务器与不同版本的Flink做统一管理。
+</p>
+
+<br/>
+<br/>
 
 <div class="buttons">
   <a href="https://github.com/ispong/flink-acorn/" target="_blank"><span>GitHub</span></a>
