@@ -8,7 +8,7 @@ import com.isxcode.acorn.common.properties.AcornPluginProperties;
 import com.isxcode.acorn.common.properties.AcornServerInfo;
 import com.isxcode.acorn.common.properties.AcornServerProperties;
 import com.isxcode.acorn.common.template.AcornTemplate;
-import com.isxcode.oxygen.core.http.HttpUtils;
+import com.isxcode.acorn.common.utils.HttpUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

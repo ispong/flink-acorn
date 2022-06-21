@@ -3,7 +3,7 @@
 </h1>
 
 <h3 align="center">
-    🐿️ Flink + Spring Boot 快速集成，支持flink-sql、flink-java
+    🐿️ flink on spring 快速集成插件
 </h3>
 
 <h4 align="center">
@@ -24,8 +24,6 @@
 |:-------------------------------------------------------|--------------------|:--------------------------------------|
 | [acorn-common](https://ispong.github.io/flink-acorn)   | :white_check_mark: | 提供AcornTemplate组件，方便客户端直接调用Acorn插件服务。 |
 | [acorn-plugin](https://ispong.github.io/flink-acorn)   | :white_check_mark: | Acorn服务器插件。                           |
-| [acorn-template](https://ispong.github.io/flink-acorn) | :white_check_mark: | 演示客户端如何使用插件。                          |
-| [demos](https://ispong.github.io/flink-acorn)          | :white_check_mark: | 各种flink相关的小demo。                      |
 
 ### 📒 相关文档
 
@@ -92,7 +90,7 @@ class demo {
             .sqlList(sqlList)
             .build();
 
-        log.info(acornTemplate.build("inner").executeSql(acornRequest).toString());
+        log.info(acornTemplate.build().executeSql(acornRequest).toString());
     }
 }
 ```

@@ -9,13 +9,11 @@ import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.dto.AcornData;
 import com.isxcode.acorn.common.pojo.dto.JobStatusDto;
 import com.isxcode.acorn.common.pojo.dto.JobStatusResultDto;
-import com.isxcode.acorn.common.pojo.node.JobConfig;
 import com.isxcode.acorn.common.properties.AcornPluginProperties;
-import com.isxcode.oxygen.core.command.CommandUtils;
-import com.isxcode.oxygen.core.exception.OxygenException;
-import com.isxcode.oxygen.core.file.FileUtils;
-import com.isxcode.oxygen.core.freemarker.FreemarkerUtils;
-import com.isxcode.oxygen.core.http.HttpUtils;
+import com.isxcode.acorn.common.utils.CommandUtils;
+import com.isxcode.acorn.common.utils.FileUtils;
+import com.isxcode.acorn.common.utils.FreemarkerUtils;
+import com.isxcode.acorn.common.utils.HttpUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -106,7 +104,7 @@ public class AcornBizService {
 
         try {
             return FreemarkerUtils.templateToString(FileConstants.ACORN_SQL_TEMPLATE_NAME, freemarkerParams);
-        } catch (OxygenException e) {
+        } catch (AcornException e) {
             throw new AcornException(AcornExceptionEnum.JAVA_CODE_GENERATE_ERROR);
         }
     }
@@ -118,7 +116,7 @@ public class AcornBizService {
 
         try {
             return FreemarkerUtils.templateToString(FileConstants.ACORN_JAVA_TEMPLATE_NAME, freemarkerParams);
-        } catch (OxygenException e) {
+        } catch (AcornException e) {
             throw new AcornException(AcornExceptionEnum.JAVA_CODE_GENERATE_ERROR);
         }
     }

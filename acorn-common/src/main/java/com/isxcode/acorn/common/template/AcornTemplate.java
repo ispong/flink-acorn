@@ -9,7 +9,7 @@ import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.AcornResponse;
 import com.isxcode.acorn.common.properties.AcornServerInfo;
 import com.isxcode.acorn.common.properties.AcornServerProperties;
-import com.isxcode.oxygen.core.http.HttpUtils;
+import com.isxcode.acorn.common.utils.HttpUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
