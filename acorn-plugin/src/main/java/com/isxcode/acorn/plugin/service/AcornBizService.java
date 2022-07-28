@@ -84,6 +84,13 @@ public class AcornBizService {
         }
     }
 
+    public AcornData getJobId(AcornRequest acornRequest) {
+
+        String logPath = acornService.getLogPath(acornRequest);
+
+        return AcornData.builder().jobId(acornService.getJobId(logPath)).build();
+    }
+
     public AcornData stopJob(AcornRequest acornRequest) {
 
         String stopFlinkCommand = "flink cancel " + acornRequest.getJobId();

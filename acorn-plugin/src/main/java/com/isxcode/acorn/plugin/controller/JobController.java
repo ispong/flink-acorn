@@ -44,6 +44,13 @@ public class JobController {
     }
 
     @SuccessResponse
+    @PostMapping(UrlConstants.GET_JOB_ID_URL)
+    public AcornData getJobId(@RequestBody AcornRequest acornRequest) {
+
+        return acornBizService.getJobId(acornRequest);
+    }
+
+    @SuccessResponse
     @PostMapping(UrlConstants.STOP_JOB_URL)
     public AcornData stopJob(@RequestBody AcornRequest acornRequest) {
 
