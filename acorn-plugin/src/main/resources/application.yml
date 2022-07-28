@@ -1,8 +1,6 @@
 spring:
   profiles:
     active: acorn
-  freemarker:
-    enabled: true
 
 server:
   servlet:

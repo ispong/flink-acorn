@@ -8,12 +8,15 @@ import com.isxcode.acorn.common.properties.AcornPluginProperties;
 import com.isxcode.acorn.common.properties.AcornServerInfo;
 import com.isxcode.acorn.common.properties.AcornServerProperties;
 import com.isxcode.acorn.common.template.AcornTemplate;
+import com.isxcode.acorn.common.utils.FreemarkerUtils;
 import com.isxcode.acorn.common.utils.HttpUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +38,12 @@ public class AcornAutoConfig {
     public AcornTemplate acornTemplate(AcornServerProperties acornServerProperties) {
 
         return new AcornTemplate(acornServerProperties);
+    }
+
+    @Bean
+    public FreemarkerUtils initFreemarkerUtils(FreeMarkerConfigurer freeMarkerConfigurer) {
+
+        return new FreemarkerUtils(freeMarkerConfigurer);
     }
 
     /*
