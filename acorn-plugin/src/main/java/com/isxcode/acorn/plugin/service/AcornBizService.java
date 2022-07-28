@@ -63,9 +63,11 @@ public class AcornBizService {
         return AcornData.builder().executeId(acornRequest.getExecuteId()).build();
     }
 
-    public AcornData getJobLog(AcornRequest acornRequest) {
+    public AcornData getDeployLog(AcornRequest acornRequest) {
 
-        String logPath = acornPluginProperties.getTmpDir() + File.separator + acornRequest.getExecuteId() + File.separator + FileConstants.JOB_LOG_NAME;
+        Assert.notNull(acornRequest.getExecuteId(), "executeId be empty");
+
+        String logPath = acornService.getLogPath(acornRequest);
         Path path = Paths.get(logPath);
         Resource resource;
         try {

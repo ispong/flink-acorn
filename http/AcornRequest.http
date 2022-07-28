@@ -6,3 +6,12 @@ Content-Type: application/json
     "name": "ispong_test",
     "sql": "INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19"
 }
+
+
+###
+POST http://localhost:8080/getExecuteLog
+Content-Type: application/json
+
+{
+  "executeId": "cdb6f92c-a959-46d8-9189-9beebf9a0a7d"
+}

@@ -173,9 +173,9 @@ public class AcornTemplate {
             return requestAcornServer(executeUrl, acornRequest);
         }
 
-        public AcornResponse getExecuteLog() {
+        public AcornResponse getDeployLog() {
 
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_DEPLOY_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 

@@ -76,7 +76,7 @@ public class AcornServiceImpl implements AcornService {
     public void deployJob(String projectPath, String PomPath, String logPath) {
 
         String targetFilePath = projectPath + "target" + File.separator + FileConstants.FLINK_JAR_NAME;
-        String executeCommand = "mvn clean package -f " + PomPath + " && " + "flink run " + targetFilePath;
+        String executeCommand = "mvn clean package -Dmaven.test.skip -f " + PomPath + " && " + "flink run " + targetFilePath;
         log.debug(" 执行命令:" + executeCommand);
         try {
             CommandUtils.executeCommand(executeCommand, logPath);

@@ -35,7 +35,7 @@ public class TemplateController {
 
         AcornResponse acornResponse = acornTemplate.build()
             .executeId(demoReq.getExecuteId())
-            .getExecuteLog();
+            .getDeployLog();
 
         log.info("acornResponse {}", acornResponse.toString());
         return acornResponse.getAcornData().getExecuteLog();
