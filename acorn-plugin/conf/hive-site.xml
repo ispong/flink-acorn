@@ -1,12 +1,9 @@
-<?xml version="1.0"?>
-<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
-
 <configuration>
 
     <!-- hive配置的数据库 -->
     <property>
         <name>javax.jdo.option.ConnectionURL</name>
-        <value>jdbc:mysql://xxx:xxx/acorn</value>
+        <value>jdbc:mysql://dcloud-dev:30102/cdh_hive</value>
     </property>
 
     <!-- 驱动 -->
@@ -18,53 +15,18 @@
     <!-- 账号 -->
     <property>
         <name>javax.jdo.option.ConnectionUserName</name>
-        <value><?xml version="1.0"?>
-            <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
-
-            <configuration>
-
-                <!-- hive配置的数据库 -->
-                <property>
-                    <name>javax.jdo.option.ConnectionURL</name>
-                    <value>jdbc:mysql://dcloud-dev:30102/cdh_hive</value>
-                </property>
-
-                <!-- 驱动 -->
-                <property>
-                    <name>javax.jdo.option.ConnectionDriverName</name>
-                    <value>com.mysql.cj.jdbc.Driver</value>
-                </property>
-
-                <!-- 账号 -->
-                <property>
-                    <name>javax.jdo.option.ConnectionUserName</name>
-                    <value>xxx</value>
-                </property>
-
-                <!-- 密码 -->
-                <property>
-                    <name>javax.jdo.option.ConnectionPassword</name>
-                    <value>xxx</value>
-                </property>
-
-                <property>
-                    <name>hive.metastore.uris</name>
-                    <value>thrift://xxx:xxx</value>
-                </property>
-
-            </configuration>
-        </value>
+        <value>xxx</value>
     </property>
 
     <!-- 密码 -->
     <property>
         <name>javax.jdo.option.ConnectionPassword</name>
-        <value>dehoop2021</value>
+        <value>xxx</value>
     </property>
 
     <property>
         <name>hive.metastore.uris</name>
-        <value>thrift://dcloud-dev:30123</value>
+        <value>thrift://xxx:xxx</value>
     </property>
 
 </configuration>
