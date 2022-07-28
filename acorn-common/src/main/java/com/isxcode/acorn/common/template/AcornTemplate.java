@@ -181,7 +181,7 @@ public class AcornTemplate {
 
         public AcornResponse getJobId() {
 
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_ID_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 

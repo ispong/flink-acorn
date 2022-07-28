@@ -21,7 +21,7 @@ public class TemplateController {
     public void executeSql(@RequestBody DemoReq demoReq) {
 
         AcornResponse acornResponse = acornTemplate.build()
-            .executeId(String.valueOf(UUID.randomUUID()))
+            .executeId(demoReq.getExecuteId())
             .name(demoReq.getName())
             .sql(demoReq.getSql())
             .execute();
