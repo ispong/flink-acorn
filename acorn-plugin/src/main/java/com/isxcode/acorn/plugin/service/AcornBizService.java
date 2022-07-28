@@ -68,11 +68,15 @@ public class AcornBizService {
         Assert.notNull(acornRequest.getExecuteId(), "executeId be empty");
 
         String logPath = acornService.getLogPath(acornRequest);
+        log.debug("logPath {}", logPath);
+
         Path path = Paths.get(logPath);
         Resource resource;
         try {
             resource = new UrlResource(path.toUri());
             String logStr = new BufferedReader(new InputStreamReader(resource.getInputStream())).lines().collect(Collectors.joining("\n"));
+            log.debug("logStr {}", logStr);
+
             return AcornData.builder().jobLog(logStr).build();
         } catch (IOException e) {
             log.debug("AcornBizService.getJobLog.getMessage" + e.getMessage());

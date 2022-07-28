@@ -30,7 +30,7 @@ public class TemplateController {
         return acornResponse.getAcornData().getExecuteId();
     }
 
-    @PostMapping("/getExecuteLog")
+    @PostMapping("/getDeployLog")
     public String getExecuteLog(@RequestBody DemoReq demoReq) {
 
         AcornResponse acornResponse = acornTemplate.build()
