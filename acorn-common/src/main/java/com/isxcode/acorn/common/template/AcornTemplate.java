@@ -5,6 +5,7 @@ import com.isxcode.acorn.common.constant.SysConstants;
 import com.isxcode.acorn.common.constant.UrlConstants;
 import com.isxcode.acorn.common.exception.AcornException;
 import com.isxcode.acorn.common.exception.AcornExceptionEnum;
+import com.isxcode.acorn.common.menu.Template;
 import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.AcornResponse;
 import com.isxcode.acorn.common.properties.AcornServerInfo;
@@ -12,9 +13,11 @@ import com.isxcode.acorn.common.properties.AcornServerProperties;
 import com.isxcode.acorn.common.utils.HttpUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,6 +56,8 @@ public class AcornTemplate {
 
     public static class Builder {
 
+        public AcornRequest acornRequest = new AcornRequest();
+
         private final AcornServerInfo serverInfo;
 
         public Builder(AcornServerInfo serverInfo) {
@@ -72,29 +77,106 @@ public class AcornTemplate {
             }
         }
 
-        public AcornResponse executeJson(AcornRequest acornRequest) {
+        public Builder executeId(String executeId) {
 
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_JSON_URL, serverInfo.getHost(), serverInfo.getPort());
+            acornRequest.setExecuteId(executeId);
+            return this;
+        }
+
+        public Builder name(String name) {
+
+            acornRequest.setName(name);
+            return this;
+        }
+
+        public Builder sql(String sql) {
+
+            acornRequest.setSql(sql);
+            return this;
+        }
+
+        public Builder jobId(String jobId) {
+
+            acornRequest.setJobId(jobId);
+            return this;
+        }
+
+        public Builder java(String java) {
+
+            acornRequest.setJava(java);
+            return this;
+        }
+
+        public Builder jar(InputStream jar) {
+
+            acornRequest.setJar(jar);
+            return this;
+        }
+
+        public Builder template(Template template) {
+
+            acornRequest.setTemplate(template);
+            return this;
+        }
+
+        public AcornResponse execute() {
+
+            String executeUrl;
+            if (!Strings.isEmpty(acornRequest.getJava())) {
+                executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_JAVA_URL, serverInfo.getHost(), serverInfo.getPort());
+            } else if (!Strings.isEmpty(acornRequest.getSql())) {
+                executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_SQL_URL, serverInfo.getHost(), serverInfo.getPort());
+            } else {
+                executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_JAR_URL, serverInfo.getHost(), serverInfo.getPort());
+            }
             return requestAcornServer(executeUrl, acornRequest);
         }
 
-        public AcornResponse executeSql(AcornRequest acornRequest) {
+        public AcornResponse stopBuild() {
 
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_SQL_URL, serverInfo.getHost(), serverInfo.getPort());
-            return requestAcornServer(executeUrl, acornRequest);
-        }
-
-        public AcornResponse getJobLog(String executeId) {
-
-            AcornRequest acornRequest = AcornRequest.builder().executeId(executeId).build();
             String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 
-        public AcornResponse stopJob(String jobId) {
+        public AcornResponse stopJob() {
 
-            AcornRequest acornRequest = AcornRequest.builder().jobId(jobId).build();
             String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.STOP_JOB_URL, serverInfo.getHost(), serverInfo.getPort());
+            return requestAcornServer(executeUrl, acornRequest);
+        }
+
+        public AcornResponse killJob() {
+
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.STOP_JOB_URL, serverInfo.getHost(), serverInfo.getPort());
+            return requestAcornServer(executeUrl, acornRequest);
+        }
+
+        public AcornResponse getJobStatus() {
+
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
+            return requestAcornServer(executeUrl, acornRequest);
+        }
+
+        public AcornResponse getBuildStatus() {
+
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
+            return requestAcornServer(executeUrl, acornRequest);
+        }
+
+        public AcornResponse getJobLog() {
+
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
+            return requestAcornServer(executeUrl, acornRequest);
+        }
+
+        public AcornResponse getExecuteLog() {
+
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
+            return requestAcornServer(executeUrl, acornRequest);
+        }
+
+        public AcornResponse getJobId() {
+
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 

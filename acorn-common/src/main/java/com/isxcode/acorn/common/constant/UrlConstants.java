@@ -23,6 +23,11 @@ public interface UrlConstants {
     /**
      * 发布作业接口
      */
+    String EXECUTE_JAR_URL = "/job/executeJar";
+
+    /**
+     * 发布作业接口
+     */
     String EXECUTE_JAVA_URL = "/job/executeJava";
 
     /**

@@ -7,8 +7,8 @@
 </h3>
 
 <h4 align="center">
-    ✨✨✨ <a href="https://ispong.github.io/flink-acorn" > 
-         https://ispong.github.io/flink-acorn
+    ✨✨✨ <a href="https://flink-acorn.isxcode.com" > 
+         https://flink-acorn.isxcode.com
     </a> ✨✨✨
 </h4>
 
@@ -16,20 +16,13 @@
 
 ### 📢 公告
 
-目前，插件主要针对**flink-1.14.0-scala-2.12**版本进行开发。
-
-### ✨ 模块说明
-
-| 模块名                                                    | 状态                 | 说明                                    |
-|:-------------------------------------------------------|--------------------|:--------------------------------------|
-| [acorn-common](https://ispong.github.io/flink-acorn)   | :white_check_mark: | 提供AcornTemplate组件，方便客户端直接调用Acorn插件服务。 |
-| [acorn-plugin](https://ispong.github.io/flink-acorn)   | :white_check_mark: | Acorn服务器插件。                           |
+- 目前支持**flink-1.14.0-scala-2.12**
 
 ### 📒 相关文档
 
-- [快速使用](https://ispong.github.io/flink-acorn/#/zh-cn/start/快速使用)
-- [维护手册](https://ispong.github.io/flink-acorn/#/zh-cn/contributing)
-- [版本历史](https://ispong.github.io/flink-acorn/#/zh-cn/changelog)
+- [快速使用](https://flink-acorn.isxcode.com/#/zh-cn/start/快速使用)
+- [维护手册](https://flink-acorn.isxcode.com/#/zh-cn/start/contributing)
+- [版本历史](https://flink-acorn.isxcode.com/#/zh-cn/start/changelog)
 
 ### 📦 安装使用
 
@@ -43,55 +36,46 @@
 </dependency>
 ```
 
-```yaml
-acorn:
-  client:
-    server:
-      host: xxx.xxx.xxx.xxx
-      port: 30155
-      key: acorn-key
-```
-
 ```java
 class demo {
 
     private final AcornTemplate acornTemplate;
 
-    public void use(){
+    public void execute() {
 
-        List<String> sqlList = new ArrayList<>();
-        sqlList.add(0, " CREATE TABLE from_table ( " +
-            "       username STRING, " +
-            "       age INT" +
-            "    ) WITH (" +
-            "       'scan.startup.mode'='latest-offset'," +
-            "       'properties.group.id'='test-consumer-group'," +
-            "       'connector'='kafka'," +
-            "       'topic'='acorn-topic'," +
-            "       'properties.zookeeper.connect'='localhost:2181'," +
-            "       'properties.bootstrap.servers'='172.26.34.172:9092'," +
-            "       'format'='csv'," +
-            "       'csv.ignore-parse-errors' = 'true'" +
-            " )");
-        sqlList.add(1, "   CREATE TABLE to_table ( " +
-            "        username STRING, " +
-            "        age INT" +
-            "     ) WITH (" +
-            "        'connector'='jdbc','url'='jdbc:mysql://localhost:30102/acorn'," +
-            "        'table-name'='flink_test_table'," +
-            "        'driver'='com.mysql.cj.jdbc.Driver'," +
-            "        'username'='root'," +
-            "        'password'='acorn'" +
-            "  )");
-        sqlList.add(2, "   INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19");
+        String sql1 = " CREATE TABLE from_table ( " +
+                "       username STRING, " +
+                "       age INT" +
+                "    ) WITH (" +
+                "       'scan.startup.mode'='latest-offset'," +
+                "       'properties.group.id'='test-consumer-group'," +
+                "       'connector'='kafka'," +
+                "       'topic'='acorn-topic'," +
+                "       'properties.zookeeper.connect'='localhost:2181'," +
+                "       'properties.bootstrap.servers'='172.26.34.172:9092'," +
+                "       'format'='csv'," +
+                "       'csv.ignore-parse-errors' = 'true'" +
+                " )" ;
 
-        AcornRequest acornRequest = AcornRequest.builder()
-            .executeId(String.valueOf(UUID.randomUUID()))
-            .sqlList(sqlList)
-            .build();
+        String sql2 = "   CREATE TABLE to_table ( " +
+                "        username STRING, " +
+                "        age INT" +
+                "     ) WITH (" +
+                "        'connector'='jdbc','url'='jdbc:mysql://localhost:30102/acorn'," +
+                "        'table-name'='flink_test_table'," +
+                "        'driver'='com.mysql.cj.jdbc.Driver'," +
+                "        'username'='root'," +
+                "        'password'='acorn'" +
+                "  )";
 
-        log.info(acornTemplate.build().executeSql(acornRequest).toString());
+        String sql3 = "   INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19";
+
+        acornTemplate.build("127.0.0.1", 30155, "acorn-key")
+                .executeId("custom_id")
+                .name("ispong_test_flink")
+                .sql(sql1 + sql2 + sql3).execute();
     }
+    
 }
 ```
 

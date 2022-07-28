@@ -22,5 +22,11 @@ public class AcornData {
 
     private String jobLog;
 
+    private String executeLog;
+
     private List<JobStatusDto> jobInfoList;
+
+    private String executeId;
+
+    private String jobStatus;
 }

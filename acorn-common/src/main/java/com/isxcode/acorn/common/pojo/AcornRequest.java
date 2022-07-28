@@ -1,16 +1,20 @@
 package com.isxcode.acorn.common.pojo;
 
-import com.isxcode.acorn.common.pojo.node.JobConfig;
+import com.isxcode.acorn.common.menu.Template;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.io.InputStream;
 
 /**
  * acorn 请求体
  */
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AcornRequest {
 
     /**
@@ -19,14 +23,14 @@ public class AcornRequest {
     private String jobId;
 
     /**
-     * 执行flink作业的唯一标识，执行id
+     * 执行flink作业的唯一标识，执行id executeId
      */
     private String executeId;
 
     /**
      * flink组件中作业的名称,在flink组件中jobName可以重复
      */
-    private String jobName;
+    private String name;
 
     /*
      * 支持通过json的方式发布flink作业
@@ -42,11 +46,9 @@ public class AcornRequest {
      */
     private String java;
 
-    /*
-     * 支持手写sql的方式发布flink作业
-     *
-     * @ispong
-     */
-    private List<String> sqlList;
+    private String sql;
 
+    private InputStream jar;
+
+    private Template template;
 }
