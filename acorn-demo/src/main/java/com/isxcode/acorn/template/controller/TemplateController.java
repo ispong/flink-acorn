@@ -2,12 +2,10 @@ package com.isxcode.acorn.template.controller;
 
 import com.isxcode.acorn.common.pojo.AcornResponse;
 import com.isxcode.acorn.common.template.AcornTemplate;
+import com.isxcode.acorn.template.pojo.DemoReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -19,77 +17,79 @@ public class TemplateController {
 
     private final AcornTemplate acornTemplate;
 
-    @GetMapping("/executeSql")
-    public String executeSql(@RequestParam String sql) {
+    @PostMapping("/executeSql")
+    public String executeSql(@RequestBody DemoReq demoReq) {
 
         AcornResponse acornResponse = acornTemplate.build()
             .executeId(String.valueOf(UUID.randomUUID()))
-            .name("ispong_job")
-            .sql(sql)
+            .name(demoReq.getName())
+            .sql(demoReq.getSql())
             .execute();
 
         log.info("acornResponse {}", acornResponse.toString());
         return acornResponse.getAcornData().getExecuteId();
     }
 
-    @GetMapping("/getExecuteLog")
-    public String getExecuteLog(@RequestParam String executeId) {
+    @PostMapping("/getExecuteLog")
+    public String getExecuteLog(@RequestBody DemoReq demoReq) {
 
         AcornResponse acornResponse = acornTemplate.build()
-            .executeId(executeId)
+            .executeId(demoReq.getExecuteId())
             .getExecuteLog();
 
         log.info("acornResponse {}", acornResponse.toString());
         return acornResponse.getAcornData().getExecuteLog();
     }
 
-    @GetMapping("/getJobId")
-    public String getJobId(@RequestParam String executeId) {
+    @PostMapping("/getJobId")
+    public String getJobId(@RequestBody DemoReq demoReq) {
 
         AcornResponse acornResponse = acornTemplate.build()
-            .executeId(executeId)
+            .executeId(demoReq.getExecuteId())
             .getJobId();
 
         log.info("acornResponse {}", acornResponse.toString());
         return acornResponse.getAcornData().getJobId();
     }
 
-    @GetMapping("/getJobStatus")
-    public String getJobStatus(@RequestParam String jobId) {
+   @PostMapping("/getJobStatus")
+    public String getJobStatus(@RequestBody DemoReq demoReq) {
 
-        AcornResponse acornResponse = acornTemplate.build()
-            .jobId(jobId)
-            .getJobStatus();
+       AcornResponse acornResponse = acornTemplate.build()
+           .jobId(demoReq.getJobId())
+           .getJobStatus();
 
         log.info("acornResponse {}", acornResponse.toString());
         return acornResponse.getAcornData().getJobStatus();
     }
 
-    @GetMapping("/getJobLog")
-    public String getJobLog(@RequestParam String jobId) {
+    @PostMapping("/getJobLog")
+    public String getJobLog(@RequestBody DemoReq demoReq) {
 
         AcornResponse acornResponse = acornTemplate.build()
-            .jobId(jobId)
+            .jobId(demoReq.getJobId())
             .getJobLog();
 
         log.info("acornResponse {}", acornResponse.toString());
         return acornResponse.getAcornData().getJobLog();
     }
 
-    @GetMapping("/stopJob")
-    public void stopJob(@RequestParam String jobId) {
+    @PostMapping("/stopJob")
+    public void stopJob(@RequestBody DemoReq demoReq) {
 
         AcornResponse acornResponse = acornTemplate.build()
-            .jobId(jobId).stopJob();
+            .jobId(demoReq.getJobId())
+            .stopJob();
 
         log.info("acornResponse {}", acornResponse.toString());
     }
 
-    @GetMapping("/killJob")
-    public void killJob(@RequestParam String jobId) {
+    @PostMapping("/killJob")
+    public void killJob(@RequestBody DemoReq demoReq) {
 
         AcornResponse acornResponse = acornTemplate.build()
-            .jobId(jobId).killJob();
+            .jobId(demoReq.getJobId())
+            .killJob();
 
         log.info("acornResponse {}", acornResponse.toString());
     }
