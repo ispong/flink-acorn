@@ -37,9 +37,9 @@ public class AcornBizService {
 
     public AcornData executeFlinkSql(AcornRequest acornRequest) {
 
-        Assert.isNull(acornRequest.getName(), "name be empty");
-        Assert.isNull(acornRequest.getSql(), "sql be empty");
-        Assert.isNull(acornRequest.getExecuteId(), "executeId be empty");
+        Assert.notNull(acornRequest.getName(), "name be empty");
+        Assert.notNull(acornRequest.getSql(), "sql be empty");
+        Assert.notNull(acornRequest.getExecuteId(), "executeId be empty");
 
         // 初始化代码
         String javaCode = acornService.getJavaCode(acornRequest);

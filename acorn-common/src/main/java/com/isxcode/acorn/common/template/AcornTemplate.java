@@ -121,14 +121,19 @@ public class AcornTemplate {
 
         public AcornResponse execute() {
 
-            String executeUrl;
-            if (!Strings.isEmpty(acornRequest.getJava())) {
-                executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_JAVA_URL, serverInfo.getHost(), serverInfo.getPort());
-            } else if (!Strings.isEmpty(acornRequest.getSql())) {
-                executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_SQL_URL, serverInfo.getHost(), serverInfo.getPort());
-            } else {
-                executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_JAR_URL, serverInfo.getHost(), serverInfo.getPort());
-            }
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_SQL_URL, serverInfo.getHost(), serverInfo.getPort());
+            return requestAcornServer(executeUrl, acornRequest);
+        }
+
+        public AcornResponse executeJava() {
+
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_JAVA_URL, serverInfo.getHost(), serverInfo.getPort());
+            return requestAcornServer(executeUrl, acornRequest);
+        }
+
+        public AcornResponse executeJar() {
+
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_JAR_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 
