@@ -77,7 +77,7 @@ public class AcornBizService {
             String logStr = new BufferedReader(new InputStreamReader(resource.getInputStream())).lines().collect(Collectors.joining("\n"));
             log.debug("logStr {}", logStr);
 
-            return AcornData.builder().jobLog(logStr).build();
+            return AcornData.builder().deployLog(logStr).build();
         } catch (IOException e) {
             log.debug("AcornBizService.getJobLog.getMessage" + e.getMessage());
             throw new AcornException(AcornExceptionEnum.READ_LOG_FILE_ERROR);

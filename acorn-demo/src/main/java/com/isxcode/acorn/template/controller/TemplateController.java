@@ -18,7 +18,7 @@ public class TemplateController {
     private final AcornTemplate acornTemplate;
 
     @PostMapping("/executeSql")
-    public String executeSql(@RequestBody DemoReq demoReq) {
+    public void executeSql(@RequestBody DemoReq demoReq) {
 
         AcornResponse acornResponse = acornTemplate.build()
             .executeId(String.valueOf(UUID.randomUUID()))
@@ -27,51 +27,46 @@ public class TemplateController {
             .execute();
 
         log.info("acornResponse {}", acornResponse.toString());
-        return acornResponse.getAcornData().getExecuteId();
     }
 
     @PostMapping("/getDeployLog")
-    public String getExecuteLog(@RequestBody DemoReq demoReq) {
+    public void getExecuteLog(@RequestBody DemoReq demoReq) {
 
         AcornResponse acornResponse = acornTemplate.build()
             .executeId(demoReq.getExecuteId())
             .getDeployLog();
 
         log.info("acornResponse {}", acornResponse.toString());
-        return acornResponse.getAcornData().getExecuteLog();
     }
 
     @PostMapping("/getJobId")
-    public String getJobId(@RequestBody DemoReq demoReq) {
+    public void getJobId(@RequestBody DemoReq demoReq) {
 
         AcornResponse acornResponse = acornTemplate.build()
             .executeId(demoReq.getExecuteId())
             .getJobId();
 
         log.info("acornResponse {}", acornResponse.toString());
-        return acornResponse.getAcornData().getJobId();
     }
 
    @PostMapping("/getJobStatus")
-    public String getJobStatus(@RequestBody DemoReq demoReq) {
+    public void getJobStatus(@RequestBody DemoReq demoReq) {
 
        AcornResponse acornResponse = acornTemplate.build()
            .jobId(demoReq.getJobId())
            .getJobStatus();
 
         log.info("acornResponse {}", acornResponse.toString());
-        return acornResponse.getAcornData().getJobStatus();
     }
 
     @PostMapping("/getJobLog")
-    public String getJobLog(@RequestBody DemoReq demoReq) {
+    public void getJobLog(@RequestBody DemoReq demoReq) {
 
         AcornResponse acornResponse = acornTemplate.build()
             .jobId(demoReq.getJobId())
             .getJobLog();
 
         log.info("acornResponse {}", acornResponse.toString());
-        return acornResponse.getAcornData().getJobLog();
     }
 
     @PostMapping("/stopJob")
