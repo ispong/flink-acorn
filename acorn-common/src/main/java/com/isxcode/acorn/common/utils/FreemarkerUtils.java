@@ -29,6 +29,7 @@ public class FreemarkerUtils {
 
     public FreemarkerUtils(FreeMarkerConfigurer freeMarkerConfigurer) {
 
+        log.debug("FreemarkerUtils() {}", freeMarkerConfigurer);
         configuration.setTemplateLoader(new StringTemplateLoader());
         FreemarkerUtils.freeMarkerConfigurer = freeMarkerConfigurer;
     }
@@ -76,6 +77,7 @@ public class FreemarkerUtils {
             Template template = freeMarkerConfigurer.getConfiguration().getTemplate(templateFileName);
             return FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
         } catch (TemplateException | IOException e) {
+            log.debug("templateToString() {}", e.getMessage());
             throw new AcornException("500", e.getMessage());
         }
     }

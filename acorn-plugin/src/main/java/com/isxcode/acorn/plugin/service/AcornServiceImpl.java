@@ -66,6 +66,7 @@ public class AcornServiceImpl implements AcornService {
         try {
             return FreemarkerUtils.templateToString(FileConstants.ACORN_SQL_TEMPLATE_NAME, freemarkerParams);
         } catch (AcornException e) {
+            log.debug("getJavaCode() {}", e.getMessage());
             throw new AcornException(AcornExceptionEnum.JAVA_CODE_GENERATE_ERROR);
         }
 
