@@ -3,5 +3,6 @@ POST http://localhost:8080/executeSql
 Content-Type: application/json
 
 {
-    "name": "ispong_test"
+    "name": "ispong_test",
+    "sql": "INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19"
 }
