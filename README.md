@@ -24,6 +24,14 @@
 - [维护手册](https://flink-acorn.isxcode.com/#/zh-cn/start/contributing)
 - [版本历史](https://flink-acorn.isxcode.com/#/zh-cn/start/changelog)
 
+### 本地文档
+
+```bash
+git clone https://github.com/ispong/flink-acorn.git
+npm install docsify-cli --location=global
+docsify serve docs
+```
+
 ### 📦 安装使用
 
 [![Maven Version](https://img.shields.io/maven-central/v/com.isxcode.acorn/acorn-common)](https://search.maven.org/artifact/com.isxcode.acorn/acorn-common)

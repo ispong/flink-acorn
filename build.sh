@@ -9,7 +9,7 @@ mvn clean package -Dmaven.test.skip -pl acorn-common,acorn-plugin || exit
 echo "Flink-Acorn ==> Build success"
 
 # 创建acorn文件夹
-ACORN_BUILD_DIR="${BASE_PATH}"/flink-acorn
+ACORN_BUILD_DIR="${BASE_PATH}"/build/acorn
 if [ -d "${ACORN_BUILD_DIR}" ]; then
     rm -rf "${ACORN_BUILD_DIR}"
     echo "Flink-Acorn ==> Delete acorn success"
