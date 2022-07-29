@@ -5,9 +5,10 @@ import com.isxcode.acorn.common.template.AcornTemplate;
 import com.isxcode.acorn.template.pojo.DemoReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
@@ -75,16 +76,6 @@ public class TemplateController {
         AcornResponse acornResponse = acornTemplate.build()
             .jobId(demoReq.getJobId())
             .stopJob();
-
-        log.info("acornResponse {}", acornResponse.toString());
-    }
-
-    @PostMapping("/killJob")
-    public void killJob(@RequestBody DemoReq demoReq) {
-
-        AcornResponse acornResponse = acornTemplate.build()
-            .jobId(demoReq.getJobId())
-            .killJob();
 
         log.info("acornResponse {}", acornResponse.toString());
     }

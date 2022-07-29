@@ -149,12 +149,6 @@ public class AcornTemplate {
             return requestAcornServer(executeUrl, acornRequest);
         }
 
-        public AcornResponse killJob() {
-
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.STOP_JOB_URL, serverInfo.getHost(), serverInfo.getPort());
-            return requestAcornServer(executeUrl, acornRequest);
-        }
-
         public AcornResponse getJobStatus() {
 
             String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
