@@ -5,9 +5,8 @@ Content-Type: application/json
 {
     "executeId": "1",
     "name": "ispong_test",
-    "sql": "CREATE TABLE from_kafka ( username STRING,age INT ) WITH ( 'connector'='kafka','topic'='ispong_topic','properties.zookeeper.connect'='192.168.66.66:30121','properties.bootstrap.servers'='192.168.66.66:30120','format'='csv')"
+    "sql": "CREATE TABLE from_table ( username STRING,age INT ) WITH ( 'connector'='kafka','topic'='ispong_topic','properties.zookeeper.connect'='192.168.66.66:30121','properties.bootstrap.servers'='192.168.66.66:30120','properties.group.id' = 'test-consumer-group','scan.startup.mode' = 'latest-offset','format'='csv');CREATE TABLE to_table ( username STRING, age INT ) WITH ( 'connector'='jdbc','url'='jdbc:mysql://localhost:30102/acorn','table-name'='flink_test_table','driver'='com.mysql.cj.jdbc.Driver','username'='root','password'='acorn');INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19;"
 }
-
 
 ###
 POST http://localhost:8080/getDeployLog
@@ -20,9 +19,17 @@ Content-Type: application/json
 
 ###
 POST http://localhost:8080/getJobId
-
 Content-Type: application/json
 
 {
     "executeId": "1"
 }
+
+###
+POST http://localhost:8080/getJobStatus
+Content-Type: application/json
+
+{
+    "jobId": "a06ad22d744db4133b801749f18209d4"
+}
+

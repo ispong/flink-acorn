@@ -105,7 +105,13 @@ public class AcornBizService {
 
     public AcornData getJobInfo(AcornRequest acornRequest) {
 
-        JobStatusResultDto jobStatusResultDto = HttpUtils.doGet("http://" + acornPluginProperties.getFlinkHost() + ":" + acornPluginProperties.getFlinkPort() + UrlConstants.FLINK_JOBS_OVERVIEW, JobStatusResultDto.class);
+        JobStatusResultDto jobStatusResultDto;
+        try {
+            jobStatusResultDto = HttpUtils.doGet("http://" + acornPluginProperties.getFlinkHost() + ":" + acornPluginProperties.getFlinkPort() + UrlConstants.FLINK_JOBS_OVERVIEW, JobStatusResultDto.class);
+        } catch (Exception e) {
+            throw new AcornException(AcornExceptionEnum.FLINK_SERVICE_ERROR);
+        }
+
         if (jobStatusResultDto.getJobs() == null) {
             return null;
         }

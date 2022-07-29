@@ -23,7 +23,9 @@ public enum AcornExceptionEnum {
 
     ACORN_SERVER_NOT_FOUND("50008", "没有发现Acorn服务"),
 
-    ACORN_SERVER_IS_EMPTY("50009", "Acorn服务为空"),;
+    ACORN_SERVER_IS_EMPTY("50009", "Acorn服务为空"),
+
+    FLINK_SERVICE_ERROR("500010", "flink服务异常"),;
 
     @Getter
     private final String code;

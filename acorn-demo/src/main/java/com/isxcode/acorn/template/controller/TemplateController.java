@@ -49,12 +49,12 @@ public class TemplateController {
         log.info("acornResponse {}", acornResponse.toString());
     }
 
-   @PostMapping("/getJobStatus")
+    @PostMapping("/getJobStatus")
     public void getJobStatus(@RequestBody DemoReq demoReq) {
 
-       AcornResponse acornResponse = acornTemplate.build()
-           .jobId(demoReq.getJobId())
-           .getJobStatus();
+        AcornResponse acornResponse = acornTemplate.build()
+            .jobId(demoReq.getJobId())
+            .getJobStatus();
 
         log.info("acornResponse {}", acornResponse.toString());
     }
