@@ -15,6 +15,9 @@ public class Acorn {
         StreamTableEnvironment tEnv = StreamTableEnvironment.create(bsEnv,settings);
         tEnv.getConfig().getConfiguration().setString("pipeline.name", "${jobName}");
 
+    <#list flinkSqlList as flinkSql>
         tEnv.executeSql("${flinkSql}");
+    </#list>
+
     }
 }

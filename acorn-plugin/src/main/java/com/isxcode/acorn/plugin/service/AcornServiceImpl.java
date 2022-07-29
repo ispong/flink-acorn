@@ -61,7 +61,7 @@ public class AcornServiceImpl implements AcornService {
 
         Map<String, Object> freemarkerParams = new HashMap<>();
         freemarkerParams.put("jobName", acornRequest.getName());
-        freemarkerParams.put("flinkSql", acornRequest.getSql());
+        freemarkerParams.put("flinkSqlList", acornRequest.getSql().split(";"));
 
         try {
             return FreemarkerUtils.templateToString(FileConstants.ACORN_SQL_TEMPLATE_NAME, freemarkerParams);
