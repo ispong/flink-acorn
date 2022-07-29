@@ -6,6 +6,7 @@ import com.isxcode.acorn.common.exception.AcornException;
 import com.isxcode.acorn.common.exception.AcornExceptionEnum;
 import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.dto.AcornData;
+import com.isxcode.acorn.common.pojo.dto.JobLogDto;
 import com.isxcode.acorn.common.pojo.dto.JobStatusDto;
 import com.isxcode.acorn.common.pojo.dto.JobStatusResultDto;
 import com.isxcode.acorn.common.properties.AcornPluginProperties;
@@ -121,6 +122,20 @@ public class AcornBizService {
             }
         }
         return null;
+    }
+
+    public AcornData getJobLog(AcornRequest acornRequest) {
+
+        Assert.notNull(acornRequest.getJobId(), "jobId be empty");
+
+        JobLogDto jobLogDto;
+        try {
+            jobLogDto = HttpUtils.doGet("http://" + acornPluginProperties.getFlinkHost() + ":" + acornPluginProperties.getFlinkPort() + "/jobs/" + acornRequest.getJobId() + "/exceptions?maxExceptions=10", JobLogDto.class);
+        } catch (Exception e) {
+            throw new AcornException(AcornExceptionEnum.FLINK_SERVICE_ERROR);
+        }
+
+        return AcornData.builder().jobLog(jobLogDto.getRootException()).build();
     }
 
     public AcornData queryJobStatus() {

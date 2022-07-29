@@ -44,6 +44,13 @@ public class JobController {
     }
 
     @SuccessResponse
+    @PostMapping(UrlConstants.GET_JOB_LOG_URL)
+    public AcornData getJobLog(@RequestBody AcornRequest acornRequest) {
+
+        return acornBizService.getJobLog(acornRequest);
+    }
+
+    @SuccessResponse
     @PostMapping(UrlConstants.GET_JOB_ID_URL)
     public AcornData getJobId(@RequestBody AcornRequest acornRequest) {
 
