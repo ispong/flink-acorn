@@ -12,7 +12,7 @@
     </parent>
 
     <groupId>com.isxcode.acorn</groupId>
-    <artifactId>acorn-template</artifactId>
+    <artifactId>acorn-demo</artifactId>
     <version>0.0.1</version>
     <name>acorn-template</name>
     <description>acorn-template</description>
