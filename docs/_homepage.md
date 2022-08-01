@@ -5,13 +5,17 @@
 ###### flink-sql用法
 
 ```java
-class demo{
-    public void test() {
-        List<String> sqlList = new ArrayList<>();
-        sqlList.add(0, " CREATE TABLE from_table ( " +
+class demo {
+
+    private final AcornTemplate acornTemplate;
+
+    public void executeSql() {
+
+        String sql = " " +
+            "  CREATE TABLE from_table ( " +
             "       username STRING, " +
             "       age INT" +
-            "    ) WITH (" +
+            "  ) WITH (" +
             "       'scan.startup.mode'='latest-offset'," +
             "       'properties.group.id'='test-consumer-group'," +
             "       'connector'='kafka'," +
@@ -20,25 +24,26 @@ class demo{
             "       'properties.bootstrap.servers'='172.26.34.172:9092'," +
             "       'format'='csv'," +
             "       'csv.ignore-parse-errors' = 'true'" +
-            " )");
-        sqlList.add(1, "   CREATE TABLE to_table ( " +
+            "  ); " +
+            "  CREATE TABLE to_table ( " +
             "        username STRING, " +
             "        age INT" +
-            "     ) WITH (" +
-            "        'connector'='jdbc','url'='jdbc:mysql://localhost:30102/acorn'," +
-            "        'table-name'='flink_test_table'," +
-            "        'driver'='com.mysql.cj.jdbc.Driver'," +
+            "  ) WITH (" +
+            "        'connector'='jdbcnk_test_table'," +
+            "        'driver'='com.mys','url'='jdbc:mysql://localhost:30102/acorn'," +
+            "        'table-name'='fliql.cj.jdbc.Driver'," +
             "        'username'='root'," +
             "        'password'='acorn'" +
-            "  )");
-        sqlList.add(2, "   INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19");
+            "  ); " +
+            "  INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19;";
 
-        AcornRequest acornRequest = AcornRequest.builder()
-            .executeId(String.valueOf(UUID.randomUUID()))
-            .sqlList(sqlList)
-            .build();
+        AcornResponse acornResponse = acornTemplate.build()
+            .executeId("custom_execute_id")
+            .name("ispong_test_flink")
+            .sql(sql)
+            .execute();
 
-        log.info(acornTemplate.build("inner").executeSql(acornRequest).toString());
+        log.info("acornResponse {}", acornResponse.toString());
     }
 }
 ```
@@ -46,8 +51,12 @@ class demo{
 ###### flink-java用法
 
 ```java
-class demo{
-    public void test() {
+class demo {
+
+    private final AcornTemplate acornTemplate;
+
+    public void executeSql() {
+
         String javaCode = "" +
             "import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;\n" +
             "import org.apache.flink.table.api.EnvironmentSettings;\n" +
@@ -70,12 +79,13 @@ class demo{
             "    }\n" +
             "}\n";
 
-        AcornRequest acornRequest = AcornRequest.builder()
-            .executeId(String.valueOf(UUID.randomUUID()))
+        AcornResponse acornResponse = acornTemplate.build()
+            .executeId("custom_execute_id")
+            .name("ispong_test_flink")
             .java(javaCode)
-            .build();
+            .execute();
 
-        log.info(acornTemplate.build("inner").executeSql(acornRequest).toString());
+        log.info("acornResponse {}", acornResponse.toString());
     }
 }
 ```
