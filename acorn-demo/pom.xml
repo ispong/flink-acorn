@@ -14,7 +14,7 @@
     <groupId>com.isxcode.acorn</groupId>
     <artifactId>acorn-demo</artifactId>
     <version>0.0.1</version>
-    <name>acorn-template</name>
+    <name>acorn-demo</name>
     <description>acorn-template</description>
 
     <properties>
