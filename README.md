@@ -3,14 +3,8 @@
 </h1>
 
 <h3 align="center">
-    🐿️ flink on spring 快速集成插件
+    🐿️ ️ 对不同服务器上不同版本的flink做统一管理，并提供api与现有服务做无缝集成。
 </h3>
-
-<h4 align="center">
-    ✨✨✨ <a href="https://flink-acorn.isxcode.com" > 
-         https://flink-acorn.isxcode.com
-    </a> ✨✨✨
-</h4>
 
 <h2></h2>
 
@@ -24,7 +18,7 @@
 - [维护手册](https://flink-acorn.isxcode.com/#/zh-cn/start/contributing)
 - [版本历史](https://flink-acorn.isxcode.com/#/zh-cn/start/changelog)
 
-### 📦 安装使用
+### 📦 使用说明
 
 [![Maven Version](https://img.shields.io/maven-central/v/com.isxcode.acorn/acorn-common)](https://search.maven.org/artifact/com.isxcode.acorn/acorn-common)
 
@@ -32,18 +26,17 @@
 <dependency>
     <groupId>com.isxcode.acorn</groupId>
     <artifactId>acorn-common</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.2</version>
 </dependency>
 ```
 
 ```yml
 acorn:
-  client:
-    server:
-      default:
-        host: 192.168.66.66
-        port: 30155
-        key: acorn-key
+  workers:
+    default:
+      host: 192.168.66.66
+      port: 30155
+      key: acorn-key
 ```
 
 ```java
@@ -63,7 +56,7 @@ class demo {
                 "       'connector'='kafka'," +
                 "       'topic'='acorn-topic'," +
                 "       'properties.zookeeper.connect'='localhost:2181'," +
-                "       'properties.bootstrap.servers'='172.26.34.172:9092'," +
+                "       'properties.bootstrap.servers'='localhost:9092'," +
                 "       'format'='csv'," +
                 "       'csv.ignore-parse-errors' = 'true'" +
                 "  ); " +
