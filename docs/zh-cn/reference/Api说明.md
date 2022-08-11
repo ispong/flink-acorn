@@ -228,5 +228,7 @@ public void getJobStatus() {
 ```
 
 ```log
-
+acornResponse AcornResponse(code=200, message=操作成功, acornData=AcornData(jobId=null, jobInfo=JobStatusDto(jid=f453055bf7f6bc8e56eef06ca7a8b633, name=test_flink, state=RUNNING, duration=1801060), jobLog=null, deployLog=null, jobInfoList=null, executeId=null, jobStatus=null))
 ```
+
+## - 获取job日志
