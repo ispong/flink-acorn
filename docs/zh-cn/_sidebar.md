@@ -6,6 +6,7 @@
     - [插件离线安装](/zh-cn/reference/插件离线安装.md)
     - [客户端使用](/zh-cn/reference/客户端使用.md)
     - [Api说明](/zh-cn/reference/Api说明.md)
+    - [配置说明](/zh-cn/reference/配置说明.md)
 - [**维护手册**](/zh-cn/contributing.md)
 - [**版本历史**](/zh-cn/changelog.md)
 - **博客**

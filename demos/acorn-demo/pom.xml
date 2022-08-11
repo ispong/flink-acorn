@@ -15,7 +15,7 @@
     <artifactId>acorn-demo</artifactId>
     <version>0.0.1</version>
     <name>acorn-demo</name>
-    <description>acorn-template</description>
+    <description>acorn-demo</description>
 
     <properties>
         <java.version>1.8</java.version>
