@@ -56,31 +56,31 @@ public class TemplateController {
         log.info("acornResponse {}", acornResponse.toString());
     }
 
-    @PostMapping("/getDeployLog")
-    public void getExecuteLog(@RequestBody DemoReq demoReq) {
+    @GetMapping("/getDeployLog")
+    public void getExecuteLog() {
 
         AcornResponse acornResponse = acornTemplate.build()
-            .executeId(demoReq.getExecuteId())
+            .executeId("custom_execute_id")
             .getDeployLog();
 
         log.info("acornResponse {}", acornResponse.toString());
     }
 
-    @PostMapping("/getJobId")
-    public void getJobId(@RequestBody DemoReq demoReq) {
+    @GetMapping("/getJobId")
+    public void getJobId() {
 
         AcornResponse acornResponse = acornTemplate.build()
-            .executeId(demoReq.getExecuteId())
+            .executeId("custom_execute_id")
             .getJobId();
 
         log.info("acornResponse {}", acornResponse.toString());
     }
 
-    @PostMapping("/getJobStatus")
-    public void getJobStatus(@RequestBody DemoReq demoReq) {
+    @GetMapping("/getJobStatus")
+    public void getJobStatus() {
 
         AcornResponse acornResponse = acornTemplate.build()
-            .jobId(demoReq.getJobId())
+            .jobId("f453055bf7f6bc8e56eef06ca7a8b633")
             .getJobStatus();
 
         log.info("acornResponse {}", acornResponse.toString());

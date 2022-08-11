@@ -110,6 +110,7 @@ public class AcornBizService {
         try {
             jobStatusResultDto = HttpUtils.doGet("http://" + acornPluginProperties.getFlinkHost() + ":" + acornPluginProperties.getFlinkPort() + UrlConstants.FLINK_JOBS_OVERVIEW, JobStatusResultDto.class);
         } catch (Exception e) {
+            log.debug(e.getMessage());
             throw new AcornException(AcornExceptionEnum.FLINK_SERVICE_ERROR);
         }
 
