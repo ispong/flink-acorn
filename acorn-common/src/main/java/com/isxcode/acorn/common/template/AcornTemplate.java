@@ -138,12 +138,6 @@ public class AcornTemplate {
             return requestAcornServer(executeUrl, acornRequest);
         }
 
-        public AcornResponse stopBuild() {
-
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
-            return requestAcornServer(executeUrl, acornRequest);
-        }
-
         public AcornResponse stopJob() {
 
             String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.STOP_JOB_URL, serverInfo.getHost(), serverInfo.getPort());
@@ -162,9 +156,9 @@ public class AcornTemplate {
             return requestAcornServer(executeUrl, acornRequest);
         }
 
-        public AcornResponse getJobLog() {
+        public AcornResponse getJobExceptions() {
 
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_EXCEPTIONS_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 
@@ -177,13 +171,6 @@ public class AcornTemplate {
         public AcornResponse getJobId() {
 
             String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_ID_URL, serverInfo.getHost(), serverInfo.getPort());
-            return requestAcornServer(executeUrl, acornRequest);
-        }
-
-        public AcornResponse getJobStatus(String jobId) {
-
-            AcornRequest acornRequest = AcornRequest.builder().jobId(jobId).build();
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 

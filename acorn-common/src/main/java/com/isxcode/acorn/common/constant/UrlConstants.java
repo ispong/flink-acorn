@@ -53,7 +53,7 @@ public interface UrlConstants {
     /**
      * 获取作业日志接口
      */
-    String GET_JOB_LOG_URL = "/job/getJobLog";
+    String GET_JOB_EXCEPTIONS_URL = "/job/getJobExceptions";
 
     /**
      * 获取作业flink jobId

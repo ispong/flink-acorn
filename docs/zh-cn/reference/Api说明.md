@@ -231,4 +231,36 @@ public void getJobStatus() {
 acornResponse AcornResponse(code=200, message=操作成功, acornData=AcornData(jobId=null, jobInfo=JobStatusDto(jid=f453055bf7f6bc8e56eef06ca7a8b633, name=test_flink, state=RUNNING, duration=1801060), jobLog=null, deployLog=null, jobInfoList=null, executeId=null, jobStatus=null))
 ```
 
-## - 获取job日志
+## - 获取job异常日志
+
+```java
+public void getJobLog() {
+
+    AcornResponse acornResponse = acornTemplate.build()
+        .jobId("f453055bf7f6bc8e56eef06ca7a8b633")
+        .getJobLog();
+
+    log.info("acornResponse {}", acornResponse.toString());
+}
+```
+
+```log
+acornResponse AcornResponse(code=200, message=操作成功, acornData=AcornData(jobId=null, jobInfo=null, jobLog=null, deployLog=null, jobInfoList=null, executeId=null, jobStatus=null))
+```
+
+## - 停止作业
+
+```java
+public void stopJob() {
+
+    AcornResponse acornResponse = acornTemplate.build()
+        .jobId("f453055bf7f6bc8e56eef06ca7a8b633")
+        .stopJob();
+
+    log.info("acornResponse {}", acornResponse.toString());
+}
+```
+
+```log
+acornResponse AcornResponse(code=200, message=操作成功, acornData=AcornData(jobId=null, jobInfo=null, jobLog=null, deployLog=null, jobInfoList=null, executeId=null, jobStatus=null))
+```

@@ -125,7 +125,7 @@ public class AcornBizService {
         return null;
     }
 
-    public AcornData getJobLog(AcornRequest acornRequest) {
+    public AcornData getJobExceptions(AcornRequest acornRequest) {
 
         Assert.notNull(acornRequest.getJobId(), "jobId be empty");
 

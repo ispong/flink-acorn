@@ -91,16 +91,16 @@ public class TemplateController {
 
         AcornResponse acornResponse = acornTemplate.build()
             .jobId("f453055bf7f6bc8e56eef06ca7a8b633")
-            .getJobLog();
+            .getJobExceptions();
 
         log.info("acornResponse {}", acornResponse.toString());
     }
 
-    @PostMapping("/stopJob")
-    public void stopJob(@RequestBody DemoReq demoReq) {
+    @GetMapping("/stopJob")
+    public void stopJob() {
 
         AcornResponse acornResponse = acornTemplate.build()
-            .jobId(demoReq.getJobId())
+            .jobId("f453055bf7f6bc8e56eef06ca7a8b633")
             .stopJob();
 
         log.info("acornResponse {}", acornResponse.toString());

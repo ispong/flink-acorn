@@ -44,10 +44,10 @@ public class JobController {
     }
 
     @SuccessResponse
-    @PostMapping(UrlConstants.GET_JOB_LOG_URL)
-    public AcornData getJobLog(@RequestBody AcornRequest acornRequest) {
+    @PostMapping(UrlConstants.GET_JOB_EXCEPTIONS_URL)
+    public AcornData getJobExceptions(@RequestBody AcornRequest acornRequest) {
 
-        return acornBizService.getJobLog(acornRequest);
+        return acornBizService.getJobExceptions(acornRequest);
     }
 
     @SuccessResponse

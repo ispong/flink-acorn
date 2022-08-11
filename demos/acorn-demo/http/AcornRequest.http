@@ -14,9 +14,4 @@ GET http://localhost:8080/getJobStatus
 GET http://localhost:8080/getJobException
 
 ###
-POST http://localhost:8080/stopJob
-Content-Type: application/json
-
-{
-    "jobId": "43b49e2a81e527be6f8731daa2daa83b"
-}
+GET http://localhost:8080/stopJob
