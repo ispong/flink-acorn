@@ -5,10 +5,9 @@
 </h1>
 
 <p style="">
-    🐿️ 通过Spring插件的形式，实现对不同服务器与不同版本的Flink做统一管理。
+    🐿️ 对不同服务器上不同版本的flink做统一管理，并提供api与现有服务做无缝集成。
 </p>
 
-<br/>
 <br/>
 
 <div class="buttons">

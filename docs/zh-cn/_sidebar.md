@@ -1,13 +1,14 @@
 - [**开始**](#/README)
     - [Flink Acorn 是什么](_homepage.md)
     - [快速使用](/zh-cn/start/快速使用.md)
-- [**使用手册**](_homepage.md)
-    - [插件部署](/zh-cn/reference/插件部署.md)
+- **使用手册**
+    - [插件安装](/zh-cn/reference/插件安装.md)
+    - [插件离线安装](/zh-cn/reference/插件离线安装.md)
     - [客户端使用](/zh-cn/reference/客户端使用.md)
-    - [插件离线部署](/zh-cn/reference/插件离线部署.md)
+    - [Api说明](/zh-cn/reference/Api说明.md)
 - [**维护手册**](/zh-cn/contributing.md)
 - [**版本历史**](/zh-cn/changelog.md)
-- [**小栗子博客**](_homepage.md)
+- **博客**
   - [Flink 单节点快速安装](/zh-cn/blogs/Flink单节点安装.md) 
   - [Flink Kafka单节点快速安装](/zh-cn/blogs/Flink-kafka单节点快速安装.md)
   - [Flink Mysql单节点快速安装](/zh-cn/blogs/Flink-mysql单节点快速安装.md)
