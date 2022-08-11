@@ -33,7 +33,7 @@ public class AcornTemplate {
 
     public AcornTemplate.Builder build(String serverName) {
 
-        AcornServerInfo serverInfo = acornServerProperties.getServer().get(serverName);
+        AcornServerInfo serverInfo = acornServerProperties.getWorkers().get(serverName);
         if (serverInfo == null) {
             throw new AcornException(AcornExceptionEnum.ACORN_SERVER_NOT_FOUND);
         }
@@ -42,7 +42,7 @@ public class AcornTemplate {
 
     public AcornTemplate.Builder build() {
 
-        AcornServerInfo serverInfo = acornServerProperties.getServer().get(SysConstants.DEFAULT_SERVER_NAME);
+        AcornServerInfo serverInfo = acornServerProperties.getWorkers().get(SysConstants.DEFAULT_SERVER_NAME);
         if (serverInfo == null) {
             throw new AcornException(AcornExceptionEnum.ACORN_SERVER_NOT_FOUND);
         }

@@ -1,6 +1,7 @@
 acorn:
-  client:
-    server:
+  worker:
+    check-server: true
+    workers:
       default:
         host: 192.168.66.66
         port: 30155

@@ -52,20 +52,20 @@ public class AcornAutoConfig {
      * @ispong
      */
     @Bean
-    @ConditionalOnProperty(prefix = "acorn.client.server.default", name = {"host", "port", "key"})
+    @ConditionalOnProperty(prefix = "acorn.worker.workers.default", name = {"host", "port", "key"})
     public void checkServerStatus() {
 
         if (!acornServerProperties.getCheckServer()) {
             return;
         }
 
-        if (acornServerProperties.getServer() == null) {
+        if (acornServerProperties.getWorkers() == null) {
             System.out.println("Acorn配置中未找到server配置");
             return;
         }
 
         System.out.println("=================检查节点=======================");
-        acornServerProperties.getServer().forEach((k, v) -> {
+        acornServerProperties.getWorkers().forEach((k, v) -> {
             try {
                 // 检查用户配置的节点是否有效
                 String heartCheckUrl = String.format(UrlConstants.BASE_URL + UrlConstants.HEART_CHECK_URL, v.getHost(), v.getPort());

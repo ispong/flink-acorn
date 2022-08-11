@@ -1,4 +1,7 @@
 ###
+GET http://localhost:8080/executeSql
+
+###
 POST http://localhost:8080/executeSql
 Content-Type: application/json
 

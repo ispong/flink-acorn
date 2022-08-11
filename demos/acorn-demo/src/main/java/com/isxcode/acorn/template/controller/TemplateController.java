@@ -5,10 +5,7 @@ import com.isxcode.acorn.common.template.AcornTemplate;
 import com.isxcode.acorn.template.pojo.DemoReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -18,13 +15,42 @@ public class TemplateController {
 
     private final AcornTemplate acornTemplate;
 
-    @PostMapping("/executeSql")
-    public void executeSql(@RequestBody DemoReq demoReq) {
+    @GetMapping("/executeSql")
+    public void executeSql() {
+
+        String sql = " " +
+            "  CREATE TABLE from_table ( " +
+            "       username STRING, " +
+            "       age INT" +
+            "  ) WITH (" +
+            "       'scan.startup.mode'='latest-offset'," +
+            "       'properties.group.id'='test-consumer-group'," +
+            "       'connector'='kafka'," +
+            "       'topic'='acorn-input'," +
+            "       'properties.zookeeper.connect'='127.0.0.1:2181'," +
+            "       'properties.bootstrap.servers'='127.0.0.1:9092'," +
+            "       'format'='csv'," +
+            "       'csv.ignore-parse-errors' = 'true'" +
+            "  ); " +
+            "  CREATE TABLE to_table ( " +
+            "        username STRING, " +
+            "        age INT" +
+            "  ) WITH (" +
+            "       'scan.startup.mode'='latest-offset'," +
+            "       'properties.group.id'='test-consumer-group'," +
+            "       'connector'='kafka'," +
+            "       'topic'='acorn-output'," +
+            "       'properties.zookeeper.connect'='127.0.0.1:2181'," +
+            "       'properties.bootstrap.servers'='127.0.0.1:9092'," +
+            "       'format'='csv'," +
+            "       'csv.ignore-parse-errors' = 'true'" +
+            "  ); " +
+            "  INSERT INTO to_table SELECT username,age FROM from_table WHERE age > 18;";
 
         AcornResponse acornResponse = acornTemplate.build()
-            .executeId(demoReq.getExecuteId())
-            .name(demoReq.getName())
-            .sql(demoReq.getSql())
+            .executeId("custom_execute_id")
+            .name("test_flink")
+            .sql(sql)
             .execute();
 
         log.info("acornResponse {}", acornResponse.toString());

@@ -13,7 +13,7 @@ public class AcornPluginProperties {
     /**
      * 临时存储位置
      */
-    private String tmpDir = "/opt/flink-acorn/tmp";
+    private String tmpDir = "/tmp/flink-acorn";
 
     /**
      * 服务器密钥
