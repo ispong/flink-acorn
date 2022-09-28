@@ -16,6 +16,7 @@
 		<module>acorn-common</module>
 		<module>acorn-plugin</module>
 		<module>demos/acorn-demo</module>
+        <module>demos/demo1</module>
 	</modules>
 
 </project>
