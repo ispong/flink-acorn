@@ -27,3 +27,4 @@ fi
 ACORN_APP="${BASE_PATH}"/../lib/acorn-plugin.jar
 nohup java -jar -Xmx2048m "${ACORN_APP}" --spring.config.additional-location="${BASE_PATH}"/../conf/application-acorn.yml >> "${ACORN_LOG}" 2>&1 &
 tail -f ${ACORN_LOG}
+
