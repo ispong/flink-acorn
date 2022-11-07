@@ -7,6 +7,7 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.yarn.YarnClientYarnClusterInformationRetriever;
 import org.apache.flink.yarn.YarnClusterDescriptor;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 import org.apache.hadoop.yarn.api.records.ApplicationSubmissionContext;
 import org.apache.hadoop.yarn.api.records.Priority;
@@ -70,7 +71,7 @@ public class DeployApplication {
             yarnClient,
             YarnClientYarnClusterInformationRetriever.create(yarnClient),
             false);
-        descriptor.addShipFiles(Collections.singletonList(new File("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar")));
+        descriptor.setLocalJarPath(new Path("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"));
 
         // 配置yarn job的资源分配
         ClusterSpecification clusterSpecification = new ClusterSpecification.ClusterSpecificationBuilder()
