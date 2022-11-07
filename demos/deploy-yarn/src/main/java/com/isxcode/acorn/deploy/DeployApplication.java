@@ -104,7 +104,7 @@ public class DeployApplication {
             flinkConfig,
             flinkConfig.getInteger(DEFAULT_PARALLELISM),
             false);
-//        jobGraph.setClasspaths(Collections.singletonList(new URL("/opt/flink/lib/*")));
+        jobGraph.setClasspaths(Collections.singletonList(new URL("/opt/flink/lib/*")));
 
         // 部署作业
         ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
