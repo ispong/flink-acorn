@@ -6,6 +6,7 @@ import org.apache.flink.client.program.ClusterClientProvider;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.GlobalConfiguration;
 import org.apache.flink.runtime.jobgraph.JobGraph;
+import org.apache.flink.runtime.jobgraph.JobVertex;
 import org.apache.flink.yarn.YarnClientYarnClusterInformationRetriever;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.flink.yarn.configuration.YarnConfigOptions;
@@ -87,12 +88,12 @@ public class DeployApplication {
         descriptor.setLocalJarPath(new Path("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"));
 
         // 部署作业
-        ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, new JobGraph("flink job"), true);
+        ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification,null, true);
 
         // 打印应用信息
         System.out.println("applicationId:" + provider.getClusterClient().getClusterId().toString());
 
-//        "java -jar xxx.jar org.apache.flink.yarn.entrypoint.YarnJobClusterEntrypoint --job-classname com.isxcode.acorn.deploy.DeployApplication --job-id 1d9b9b9b-1b1b-1b1b-1b1b-1b1b1b1b1b1b --job-artifacts /tmp/flink-dist-1.12.0-bin_2.12.tgz#flink-dist-1.12.0 --parallelism 1 --detached --jobmanager-memory 1024m --jobmanager-cpu 1 --taskmanager-memory 1024m --taskmanager-cpu 1 --taskmanager-num 1 --dynamicPropertiesEncoded e30="
+        // "java -jar xxx.jar org.apache.flink.yarn.entrypoint.YarnJobClusterEntrypoint --job-classname com.isxcode.acorn.deploy.DeployApplication --job-id 1d9b9b9b-1b1b-1b1b-1b1b-1b1b1b1b1b1b --job-artifacts /tmp/flink-dist-1.12.0-bin_2.12.tgz#flink-dist-1.12.0 --parallelism 1 --detached --jobmanager-memory 1024m --jobmanager-cpu 1 --taskmanager-memory 1024m --taskmanager-cpu 1 --taskmanager-num 1 --dynamicPropertiesEncoded e30="
         return "deploy success";
     }
 

@@ -51,6 +51,8 @@
             <scope>runtime</scope>
         </dependency>
 
+
+        <!-- yarn per job -->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-yarn_${scala.binary.version}</artifactId>
