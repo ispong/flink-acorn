@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 
 @RequestMapping
 @RestController
@@ -65,16 +64,6 @@ public class DeployApplication {
         // 初始化flinkConfig
         Configuration flinkConfig = GlobalConfiguration.loadConfiguration("/opt/flink/conf");
         flinkConfig.setString(YarnConfigOptions.APPLICATION_QUEUE, "default");
-        flinkConfig.setString("yarn.application.name", "spring-demo");
-
-        // 配置flink yarn job环境
-        YarnClusterDescriptor descriptor = new YarnClusterDescriptor(
-            flinkConfig,
-            yarnConfig,
-            yarnClient,
-            YarnClientYarnClusterInformationRetriever.create(yarnClient),
-            false);
-        descriptor.setLocalJarPath(new Path("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"));
 
         // 配置yarn job的资源分配
         ClusterSpecification clusterSpecification = new ClusterSpecification.ClusterSpecificationBuilder()
@@ -83,12 +72,23 @@ public class DeployApplication {
             .setSlotsPerTaskManager(1)
             .createClusterSpecification();
 
+        // 配置flink yarn job环境
+        YarnClusterDescriptor descriptor = new YarnClusterDescriptor(flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
+        File[] jars = new File("/opt/flink/lib").listFiles();
+        if (jars != null) {
+            for (File jar : jars) {
+                descriptor.setLocalJarPath(new Path(jar.toURI().toURL().toString()));
+            }
+        }
+        descriptor.setLocalJarPath(new Path("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"));
+
         // 部署作业
         ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, new JobGraph("flink job"), true);
 
         // 打印应用信息
         System.out.println("applicationId:" + provider.getClusterClient().getClusterId().toString());
 
+//        "java -jar xxx.jar org.apache.flink.yarn.entrypoint.YarnJobClusterEntrypoint --job-classname com.isxcode.acorn.deploy.DeployApplication --job-id 1d9b9b9b-1b1b-1b1b-1b1b-1b1b1b1b1b1b --job-artifacts /tmp/flink-dist-1.12.0-bin_2.12.tgz#flink-dist-1.12.0 --parallelism 1 --detached --jobmanager-memory 1024m --jobmanager-cpu 1 --taskmanager-memory 1024m --taskmanager-cpu 1 --taskmanager-num 1 --dynamicPropertiesEncoded e30="
         return "deploy success";
     }
 
