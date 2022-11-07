@@ -63,7 +63,7 @@ public class DeployApplication {
         appContext.setApplicationType("Flink Sql Job");
 
         // 初始化flinkConfig
-        Configuration flinkConfig = GlobalConfiguration.loadConfiguration("/opt/flink/conf/*");
+        Configuration flinkConfig = GlobalConfiguration.loadConfiguration("/opt/flink/conf");
         flinkConfig.setString(YarnConfigOptions.APPLICATION_QUEUE, "default");
         flinkConfig.setString("yarn.application.name", "spring-demo");
 
