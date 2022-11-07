@@ -88,7 +88,10 @@ public class DeployApplication {
         descriptor.setLocalJarPath(new Path("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"));
 
         // 部署作业
-        ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification,null, true);
+        JobGraph jobGraph = new JobGraph("spring-demo");
+        jobGraph.addVertex(new JobVertex("vertex demo"));
+
+        ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
 
         // 打印应用信息
         System.out.println("applicationId:" + provider.getClusterClient().getClusterId().toString());
