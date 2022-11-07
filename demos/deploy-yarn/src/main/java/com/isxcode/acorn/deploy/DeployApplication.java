@@ -26,6 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @RequestMapping
 @RestController
@@ -74,12 +77,13 @@ public class DeployApplication {
 
         // 配置flink yarn job环境
         YarnClusterDescriptor descriptor = new YarnClusterDescriptor(flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
+
+        List<File> shipFiles = new ArrayList<>();
         File[] jars = new File("/opt/flink/lib").listFiles();
         if (jars != null) {
-            for (File jar : jars) {
-                descriptor.setLocalJarPath(new Path(jar.toURI().toURL().toString()));
-            }
+            Collections.addAll(shipFiles, jars);
         }
+        descriptor.addShipFiles(shipFiles);
         descriptor.setLocalJarPath(new Path("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"));
 
         // 部署作业
