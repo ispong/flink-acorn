@@ -94,10 +94,8 @@ public class DeployApplication {
             Collections.addAll(shipFiles, jars);
         }
         descriptor.addShipFiles(shipFiles);
-        descriptor.setLocalJarPath(new Path("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"));
 
         // 部署作业
-
         ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, buildJobGraph(new String[0], flinkConfig), true);
 
         // 打印应用信息
@@ -115,7 +113,7 @@ public class DeployApplication {
         PackagedProgram program =
             PackagedProgram.newBuilder()
                 .setJarFile(jarFile)
-                .setEntryPointClassName("com.isxcode.acorn.job.SqlJob.main")
+                .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
                 .setConfiguration(flinkConf)
                 .setArguments(programArgs)
                 .build();
