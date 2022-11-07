@@ -88,15 +88,26 @@ public class DeployApplication {
         // 配置flink yarn job环境
         YarnClusterDescriptor descriptor = new YarnClusterDescriptor(flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
 
-        List<File> shipFiles = new ArrayList<>();
-        File[] jars = new File("/opt/flink/lib").listFiles();
-        if (jars != null) {
-            Collections.addAll(shipFiles, jars);
-        }
-        descriptor.addShipFiles(shipFiles);
+        // 配置flink job
+        File jarFile = new File("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar");
+
+        PackagedProgram program =
+            PackagedProgram.newBuilder()
+                .setJarFile(jarFile)
+                .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
+                .setConfiguration(flinkConfig)
+                .setArguments("")
+                .build();
+
+        JobGraph jobGraph =
+            PackagedProgramUtils.createJobGraph(
+                program,
+                flinkConfig,
+                flinkConfig.getInteger(DEFAULT_PARALLELISM),
+                false);
 
         // 部署作业
-        ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, buildJobGraph(new String[0], flinkConfig), true);
+        ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
 
         // 打印应用信息
         System.out.println("applicationId:" + provider.getClusterClient().getClusterId().toString());
@@ -105,42 +116,5 @@ public class DeployApplication {
         return "deploy success";
     }
 
-
-    public static JobGraph buildJobGraph(String[] programArgs, Configuration flinkConf) throws Exception {
-
-        File jarFile = new File("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar");
-
-        PackagedProgram program =
-            PackagedProgram.newBuilder()
-                .setJarFile(jarFile)
-                .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
-                .setConfiguration(flinkConf)
-                .setArguments(programArgs)
-                .build();
-
-        JobGraph jobGraph =
-            PackagedProgramUtils.createJobGraph(
-                program,
-                flinkConf,
-                flinkConf.getInteger(DEFAULT_PARALLELISM),
-                false);
-
-        List<URL> pluginClassPath =
-            jobGraph.getUserArtifacts().entrySet().stream()
-                .filter(tmp -> tmp.getKey().startsWith("class_path"))
-                .map(tmp -> new File(tmp.getValue().filePath))
-                .map(
-                    file -> {
-                        try {
-                            return file.toURI().toURL();
-                        } catch (MalformedURLException e) {
-                            System.out.println(e.getMessage());
-                        }
-                        return null;
-                    })
-                .collect(Collectors.toList());
-        jobGraph.setClasspaths(pluginClassPath);
-        return jobGraph;
-    }
 
 }
