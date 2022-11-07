@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -91,20 +92,19 @@ public class DeployApplication {
         // 配置flink job
         File jarFile = new File("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar");
 
-        PackagedProgram program =
-            PackagedProgram.newBuilder()
-                .setJarFile(jarFile)
-                .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
-                .setConfiguration(flinkConfig)
-                .setArguments("")
-                .build();
+        PackagedProgram program = PackagedProgram.newBuilder()
+            .setJarFile(jarFile)
+            .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
+            .setConfiguration(flinkConfig)
+            .setArguments("")
+            .build();
 
-        JobGraph jobGraph =
-            PackagedProgramUtils.createJobGraph(
-                program,
-                flinkConfig,
-                flinkConfig.getInteger(DEFAULT_PARALLELISM),
-                false);
+        JobGraph jobGraph = PackagedProgramUtils.createJobGraph(
+            program,
+            flinkConfig,
+            flinkConfig.getInteger(DEFAULT_PARALLELISM),
+            false);
+        jobGraph.setClasspaths(Collections.singletonList(new URL("/opt/flink/lib/*")));
 
         // 部署作业
         ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
