@@ -4,9 +4,11 @@ import org.apache.flink.client.deployment.ClusterDeploymentException;
 import org.apache.flink.client.deployment.ClusterSpecification;
 import org.apache.flink.client.program.ClusterClientProvider;
 import org.apache.flink.configuration.Configuration;
+import org.apache.flink.configuration.GlobalConfiguration;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.yarn.YarnClientYarnClusterInformationRetriever;
 import org.apache.flink.yarn.YarnClusterDescriptor;
+import org.apache.flink.yarn.configuration.YarnConfigOptions;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 import org.apache.hadoop.yarn.api.records.ApplicationSubmissionContext;
@@ -61,7 +63,8 @@ public class DeployApplication {
         appContext.setApplicationType("Flink Sql Job");
 
         // 初始化flinkConfig
-        Configuration flinkConfig = new Configuration();
+        Configuration flinkConfig = GlobalConfiguration.loadConfiguration("/opt/flink/conf/*");
+        flinkConfig.setString(YarnConfigOptions.APPLICATION_QUEUE, "default");
         flinkConfig.setString("yarn.application.name", "spring-demo");
 
         // 配置flink yarn job环境
