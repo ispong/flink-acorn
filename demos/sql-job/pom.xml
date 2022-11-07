@@ -17,8 +17,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- version config -->
-        <flink.version>1.12.4</flink.version>
-        <scala.binary.version>2.11</scala.binary.version>
+        <flink.version>1.14.0</flink.version>
+        <scala.binary.version>2.12</scala.binary.version>
         <log4j.version>[2.16.0,)</log4j.version>
         <hive.version>3.1.2</hive.version>
     </properties>
