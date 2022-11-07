@@ -95,9 +95,9 @@ public class DeployApplication {
         PackagedProgram program = PackagedProgram.newBuilder()
             .setJarFile(jarFile)
             .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
-            .setConfiguration(flinkConfig)
+//            .setConfiguration(flinkConfig)
             .setArguments("")
-            .setUserClassPaths(Collections.singletonList(new File("/opt/flink/lib/flink-table-api-java-1.14.0.jar").toURI().toURL()))
+//            .setUserClassPaths(Collections.singletonList(new File("/opt/flink/lib/flink-table-api-java-1.14.0.jar").toURI().toURL()))
             .build();
 
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(
