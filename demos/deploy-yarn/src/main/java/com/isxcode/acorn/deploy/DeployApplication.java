@@ -97,6 +97,7 @@ public class DeployApplication {
             .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
             .setConfiguration(flinkConfig)
             .setArguments("")
+            .setUserClassPaths(Collections.singletonList(new URL("/opt/flink/lib/*")))
             .build();
 
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(
@@ -104,7 +105,6 @@ public class DeployApplication {
             flinkConfig,
             flinkConfig.getInteger(DEFAULT_PARALLELISM),
             false);
-        jobGraph.setClasspaths(Collections.singletonList(new URL("/opt/flink/lib/*")));
 
         // 部署作业
         ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
