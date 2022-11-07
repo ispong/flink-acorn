@@ -74,6 +74,13 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-api-java</artifactId>
+            <version>1.14.0</version>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
 
 	<build>
