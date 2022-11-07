@@ -3,10 +3,14 @@ package com.isxcode.acorn.deploy;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
 import org.apache.flink.client.deployment.ClusterSpecification;
 import org.apache.flink.client.program.ClusterClientProvider;
+import org.apache.flink.client.program.PackagedProgram;
+import org.apache.flink.client.program.PackagedProgramUtils;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.GlobalConfiguration;
+import org.apache.flink.runtime.executiongraph.DefaultExecutionGraphBuilder;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.runtime.jobgraph.JobVertex;
+import org.apache.flink.shaded.guava30.com.google.common.graph.GraphBuilder;
 import org.apache.flink.yarn.YarnClientYarnClusterInformationRetriever;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.flink.yarn.configuration.YarnConfigOptions;
@@ -27,9 +31,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.apache.flink.configuration.CoreOptions.DEFAULT_PARALLELISM;
 
 @RequestMapping
 @RestController
@@ -48,7 +57,7 @@ public class DeployApplication {
     }
 
     @GetMapping("/deploy")
-    public String deploy() throws IOException, YarnException, ClusterDeploymentException {
+    public String deploy() throws Exception {
 
         // 初始化yarnClient
         YarnConfiguration yarnConfig = new YarnConfiguration();
@@ -88,16 +97,52 @@ public class DeployApplication {
         descriptor.setLocalJarPath(new Path("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"));
 
         // 部署作业
-        JobGraph jobGraph = new JobGraph("spring-demo");
-        jobGraph.addVertex(new JobVertex("vertex demo"));
 
-        ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
+        ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, buildJobGraph(new String[0], flinkConfig), true);
 
         // 打印应用信息
         System.out.println("applicationId:" + provider.getClusterClient().getClusterId().toString());
 
         // "java -jar xxx.jar org.apache.flink.yarn.entrypoint.YarnJobClusterEntrypoint --job-classname com.isxcode.acorn.deploy.DeployApplication --job-id 1d9b9b9b-1b1b-1b1b-1b1b-1b1b1b1b1b1b --job-artifacts /tmp/flink-dist-1.12.0-bin_2.12.tgz#flink-dist-1.12.0 --parallelism 1 --detached --jobmanager-memory 1024m --jobmanager-cpu 1 --taskmanager-memory 1024m --taskmanager-cpu 1 --taskmanager-num 1 --dynamicPropertiesEncoded e30="
         return "deploy success";
+    }
+
+
+    public static JobGraph buildJobGraph(String[] programArgs, Configuration flinkConf) throws Exception {
+
+        File jarFile = new File("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar");
+
+        PackagedProgram program =
+            PackagedProgram.newBuilder()
+                .setJarFile(jarFile)
+                .setEntryPointClassName("com.isxcode.acorn.job.SqlJob.main")
+                .setConfiguration(flinkConf)
+                .setArguments(programArgs)
+                .build();
+
+        JobGraph jobGraph =
+            PackagedProgramUtils.createJobGraph(
+                program,
+                flinkConf,
+                flinkConf.getInteger(DEFAULT_PARALLELISM),
+                false);
+
+        List<URL> pluginClassPath =
+            jobGraph.getUserArtifacts().entrySet().stream()
+                .filter(tmp -> tmp.getKey().startsWith("class_path"))
+                .map(tmp -> new File(tmp.getValue().filePath))
+                .map(
+                    file -> {
+                        try {
+                            return file.toURI().toURL();
+                        } catch (MalformedURLException e) {
+                            System.out.println(e.getMessage());
+                        }
+                        return null;
+                    })
+                .collect(Collectors.toList());
+        jobGraph.setClasspaths(pluginClassPath);
+        return jobGraph;
     }
 
 }
