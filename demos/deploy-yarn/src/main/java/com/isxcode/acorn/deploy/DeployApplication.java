@@ -52,8 +52,6 @@ public class DeployApplication {
         yarnClient.start();
         System.out.println("finish yarnConfig");
 
-        //
-        // D:\opt\flink\conf
         // flink config
         Configuration flinkConfig = GlobalConfiguration.loadConfiguration("/opt/flink/conf");
         flinkConfig.setString(YarnConfigOptions.APPLICATION_QUEUE, "default");
@@ -70,21 +68,15 @@ public class DeployApplication {
         // The descriptor with deployment information for deploying a Flink cluster on Yarn.
         YarnClusterDescriptor descriptor = new YarnClusterDescriptor(
             flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
-        descriptor.setLocalJarPath(new Path("/opt/flink/lib"));
+        descriptor.setLocalJarPath(new Path("/opt/flink/lib/flink-dist_2.12-1.14.0.jar"));
         System.out.println("finish descriptor");
 
-//        List<URL> urls = new ArrayList<>();
-//        urls.add(new File("D:\\opt\\flink\\lib\\flink-table-api-java-bridge_2.12-1.14.0.jar").toURI().toURL());
-
-        // D:\isxcode\flink-acorn\demos\sql-job\target\sql-job-0.0.1.jar
-        // /home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar
         // The packaged program to be executed on the cluster.
         PackagedProgram program = PackagedProgram.newBuilder()
             .setJarFile(new File("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"))
             .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
             .setArguments("hello")
             .setSavepointRestoreSettings(SavepointRestoreSettings.none())
-//            .setUserClassPaths(urls)
             .build();
         System.out.println("finish program");
 
