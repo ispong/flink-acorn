@@ -74,10 +74,11 @@ public class DeployApplication {
         }
         descriptor.addShipFiles(shipFiles);
 
-        // The packaged program to be executed on the cluster.
+        // 特殊驱动依赖可以动态添加，比如jdbc等
         List<URL> classpathFiles = new ArrayList<>();
         classpathFiles.add(new File("/opt/flink/lib/flink-connector-jdbc_2.12-1.14.0.jar").toURI().toURL());
 
+        // The packaged program to be executed on the cluster.
         PackagedProgram program = PackagedProgram.newBuilder()
             .setJarFile(new File("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"))
             .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
