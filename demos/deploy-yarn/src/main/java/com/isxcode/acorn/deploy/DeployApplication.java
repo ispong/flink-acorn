@@ -7,6 +7,7 @@ import org.apache.flink.client.program.PackagedProgramUtils;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.GlobalConfiguration;
 import org.apache.flink.runtime.jobgraph.JobGraph;
+import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 import org.apache.flink.yarn.YarnClientYarnClusterInformationRetriever;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.flink.yarn.configuration.YarnConfigOptions;
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.apache.flink.configuration.CoreOptions.DEFAULT_PARALLELISM;
 
@@ -50,6 +54,8 @@ public class DeployApplication {
         yarnClient.start();
         System.out.println("finish yarnConfig");
 
+        //
+        // D:\opt\flink\conf
         // flink config
         Configuration flinkConfig = GlobalConfiguration.loadConfiguration("/opt/flink/conf");
         flinkConfig.setString(YarnConfigOptions.APPLICATION_QUEUE, "default");
@@ -68,11 +74,18 @@ public class DeployApplication {
             flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
         System.out.println("finish descriptor");
 
+//        List<URL> urls = new ArrayList<>();
+//        urls.add(new File("D:\\opt\\flink\\lib\\flink-table-api-java-bridge_2.12-1.14.0.jar").toURI().toURL());
+
+        // D:\isxcode\flink-acorn\demos\sql-job\target\sql-job-0.0.1.jar
+        // /home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar
         // The packaged program to be executed on the cluster.
         PackagedProgram program = PackagedProgram.newBuilder()
             .setJarFile(new File("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"))
             .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
             .setArguments("hello")
+            .setSavepointRestoreSettings(SavepointRestoreSettings.none())
+//            .setUserClassPaths(urls)
             .build();
         System.out.println("finish program");
 
