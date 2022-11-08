@@ -20,6 +20,7 @@
     <properties>
 		<java.version>1.8</java.version>
 
+        <hadoop.version>3.2.4</hadoop.version>
         <flink.version>1.14.0</flink.version>
         <scala.binary.version>2.12</scala.binary.version>
 	</properties>
@@ -31,34 +32,28 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-yarn-client</artifactId>
-            <version>3.2.4</version>
+            <version>${hadoop.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-yarn-api</artifactId>
-            <version>3.2.4</version>
+            <version>${hadoop.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-yarn-common</artifactId>
-            <version>3.2.4</version>
+            <version>${hadoop.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
-            <version>3.2.4</version>
+            <version>${hadoop.version}</version>
         </dependency>
 
         <dependency>
