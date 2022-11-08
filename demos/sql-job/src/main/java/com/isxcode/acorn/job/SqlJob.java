@@ -7,11 +7,12 @@ public class SqlJob {
 
     public static void main(String[] args) {
 
-        System.out.println("start sql job");
+        // 初始化flink运行环境
         EnvironmentSettings settings = EnvironmentSettings.newInstance().build();
         TableEnvironment tEnv = TableEnvironment.create(settings);
-        tEnv.getConfig().getConfiguration().setString("pipeline.name", "isxcode-pipeline");
+        tEnv.getConfig().getConfiguration().setString("pipeline.name", "ispong-pipeline");
 
+        // 执行三句sql,实现从users表同步到users_sink表中
         tEnv.executeSql("CREATE TABLE from_table(\n" +
             "    username STRING,\n" +
             "    age INT\n" +
