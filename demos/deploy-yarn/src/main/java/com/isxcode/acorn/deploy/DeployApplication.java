@@ -18,9 +18,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.apache.flink.yarn.entrypoint.YarnJobClusterEntrypoint;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -75,10 +75,14 @@ public class DeployApplication {
         descriptor.addShipFiles(shipFiles);
 
         // The packaged program to be executed on the cluster.
+        List<URL> classpathFiles = new ArrayList<>();
+        classpathFiles.add(new File("/opt/flink/lib/flink-connector-jdbc_2.12-1.14.0.jar").toURI().toURL());
+
         PackagedProgram program = PackagedProgram.newBuilder()
             .setJarFile(new File("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"))
             .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
             .setArguments("hello")
+            .setUserClassPaths(classpathFiles)
             .build();
 
         // The job graph to be deployed on the cluster.
