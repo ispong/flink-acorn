@@ -5,12 +5,12 @@
 </h1>
 
 <p style="">
-    🐿️ 对不同服务器上不同版本的flink做统一管理，并提供api与现有服务做无缝集成。
+    🐿️ Support development plugin for Flink custom api restful
 </p>
 
 <br/>
 
 <div class="buttons">
   <a href="https://github.com/ispong/flink-acorn/" target="_blank"><span>GitHub</span></a>
-  <a href="#/README"><span>开始使用</span></a>
+  <a href="#/zh-cn/start/快速使用"><span>Get Started</span></a>
 </div>

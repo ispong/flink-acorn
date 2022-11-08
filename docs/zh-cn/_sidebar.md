@@ -1,7 +1,12 @@
 - [**开始**](#/README)
     - [Flink Acorn 是什么](_homepage.md)
     - [快速使用](/zh-cn/start/快速使用.md)
-- **使用手册**
+- **安装手册**
+    - [在线安装]()
+    - [安装总结]()
+    - [离线安装]()
+    - [安装配置]()
+- **使用说明**
     - [插件安装](/zh-cn/reference/插件安装.md)
     - [插件离线安装](/zh-cn/reference/插件离线安装.md)
     - [客户端使用](/zh-cn/reference/客户端使用.md)
@@ -9,13 +14,5 @@
     - [配置说明](/zh-cn/reference/配置说明.md)
 - [**维护手册**](/zh-cn/contributing.md)
 - [**版本历史**](/zh-cn/changelog.md)
-- **博客**
-  - [Flink 单节点快速安装](/zh-cn/blogs/Flink单节点安装.md) 
-  - [Kafka 单节点快速安装](/zh-cn/blogs/Kafka单节点快速安装.md)
-  - [Flink 系统自启](/zh-cn/blogs/Flink系统自启.md)
-  - [Flink 基础概念](/zh-cn/blogs/Flink基础概念.md)
-  - [Flink 常用命令](/zh-cn/blogs/Flink常用命令.md)
-  - [Flink 配置说明](/zh-cn/blogs/Flink配置说明.md)
-  - [Flink 常见问题](/zh-cn/blogs/Flink常见问题.md)
-  - [Flink 集群安装](/zh-cn/blogs/Flink集群安装.md)
-  - [Flink 多数据源支持](/zh-cn/blogs/Flink多数据源支持.md)
+- [**相关博客**](/zh-cn/blogs.md)
+  
