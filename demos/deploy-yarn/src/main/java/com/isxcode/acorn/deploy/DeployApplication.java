@@ -11,6 +11,7 @@ import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 import org.apache.flink.yarn.YarnClientYarnClusterInformationRetriever;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.flink.yarn.configuration.YarnConfigOptions;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 import org.apache.hadoop.yarn.client.api.YarnClient;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
@@ -21,9 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.apache.flink.configuration.CoreOptions.DEFAULT_PARALLELISM;
 
@@ -72,6 +70,7 @@ public class DeployApplication {
         // The descriptor with deployment information for deploying a Flink cluster on Yarn.
         YarnClusterDescriptor descriptor = new YarnClusterDescriptor(
             flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
+        descriptor.setLocalJarPath(new Path("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"));
         System.out.println("finish descriptor");
 
 //        List<URL> urls = new ArrayList<>();
