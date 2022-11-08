@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.apache.flink.yarn.entrypoint.YarnJobClusterEntrypoint;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.apache.flink.configuration.CoreOptions.DEFAULT_PARALLELISM;
 
@@ -64,6 +67,12 @@ public class DeployApplication {
         YarnClusterDescriptor descriptor = new YarnClusterDescriptor(
             flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
         descriptor.setLocalJarPath(new Path("/opt/flink/lib/flink-dist_2.12-1.14.0.jar"));
+        List<File> shipFiles = new ArrayList<>();
+        File[] jars = new File("/opt/flink/lib/").listFiles();
+        if (jars != null) {
+            shipFiles.addAll(Arrays.asList(jars));
+        }
+        descriptor.addShipFiles(shipFiles);
 
         // The packaged program to be executed on the cluster.
         PackagedProgram program = PackagedProgram.newBuilder()
