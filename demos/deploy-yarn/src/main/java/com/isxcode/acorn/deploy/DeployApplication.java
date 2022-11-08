@@ -43,36 +43,46 @@ public class DeployApplication {
     @GetMapping("/deploy")
     public String deploy() throws Exception {
 
+        // yarn config
         YarnClient yarnClient = YarnClient.createYarnClient();
         YarnConfiguration yarnConfig = new YarnConfiguration();
         yarnClient.init(yarnConfig);
         yarnClient.start();
+        System.out.println("finish yarnConfig");
 
+        // flink config
         Configuration flinkConfig = GlobalConfiguration.loadConfiguration("/opt/flink/conf");
         flinkConfig.setString(YarnConfigOptions.APPLICATION_QUEUE, "default");
+        System.out.println("finish flinkConfig");
 
+        // flink cluster resource
         ClusterSpecification clusterSpecification = new ClusterSpecification.ClusterSpecificationBuilder()
             .setMasterMemoryMB(1024)
             .setTaskManagerMemoryMB(1024)
             .setSlotsPerTaskManager(1)
             .createClusterSpecification();
+        System.out.println("finish clusterSpecification");
 
+        // The descriptor with deployment information for deploying a Flink cluster on Yarn.
         YarnClusterDescriptor descriptor = new YarnClusterDescriptor(
             flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
+        System.out.println("finish descriptor");
 
-        File jarFile = new File("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar");
-
+        // The packaged program to be executed on the cluster.
         PackagedProgram program = PackagedProgram.newBuilder()
-            .setJarFile(jarFile)
+            .setJarFile(new File("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"))
             .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
             .setArguments("hello")
             .build();
+        System.out.println("finish program");
 
+        // The job graph to be deployed on the cluster.
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(
             program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), false);
+        System.out.println("finish jobGraph");
 
+        // Deploys a per-job cluster with the given job on the cluster.
         ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
-
         System.out.println("applicationId:" + provider.getClusterClient().getClusterId().toString());
 
         return "deploy success";

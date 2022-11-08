@@ -7,6 +7,7 @@ public class SqlJob {
 
     public static void main(String[] args) {
 
+        System.out.println("start sql job");
         EnvironmentSettings settings = EnvironmentSettings.newInstance().build();
         TableEnvironment tEnv = TableEnvironment.create(settings);
         tEnv.getConfig().getConfiguration().setString("pipeline.name", "isxcode-pipeline");
