@@ -70,7 +70,7 @@ public class DeployApplication {
         // The descriptor with deployment information for deploying a Flink cluster on Yarn.
         YarnClusterDescriptor descriptor = new YarnClusterDescriptor(
             flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
-        descriptor.setLocalJarPath(new Path("/home/ispong/flink-acorn/demos/sql-job/target/sql-job-0.0.1.jar"));
+        descriptor.setLocalJarPath(new Path("/opt/flink/lib"));
         System.out.println("finish descriptor");
 
 //        List<URL> urls = new ArrayList<>();
