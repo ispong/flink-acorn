@@ -1,6 +1,8 @@
 spring:
   profiles:
     active: acorn
+  banner:
+    location: classpath:banner.txt
 
 server:
   servlet:
