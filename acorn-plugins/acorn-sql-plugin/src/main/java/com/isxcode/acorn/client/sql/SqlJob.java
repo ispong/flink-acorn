@@ -10,6 +10,6 @@ public class SqlJob {
         EnvironmentSettings settings = EnvironmentSettings.newInstance().build();
         TableEnvironment tEnv = TableEnvironment.create(settings);
 
-        System.out.println(args[0]);
+        tEnv.executeSql(args[0]);
     }
 }
