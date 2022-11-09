@@ -14,7 +14,7 @@
 
     <groupId>com.isxcode.acorn</groupId>
     <artifactId>acorn-common</artifactId>
-    <version>1.1.2</version>
+    <version>1.2.0</version>
     <name>acorn-common</name>
     <url>https://github.com/ispong/flink-acorn</url>
     <description>acorn-common</description>

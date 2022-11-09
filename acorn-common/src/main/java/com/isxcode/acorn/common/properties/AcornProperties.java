@@ -9,10 +9,12 @@ import java.util.Map;
  * flink节点配置
  */
 @Data
-@ConfigurationProperties("acorn.worker")
-public class AcornServerProperties {
+@ConfigurationProperties("acorn")
+public class AcornProperties {
 
-    private Map<String, AcornServerInfo> workers;
+    private String secret = "acorn-key";
 
-    private Boolean checkServer = true;
+    private Boolean checkServers = false;
+
+    private Map<String, ServerInfo> servers;
 }

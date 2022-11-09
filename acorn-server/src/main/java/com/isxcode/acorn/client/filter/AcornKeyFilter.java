@@ -1,7 +1,8 @@
 package com.isxcode.acorn.client.filter;
 
 import com.isxcode.acorn.common.constant.SecurityConstants;
-import com.isxcode.acorn.common.properties.AcornPluginProperties;
+import com.isxcode.acorn.common.properties.AcornProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -12,14 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Service
+@RequiredArgsConstructor
 public class AcornKeyFilter extends OncePerRequestFilter {
 
-    private final AcornPluginProperties acornPluginProperties;
-
-    public AcornKeyFilter(AcornPluginProperties acornPluginProperties) {
-
-        this.acornPluginProperties = acornPluginProperties;
-    }
+    private final AcornProperties acornProperties;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -32,7 +29,7 @@ public class AcornKeyFilter extends OncePerRequestFilter {
         }
 
         // 检查key是否合法
-        if (!authorization.equals(acornPluginProperties.getKey())) {
+        if (!authorization.equals(acornProperties.getSecret())) {
             request.getRequestDispatcher(SecurityConstants.KEY_IS_ERROR_EXCEPTION).forward(request, response);
             return;
         }

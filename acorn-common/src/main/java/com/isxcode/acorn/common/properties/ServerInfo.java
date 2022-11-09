@@ -11,8 +11,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ConfigurationProperties(prefix = "acorn.worker.workers")
-public class AcornServerInfo {
+@ConfigurationProperties(prefix = "acorn.servers")
+public class ServerInfo {
 
     /**
      * 插件服务器ip
