@@ -1,4 +1,4 @@
-package com.isxcode.acorn.client.exception;
+package com.isxcode.acorn.server.exception;
 
 import com.isxcode.acorn.common.exception.AcornExceptionEnum;
 import com.isxcode.acorn.common.pojo.AcornResponse;

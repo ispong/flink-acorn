@@ -1,4 +1,4 @@
-package com.isxcode.acorn.client.filter;
+package com.isxcode.acorn.server.filter;
 
 import com.isxcode.acorn.common.constant.SecurityConstants;
 import com.isxcode.acorn.common.properties.AcornProperties;

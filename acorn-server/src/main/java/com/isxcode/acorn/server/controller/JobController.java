@@ -1,7 +1,7 @@
-package com.isxcode.acorn.client.controller;
+package com.isxcode.acorn.server.controller;
 
-import com.isxcode.acorn.client.response.SuccessResponse;
-import com.isxcode.acorn.client.service.AcornBizService;
+import com.isxcode.acorn.server.response.SuccessResponse;
+import com.isxcode.acorn.server.service.AcornBizService;
 import com.isxcode.acorn.common.constant.UrlConstants;
 import com.isxcode.acorn.common.exception.AcornException;
 import com.isxcode.acorn.common.pojo.AcornRequest;

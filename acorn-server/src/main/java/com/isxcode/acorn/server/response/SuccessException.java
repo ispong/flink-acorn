@@ -1,4 +1,4 @@
-package com.isxcode.acorn.client.response;
+package com.isxcode.acorn.server.response;
 
 import com.isxcode.acorn.common.pojo.AcornResponse;
 import lombok.Getter;

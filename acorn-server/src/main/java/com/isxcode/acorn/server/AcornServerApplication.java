@@ -1,4 +1,4 @@
-package com.isxcode.acorn.client;
+package com.isxcode.acorn.server;
 
 import com.isxcode.acorn.common.properties.AcornProperties;
 import com.isxcode.acorn.common.properties.ServerInfo;

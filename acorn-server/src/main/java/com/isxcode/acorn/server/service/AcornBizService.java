@@ -1,4 +1,4 @@
-package com.isxcode.acorn.client.service;
+package com.isxcode.acorn.server.service;
 
 import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.dto.AcornData;
@@ -80,7 +80,7 @@ public class AcornBizService {
         // 执行需要提交作业的程序，提交哪个jar包，哪个入口函数，需要传递的参数，额外的驱动,信息存储路径
         PackagedProgram program = PackagedProgram.newBuilder()
             .setJarFile(new File("/opt/acorn/plugins/acorn-sql-plugin.jar"))
-            .setEntryPointClassName("com.isxcode.acorn.job.SqlJob")
+            .setEntryPointClassName("com.isxcode.acorn.plugin.sql.SqlJob")
             .setArguments(acornRequest.getSql())
             .setUserClassPaths(classpathFiles)
             .setSavepointRestoreSettings(SavepointRestoreSettings.none())

@@ -1,8 +1,7 @@
-package com.isxcode.acorn.client.response;
+package com.isxcode.acorn.server.response;
 
 import com.isxcode.acorn.common.pojo.dto.AcornData;
 import com.isxcode.acorn.common.pojo.AcornResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,7 +20,7 @@ public class SuccessResponseAdvice {
         this.messageSource = messageSource;
     }
 
-    @Pointcut("@annotation(com.isxcode.acorn.client.response.SuccessResponse)")
+    @Pointcut("@annotation(com.isxcode.acorn.server.response.SuccessResponse)")
     public void operateLog() {
     }
 
