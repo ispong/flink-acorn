@@ -1,11 +1,11 @@
 # 进入项目目录
-CMD_PATH=`dirname $0`
-BASE_PATH=$(`cd "$CMD_PATH"/../ || exit ; pwd`)
+BASE_PATH=$(cd "$(dirname "$0")/../" || exit ; pwd)
 cd "${BASE_PATH}" || exit
 echo "Flink-Acorn ==> Go to ${BASE_PATH}"
 
 # 打包
 echo "Flink-Acorn ==> Start package..."
+echo "execute: mvn clean package -Dmaven.test.skip -pl acorn-common,acorn-server,acorn-plugins/acorn-sql-plugin"
 mvn clean package -Dmaven.test.skip -pl acorn-common,acorn-server,acorn-plugins/acorn-sql-plugin || exit
 echo "Flink-Acorn ==> Package success!"
 
@@ -44,4 +44,6 @@ cp "${BASE_PATH}"/acorn-plugins/acorn-sql-plugin/target/acorn-sql-plugin.jar "${
 echo "Flink-Acorn ==> Init plugins dir success!"
 
 # 构建成功
-echo "Welcome to use Flink-Acorn!"
+echo "###############################"
+echo "# Welcome to use Flink-Acorn! #"
+echo "###############################"
