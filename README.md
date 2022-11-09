@@ -1,9 +1,15 @@
+<p align="center">
+  <a href="https://github.com/ispong/flink-acorn" style="border-bottom: none !important;">
+    <img alt="flink-acorn" width="400" src="https://img.isxcode.com/isxcode_img/flink-acorn/logo.png">
+  </a>
+</p>
+
 <h1 align="center">
     Flink Acorn
 </h1>
 
 <h3 align="center">
-    🐿️ ️ 对不同服务器上不同版本的flink做统一管理，并提供api与现有服务做无缝集成。
+    🐿️ Support development plugin for Flink custom api restful
 </h3>
 
 <h2></h2>
@@ -15,8 +21,8 @@
 ### 📒 相关文档
 
 - [快速使用](https://flink-acorn.isxcode.com/#/zh-cn/start/快速使用)
-- [维护手册](https://flink-acorn.isxcode.com/#/zh-cn/start/contributing)
-- [版本历史](https://flink-acorn.isxcode.com/#/zh-cn/start/changelog)
+- [维护手册](https://flink-acorn.isxcode.com/#/zh-cn/contributing)
+- [版本历史](https://flink-acorn.isxcode.com/#/zh-cn/changelog)
 
 ### 📦 使用说明
 
@@ -25,69 +31,90 @@
 ```xml
 <dependency>
     <groupId>com.isxcode.acorn</groupId>
-    <artifactId>acorn-common</artifactId>
-    <version>1.1.2</version>
+    <artifactId>acorn-client</artifactId>
+    <version>1.2.0</version>
 </dependency>
 ```
 
 ```yml
 acorn:
-  workers:
+  check-servers: true
+  servers:
     default:
-      host: 192.168.66.66
+      host: isxcode
       port: 30155
       key: acorn-key
 ```
 
 ```java
-class demo {
+package com.isxcode.acorn.demo;
+
+import com.isxcode.acorn.client.template.AcornTemplate;
+import com.isxcode.acorn.common.pojo.AcornResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RequestMapping
+@RestController
+@SpringBootApplication
+@RequiredArgsConstructor
+public class DemoApplication {
 
     private final AcornTemplate acornTemplate;
 
-    public void executeSql() {
+    public static void main(String[] args) {
 
-        String sql = " " +
-                "  CREATE TABLE from_table ( " +
-                "       username STRING, " +
-                "       age INT" +
-                "  ) WITH (" +
-                "       'scan.startup.mode'='latest-offset'," +
-                "       'properties.group.id'='test-consumer-group'," +
-                "       'connector'='kafka'," +
-                "       'topic'='acorn-topic'," +
-                "       'properties.zookeeper.connect'='localhost:2181'," +
-                "       'properties.bootstrap.servers'='localhost:9092'," +
-                "       'format'='csv'," +
-                "       'csv.ignore-parse-errors' = 'true'" +
-                "  ); " +
-                "  CREATE TABLE to_table ( " +
-                "        username STRING, " +
-                "        age INT" +
-                "  ) WITH (" +
-                "        'connector'='jdbcnk_test_table'," +
-                "        'driver'='com.mys','url'='jdbc:mysql://localhost:30102/acorn'," +
-                "        'table-name'='fliql.cj.jdbc.Driver'," +
-                "        'username'='root'," +
-                "        'password'='acorn'" +
-                "  ); " +
-                "  INSERT INTO to_table SELECT username,age FROM from_table WHERE age >19;";
+        SpringApplication.run(DemoApplication.class, args);
+    }
 
-        AcornResponse acornResponse = acornTemplate.build()
-                .executeId("custom_execute_id")
-                .name("ispong_test_flink")
-                .sql(sql)
-                .execute();
-        
-        log.info("acornResponse {}", acornResponse.toString());
+    @GetMapping("/execute")
+    public AcornResponse executeFlinkSql() {
+
+        String flinkSql = "" +
+            "CREATE TABLE from_table(\n" +
+            "    username STRING,\n" +
+            "    age INT\n" +
+            ") WITH (\n" +
+            "    'connector'='jdbc',\n" +
+            "    'url'='jdbc:mysql://isxcode:30306/ispong_db',\n" +
+            "    'table-name'='users',\n" +
+            "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
+            "    'username'='root',\n" +
+            "    'password'='ispong123');" +
+            "" +
+            "CREATE TABLE to_table(\n" +
+            "    username STRING,\n" +
+            "    age INT\n" +
+            ") WITH (\n" +
+            "    'connector'='jdbc',\n" +
+            "    'url'='jdbc:mysql://isxcode:30306/ispong_db',\n" +
+            "    'table-name'='users_sink',\n" +
+            "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
+            "    'username'='root',\n" +
+            "    'password'='ispong123');" +
+            "" +
+            "insert into to_table select username, age from from_table";
+
+        return acornTemplate.build().sql(flinkSql).deploy();
     }
 }
 ```
 
-```log
-2022-08-01 14:22:41.165  INFO 4540 --- [nio-8080-exec-1] c.i.a.t.controller.TemplateController    : acornResponse AcornResponse(code=200, message=操作成功, acornData=AcornData(jobId=null, jobInfo=null, jobLog=null, deployLog=null, jobInfoList=null, executeId=custom_execute_id    , jobStatus=null))
+```json
+{
+    "code":"200",
+    "message":"操作成功",
+    "acornData":{
+        "applicationId":"application_1667964484125_0003"
+    }
+}
 ```
 
 ### 👏 社区开发
 
-- 欢迎大家一同维护开发，请参照具体[开发文档](https://flink-acorn.isxcode.com/#/zh-cn/contributing.md) 。
+- 欢迎大家一同维护开发，请参照具体[开发文档](https://flink-acorn.isxcode.com/#/zh-cn/contributing) 。
 - 如需加入我们，请联系邮箱 ispong@outlook.com 。
