@@ -5,6 +5,6 @@ BASE_PATH=$(cd "$(dirname "$0")" || exit ; pwd)
 cd "${BASE_PATH}" || exit
 
 # 看日志
-LOG_PATH="${BASE_PATH}"/../log/acorn-plugin.log
+LOG_PATH="${BASE_PATH}"/../log/acorn-server.log
 echo "Flink-Acorn log file "+ "${LOG_PATH}"
 tail -f "${LOG_PATH}"
