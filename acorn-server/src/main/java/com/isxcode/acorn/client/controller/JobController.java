@@ -7,12 +7,14 @@ import com.isxcode.acorn.common.exception.AcornException;
 import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.dto.AcornData;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
 import org.apache.flink.client.program.ProgramInvocationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.MalformedURLException;
 
+@Slf4j
 @RestController
 @RequestMapping
 @RequiredArgsConstructor
@@ -27,6 +29,7 @@ public class JobController {
         try {
             return acornBizService.executeSql(acornRequest);
         } catch (MalformedURLException | ProgramInvocationException | ClusterDeploymentException e) {
+            log.error(e.getMessage());
             throw new AcornException("执行异常", "50001");
         }
     }
