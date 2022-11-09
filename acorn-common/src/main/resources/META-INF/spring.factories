@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.isxcode.acorn.common.config.AcornAutoConfig
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.isxcode.acorn.client.config.AcornAutoConfig

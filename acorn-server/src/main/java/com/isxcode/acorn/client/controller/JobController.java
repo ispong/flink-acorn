@@ -1,0 +1,88 @@
+package com.isxcode.acorn.client.controller;
+
+import com.isxcode.acorn.common.constant.UrlConstants;
+import com.isxcode.acorn.common.pojo.AcornRequest;
+import com.isxcode.acorn.common.pojo.dto.AcornData;
+import com.isxcode.acorn.client.response.SuccessResponse;
+import com.isxcode.acorn.client.service.AcornBizService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping
+@RequiredArgsConstructor
+public class JobController {
+
+    private final AcornBizService acornBizService;
+
+//    @SuccessResponse
+//    @PostMapping(UrlConstants.EXECUTE_JSON_URL)
+//    public AcornData executeFlinkJson(@RequestBody AcornRequest acornRequest) {
+//
+//        return acornBizService.executeFlinkJob(acornRequest);
+//    }
+
+    @SuccessResponse
+    @PostMapping(UrlConstants.EXECUTE_SQL_URL)
+    public AcornData executeFlinkSql(@RequestBody AcornRequest acornRequest) {
+
+        return acornBizService.executeFlinkSql(acornRequest);
+    }
+
+//    @SuccessResponse
+//    @PostMapping(UrlConstants.EXECUTE_JAVA_URL)
+//    public AcornData executeFlinkJava(@RequestBody AcornRequest acornRequest) {
+//
+//        return acornBizService.executeFlinkJob(acornRequest);
+//    }
+
+    @SuccessResponse
+    @PostMapping(UrlConstants.GET_DEPLOY_LOG_URL)
+    public AcornData getDeployLog(@RequestBody AcornRequest acornRequest) {
+
+        return acornBizService.getDeployLog(acornRequest);
+    }
+
+    @SuccessResponse
+    @PostMapping(UrlConstants.GET_JOB_EXCEPTIONS_URL)
+    public AcornData getJobExceptions(@RequestBody AcornRequest acornRequest) {
+
+        return acornBizService.getJobExceptions(acornRequest);
+    }
+
+    @SuccessResponse
+    @PostMapping(UrlConstants.GET_JOB_ID_URL)
+    public AcornData getJobId(@RequestBody AcornRequest acornRequest) {
+
+        return acornBizService.getJobId(acornRequest);
+    }
+
+    @SuccessResponse
+    @PostMapping(UrlConstants.STOP_JOB_URL)
+    public AcornData stopJob(@RequestBody AcornRequest acornRequest) {
+
+        return acornBizService.stopJob(acornRequest);
+    }
+
+    @SuccessResponse
+    @PostMapping(UrlConstants.GET_JOB_STATUS_URL)
+    public AcornData getJobStatus(@RequestBody AcornRequest acornRequest) {
+
+        return acornBizService.getJobInfo(acornRequest);
+    }
+
+    @SuccessResponse
+    @GetMapping(UrlConstants.QUERY_JOB_STATUS_URL)
+    public AcornData queryJobStatus() {
+
+        return acornBizService.queryJobStatus();
+    }
+
+    @SuccessResponse
+    @GetMapping(UrlConstants.HEART_CHECK_URL)
+    public AcornData heartCheck() {
+
+        return AcornData.builder().jobLog("正常").build();
+    }
+
+}

@@ -13,10 +13,13 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>acorn-common</module>
-		<module>acorn-plugin</module>
-        <module>demos/deploy-yarn</module>
+        <module>acorn-common</module>
+        <module>acorn-client</module>
+        <module>acorn-server</module>
+        <module>acorn-plugins/acorn-sql-plugin</module>
         <module>demos/sql-job</module>
+        <module>demos/deploy-yarn</module>
+        <module>examples/acorn-demo</module>
 	</modules>
 
 </project>

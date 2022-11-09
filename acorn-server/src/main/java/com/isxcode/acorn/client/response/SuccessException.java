@@ -1,0 +1,17 @@
+package com.isxcode.acorn.client.response;
+
+import com.isxcode.acorn.common.pojo.AcornResponse;
+import lombok.Getter;
+import lombok.Setter;
+
+public class SuccessException extends RuntimeException {
+
+    @Setter
+    @Getter
+    private AcornResponse baseResponse;
+
+    public SuccessException(AcornResponse baseResponse) {
+
+        this.baseResponse = baseResponse;
+    }
+}
