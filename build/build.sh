@@ -20,13 +20,13 @@ echo "Flink-Acorn ==> Init acorn success!"
 
 # 创建bin文件夹
 mkdir -p "${ACORN_BUILD_DIR}"/bin
-cp "${BASE_PATH}"/build/bin/* "$ACORN_BUILD_DIR"/bin
+cp "${BASE_PATH}"/acorn-server/bin/* "$ACORN_BUILD_DIR"/bin
 chmod a+x "$ACORN_BUILD_DIR"/bin/*
 echo "Flink-Acorn ==> Init bin dir success!"
 
 # 创建conf文件夹
 mkdir -p "${ACORN_BUILD_DIR}"/conf
-cp "${BASE_PATH}"/build/conf/* "$ACORN_BUILD_DIR"/conf
+cp "${BASE_PATH}"/acorn-server/conf/* "$ACORN_BUILD_DIR"/conf
 echo "Flink-Acorn ==> Init conf dir success!"
 
 # 创建log文件夹
@@ -45,5 +45,5 @@ echo "Flink-Acorn ==> Init plugins dir success!"
 
 # 构建成功
 echo "###############################"
-echo "# Welcome to use Flink-Acorn! #"
+echo "# Welcome to use Flink-Acorn!  "
 echo "###############################"
