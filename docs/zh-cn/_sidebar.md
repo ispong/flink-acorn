@@ -3,15 +3,9 @@
     - [快速使用](/zh-cn/start/快速使用.md)
 - **安装手册**
     - [快速安装](/zh-cn/install/快速安装.md)
-    - [安装总结]()
-    - [离线安装]()
-    - [安装配置]()
+    - [Jdbc扩展](/zh-cn/install/Jdbc扩展.md)
 - **使用说明**
-    - [插件安装](/zh-cn/reference/插件安装.md)
-    - [插件离线安装](/zh-cn/reference/插件离线安装.md)
-    - [客户端使用](/zh-cn/reference/客户端使用.md)
     - [Api说明](/zh-cn/reference/Api说明.md)
-    - [配置说明](/zh-cn/reference/配置说明.md)
 - [**维护手册**](/zh-cn/contributing.md)
 - [**版本历史**](/zh-cn/changelog.md)
 - [**相关博客**](/zh-cn/blogs.md)

@@ -17,9 +17,10 @@ public class DemoApplication {
 
     private final AcornTemplate acornTemplate;
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
+
         SpringApplication.run(DemoApplication.class, args);
-	}
+    }
 
     @GetMapping("/execute")
     public AcornResponse executeFlinkSql() {
