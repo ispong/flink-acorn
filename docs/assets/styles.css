@@ -102,7 +102,7 @@ section.cover.show ~ .sidebar-toggle {
     width: 125px;
     height: 32px;
     background-size: 100%;
-    background: url('images/favicon.png') no-repeat center center;
+    background: url('images/favicon_bak.png') no-repeat center center;
 }
 
 .cover-main .buttons {
