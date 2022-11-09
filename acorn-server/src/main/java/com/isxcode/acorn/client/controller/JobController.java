@@ -1,12 +1,17 @@
 package com.isxcode.acorn.client.controller;
 
 import com.isxcode.acorn.common.constant.UrlConstants;
+import com.isxcode.acorn.common.exception.AcornException;
 import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.dto.AcornData;
 import com.isxcode.acorn.client.response.SuccessResponse;
 import com.isxcode.acorn.client.service.AcornBizService;
 import lombok.RequiredArgsConstructor;
+import org.apache.flink.client.deployment.ClusterDeploymentException;
+import org.apache.flink.client.program.ProgramInvocationException;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.MalformedURLException;
 
 @RestController
 @RequestMapping
@@ -19,7 +24,11 @@ public class JobController {
     @PostMapping(UrlConstants.EXECUTE_SQL_URL)
     public AcornData executeFlinkSql(@RequestBody AcornRequest acornRequest) {
 
-        return acornBizService.executeSql(acornRequest);
+        try {
+            return acornBizService.executeSql(acornRequest);
+        } catch (MalformedURLException | ProgramInvocationException | ClusterDeploymentException e) {
+            throw new AcornException("执行异常", "50001");
+        }
     }
 
     @SuccessResponse
