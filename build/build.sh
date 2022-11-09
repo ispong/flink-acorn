@@ -1,5 +1,6 @@
 # 进入项目目录
-BASE_PATH=$(cd "$(dirname "$0")" || exit ; pwd)
+CMD_PATH=`dirname $0`
+BASE_PATH=$(`cd "$CMD_PATH"/../ || exit ; pwd`)
 cd "${BASE_PATH}" || exit
 echo "Flink-Acorn ==> Go to ${BASE_PATH}"
 
