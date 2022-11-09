@@ -40,6 +40,8 @@ public class AcornBizService {
 
     public AcornData executeSql(AcornRequest acornRequest) throws MalformedURLException, ProgramInvocationException, ClusterDeploymentException {
 
+        log.info("acornProperties {}", acornProperties.toString());
+
         YarnClient yarnClient = YarnClient.createYarnClient();
         YarnConfiguration yarnConfig = new YarnConfiguration();
         yarnClient.init(yarnConfig);
