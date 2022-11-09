@@ -13,7 +13,7 @@
 
     <groupId>com.isxcode.acorn</groupId>
     <artifactId>acorn-client</artifactId>
-    <version>1.0.0</version>
+    <version>1.2.0</version>
     <name>acorn-client</name>
     <description>acorn-client</description>
 
@@ -24,7 +24,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- 常用依赖版本号配置 -->
-        <acorn-common.version>1.1.2</acorn-common.version>
+        <acorn-common.version>1.2.0</acorn-common.version>
         <lombok.version>1.18.22</lombok.version>
         <log4j.version>[2.16.0,)</log4j.version>
     </properties>

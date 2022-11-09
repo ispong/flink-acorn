@@ -29,4 +29,6 @@ public class AcornData {
     private String executeId;
 
     private String jobStatus;
+
+    private String applicationId;
 }

@@ -8,8 +8,8 @@ import com.isxcode.acorn.common.exception.AcornExceptionEnum;
 import com.isxcode.acorn.common.menu.Template;
 import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.AcornResponse;
-import com.isxcode.acorn.common.properties.AcornServerInfo;
-import com.isxcode.acorn.common.properties.AcornServerProperties;
+import com.isxcode.acorn.common.properties.AcornProperties;
+import com.isxcode.acorn.common.properties.ServerInfo;
 import com.isxcode.acorn.common.utils.HttpUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +28,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AcornTemplate {
 
-    private final AcornServerProperties acornServerProperties;
+    private final AcornProperties acornProperties;
 
     public AcornTemplate.Builder build(String serverName) {
 
-        AcornServerInfo serverInfo = acornServerProperties.getWorkers().get(serverName);
+        ServerInfo serverInfo = acornProperties.getServers().get(serverName);
         if (serverInfo == null) {
             throw new AcornException(AcornExceptionEnum.ACORN_SERVER_NOT_FOUND);
         }
@@ -41,7 +41,7 @@ public class AcornTemplate {
 
     public AcornTemplate.Builder build() {
 
-        AcornServerInfo serverInfo = acornServerProperties.getWorkers().get(SysConstants.DEFAULT_SERVER_NAME);
+        ServerInfo serverInfo = acornProperties.getServers().get(SysConstants.DEFAULT_SERVER_NAME);
         if (serverInfo == null) {
             throw new AcornException(AcornExceptionEnum.ACORN_SERVER_NOT_FOUND);
         }
@@ -50,16 +50,16 @@ public class AcornTemplate {
 
     public AcornTemplate.Builder build(String host, int port, String key) {
 
-        return new Builder(new AcornServerInfo(host, port, key));
+        return new Builder(new ServerInfo(host, port, key));
     }
 
     public static class Builder {
 
         public AcornRequest acornRequest = new AcornRequest();
 
-        private final AcornServerInfo serverInfo;
+        private final ServerInfo serverInfo;
 
-        public Builder(AcornServerInfo serverInfo) {
+        public Builder(ServerInfo serverInfo) {
 
             this.serverInfo = serverInfo;
         }
@@ -119,7 +119,7 @@ public class AcornTemplate {
             return this;
         }
 
-        public AcornResponse execute() {
+        public AcornResponse deploy() {
 
             String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_SQL_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);

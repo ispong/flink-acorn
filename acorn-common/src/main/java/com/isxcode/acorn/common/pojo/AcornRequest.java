@@ -51,4 +51,10 @@ public class AcornRequest {
     private InputStream jar;
 
     private Template template;
+
+    private int masterMemoryMB = 1024;
+
+    private int taskManagerMemoryMB = 1024;
+
+    private int slotsPerTaskManager = 1;
 }

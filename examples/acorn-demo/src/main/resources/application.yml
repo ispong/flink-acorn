@@ -1,2 +1,10 @@
 server:
   port: 8080
+
+acorn:
+  check-servers: true
+  servers:
+    default:
+      host: isxcode
+      port: 30155
+      key: acorn-key
