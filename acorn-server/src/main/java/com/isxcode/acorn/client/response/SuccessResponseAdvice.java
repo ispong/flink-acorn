@@ -13,7 +13,6 @@ import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
 
 @Aspect
-@Slf4j
 public class SuccessResponseAdvice {
 
     private final MessageSource messageSource;

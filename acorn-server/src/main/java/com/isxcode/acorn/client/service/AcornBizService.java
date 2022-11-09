@@ -4,20 +4,19 @@ import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.dto.AcornData;
 import com.isxcode.acorn.common.properties.AcornProperties;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
-import org.apache.flink.client.program.ProgramInvocationException;
-import org.apache.hadoop.fs.Path;
 import org.apache.flink.client.deployment.ClusterSpecification;
 import org.apache.flink.client.program.ClusterClientProvider;
 import org.apache.flink.client.program.PackagedProgram;
 import org.apache.flink.client.program.PackagedProgramUtils;
+import org.apache.flink.client.program.ProgramInvocationException;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.GlobalConfiguration;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 import org.apache.flink.yarn.YarnClientYarnClusterInformationRetriever;
 import org.apache.flink.yarn.YarnClusterDescriptor;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 import org.apache.hadoop.yarn.client.api.YarnClient;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
@@ -25,14 +24,12 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.apache.flink.configuration.CoreOptions.DEFAULT_PARALLELISM;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AcornBizService {
