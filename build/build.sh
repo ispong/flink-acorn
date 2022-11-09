@@ -16,7 +16,7 @@ if [ -d "${ACORN_BUILD_DIR}" ]; then
     echo "Flink-Acorn ==> Delete acorn success!"
 fi
 mkdir -p "${ACORN_BUILD_DIR}"
-echo "Flink-Acorn ==> Init acorn success!"
+echo "Flink-Acorn ==> Init acorn dir success!"
 
 # 创建bin文件夹
 mkdir -p "${ACORN_BUILD_DIR}"/bin
