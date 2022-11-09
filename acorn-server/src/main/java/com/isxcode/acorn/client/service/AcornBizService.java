@@ -4,6 +4,7 @@ import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.dto.AcornData;
 import com.isxcode.acorn.common.properties.AcornProperties;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
 import org.apache.flink.client.deployment.ClusterSpecification;
 import org.apache.flink.client.program.ClusterClientProvider;
@@ -30,6 +31,7 @@ import java.util.List;
 
 import static org.apache.flink.configuration.CoreOptions.DEFAULT_PARALLELISM;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AcornBizService {
@@ -42,18 +44,20 @@ public class AcornBizService {
         YarnConfiguration yarnConfig = new YarnConfiguration();
         yarnClient.init(yarnConfig);
         yarnClient.start();
+        log.info("初始化yarnClient成功");
 
         Configuration flinkConfig = GlobalConfiguration.loadConfiguration(acornProperties.getFlinkConfDir());
+        log.info("初始化flinkConfig成功");
 
         ClusterSpecification clusterSpecification = new ClusterSpecification.ClusterSpecificationBuilder()
             .setMasterMemoryMB(acornRequest.getMasterMemoryMB())
             .setTaskManagerMemoryMB(acornRequest.getTaskManagerMemoryMB())
             .setSlotsPerTaskManager(acornRequest.getSlotsPerTaskManager())
             .createClusterSpecification();
+        log.info("初始化clusterSpecification成功");
 
         YarnClusterDescriptor descriptor = new YarnClusterDescriptor(
             flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
-
         descriptor.setLocalJarPath(new Path(acornProperties.getFlinkDistPath()));
 
         List<File> shipFiles = new ArrayList<>();
@@ -62,6 +66,7 @@ public class AcornBizService {
             shipFiles.addAll(Arrays.asList(jars));
         }
         descriptor.addShipFiles(shipFiles);
+        log.info("初始化descriptor成功");
 
 //        List<URL> classpathFiles = new ArrayList<>();
 //        classpathFiles.add(new File("/opt/flink/lib/flink-connector-jdbc_2.12-1.14.0.jar").toURI().toURL());
@@ -73,11 +78,14 @@ public class AcornBizService {
 //            .setUserClassPaths(classpathFiles)
             .setSavepointRestoreSettings(SavepointRestoreSettings.none())
             .build();
+        log.info("初始化program成功");
 
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(
             program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), false);
+        log.info("初始化jobGraph成功");
 
         ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
+        log.info("提交成功");
 
         String applicationId = provider.getClusterClient().getClusterId().toString();
 
