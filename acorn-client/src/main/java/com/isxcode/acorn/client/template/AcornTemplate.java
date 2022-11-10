@@ -107,12 +107,6 @@ public class AcornTemplate {
             return this;
         }
 
-        public Builder jar(InputStream jar) {
-
-            acornRequest.setJar(jar);
-            return this;
-        }
-
         public Builder template(Template template) {
 
             acornRequest.setTemplate(template);

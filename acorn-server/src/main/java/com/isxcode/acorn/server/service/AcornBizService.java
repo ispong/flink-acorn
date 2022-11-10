@@ -86,7 +86,7 @@ public class AcornBizService {
             program = PackagedProgram.newBuilder()
                 .setJarFile(new File(acornRequest.getPluginJarPath()))
                 .setEntryPointClassName(acornRequest.getPluginMainClass())
-                .setArguments(acornRequest.getPluginArguments())
+                .setArguments(acornRequest.getPluginArguments().toString())
                 .setUserClassPaths(classpathFiles)
                 .setSavepointRestoreSettings(SavepointRestoreSettings.none())
                 .build();

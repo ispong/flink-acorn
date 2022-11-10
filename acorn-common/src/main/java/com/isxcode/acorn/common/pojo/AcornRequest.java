@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.InputStream;
+import java.util.List;
 
 /**
  * acorn 请求体
@@ -48,8 +48,6 @@ public class AcornRequest {
 
     private String sql;
 
-    private InputStream jar;
-
     private Template template;
 
     private int masterMemoryMB = 1024;
@@ -62,5 +60,5 @@ public class AcornRequest {
 
     private String pluginMainClass;
 
-    private String[] pluginArguments;
+    private List<String> pluginArguments;
 }
