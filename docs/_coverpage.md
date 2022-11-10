@@ -5,7 +5,7 @@
 </h1>
 
 <p style="">
-    🐿️ Support development plugin for Flink custom api restful
+    🐿️ Support custom development plugin for flink restful server
 </p>
 
 <br/>

@@ -1,0 +1,25 @@
+name: deploy website
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
+        with:
+            host: isxcode
+            username: ${{ secrets.USERNAME }}
+            password: ${{ secrets.PASSWORD }}
+            rm: true
+            source: "./docs"
+            target: "/data/flink-acorn/docs"
