@@ -61,4 +61,6 @@ public class AcornRequest {
     private String pluginMainClass;
 
     private List<String> pluginArguments;
+
+    private String applicationId;
 }

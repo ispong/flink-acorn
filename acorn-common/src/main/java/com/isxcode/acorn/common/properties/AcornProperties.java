@@ -19,4 +19,6 @@ public class AcornProperties {
     private Map<String, ServerInfo> servers;
 
     private String flinkDir = "/opt/flink";
+
+    private String jobHistoryUrl = "http://localhost:8082";
 }

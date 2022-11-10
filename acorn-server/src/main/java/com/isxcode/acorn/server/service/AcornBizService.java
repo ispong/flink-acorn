@@ -2,7 +2,10 @@ package com.isxcode.acorn.server.service;
 
 import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.dto.AcornData;
+import com.isxcode.acorn.common.pojo.flink.JobExceptions;
+import com.isxcode.acorn.common.pojo.flink.JobStatus;
 import com.isxcode.acorn.common.properties.AcornProperties;
+import com.isxcode.acorn.common.utils.CommandUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
@@ -19,12 +22,19 @@ import org.apache.flink.yarn.YarnClientYarnClusterInformationRetriever;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
+import org.apache.hadoop.yarn.api.records.ApplicationReport;
+import org.apache.hadoop.yarn.api.records.FinalApplicationStatus;
+import org.apache.hadoop.yarn.api.records.YarnApplicationState;
 import org.apache.hadoop.yarn.client.api.YarnClient;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
+import org.apache.hadoop.yarn.exceptions.YarnException;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -103,33 +113,55 @@ public class AcornBizService {
         return AcornData.builder().applicationId(applicationId).flinkJobId(flinkJobId).build();
     }
 
-    public AcornData getDeployLog(AcornRequest acornRequest) {
+    public AcornData getYarnLog(AcornRequest acornRequest) throws IOException, YarnException {
 
-        return null;
+        String getLogCommand = "yarn logs -applicationId " + acornRequest.getApplicationId();
+
+        String yarnLog = CommandUtils.executeBackCommand(getLogCommand, 5000);
+        return AcornData.builder().yarnLog(yarnLog).build();
     }
 
-    public AcornData getJobId(AcornRequest acornRequest) {
+    public AcornData getYarnStatus(AcornRequest acornRequest) throws IOException, YarnException {
 
-        return null;
+        YarnClient yarnClient = YarnClient.createYarnClient();
+        YarnConfiguration yarnConfig = new YarnConfiguration();
+        yarnClient.init(yarnConfig);
+        yarnClient.start();
+
+        ApplicationReport applicationReport = yarnClient.getApplicationReport(ApplicationId.fromString(acornRequest.getApplicationId()));
+        FinalApplicationStatus finalApplicationStatus = applicationReport.getFinalApplicationStatus();
+        YarnApplicationState yarnApplicationState = applicationReport.getYarnApplicationState();
+
+        return AcornData.builder()
+            .finalStatus(finalApplicationStatus.name())
+            .yarnState(yarnApplicationState.name())
+            .build();
     }
 
-    public AcornData stopJob(AcornRequest acornRequest) {
+    public AcornData killYarn(AcornRequest acornRequest) throws IOException, YarnException {
 
-        return null;
+        YarnClient yarnClient = YarnClient.createYarnClient();
+        YarnConfiguration yarnConfig = new YarnConfiguration();
+        yarnClient.init(yarnConfig);
+        yarnClient.start();
+
+        yarnClient.killApplication(ApplicationId.fromString(acornRequest.getApplicationId()));
+
+        return AcornData.builder().build();
     }
 
-    public AcornData getJobInfo(AcornRequest acornRequest) {
+    public AcornData getJobStatus(AcornRequest acornRequest) throws IOException, YarnException {
 
-        return null;
+        ResponseEntity<JobStatus> response = new RestTemplate().getForEntity(acornProperties.getJobHistoryUrl() + "/jobs/" + acornRequest.getJobId(), JobStatus.class);
+
+        return AcornData.builder().jobStatus(response.getBody()).build();
     }
 
     public AcornData getJobExceptions(AcornRequest acornRequest) {
 
-        return null;
+        ResponseEntity<JobExceptions> response = new RestTemplate().getForEntity(acornProperties.getJobHistoryUrl() + "/jobs/" + acornRequest.getJobId() + "/exceptions", JobExceptions.class);
+
+        return AcornData.builder().jobExceptions(response.getBody()).build();
     }
 
-    public AcornData queryJobStatus() {
-
-        return null;
-    }
 }

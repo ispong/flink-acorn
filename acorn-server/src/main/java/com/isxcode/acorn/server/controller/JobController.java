@@ -1,17 +1,19 @@
 package com.isxcode.acorn.server.controller;
 
-import com.isxcode.acorn.server.response.SuccessResponse;
-import com.isxcode.acorn.server.service.AcornBizService;
 import com.isxcode.acorn.common.constant.UrlConstants;
 import com.isxcode.acorn.common.exception.AcornException;
 import com.isxcode.acorn.common.pojo.AcornRequest;
 import com.isxcode.acorn.common.pojo.dto.AcornData;
+import com.isxcode.acorn.server.response.SuccessResponse;
+import com.isxcode.acorn.server.service.AcornBizService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
 import org.apache.flink.client.program.ProgramInvocationException;
+import org.apache.hadoop.yarn.exceptions.YarnException;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 
 @Slf4j
@@ -35,10 +37,27 @@ public class JobController {
     }
 
     @SuccessResponse
-    @PostMapping(UrlConstants.GET_DEPLOY_LOG_URL)
-    public AcornData getDeployLog(@RequestBody AcornRequest acornRequest) {
+    @PostMapping(UrlConstants.GET_YARN_STATUS_URL)
+    public AcornData getYarnStatus(@RequestBody AcornRequest acornRequest) {
 
-        return acornBizService.getDeployLog(acornRequest);
+        try {
+            return acornBizService.getYarnStatus(acornRequest);
+        } catch (IOException | YarnException e) {
+            log.error(e.getMessage());
+            throw new AcornException("执行异常", "50001");
+        }
+    }
+
+    @SuccessResponse
+    @PostMapping(UrlConstants.GET_DEPLOY_LOG_URL)
+    public AcornData getYarnLog(@RequestBody AcornRequest acornRequest) {
+
+        try {
+            return acornBizService.getYarnLog(acornRequest);
+        } catch (IOException | YarnException e) {
+            log.error(e.getMessage());
+            throw new AcornException("执行异常", "50001");
+        }
     }
 
     @SuccessResponse
@@ -49,31 +68,27 @@ public class JobController {
     }
 
     @SuccessResponse
-    @PostMapping(UrlConstants.GET_JOB_ID_URL)
-    public AcornData getJobId(@RequestBody AcornRequest acornRequest) {
-
-        return acornBizService.getJobId(acornRequest);
-    }
-
-    @SuccessResponse
     @PostMapping(UrlConstants.STOP_JOB_URL)
     public AcornData stopJob(@RequestBody AcornRequest acornRequest) {
 
-        return acornBizService.stopJob(acornRequest);
+        try {
+            return acornBizService.killYarn(acornRequest);
+        } catch (IOException | YarnException e) {
+            log.error(e.getMessage());
+            throw new AcornException("执行异常", "50001");
+        }
     }
 
     @SuccessResponse
     @PostMapping(UrlConstants.GET_JOB_STATUS_URL)
     public AcornData getJobStatus(@RequestBody AcornRequest acornRequest) {
 
-        return acornBizService.getJobInfo(acornRequest);
-    }
-
-    @SuccessResponse
-    @GetMapping(UrlConstants.QUERY_JOB_STATUS_URL)
-    public AcornData queryJobStatus() {
-
-        return acornBizService.queryJobStatus();
+        try {
+            return acornBizService.getJobStatus(acornRequest);
+        } catch (IOException | YarnException e) {
+            log.error(e.getMessage());
+            throw new AcornException("执行异常", "50001");
+        }
     }
 
     @SuccessResponse

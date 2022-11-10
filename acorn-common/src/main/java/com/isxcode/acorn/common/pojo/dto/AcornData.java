@@ -1,5 +1,7 @@
 package com.isxcode.acorn.common.pojo.dto;
 
+import com.isxcode.acorn.common.pojo.flink.JobExceptions;
+import com.isxcode.acorn.common.pojo.flink.JobStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,7 +30,15 @@ public class AcornData {
 
     private String executeId;
 
-    private String jobStatus;
-
     private String applicationId;
+
+    private String finalStatus;
+
+    private String yarnState;
+
+    private JobStatus jobStatus;
+
+    private JobExceptions jobExceptions;
+
+    private String yarnLog;
 }

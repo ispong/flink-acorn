@@ -4,3 +4,4 @@ server:
 acorn:
   secret: acorn-key
   flink-dir: /opt/flink
+  job-history-url: http://localhost:8082

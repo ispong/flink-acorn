@@ -46,6 +46,11 @@ public interface UrlConstants {
     String GET_JOB_STATUS_URL = "/job/getJobStatus";
 
     /**
+     * 获取作业状态接口
+     */
+    String GET_YARN_STATUS_URL = "/job/getYarnStatus";
+
+    /**
      * 获取发布日志接口
      */
     String GET_DEPLOY_LOG_URL = "/job/getDeployLog";
