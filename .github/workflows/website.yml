@@ -17,7 +17,7 @@ jobs:
       - name: copy file via ssh password
         uses: appleboy/scp-action@master
         with:
-            host: isxcode
+            host: isxcode.com
             username: ${{ secrets.USERNAME }}
             password: ${{ secrets.PASSWORD }}
             rm: true
