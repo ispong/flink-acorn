@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class AcornData {
 
-    private String jobId;
+    private String flinkJobId;
 
     private JobStatusDto jobInfo;
 

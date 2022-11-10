@@ -3,3 +3,4 @@ server:
 
 acorn:
   secret: acorn-key
+  flink-dir: /opt/flink

@@ -18,9 +18,5 @@ public class AcornProperties {
 
     private Map<String, ServerInfo> servers;
 
-    private String flinkConfDir = "/opt/flink/conf";
-
-    private String flinkLibDir = "/opt/flink/lib";
-
-    private String flinkDistPath = "/opt/flink/lib/flink-dist_2.12-1.14.0.jar";
+    private String flinkDir = "/opt/flink";
 }

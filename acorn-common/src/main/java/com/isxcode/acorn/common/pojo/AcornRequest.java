@@ -57,4 +57,10 @@ public class AcornRequest {
     private int taskManagerMemoryMB = 1024;
 
     private int slotsPerTaskManager = 1;
+
+    private String pluginJarPath;
+
+    private String pluginMainClass;
+
+    private String[] pluginArguments;
 }
