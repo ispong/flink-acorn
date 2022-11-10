@@ -22,4 +22,4 @@ jobs:
             password: ${{ secrets.PASSWORD }}
             rm: true
             source: "./docs"
-            target: "/data/flink-acorn/docs"
+            target: "/data/flink-acorn/"
