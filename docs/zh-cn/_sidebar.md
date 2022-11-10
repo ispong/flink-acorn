@@ -8,6 +8,7 @@
     - [日志扩展](/zh-cn/install/日志扩展.md)
 - **使用说明**
     - [Api说明](/zh-cn/reference/Api说明.md)
+    - [插件开发](/zh-cn/reference/插件开发.md)
 - [**维护手册**](/zh-cn/contributing.md)
 - [**版本历史**](/zh-cn/changelog.md)
 - [**相关博客**](/zh-cn/blogs.md)
