@@ -1,45 +1,124 @@
-##### - 执行flinkSql
+## - 执行flinkSql
 
 ```java
-public void executeSql() {
+String sql = "select * from table";
 
-    String sql = "select * from a";
+AcornResponse acornResponse = acornTemplate.build()
+    .sql(sql)
+    .deploy();
+```
 
-    AcornResponse acornResponse = acornTemplate.build()
-        .sql(sql)
-        .deploy();
+```json
+{
+  "code": "200",
+  "message": "操作成功",
+  "acornData": {
+    "flinkJobId": "88f660b6fbf4ac78b98d0649de2b79f2",
+    "applicationId": "application_1668067924093_0008"
+  }
 }
 ```
 
-##### - 获取作业日志
+## - 获取yarn容器日志
 
 ```java
-public void getExecuteLog() {
-
-    AcornResponse acornResponse = acornTemplate.build()
+AcornResponse acornResponse = acornTemplate.build()
         .applicationId("applicationId")
-        .getLog();
+        .getYarnLog();
+```
+
+```json
+{
+  "code": "200",
+  "message": "操作成功",
+  "acornData": {
+    "yarnLogs": [
+      "******************************************************************************",
+      "",
+      "Container: container_1668067924093_0008_01_000001 on isxcode_36708",
+      "LogAggregationType: AGGREGATED",
+      "==================================================================",
+      "LogType:prelaunch.out",
+      "LogLastModifiedTime:Thu Nov 10 20:16:13 +0800 2022",
+      "LogLength:100",
+      "LogContents:",
+      "Setting up env variables",
+      "Setting up job resources",
+      "Copying debugging information",
+      "Launching container",
+      "",
+      "End of LogType:prelaunch.out",
+      "******************************************************************************"
+    ]
+  }
 }
 ```
 
-##### - 获取作业状态
+## - 获取yarn容器状态
 
 ```java
-public void getJobStatus() {
+AcornResponse acornResponse = acornTemplate.build()
+    .applicationId("applicationId")
+    .getYarnStatus();
+```
 
-    AcornResponse acornResponse = acornTemplate.build()
-        .applicationId("applicationId")
-        .getStatus();
+```json
+{
+  "code": "200",
+  "message": "操作成功",
+  "acornData": {
+    "finalStatus": "SUCCEEDED",
+    "yarnState": "FINISHED"
+  }
 }
 ```
 
-##### - 停止作业
+## - 停止作业
 
 ```java
-public void stopJob() {
+AcornResponse acornResponse = acornTemplate.build()
+    .applicationId("applicationId")
+    .stopJob();
+```
 
-    AcornResponse acornResponse = acornTemplate.build()
-        .applicationId("applicationId")
-        .kill();
+## - 查看flinkJob状态
+
+```java
+AcornResponse acornResponse = acornTemplate.build()
+    .jobId("flinkJobId")
+    .getJobStatus();
+```
+
+```json
+{
+  "code": "200",
+  "message": "操作成功",
+  "acornData": {
+    "jobStatus": {
+      "jid": "88f660b6fbf4ac78b98d0649de2b79f2",
+      "state": "FINISHED"
+    }
+  }
+}
+```
+
+## - 查看flinkJob异常
+
+```java
+AcornResponse acornResponse = acornTemplate.build()
+    .jobId("flinkJobId")
+    .getJobExceptions();
+```
+
+```json
+{
+    "code": "200",
+    "message": "操作成功",
+    "acornData": {
+        "jobExceptions": {
+            "rootException": null,
+            "allExceptions": []
+        }
+    }
 }
 ```

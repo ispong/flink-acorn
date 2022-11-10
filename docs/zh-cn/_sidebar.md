@@ -4,6 +4,8 @@
 - **安装手册**
     - [快速安装](/zh-cn/install/快速安装.md)
     - [Jdbc扩展](/zh-cn/install/Jdbc扩展.md)
+    - [Hive扩展](/zh-cn/install/Hive扩展.md)
+    - [日志扩展](/zh-cn/install/日志扩展.md)
 - **使用说明**
     - [Api说明](/zh-cn/reference/Api说明.md)
 - [**维护手册**](/zh-cn/contributing.md)

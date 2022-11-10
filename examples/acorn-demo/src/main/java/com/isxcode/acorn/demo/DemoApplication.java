@@ -75,4 +75,10 @@ public class DemoApplication {
         return acornTemplate.build().jobId(flinkJobId).getJobExceptions();
     }
 
+    @GetMapping("/stopYarnJob")
+    public AcornResponse stopYarnJob(@RequestParam String applicationId) {
+
+        return acornTemplate.build().applicationId(applicationId).stopJob();
+    }
+
 }
