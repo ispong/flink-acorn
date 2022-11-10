@@ -172,18 +172,6 @@ public class AcornTemplate {
             String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_DEPLOY_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
-
-        public AcornResponse getJobId() {
-
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_ID_URL, serverInfo.getHost(), serverInfo.getPort());
-            return requestAcornServer(executeUrl, acornRequest);
-        }
-
-        public AcornResponse queryJobStatus() {
-
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.QUERY_JOB_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
-            return requestAcornServer(executeUrl, null);
-        }
     }
 
 }

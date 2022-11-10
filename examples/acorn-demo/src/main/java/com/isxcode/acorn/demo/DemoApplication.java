@@ -54,7 +54,7 @@ public class DemoApplication {
     @GetMapping("/getYarnStatus")
     public AcornResponse getYarnStatus(@RequestParam String applicationId) {
 
-        return acornTemplate.build().applicationId(applicationId).getJobStatus();
+        return acornTemplate.build().applicationId(applicationId).getYarnStatus();
     }
 
     @GetMapping("/getYarnLog")
@@ -72,7 +72,7 @@ public class DemoApplication {
     @GetMapping("/getJobLog")
     public AcornResponse getJobLog(@RequestParam String flinkJobId) {
 
-        return acornTemplate.build().jobId(flinkJobId).getJobId();
+        return acornTemplate.build().jobId(flinkJobId).getJobExceptions();
     }
 
 }

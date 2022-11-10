@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.apache.flink.configuration.CoreOptions.DEFAULT_PARALLELISM;
@@ -117,8 +118,9 @@ public class AcornBizService {
 
         String getLogCommand = "yarn logs -applicationId " + acornRequest.getApplicationId();
 
-        String yarnLog = CommandUtils.executeBackCommand(getLogCommand, 5000);
-        return AcornData.builder().yarnLog(yarnLog).build();
+        String[] yarnLogs = CommandUtils.executeBackCommand(getLogCommand, 5000).split("\n");
+
+        return AcornData.builder().yarnLogs(Arrays.asList(yarnLogs)).build();
     }
 
     public AcornData getYarnStatus(AcornRequest acornRequest) throws IOException, YarnException {

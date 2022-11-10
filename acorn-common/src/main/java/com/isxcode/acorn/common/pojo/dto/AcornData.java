@@ -1,5 +1,6 @@
 package com.isxcode.acorn.common.pojo.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.isxcode.acorn.common.pojo.flink.JobExceptions;
 import com.isxcode.acorn.common.pojo.flink.JobStatus;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AcornData {
 
     private String flinkJobId;
@@ -40,5 +42,5 @@ public class AcornData {
 
     private JobExceptions jobExceptions;
 
-    private String yarnLog;
+    private List<String> yarnLogs;
 }
