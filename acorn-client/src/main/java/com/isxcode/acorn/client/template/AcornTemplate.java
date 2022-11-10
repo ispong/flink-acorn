@@ -83,6 +83,12 @@ public class AcornTemplate {
             return this;
         }
 
+        public Builder applicationId(String applicationId) {
+
+            acornRequest.setApplicationId(applicationId);
+            return this;
+        }
+
         public Builder name(String name) {
 
             acornRequest.setName(name);
@@ -143,6 +149,12 @@ public class AcornTemplate {
             return requestAcornServer(executeUrl, acornRequest);
         }
 
+        public AcornResponse getYarnStatus() {
+
+            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_YARN_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
+            return requestAcornServer(executeUrl, acornRequest);
+        }
+
         public AcornResponse getBuildStatus() {
 
             String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
@@ -155,7 +167,7 @@ public class AcornTemplate {
             return requestAcornServer(executeUrl, acornRequest);
         }
 
-        public AcornResponse getDeployLog() {
+        public AcornResponse getYarnLog() {
 
             String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_DEPLOY_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);

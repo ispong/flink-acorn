@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping
@@ -48,6 +49,30 @@ public class DemoApplication {
             "insert into to_table select username, age from from_table";
 
         return acornTemplate.build().sql(flinkSql).deploy();
+    }
+
+    @GetMapping("/getYarnStatus")
+    public AcornResponse getYarnStatus(@RequestParam String applicationId) {
+
+        return acornTemplate.build().applicationId(applicationId).getJobStatus();
+    }
+
+    @GetMapping("/getYarnLog")
+    public AcornResponse getYarnLog(@RequestParam String applicationId) {
+
+        return acornTemplate.build().applicationId(applicationId).getYarnLog();
+    }
+
+    @GetMapping("/getJobStatus")
+    public AcornResponse getJobStatus(@RequestParam String flinkJobId) {
+
+        return acornTemplate.build().jobId(flinkJobId).getJobStatus();
+    }
+
+    @GetMapping("/getJobLog")
+    public AcornResponse getJobLog(@RequestParam String flinkJobId) {
+
+        return acornTemplate.build().jobId(flinkJobId).getJobId();
     }
 
 }
