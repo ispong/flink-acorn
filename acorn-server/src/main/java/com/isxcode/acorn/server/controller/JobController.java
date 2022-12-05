@@ -1,11 +1,11 @@
 package com.isxcode.acorn.server.controller;
 
-import com.isxcode.acorn.common.constant.UrlConstants;
-import com.isxcode.acorn.common.exception.AcornException;
-import com.isxcode.acorn.common.pojo.AcornRequest;
-import com.isxcode.acorn.common.pojo.dto.AcornData;
-import com.isxcode.acorn.server.response.SuccessResponse;
+import com.isxcode.acorn.api.constant.UrlConstants;
+import com.isxcode.acorn.api.exception.AcornException;
+import com.isxcode.acorn.api.pojo.AcornRequest;
+import com.isxcode.acorn.api.pojo.dto.AcornData;
 import com.isxcode.acorn.server.service.AcornBizService;
+import com.isxcode.oxygen.common.response.SuccessResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
@@ -52,12 +52,7 @@ public class JobController {
     @PostMapping(UrlConstants.GET_DEPLOY_LOG_URL)
     public AcornData getYarnLog(@RequestBody AcornRequest acornRequest) {
 
-        try {
-            return acornBizService.getYarnLog(acornRequest);
-        } catch (IOException | YarnException e) {
-            log.error(e.getMessage());
-            throw new AcornException("执行异常", "50001");
-        }
+        return acornBizService.getYarnLog(acornRequest);
     }
 
     @SuccessResponse

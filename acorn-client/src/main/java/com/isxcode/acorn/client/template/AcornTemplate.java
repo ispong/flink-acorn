@@ -1,22 +1,21 @@
 package com.isxcode.acorn.client.template;
 
-import com.isxcode.acorn.common.constant.SecurityConstants;
-import com.isxcode.acorn.common.constant.SysConstants;
-import com.isxcode.acorn.common.constant.UrlConstants;
-import com.isxcode.acorn.common.exception.AcornException;
-import com.isxcode.acorn.common.exception.AcornExceptionEnum;
-import com.isxcode.acorn.common.menu.Template;
-import com.isxcode.acorn.common.pojo.AcornRequest;
-import com.isxcode.acorn.common.pojo.AcornResponse;
-import com.isxcode.acorn.common.properties.AcornProperties;
-import com.isxcode.acorn.common.properties.ServerInfo;
-import com.isxcode.acorn.common.utils.HttpUtils;
+import com.isxcode.acorn.api.constant.SecurityConstants;
+import com.isxcode.acorn.api.constant.SysConstants;
+import com.isxcode.acorn.api.constant.UrlConstants;
+import com.isxcode.acorn.api.exception.AcornException;
+import com.isxcode.acorn.api.exception.AcornExceptionEnum;
+import com.isxcode.acorn.api.menu.Template;
+import com.isxcode.acorn.api.pojo.AcornRequest;
+import com.isxcode.acorn.api.pojo.AcornResponse;
+import com.isxcode.acorn.api.properties.AcornProperties;
+import com.isxcode.acorn.api.properties.ServerInfo;
+import com.isxcode.acorn.api.utils.HttpUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 

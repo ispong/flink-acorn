@@ -50,7 +50,7 @@ acorn:
 package com.isxcode.acorn.demo;
 
 import com.isxcode.acorn.client.template.AcornTemplate;
-import com.isxcode.acorn.common.pojo.AcornResponse;
+import com.isxcode.acorn.api.pojo.AcornResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -109,7 +109,8 @@ public class DemoApplication {
     "code":"200",
     "message":"操作成功",
     "acornData":{
-        "applicationId":"application_1667964484125_0003"
+        "applicationId":"application_1667964484125_0003",
+        "flinkJobId":"1667964484125_0003"
     }
 }
 ```

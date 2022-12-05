@@ -1,11 +1,11 @@
 package com.isxcode.acorn.server.service;
 
-import com.isxcode.acorn.common.pojo.AcornRequest;
-import com.isxcode.acorn.common.pojo.dto.AcornData;
-import com.isxcode.acorn.common.pojo.flink.JobExceptions;
-import com.isxcode.acorn.common.pojo.flink.JobStatus;
-import com.isxcode.acorn.common.properties.AcornProperties;
-import com.isxcode.acorn.common.utils.CommandUtils;
+import com.isxcode.acorn.api.pojo.AcornRequest;
+import com.isxcode.acorn.api.pojo.dto.AcornData;
+import com.isxcode.acorn.api.pojo.flink.JobExceptions;
+import com.isxcode.acorn.api.pojo.flink.JobStatus;
+import com.isxcode.acorn.api.properties.AcornProperties;
+import com.isxcode.acorn.api.utils.CommandUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
@@ -54,19 +54,15 @@ public class AcornBizService {
 
         YarnClient yarnClient = YarnClient.createYarnClient();
         YarnConfiguration yarnConfig = new YarnConfiguration();
+
         yarnClient.init(yarnConfig);
         yarnClient.start();
 
         Configuration flinkConfig = GlobalConfiguration.loadConfiguration(acornProperties.getFlinkDir() + "/conf");
 
-        ClusterSpecification clusterSpecification = new ClusterSpecification.ClusterSpecificationBuilder()
-            .setMasterMemoryMB(acornRequest.getMasterMemoryMB())
-            .setTaskManagerMemoryMB(acornRequest.getTaskManagerMemoryMB())
-            .setSlotsPerTaskManager(acornRequest.getSlotsPerTaskManager())
-            .createClusterSpecification();
+        ClusterSpecification clusterSpecification = new ClusterSpecification.ClusterSpecificationBuilder().setMasterMemoryMB(acornRequest.getMasterMemoryMB()).setTaskManagerMemoryMB(acornRequest.getTaskManagerMemoryMB()).setSlotsPerTaskManager(acornRequest.getSlotsPerTaskManager()).createClusterSpecification();
 
-        YarnClusterDescriptor descriptor = new YarnClusterDescriptor(
-            flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
+        YarnClusterDescriptor descriptor = new YarnClusterDescriptor(flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
 
         File[] jars = new File(acornProperties.getFlinkDir() + "/lib/").listFiles();
         List<File> shipFiles = new ArrayList<>();
@@ -86,25 +82,12 @@ public class AcornBizService {
 
         PackagedProgram program;
         if (!Strings.isEmpty(acornRequest.getSql())) {
-            program = PackagedProgram.newBuilder()
-                .setJarFile(new File("/opt/acorn/plugins/acorn-sql-plugin.jar"))
-                .setEntryPointClassName("com.isxcode.acorn.plugin.sql.SqlJob")
-                .setArguments(acornRequest.getSql())
-                .setUserClassPaths(classpathFiles)
-                .setSavepointRestoreSettings(SavepointRestoreSettings.none())
-                .build();
+            program = PackagedProgram.newBuilder().setJarFile(new File("/opt/acorn/plugins/acorn-sql-plugin.jar")).setEntryPointClassName("com.isxcode.acorn.plugin.sql.SqlJob").setArguments(acornRequest.getSql()).setUserClassPaths(classpathFiles).setSavepointRestoreSettings(SavepointRestoreSettings.none()).build();
         } else {
-            program = PackagedProgram.newBuilder()
-                .setJarFile(new File(acornRequest.getPluginJarPath()))
-                .setEntryPointClassName(acornRequest.getPluginMainClass())
-                .setArguments(acornRequest.getPluginArguments().toString())
-                .setUserClassPaths(classpathFiles)
-                .setSavepointRestoreSettings(SavepointRestoreSettings.none())
-                .build();
+            program = PackagedProgram.newBuilder().setJarFile(new File(acornRequest.getPluginJarPath())).setEntryPointClassName(acornRequest.getPluginMainClass()).setArguments(acornRequest.getPluginArguments().toString()).setUserClassPaths(classpathFiles).setSavepointRestoreSettings(SavepointRestoreSettings.none()).build();
         }
 
-        JobGraph jobGraph = PackagedProgramUtils.createJobGraph(
-            program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), false);
+        JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), false);
 
         ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
 
@@ -114,7 +97,7 @@ public class AcornBizService {
         return AcornData.builder().applicationId(applicationId).flinkJobId(flinkJobId).build();
     }
 
-    public AcornData getYarnLog(AcornRequest acornRequest) throws IOException, YarnException {
+    public AcornData getYarnLog(AcornRequest acornRequest) {
 
         String getLogCommand = "yarn logs -applicationId " + acornRequest.getApplicationId();
 
@@ -134,10 +117,7 @@ public class AcornBizService {
         FinalApplicationStatus finalApplicationStatus = applicationReport.getFinalApplicationStatus();
         YarnApplicationState yarnApplicationState = applicationReport.getYarnApplicationState();
 
-        return AcornData.builder()
-            .finalStatus(finalApplicationStatus.name())
-            .yarnState(yarnApplicationState.name())
-            .build();
+        return AcornData.builder().finalStatus(finalApplicationStatus.name()).yarnState(yarnApplicationState.name()).build();
     }
 
     public AcornData killYarn(AcornRequest acornRequest) throws IOException, YarnException {

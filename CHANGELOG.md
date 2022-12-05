@@ -1,3 +1,3 @@
-## 变更历史
+## CHANGELOG
 
 - http://flink-acorn.isxcode.com/#/zh-cn/changelog

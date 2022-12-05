@@ -33,7 +33,7 @@
 
         <dependency>
             <groupId>com.isxcode.acorn</groupId>
-            <artifactId>acorn-common</artifactId>
+            <artifactId>acorn-api</artifactId>
             <version>${acorn-common.version}</version>
         </dependency>
 

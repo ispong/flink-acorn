@@ -1,14 +1,14 @@
 package com.isxcode.acorn.client.config;
 
 import com.isxcode.acorn.client.template.AcornTemplate;
-import com.isxcode.acorn.common.constant.MsgConstants;
-import com.isxcode.acorn.common.constant.SecurityConstants;
-import com.isxcode.acorn.common.constant.UrlConstants;
-import com.isxcode.acorn.common.pojo.AcornResponse;
-import com.isxcode.acorn.common.properties.AcornProperties;
-import com.isxcode.acorn.common.properties.ServerInfo;
-import com.isxcode.acorn.common.utils.FreemarkerUtils;
-import com.isxcode.acorn.common.utils.HttpUtils;
+import com.isxcode.acorn.api.constant.MsgConstants;
+import com.isxcode.acorn.api.constant.SecurityConstants;
+import com.isxcode.acorn.api.constant.UrlConstants;
+import com.isxcode.acorn.api.pojo.AcornResponse;
+import com.isxcode.acorn.api.properties.AcornProperties;
+import com.isxcode.acorn.api.properties.ServerInfo;
+import com.isxcode.acorn.api.utils.FreemarkerUtils;
+import com.isxcode.acorn.api.utils.HttpUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
