@@ -5,7 +5,6 @@ import com.isxcode.acorn.api.pojo.dto.AcornData;
 import com.isxcode.acorn.api.pojo.flink.JobExceptions;
 import com.isxcode.acorn.api.pojo.flink.JobStatus;
 import com.isxcode.acorn.api.properties.AcornProperties;
-import com.isxcode.acorn.api.utils.CommandUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
@@ -29,17 +28,22 @@ import org.apache.hadoop.yarn.client.api.YarnClient;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
 import org.apache.hadoop.yarn.exceptions.YarnException;
 import org.apache.logging.log4j.util.Strings;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.apache.flink.configuration.CoreOptions.DEFAULT_PARALLELISM;
 
@@ -50,11 +54,19 @@ public class AcornBizService {
 
     private final AcornProperties acornProperties;
 
-    public AcornData executeSql(AcornRequest acornRequest) throws MalformedURLException, ProgramInvocationException, ClusterDeploymentException {
+    public AcornData executeSql(AcornRequest acornRequest) throws IOException, ProgramInvocationException, ClusterDeploymentException {
 
+        // 获取hadoop的配置文件目录
+        String hadoopConfDir = System.getenv("HADOOP_CONF_DIR");
+
+        // 读取配置yarn-site.yml文件
+        org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
+        java.nio.file.Path path = Paths.get(hadoopConfDir + File.separator + "yarn-site.xml");
+        hadoopConf.addResource(Files.newInputStream(path));
+        YarnConfiguration yarnConfig = new YarnConfiguration(hadoopConf);
+
+        // 获取yarn客户端
         YarnClient yarnClient = YarnClient.createYarnClient();
-        YarnConfiguration yarnConfig = new YarnConfiguration();
-
         yarnClient.init(yarnConfig);
         yarnClient.start();
 
@@ -69,9 +81,9 @@ public class AcornBizService {
         List<URL> classpathFiles = new ArrayList<>();
         if (jars != null) {
             for (File jar : jars) {
-                if (jar.toURI().toURL().toString().contains("flink-dist")) {
+                if (jar.getName().contains("flink-dist")) {
                     descriptor.setLocalJarPath(new Path(jar.toURI().toURL().toString()));
-                } else if (jar.toURI().toURL().toString().contains("flink-connector")) {
+                } else if (jar.getName().contains("flink-connector")) {
                     classpathFiles.add(jar.toURI().toURL());
                 } else {
                     shipFiles.add(jar);
@@ -82,13 +94,15 @@ public class AcornBizService {
 
         PackagedProgram program;
         if (!Strings.isEmpty(acornRequest.getSql())) {
-            program = PackagedProgram.newBuilder().setJarFile(new File("/opt/acorn/plugins/acorn-sql-plugin.jar")).setEntryPointClassName("com.isxcode.acorn.plugin.sql.SqlJob").setArguments(acornRequest.getSql()).setUserClassPaths(classpathFiles).setSavepointRestoreSettings(SavepointRestoreSettings.none()).build();
+//D:\isxcode\flink-acorn\acorn-plugins\acorn-sql-plugin\target\
+            program = PackagedProgram.newBuilder().setJarFile(new File("/home/dehoop/acorn-sql-plugin.jar")).setEntryPointClassName("com.isxcode.acorn.plugin.sql.SqlJob").setArguments(acornRequest.getSql()).setUserClassPaths(classpathFiles).setSavepointRestoreSettings(SavepointRestoreSettings.none()).build();
         } else {
             program = PackagedProgram.newBuilder().setJarFile(new File(acornRequest.getPluginJarPath())).setEntryPointClassName(acornRequest.getPluginMainClass()).setArguments(acornRequest.getPluginArguments().toString()).setUserClassPaths(classpathFiles).setSavepointRestoreSettings(SavepointRestoreSettings.none()).build();
         }
 
         JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), false);
 
+        // 将本地jar包提交到yarn集群
         ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
 
         String applicationId = provider.getClusterClient().getClusterId().toString();
@@ -97,13 +111,45 @@ public class AcornBizService {
         return AcornData.builder().applicationId(applicationId).flinkJobId(flinkJobId).build();
     }
 
-    public AcornData getYarnLog(AcornRequest acornRequest) {
+    public AcornData getYarnLog(AcornRequest acornRequest) throws IOException {
+      // 获取hadoop的配置文件目录
+        String hadoopConfDir = System.getenv("HADOOP_CONF_DIR");
 
-        String getLogCommand = "yarn logs -applicationId " + acornRequest.getApplicationId();
+        // 读取配置yarn-site.yml文件
+        org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
+        java.nio.file.Path path = Paths.get(hadoopConfDir + File.separator + "yarn-site.xml");
+        hadoopConf.addResource(Files.newInputStream(path));
+        YarnConfiguration yarnConfig = new YarnConfiguration(hadoopConf);
 
-        String[] yarnLogs = CommandUtils.executeBackCommand(getLogCommand, 5000).split("\n");
+        // 获取yarn客户端
+        YarnClient yarnClient = YarnClient.createYarnClient();
+        yarnClient.init(yarnConfig);
+        yarnClient.start();
 
-        return AcornData.builder().yarnLogs(Arrays.asList(yarnLogs)).build();
+        // 获取 yarn.resourcemanager.webapp.address 配置
+        String managerAddress = hadoopConf.get("yarn.resourcemanager.webapp.address");
+
+        // 获取应用的信息
+        Map appInfoMap = new RestTemplate().getForObject("http://" + managerAddress + "/ws/v1/cluster/apps/" + acornRequest.getApplicationId(), Map.class);
+
+        // 获取amContainerLogs的Url
+        assert appInfoMap != null;
+        Map<String, Map<String, Object>> appMap = (Map<String, Map<String, Object>>) appInfoMap.get("app");
+        String amContainerLogsUrl = String.valueOf(appMap.get("amContainerLogs"));
+
+        // 通过url获取html的内容
+        Document doc = Jsoup.connect(amContainerLogsUrl).get();
+        Elements el = doc.getElementsByClass("content");
+
+        // 获取jobManager日志内容url
+        Elements afs = el.get(0).select("a[href]");
+        String jobManagerLogUrl = afs.attr("href");
+        String jobHistoryAddress = hadoopConf.get("mapreduce.jobhistory.webapp.address");
+
+        // 使用Jsoup爬取jobManager的日志
+        Document managerDoc = Jsoup.connect("http://" + jobHistoryAddress + jobManagerLogUrl).get();
+
+        return AcornData.builder().yarnLogs(Arrays.asList(managerDoc.body().text().split("\n"))).build();
     }
 
     public AcornData getYarnStatus(AcornRequest acornRequest) throws IOException, YarnException {

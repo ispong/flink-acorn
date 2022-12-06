@@ -1,4 +1,4 @@
-package com.isxcode.acorn.demo;
+package com.isxcode.acorn.example;
 
 import com.isxcode.acorn.client.template.AcornTemplate;
 import com.isxcode.acorn.api.pojo.AcornResponse;
@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @SpringBootApplication
 @RequiredArgsConstructor
-public class DemoApplication {
+public class ExampleApplication {
 
     private final AcornTemplate acornTemplate;
 
     public static void main(String[] args) {
 
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(ExampleApplication.class, args);
     }
 
     @GetMapping("/execute")
@@ -31,20 +31,20 @@ public class DemoApplication {
             "    age INT\n" +
             ") WITH (\n" +
             "    'connector'='jdbc',\n" +
-            "    'url'='jdbc:mysql://isxcode:30306/ispong_db',\n" +
+            "    'url'='jdbc:mysql://121.89.247.94:30102/ispong_db',\n" +
             "    'table-name'='users',\n" +
             "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
-            "    'username'='root',\n" +
+            "    'username'='ispong',\n" +
             "    'password'='ispong123');" +
             "CREATE TABLE to_table(\n" +
             "    username STRING,\n" +
             "    age INT\n" +
             ") WITH (\n" +
             "    'connector'='jdbc',\n" +
-            "    'url'='jdbc:mysql://isxcode:30306/ispong_db',\n" +
+            "    'url'='jdbc:mysql://121.89.247.94:30102/ispong_db',\n" +
             "    'table-name'='users_sink',\n" +
             "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
-            "    'username'='root',\n" +
+            "    'username'='ispong',\n" +
             "    'password'='ispong123');" +
             "insert into to_table select username, age from from_table";
 
@@ -60,7 +60,8 @@ public class DemoApplication {
     @GetMapping("/getYarnLog")
     public AcornResponse getYarnLog(@RequestParam String applicationId) {
 
-        return acornTemplate.build().applicationId(applicationId).getYarnLog();
+        AcornResponse yarnLog = acornTemplate.build().applicationId(applicationId).getYarnLog();
+        return yarnLog;
     }
 
     @GetMapping("/getJobStatus")

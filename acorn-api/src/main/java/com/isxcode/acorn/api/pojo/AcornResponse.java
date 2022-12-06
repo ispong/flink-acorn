@@ -2,35 +2,22 @@ package com.isxcode.acorn.api.pojo;
 
 import com.isxcode.acorn.api.exception.AcornExceptionEnum;
 import com.isxcode.acorn.api.pojo.dto.AcornData;
+import com.isxcode.oxygen.common.response.BaseResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-/**
- * acorn 响应体
- */
-@Data
-@Builder
 @NoArgsConstructor
-@AllArgsConstructor
-public class AcornResponse {
+public class AcornResponse extends BaseResponse<AcornData> {
 
-    private String code;
+    public AcornResponse(String code, String msg) {
 
-    private String message;
-
-    private AcornData acornData;
-
-    public AcornResponse(String code, String message) {
-
-        this.code = code;
-        this.message = message;
+        super(code, msg);
     }
 
     public AcornResponse(AcornExceptionEnum acornExceptionEnum) {
 
-        this.code = acornExceptionEnum.getCode();
-        this.message = acornExceptionEnum.getMessage();
+        super(acornExceptionEnum.getCode(), acornExceptionEnum.getMessage());
     }
 }

@@ -20,10 +20,12 @@
 	<packaging>pom</packaging>
 
 	<modules>
+        <module>acorn-dist</module>
         <module>acorn-api</module>
         <module>acorn-client</module>
         <module>acorn-server</module>
         <module>acorn-plugins/acorn-sql-plugin</module>
+        <module>acorn-local-test/acorn-example</module>
     </modules>
 
     <properties>

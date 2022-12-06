@@ -33,6 +33,9 @@ public class JobController {
         } catch (MalformedURLException | ProgramInvocationException | ClusterDeploymentException e) {
             log.error(e.getMessage());
             throw new AcornException("执行异常", "50001");
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 
@@ -50,7 +53,7 @@ public class JobController {
 
     @SuccessResponse
     @PostMapping(UrlConstants.GET_DEPLOY_LOG_URL)
-    public AcornData getYarnLog(@RequestBody AcornRequest acornRequest) {
+    public AcornData getYarnLog(@RequestBody AcornRequest acornRequest) throws IOException {
 
         return acornBizService.getYarnLog(acornRequest);
     }
@@ -86,7 +89,7 @@ public class JobController {
         }
     }
 
-    @SuccessResponse
+    @SuccessResponse(msg = "心跳检测成功")
     @GetMapping(UrlConstants.HEART_CHECK_URL)
     public AcornData heartCheck() {
 

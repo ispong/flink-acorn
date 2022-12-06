@@ -5,11 +5,16 @@ spring:
     location: classpath:banner.txt
 
 server:
+  port: 30180
   servlet:
     context-path: /flink-acorn
 
 oxygen:
   common:
     header-authorization: acorn-key
-    secret: acorn-secret
-    
+    secret: acorn-key
+    enable: true
+
+acorn:
+  secret: acorn-key
+  flink-dir: /opt/flink

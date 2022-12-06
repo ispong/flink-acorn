@@ -1,0 +1,5 @@
+###
+GET http://localhost:8080/getYarnLog?applicationId=application_1669967771154_0909
+
+###
+GET http://localhost:8080/execute
