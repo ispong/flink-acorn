@@ -122,6 +122,9 @@ public class AcornBizService {
         org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
         java.nio.file.Path path = Paths.get(hadoopConfDir + File.separator + "yarn-site.xml");
         hadoopConf.addResource(Files.newInputStream(path));
+
+        java.nio.file.Path mapredPath = Paths.get(hadoopConfDir + File.separator + "mapred-site.xml");
+        hadoopConf.addResource(Files.newInputStream(mapredPath));
         YarnConfiguration yarnConfig = new YarnConfiguration(hadoopConf);
 
         // 获取yarn客户端
@@ -161,6 +164,10 @@ public class AcornBizService {
         Elements afs = el.get(0).select("a[href]");
         String jobManagerLogUrl = afs.attr("href");
         String jobHistoryAddress = hadoopConf.get("mapreduce.jobhistory.webapp.address");
+        if (jobHistoryAddress == null) {
+            throw new AcornException("50011", "请在yarn-site.xml配置mapreduce.jobhistory.webapp.address属性,且开启jobHistory");
+        }
+        log.info("jobManagerLogUrl:{}", jobManagerLogUrl);
 
         // 使用Jsoup爬取jobManager的日志
         Document managerDoc = Jsoup.connect("http://" + jobHistoryAddress + jobManagerLogUrl).get();
