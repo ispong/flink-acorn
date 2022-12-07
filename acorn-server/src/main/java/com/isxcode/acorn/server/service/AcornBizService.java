@@ -68,6 +68,8 @@ public class AcornBizService {
         hadoopConf.addResource(Files.newInputStream(path));
         YarnConfiguration yarnConfig = new YarnConfiguration(hadoopConf);
 
+        log.info("yarn.resourcemanager.address:{}", yarnConfig.get("yarn.resourcemanager.address"));
+
         // 获取yarn客户端
         YarnClient yarnClient = YarnClient.createYarnClient();
         yarnClient.init(yarnConfig);

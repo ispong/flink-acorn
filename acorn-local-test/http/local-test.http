@@ -1,7 +1,8 @@
 ###
-GET http://localhost:8080/getYarnLog?applicationId=application_1670395991682_0001
+GET http://localhost:8080/getYarnLog?applicationId=application_1670397100071_0001
 
 ###
 GET http://localhost:8080/execute
 
-http://isxcode:8042/node/containerlogs/container_1670379359742_0002_01_000001/ispong
+
+yarn.resourcemanager.address
