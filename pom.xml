@@ -25,6 +25,7 @@
         <module>acorn-client</module>
         <module>acorn-plugins</module>
         <module>acorn-dist</module>
+        <module>acorn-local-test/acorn-example</module>
     </modules>
 
     <properties>
