@@ -1,5 +1,6 @@
 package com.isxcode.acorn.server.service;
 
+import com.isxcode.acorn.api.exception.AcornException;
 import com.isxcode.acorn.api.pojo.AcornRequest;
 import com.isxcode.acorn.api.pojo.dto.AcornData;
 import com.isxcode.acorn.api.pojo.flink.JobExceptions;
@@ -115,7 +116,7 @@ public class AcornBizService {
 
     public AcornData getYarnLog(AcornRequest acornRequest) throws IOException {
       // 获取hadoop的配置文件目录
-        String hadoopConfDir = System.getenv("HADOOP_CONF_DIR");
+        String hadoopConfDir = System.getenv("YARN_CONF_DIR");
 
         // 读取配置yarn-site.yml文件
         org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
@@ -130,12 +131,20 @@ public class AcornBizService {
 
         // 获取 yarn.resourcemanager.webapp.address 配置
         String managerAddress = hadoopConf.get("yarn.resourcemanager.webapp.address");
+        if (managerAddress == null) {
+            throw new AcornException("50010", "请在yarn-site.xml配置yarn.resourcemanager.webapp.address属性");
+        }
 
         // 获取应用的信息
-        Map appInfoMap = new RestTemplate().getForObject("http://" + managerAddress + "/ws/v1/cluster/apps/" + acornRequest.getApplicationId(), Map.class);
+        Map appInfoMap;
+        try {
+            appInfoMap = new RestTemplate().getForObject("http://" + managerAddress + "/ws/v1/cluster/apps/" + acornRequest.getApplicationId(), Map.class);
+        }catch (Exception e){
+            log.error(e.getMessage());
+            throw new AcornException("50011", "无法正常访问yarn集群:" + managerAddress);
+        }
 
         // 获取amContainerLogs的Url
-        assert appInfoMap != null;
         Map<String, Map<String, Object>> appMap = (Map<String, Map<String, Object>>) appInfoMap.get("app");
         String amContainerLogsUrl = String.valueOf(appMap.get("amContainerLogs"));
 
