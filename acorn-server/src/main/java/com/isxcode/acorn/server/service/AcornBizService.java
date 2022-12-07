@@ -57,7 +57,8 @@ public class AcornBizService {
     public AcornData executeSql(AcornRequest acornRequest) throws IOException, ProgramInvocationException, ClusterDeploymentException {
 
         // 获取hadoop的配置文件目录
-        String hadoopConfDir = System.getenv("HADOOP_CONF_DIR");
+        String hadoopConfDir = System.getenv("YARN_CONF_DIR");
+        String flinkHomeDir = System.getenv("FLINK_HOME");
 
         // 读取配置yarn-site.yml文件
         org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
@@ -70,13 +71,13 @@ public class AcornBizService {
         yarnClient.init(yarnConfig);
         yarnClient.start();
 
-        Configuration flinkConfig = GlobalConfiguration.loadConfiguration(acornProperties.getFlinkDir() + "/conf");
+        Configuration flinkConfig = GlobalConfiguration.loadConfiguration(flinkHomeDir + "/conf");
 
         ClusterSpecification clusterSpecification = new ClusterSpecification.ClusterSpecificationBuilder().setMasterMemoryMB(acornRequest.getMasterMemoryMB()).setTaskManagerMemoryMB(acornRequest.getTaskManagerMemoryMB()).setSlotsPerTaskManager(acornRequest.getSlotsPerTaskManager()).createClusterSpecification();
 
         YarnClusterDescriptor descriptor = new YarnClusterDescriptor(flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
 
-        File[] jars = new File(acornProperties.getFlinkDir() + "/lib/").listFiles();
+        File[] jars = new File(flinkHomeDir + "/lib/").listFiles();
         List<File> shipFiles = new ArrayList<>();
         List<URL> classpathFiles = new ArrayList<>();
         if (jars != null) {

@@ -5,36 +5,22 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.7.RELEASE</version>
-        <relativePath/>
+        <groupId>com.isxcode.acorn</groupId>
+        <artifactId>flink-acorn-parent</artifactId>
+        <version>1.2.0</version>
     </parent>
 
-    <groupId>com.isxcode.acorn</groupId>
     <artifactId>acorn-client</artifactId>
     <version>1.2.0</version>
     <name>acorn-client</name>
     <description>acorn-client</description>
-
-    <properties>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <!-- 常用依赖版本号配置 -->
-        <acorn-common.version>1.2.0</acorn-common.version>
-        <lombok.version>1.18.22</lombok.version>
-        <log4j.version>[2.16.0,)</log4j.version>
-    </properties>
 
     <dependencies>
 
         <dependency>
             <groupId>com.isxcode.acorn</groupId>
             <artifactId>acorn-api</artifactId>
-            <version>${acorn-common.version}</version>
+            <version>${acorn-api.version}</version>
         </dependency>
 
         <dependency>

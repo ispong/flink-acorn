@@ -1,0 +1,74 @@
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+	<id>build</id>
+
+	<formats>
+		<format>dir</format>
+	</formats>
+
+	<includeBaseDirectory>true</includeBaseDirectory>
+	<baseDirectory>flink-acorn-${project.version}</baseDirectory>
+
+	<files>
+
+        <!-- lib -->
+		<file>
+			<source>../acorn-server/target/acorn-server.jar</source>
+			<outputDirectory>lib/</outputDirectory>
+			<fileMode>0644</fileMode>
+		</file>
+
+        <!-- readme -->
+        <file>
+            <source>../README.md</source>
+            <outputDirectory/>
+            <fileMode>0644</fileMode>
+        </file>
+
+        <!-- license -->
+        <file>
+            <source>../LICENSE</source>
+            <outputDirectory/>
+            <fileMode>0644</fileMode>
+        </file>
+
+        <!--  sql-plugin -->
+        <file>
+            <source>../acorn-plugins/acorn-sql-plugin/target/acorn-sql-plugin.jar</source>
+            <outputDirectory>plugins/</outputDirectory>
+            <fileMode>0644</fileMode>
+        </file>
+
+	</files>
+
+	<fileSets>
+
+        <!-- conf -->
+        <fileSet>
+            <directory>src/main/conf</directory>
+            <outputDirectory>conf</outputDirectory>
+            <fileMode>0644</fileMode>
+        </fileSet>
+
+        <!-- bin -->
+        <fileSet>
+			<directory>src/main/bin</directory>
+			<outputDirectory>bin</outputDirectory>
+			<fileMode>0755</fileMode>
+		</fileSet>
+
+        <!-- log -->
+ 		<fileSet>
+			<directory>src/main/bin</directory>
+			<outputDirectory>log</outputDirectory>
+			<fileMode>0644</fileMode>
+			<excludes>
+				<exclude>**/*</exclude>
+			</excludes>
+		</fileSet>
+
+	</fileSets>
+
+</assembly>
