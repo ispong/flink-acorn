@@ -147,10 +147,15 @@ public class AcornBizService {
         // 获取amContainerLogs的Url
         Map<String, Map<String, Object>> appMap = (Map<String, Map<String, Object>>) appInfoMap.get("app");
         String amContainerLogsUrl = String.valueOf(appMap.get("amContainerLogs"));
+        log.info("amContainerLogsUrl:{}", amContainerLogsUrl);
 
         // 通过url获取html的内容
         Document doc = Jsoup.connect(amContainerLogsUrl).get();
         Elements el = doc.getElementsByClass("content");
+
+        if (el.size() < 1) {
+            return AcornData.builder().yarnLogs(new ArrayList<>()).build();
+        }
 
         // 获取jobManager日志内容url
         Elements afs = el.get(0).select("a[href]");
