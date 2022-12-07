@@ -59,6 +59,7 @@ public class AcornBizService {
         // 获取hadoop的配置文件目录
         String hadoopConfDir = System.getenv("YARN_CONF_DIR");
         String flinkHomeDir = System.getenv("FLINK_HOME");
+        String acornHomeDir = System.getenv("ACORN_HOME");
 
         // 读取配置yarn-site.yml文件
         org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
@@ -96,7 +97,7 @@ public class AcornBizService {
         PackagedProgram program;
         if (!Strings.isEmpty(acornRequest.getSql())) {
 //D:\isxcode\flink-acorn\acorn-plugins\acorn-sql-plugin\target\
-            program = PackagedProgram.newBuilder().setJarFile(new File("/home/dehoop/acorn-sql-plugin.jar")).setEntryPointClassName("com.isxcode.acorn.plugin.sql.SqlJob").setArguments(acornRequest.getSql()).setUserClassPaths(classpathFiles).setSavepointRestoreSettings(SavepointRestoreSettings.none()).build();
+            program = PackagedProgram.newBuilder().setJarFile(new File(acornHomeDir+"/plugins/acorn-sql-plugin.jar")).setEntryPointClassName("com.isxcode.acorn.plugin.sql.SqlJob").setArguments(acornRequest.getSql()).setUserClassPaths(classpathFiles).setSavepointRestoreSettings(SavepointRestoreSettings.none()).build();
         } else {
             program = PackagedProgram.newBuilder().setJarFile(new File(acornRequest.getPluginJarPath())).setEntryPointClassName(acornRequest.getPluginMainClass()).setArguments(acornRequest.getPluginArguments().toString()).setUserClassPaths(classpathFiles).setSavepointRestoreSettings(SavepointRestoreSettings.none()).build();
         }

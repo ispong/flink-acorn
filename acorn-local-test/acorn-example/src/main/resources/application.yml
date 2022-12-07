@@ -5,7 +5,7 @@ acorn:
   check-servers: true
   servers:
     default:
-      host: dcloud-dev
-      port: 30180
+      host: isxcode
+      port: 30155
       key: acorn-key
 
