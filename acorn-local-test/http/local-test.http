@@ -1,6 +1,8 @@
+### 执行作业
+GET http://localhost:8080/execute
+
+
 ###
 GET http://localhost:8080/getYarnLog?applicationId=application_1670397100071_0001
 
-###
-GET http://localhost:8080/execute
 

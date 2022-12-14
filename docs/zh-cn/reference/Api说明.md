@@ -1,21 +1,45 @@
-## - 执行flinkSql
+## - 执行FlinkSql
+
+> `http://localhost:8080/execute`
 
 ```java
-String sql = "select * from table";
+@GetMapping("/execute")
+public AcornResponse executeFlinkSql() {
 
-AcornResponse acornResponse = acornTemplate.build()
-    .sql(sql)
-    .deploy();
+    String flinkSql = "CREATE TABLE from_table(\n" +
+    "    username STRING,\n" +
+    "    age INT\n" +
+    ") WITH (\n" +
+    "    'connector'='jdbc',\n" +
+    "    'url'='jdbc:mysql://isxcode:30306/ispong_db',\n" +
+    "    'table-name'='users',\n" +
+    "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
+    "    'username'='root',\n" +
+    "    'password'='ispong123');" +
+    "CREATE TABLE to_table(\n" +
+    "    username STRING,\n" +
+    "    age INT\n" +
+    ") WITH (\n" +
+    "    'connector'='jdbc',\n" +
+    "    'url'='jdbc:mysql://isxcode:30306/ispong_db',\n" +
+    "    'table-name'='users_sink',\n" +
+    "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
+    "    'username'='root',\n" +
+    "    'password'='ispong123');" +
+    "insert into to_table select username, age from from_table";
+
+    return acornTemplate.build().sql(flinkSql).deploy();
+}
 ```
 
 ```json
 {
-  "code": "200",
-  "message": "操作成功",
-  "acornData": {
-    "flinkJobId": "88f660b6fbf4ac78b98d0649de2b79f2",
-    "applicationId": "application_1668067924093_0008"
-  }
+    "code": "200",
+    "msg": "",
+    "data": {
+        "flinkJobId": "092cdca855b719303e826e690c483c73",
+        "applicationId": "application_1671005804173_0007"
+    }
 }
 ```
 

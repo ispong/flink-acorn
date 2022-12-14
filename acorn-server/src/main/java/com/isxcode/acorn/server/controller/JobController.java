@@ -24,14 +24,14 @@ public class JobController {
 
     private final AcornBizService acornBizService;
 
-    @SuccessResponse
+    @SuccessResponse("部署成功")
     @PostMapping(URLs.EXECUTE_SQL_URL)
     public AcornData executeFlinkSql(@RequestBody AcornRequest acornRequest) {
 
         return acornBizService.executeSql(acornRequest);
     }
 
-    @SuccessResponse
+    @SuccessResponse("获取yarn作业状态成功")
     @PostMapping(URLs.GET_YARN_STATUS_URL)
     public AcornData getYarnStatus(@RequestBody AcornRequest acornRequest) {
 
@@ -43,21 +43,21 @@ public class JobController {
         }
     }
 
-    @SuccessResponse
+    @SuccessResponse("获取yarn作业日志成功")
     @PostMapping(URLs.GET_DEPLOY_LOG_URL)
     public AcornData getYarnLog(@RequestBody AcornRequest acornRequest) throws IOException {
 
         return acornBizService.getYarnLog(acornRequest);
     }
 
-    @SuccessResponse
+    @SuccessResponse("获取flink作业异常日志")
     @PostMapping(URLs.GET_JOB_EXCEPTIONS_URL)
     public AcornData getJobExceptions(@RequestBody AcornRequest acornRequest) {
 
         return acornBizService.getJobExceptions(acornRequest);
     }
 
-    @SuccessResponse
+    @SuccessResponse("停止作业")
     @PostMapping(URLs.STOP_JOB_URL)
     public AcornData stopJob(@RequestBody AcornRequest acornRequest) {
 
@@ -69,7 +69,7 @@ public class JobController {
         }
     }
 
-    @SuccessResponse
+    @SuccessResponse("获取flink作业状态")
     @PostMapping(URLs.GET_JOB_STATUS_URL)
     public AcornData getJobStatus(@RequestBody AcornRequest acornRequest) {
 
