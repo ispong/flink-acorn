@@ -3,7 +3,6 @@
 > `http://localhost:8080/execute`
 
 ```java
-@GetMapping("/execute")
 public AcornResponse executeFlinkSql() {
 
     String flinkSql = "CREATE TABLE from_table(\n" +
@@ -46,12 +45,33 @@ public AcornResponse executeFlinkSql() {
 ![20221109174510](https://img.isxcode.com/picgo/20221109174510.png)
 
 
+## - 获取yarn容器状态
+
+```java
+public AcornResponse getYarnStatus(@RequestParam String applicationId) {
+
+    return acornTemplate.build().applicationId(applicationId).getYarnStatus();
+}
+```
+
+```json
+{
+    "code": "200",
+    "msg": "获取yarn作业状态成功",
+    "data": {
+        "finalStatus": "SUCCEEDED",
+        "yarnState": "FINISHED"
+    }
+}
+```
+
 ## - 获取yarn容器日志
 
 ```java
-AcornResponse acornResponse = acornTemplate.build()
-        .applicationId("applicationId")
-        .getYarnLog();
+public AcornResponse getYarnLog(@RequestParam String applicationId) {
+
+    return acornTemplate.build().applicationId(applicationId).getYarnLog();
+}
 ```
 
 ```json
@@ -81,24 +101,6 @@ AcornResponse acornResponse = acornTemplate.build()
 }
 ```
 
-## - 获取yarn容器状态
-
-```java
-AcornResponse acornResponse = acornTemplate.build()
-    .applicationId("applicationId")
-    .getYarnStatus();
-```
-
-```json
-{
-  "code": "200",
-  "message": "操作成功",
-  "acornData": {
-    "finalStatus": "SUCCEEDED",
-    "yarnState": "FINISHED"
-  }
-}
-```
 
 ## - 停止作业
 

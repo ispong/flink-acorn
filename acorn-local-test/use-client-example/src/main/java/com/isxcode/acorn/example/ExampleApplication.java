@@ -60,8 +60,7 @@ public class ExampleApplication {
     @GetMapping("/getYarnLog")
     public AcornResponse getYarnLog(@RequestParam String applicationId) {
 
-        AcornResponse yarnLog = acornTemplate.build().applicationId(applicationId).getYarnLog();
-        return yarnLog;
+        return acornTemplate.build().applicationId(applicationId).getYarnLog();
     }
 
     @GetMapping("/getJobStatus")

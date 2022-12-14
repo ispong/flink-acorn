@@ -164,9 +164,9 @@ public class AcornBizService {
     public AcornData getYarnLog(AcornRequest acornRequest) throws IOException {
 
         Map<String, String> map = HadoopUtils.parseYarnLog(acornRequest.getApplicationId());
-        String stdErrLog = map.get("jobmanager.log");
+        String stdErrLog = map.get("jobmanager.out");
 
-        if (Strings.isEmpty(stdErrLog)) {
+        if (stdErrLog == null) {
             throw new AcornException("50013", "作业日志暂未生成");
         }
 

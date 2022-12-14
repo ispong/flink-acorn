@@ -1,8 +1,10 @@
 ### 执行作业
 GET http://localhost:8080/execute
 
+### 查询yarn状态
+GET http://localhost:8080/getYarnStatus?applicationId=application_1671005804173_0008
 
-###
-GET http://localhost:8080/getYarnLog?applicationId=application_1670397100071_0001
+### 查询yarn日志
+GET http://localhost:8080/getYarnLog?applicationId=application_1671005804173_0008
 
 
