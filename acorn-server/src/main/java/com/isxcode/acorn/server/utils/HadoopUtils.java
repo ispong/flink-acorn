@@ -82,7 +82,7 @@ public class HadoopUtils {
         for (Element element : preElements) {
 
             String elementText = element.text();
-            if (elementText.isEmpty()) {
+            if ("".equals(elementText)) {
                 continue;
             }
 
