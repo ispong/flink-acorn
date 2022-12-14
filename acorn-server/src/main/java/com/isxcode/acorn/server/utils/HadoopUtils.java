@@ -102,6 +102,7 @@ public class HadoopUtils {
             }
             Element firstElement = thirdElement.previousElementSibling().previousElementSibling();
 
+            System.out.println("firstElement.text()====>" + firstElement.text());
             resultLog.put(firstElement.text().replace("Log Type:", "").trim(), logStr);
         }
 
