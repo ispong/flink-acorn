@@ -40,6 +40,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -57,7 +58,7 @@ public class AcornBizService {
 
     private final AcornProperties acornProperties;
 
-    public AcornData executeSql(AcornRequest acornRequest) throws IOException, ProgramInvocationException, ClusterDeploymentException {
+    public AcornData executeSql(AcornRequest acornRequest) {
 
         // 获取hadoop的配置文件目录
         String hadoopConfDir = System.getenv("YARN_CONF_DIR");
@@ -67,7 +68,11 @@ public class AcornBizService {
         // 读取配置yarn-site.yml文件
         org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
         java.nio.file.Path path = Paths.get(hadoopConfDir + File.separator + "yarn-site.xml");
-        hadoopConf.addResource(Files.newInputStream(path));
+        try {
+            hadoopConf.addResource(Files.newInputStream(path));
+        } catch (IOException e) {
+            throw new AcornException("50001", "yarn-site.xml配置文件不存在");
+        }
         YarnConfiguration yarnConfig = new YarnConfiguration(hadoopConf);
 
         log.info("yarn.resourcemanager.address:{}", yarnConfig.get("yarn.resourcemanager.address"));
@@ -89,9 +94,17 @@ public class AcornBizService {
         if (jars != null) {
             for (File jar : jars) {
                 if (jar.getName().contains("flink-dist")) {
-                    descriptor.setLocalJarPath(new Path(jar.toURI().toURL().toString()));
+                    try {
+                        descriptor.setLocalJarPath(new Path(jar.toURI().toURL().toString()));
+                    } catch (MalformedURLException e) {
+                        throw new AcornException("50015",e.getMessage());
+                    }
                 } else if (jar.getName().contains("flink-connector")) {
-                    classpathFiles.add(jar.toURI().toURL());
+                    try {
+                        classpathFiles.add(jar.toURI().toURL());
+                    } catch (MalformedURLException e) {
+                        throw new AcornException("50015",e.getMessage());
+                    }
                 } else {
                     shipFiles.add(jar);
                 }
@@ -102,15 +115,45 @@ public class AcornBizService {
         PackagedProgram program;
         if (!Strings.isEmpty(acornRequest.getSql())) {
             //D:\isxcode\flink-acorn\acorn-plugins\acorn-sql-plugin\target\
-            program = PackagedProgram.newBuilder().setJarFile(new File(acornHomeDir+"/plugins/acorn-sql-plugin.jar")).setEntryPointClassName("com.isxcode.acorn.plugin.sql.SqlJob").setArguments(acornRequest.getSql()).setUserClassPaths(classpathFiles).setSavepointRestoreSettings(SavepointRestoreSettings.none()).build();
+            try {
+                program = PackagedProgram.newBuilder()
+                    .setJarFile(new File(acornHomeDir + "/plugins/acorn-sql-plugin.jar"))
+                    .setEntryPointClassName("com.isxcode.acorn.plugin.sql.SqlJob")
+                    .setArguments(acornRequest.getSql())
+                    .setUserClassPaths(classpathFiles)
+                    .setSavepointRestoreSettings(SavepointRestoreSettings.none())
+                    .build();
+            } catch (ProgramInvocationException e) {
+                throw new AcornException("50015",e.getMessage());
+            }
         } else {
-            program = PackagedProgram.newBuilder().setJarFile(new File(acornRequest.getPluginJarPath())).setEntryPointClassName(acornRequest.getPluginMainClass()).setArguments(acornRequest.getPluginArguments().toString()).setUserClassPaths(classpathFiles).setSavepointRestoreSettings(SavepointRestoreSettings.none()).build();
+            try {
+                program = PackagedProgram.newBuilder()
+                    .setJarFile(new File(acornRequest.getPluginJarPath()))
+                    .setEntryPointClassName(acornRequest.getPluginMainClass())
+                    .setArguments(acornRequest.getPluginArguments().toString())
+                    .setUserClassPaths(classpathFiles)
+                    .setSavepointRestoreSettings(SavepointRestoreSettings.none())
+                    .build();
+            } catch (ProgramInvocationException e) {
+                throw new AcornException("50015", e.getMessage());
+            }
         }
 
-        JobGraph jobGraph = PackagedProgramUtils.createJobGraph(program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), false);
+        JobGraph jobGraph;
+        try {
+            jobGraph = PackagedProgramUtils.createJobGraph(program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), false);
+        } catch (ProgramInvocationException e) {
+            throw new AcornException("50014", e.getMessage());
+        }
 
         // 将本地jar包提交到yarn集群
-        ClusterClientProvider<ApplicationId> provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
+        ClusterClientProvider<ApplicationId> provider = null;
+        try {
+            provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
+        } catch (ClusterDeploymentException e) {
+            throw new AcornException("50015", e.getMessage());
+        }
 
         String applicationId = provider.getClusterClient().getClusterId().toString();
         String flinkJobId = jobGraph.getJobID().toString();

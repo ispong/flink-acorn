@@ -14,7 +14,7 @@
     <groupId>com.isxcode.acorn</groupId>
 	<artifactId>use-client-example</artifactId>
 	<version>0.0.1</version>
-	<name>acorn-demo</name>
+	<name>use-client-example</name>
 	<description>Demo project for Spring Boot</description>
 
     <properties>

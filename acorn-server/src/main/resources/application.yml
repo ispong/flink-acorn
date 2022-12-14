@@ -9,12 +9,5 @@ server:
   servlet:
     context-path: /flink-acorn
 
-oxygen:
-  common:
-    header-authorization: acorn-key
-    secret: acorn-key
-    enable: true
-
 acorn:
   secret: acorn-key
-  flink-dir: /opt/flink

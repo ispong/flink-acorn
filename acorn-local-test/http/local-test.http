@@ -4,5 +4,3 @@ GET http://localhost:8080/getYarnLog?applicationId=application_1670397100071_000
 ###
 GET http://localhost:8080/execute
 
-
-yarn.resourcemanager.address
