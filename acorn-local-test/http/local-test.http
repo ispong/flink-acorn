@@ -10,4 +10,8 @@ GET http://localhost:8080/getYarnLog?applicationId=application_1671005804173_000
 ### 查询flink作业状态
 GET http://localhost:8080/getJobStatus?flinkJobId=ce1d15ddcf217da4fb5a8195dfbc14ed
 
-### 查询flink
+### 查询flink异常
+GET http://localhost:8080/getJobExceptions?flinkJobId=ce1d15ddcf217da4fb5a8195dfbc14ed
+
+### 停止yarn作业
+GET http://localhost:8080/stopYarnJob?applicationId=application_1671005804173_0008

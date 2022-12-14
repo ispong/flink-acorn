@@ -80,70 +80,52 @@ public AcornResponse getYarnLog(@RequestParam String applicationId) {
   "message": "操作成功",
   "acornData": {
     "yarnLogs": [
-      "******************************************************************************",
-      "",
-      "Container: container_1668067924093_0008_01_000001 on isxcode_36708",
-      "LogAggregationType: AGGREGATED",
-      "==================================================================",
-      "LogType:prelaunch.out",
-      "LogLastModifiedTime:Thu Nov 10 20:16:13 +0800 2022",
-      "LogLength:100",
-      "LogContents:",
-      "Setting up env variables",
-      "Setting up job resources",
-      "Copying debugging information",
-      "Launching container",
-      "",
-      "End of LogType:prelaunch.out",
-      "******************************************************************************"
+        ""
     ]
   }
 }
 ```
 
-
-## - 停止作业
-
-```java
-AcornResponse acornResponse = acornTemplate.build()
-    .applicationId("applicationId")
-    .stopJob();
-```
-
 ## - 查看flinkJob状态
 
-```java
-AcornResponse acornResponse = acornTemplate.build()
-    .jobId("flinkJobId")
-    .getJobStatus();
-```
+> `http://localhost:8080/getJobStatus?flinkJobId=ce1d15ddcf217da4fb5a8195dfbc14ed`
 
-```json
-{
-  "code": "200",
-  "message": "操作成功",
-  "acornData": {
-    "jobStatus": {
-      "jid": "88f660b6fbf4ac78b98d0649de2b79f2",
-      "state": "FINISHED"
-    }
-  }
+```java
+public AcornResponse getJobStatus(@RequestParam String flinkJobId) {
+
+    return acornTemplate.build().jobId(flinkJobId).getJobStatus();
 }
-```
-
-## - 查看flinkJob异常
-
-```java
-AcornResponse acornResponse = acornTemplate.build()
-    .jobId("flinkJobId")
-    .getJobExceptions();
 ```
 
 ```json
 {
     "code": "200",
-    "message": "操作成功",
-    "acornData": {
+    "msg": "获取flink作业状态",
+    "data": {
+        "jobStatus": {
+            "jid": "ce1d15ddcf217da4fb5a8195dfbc14ed",
+            "state": "FINISHED"
+        }
+    }
+}
+```
+
+## - 查看flinkJob异常
+
+> `http://localhost:8080/getJobExceptions?flinkJobId=ce1d15ddcf217da4fb5a8195dfbc14ed`
+
+```java
+public AcornResponse getJobExceptions(@RequestParam String flinkJobId) {
+
+    return acornTemplate.build().jobId(flinkJobId).getJobExceptions();
+}
+```
+
+```json
+{
+    "code": "200",
+    "msg": "获取flink作业异常日志",
+    "data": {
         "jobExceptions": {
             "rootException": null,
             "allExceptions": []
@@ -151,3 +133,22 @@ AcornResponse acornResponse = acornTemplate.build()
     }
 }
 ```
+
+## - 停止作业
+
+> `http://localhost:8080/stopYarnJob?applicationId=application_1671005804173_0008`
+
+```java
+AcornResponse acornResponse = acornTemplate.build()
+    .applicationId("applicationId")
+    .stopJob();
+```
+
+```json
+{
+  "code": "200",
+  "msg": "停止作业",
+  "data": {}
+}
+```
+
