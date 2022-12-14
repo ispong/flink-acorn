@@ -20,15 +20,15 @@ public class AcornServerConfig {
     @ConditionalOnClass(AcornServerConfig.class)
     public void checkEnvironment() {
 
-        String flinkHomePath = System.getenv("FLINK_HONE");
+        String flinkHomePath = System.getenv("FLINK_HOME");
         if (Strings.isEmpty(flinkHomePath)) {
-            System.out.println("ERROR:请配置FLINK_HONE环境变量");
+            System.out.println("ERROR:请配置FLINK_HOME环境变量");
             context.close();
         }
 
-        String acornHomePath = System.getenv("ACORN_HONE");
+        String acornHomePath = System.getenv("ACORN_HOME");
         if (Strings.isEmpty(acornHomePath)) {
-            System.out.println("ERROR:请配置ACORN_HONE环境变量");
+            System.out.println("ERROR:请配置ACORN_HOME环境变量");
             context.close();
         }
 
