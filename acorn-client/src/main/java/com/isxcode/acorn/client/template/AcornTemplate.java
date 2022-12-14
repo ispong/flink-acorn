@@ -2,7 +2,7 @@ package com.isxcode.acorn.client.template;
 
 import com.isxcode.acorn.api.constant.SecurityConstants;
 import com.isxcode.acorn.api.constant.SysConstants;
-import com.isxcode.acorn.api.constant.UrlConstants;
+import com.isxcode.acorn.api.constant.URLs;
 import com.isxcode.acorn.api.exception.AcornException;
 import com.isxcode.acorn.api.exception.AcornExceptionEnum;
 import com.isxcode.acorn.api.menu.Template;
@@ -76,12 +76,6 @@ public class AcornTemplate {
             }
         }
 
-        public Builder executeId(String executeId) {
-
-            acornRequest.setExecuteId(executeId);
-            return this;
-        }
-
         public Builder applicationId(String applicationId) {
 
             acornRequest.setApplicationId(applicationId);
@@ -120,55 +114,37 @@ public class AcornTemplate {
 
         public AcornResponse deploy() {
 
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_SQL_URL, serverInfo.getHost(), serverInfo.getPort());
-            return requestAcornServer(executeUrl, acornRequest);
-        }
-
-        public AcornResponse executeJava() {
-
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_JAVA_URL, serverInfo.getHost(), serverInfo.getPort());
-            return requestAcornServer(executeUrl, acornRequest);
-        }
-
-        public AcornResponse executeJar() {
-
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.EXECUTE_JAR_URL, serverInfo.getHost(), serverInfo.getPort());
+            String executeUrl = String.format(URLs.BASE_URL + URLs.EXECUTE_SQL_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 
         public AcornResponse stopJob() {
 
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.STOP_JOB_URL, serverInfo.getHost(), serverInfo.getPort());
+            String executeUrl = String.format(URLs.BASE_URL + URLs.STOP_JOB_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 
         public AcornResponse getJobStatus() {
 
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
+            String executeUrl = String.format(URLs.BASE_URL + URLs.GET_JOB_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 
         public AcornResponse getYarnStatus() {
 
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_YARN_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
-            return requestAcornServer(executeUrl, acornRequest);
-        }
-
-        public AcornResponse getBuildStatus() {
-
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
+            String executeUrl = String.format(URLs.BASE_URL + URLs.GET_YARN_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 
         public AcornResponse getJobExceptions() {
 
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_JOB_EXCEPTIONS_URL, serverInfo.getHost(), serverInfo.getPort());
+            String executeUrl = String.format(URLs.BASE_URL + URLs.GET_JOB_EXCEPTIONS_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 
         public AcornResponse getYarnLog() {
 
-            String executeUrl = String.format(UrlConstants.BASE_URL + UrlConstants.GET_DEPLOY_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
+            String executeUrl = String.format(URLs.BASE_URL + URLs.GET_DEPLOY_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
     }

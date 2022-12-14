@@ -1,9 +1,5 @@
 server:
   port: 30155
 
-oxygen:
-  common:
-    secret: acorn-key
-
 acorn:
-  job-history-url: http://localhost:8082
+  secret: acorn-key

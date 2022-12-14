@@ -21,6 +21,7 @@
 
 	<modules>
         <module>acorn-api</module>
+        <module>acorn-common</module>
         <module>acorn-server</module>
         <module>acorn-client</module>
         <module>acorn-plugins</module>
@@ -34,13 +35,30 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <spring-oxygen.version>1.10.3</spring-oxygen.version>
-        <acorn-api.version>1.2.0</acorn-api.version>
-        <lombok.version>1.18.22</lombok.version>
-        <log4j.version>[2.16.0,)</log4j.version>
-        <hadoop.version>3.2.4</hadoop.version>
         <flink.version>1.14.0</flink.version>
         <scala.binary.version>2.12</scala.binary.version>
+        <hadoop.version>3.2.4</hadoop.version>
+        <jsoup.vesion>1.15.3</jsoup.vesion>
+        <fastjson.version>2.0.20</fastjson.version>
+        <lombok.version>1.18.22</lombok.version>
+        <log4j.version>[2.16.0,)</log4j.version>
     </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
+
+    </dependencies>
 
 </project>

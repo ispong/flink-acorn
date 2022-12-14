@@ -3,7 +3,11 @@ package com.isxcode.acorn.api.constant;
 /**
  * 所有请求路径
  */
-public interface UrlConstants {
+public interface URLs {
+
+    String HTTP = "http://";
+
+    String HTTPS = "https://";
 
     /**
      * flink查询所有作业状态的路径

@@ -1,11 +1,11 @@
 package com.isxcode.acorn.server.controller;
 
-import com.isxcode.acorn.api.constant.UrlConstants;
+import com.isxcode.acorn.api.constant.URLs;
 import com.isxcode.acorn.api.exception.AcornException;
 import com.isxcode.acorn.api.pojo.AcornRequest;
 import com.isxcode.acorn.api.pojo.dto.AcornData;
+import com.isxcode.acorn.common.response.SuccessResponse;
 import com.isxcode.acorn.server.service.AcornBizService;
-import com.isxcode.oxygen.common.response.SuccessResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
@@ -25,22 +25,19 @@ public class JobController {
     private final AcornBizService acornBizService;
 
     @SuccessResponse
-    @PostMapping(UrlConstants.EXECUTE_SQL_URL)
-    public AcornData executeFlinkSql(@RequestBody AcornRequest acornRequest) {
+    @PostMapping(URLs.EXECUTE_SQL_URL)
+    public AcornData executeFlinkSql(@RequestBody AcornRequest acornRequest) throws IOException {
 
         try {
             return acornBizService.executeSql(acornRequest);
         } catch (MalformedURLException | ProgramInvocationException | ClusterDeploymentException e) {
             log.error(e.getMessage());
             throw new AcornException("执行异常", "50001");
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
         }
     }
 
     @SuccessResponse
-    @PostMapping(UrlConstants.GET_YARN_STATUS_URL)
+    @PostMapping(URLs.GET_YARN_STATUS_URL)
     public AcornData getYarnStatus(@RequestBody AcornRequest acornRequest) {
 
         try {
@@ -52,21 +49,21 @@ public class JobController {
     }
 
     @SuccessResponse
-    @PostMapping(UrlConstants.GET_DEPLOY_LOG_URL)
+    @PostMapping(URLs.GET_DEPLOY_LOG_URL)
     public AcornData getYarnLog(@RequestBody AcornRequest acornRequest) throws IOException {
 
         return acornBizService.getYarnLog(acornRequest);
     }
 
     @SuccessResponse
-    @PostMapping(UrlConstants.GET_JOB_EXCEPTIONS_URL)
+    @PostMapping(URLs.GET_JOB_EXCEPTIONS_URL)
     public AcornData getJobExceptions(@RequestBody AcornRequest acornRequest) {
 
         return acornBizService.getJobExceptions(acornRequest);
     }
 
     @SuccessResponse
-    @PostMapping(UrlConstants.STOP_JOB_URL)
+    @PostMapping(URLs.STOP_JOB_URL)
     public AcornData stopJob(@RequestBody AcornRequest acornRequest) {
 
         try {
@@ -78,7 +75,7 @@ public class JobController {
     }
 
     @SuccessResponse
-    @PostMapping(UrlConstants.GET_JOB_STATUS_URL)
+    @PostMapping(URLs.GET_JOB_STATUS_URL)
     public AcornData getJobStatus(@RequestBody AcornRequest acornRequest) {
 
         try {
@@ -90,7 +87,7 @@ public class JobController {
     }
 
     @SuccessResponse(msg = "心跳检测成功")
-    @GetMapping(UrlConstants.HEART_CHECK_URL)
+    @GetMapping(URLs.HEART_CHECK_URL)
     public AcornData heartCheck() {
 
         return AcornData.builder().jobLog("正常").build();

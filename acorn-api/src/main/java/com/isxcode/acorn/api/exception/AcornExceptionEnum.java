@@ -5,7 +5,7 @@ import lombok.Getter;
 /**
  * 所有返回异常
  */
-public enum AcornExceptionEnum {
+public enum AcornExceptionEnum implements AbstractExceptionEnum {
 
     JAVA_CODE_GENERATE_ERROR("50001", "代码初始化失败"),
 
@@ -31,10 +31,10 @@ public enum AcornExceptionEnum {
     private final String code;
 
     @Getter
-    private final String message;
+    private final String msg;
 
-    AcornExceptionEnum(String code, String message) {
+    AcornExceptionEnum(String code, String msg) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
 }

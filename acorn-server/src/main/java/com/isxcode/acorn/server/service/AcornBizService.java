@@ -6,6 +6,8 @@ import com.isxcode.acorn.api.pojo.dto.AcornData;
 import com.isxcode.acorn.api.pojo.flink.JobExceptions;
 import com.isxcode.acorn.api.pojo.flink.JobStatus;
 import com.isxcode.acorn.api.properties.AcornProperties;
+import com.isxcode.acorn.api.utils.YamlUtils;
+import com.isxcode.acorn.server.utils.HadoopUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.client.deployment.ClusterDeploymentException;
@@ -117,64 +119,15 @@ public class AcornBizService {
     }
 
     public AcornData getYarnLog(AcornRequest acornRequest) throws IOException {
-      // 获取hadoop的配置文件目录
-        String hadoopConfDir = System.getenv("YARN_CONF_DIR");
 
-        // 读取配置yarn-site.yml文件
-        org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
-        java.nio.file.Path path = Paths.get(hadoopConfDir + File.separator + "yarn-site.xml");
-        hadoopConf.addResource(Files.newInputStream(path));
+        Map<String, String> map = HadoopUtils.parseYarnLog(acornRequest.getApplicationId());
+        String stdErrLog = map.get("jobmanager.log");
 
-        java.nio.file.Path mapredPath = Paths.get(hadoopConfDir + File.separator + "mapred-site.xml");
-        hadoopConf.addResource(Files.newInputStream(mapredPath));
-        YarnConfiguration yarnConfig = new YarnConfiguration(hadoopConf);
-
-        // 获取yarn客户端
-        YarnClient yarnClient = YarnClient.createYarnClient();
-        yarnClient.init(yarnConfig);
-        yarnClient.start();
-
-        // 获取 yarn.resourcemanager.webapp.address 配置
-        String managerAddress = hadoopConf.get("yarn.resourcemanager.webapp.address");
-        if (managerAddress == null) {
-            throw new AcornException("50010", "请在yarn-site.xml配置yarn.resourcemanager.webapp.address属性");
+        if (Strings.isEmpty(stdErrLog)) {
+            throw new AcornException("50013", "作业日志暂未生成");
         }
 
-        // 获取应用的信息
-        Map appInfoMap;
-        try {
-            appInfoMap = new RestTemplate().getForObject("http://" + managerAddress + "/ws/v1/cluster/apps/" + acornRequest.getApplicationId(), Map.class);
-        }catch (Exception e){
-            log.error(e.getMessage());
-            throw new AcornException("50011", "无法正常访问yarn集群:" + managerAddress);
-        }
-
-        // 获取amContainerLogs的Url
-        Map<String, Map<String, Object>> appMap = (Map<String, Map<String, Object>>) appInfoMap.get("app");
-        String amContainerLogsUrl = String.valueOf(appMap.get("amContainerLogs"));
-        log.info("amContainerLogsUrl:{}", amContainerLogsUrl);
-
-        // 通过url获取html的内容
-        Document doc = Jsoup.connect(amContainerLogsUrl).get();
-        Elements el = doc.getElementsByClass("content");
-
-        if (el.size() < 1) {
-            return AcornData.builder().yarnLogs(new ArrayList<>()).build();
-        }
-
-        // 获取jobManager日志内容url
-        Elements afs = el.get(0).select("a[href]");
-        String jobManagerLogUrl = afs.attr("href");
-        String jobHistoryAddress = hadoopConf.get("mapreduce.jobhistory.webapp.address");
-        if (jobHistoryAddress == null) {
-            throw new AcornException("50011", "请在yarn-site.xml配置mapreduce.jobhistory.webapp.address属性,且开启jobHistory");
-        }
-        log.info("jobManagerLogUrl:{}", jobManagerLogUrl);
-
-        // 使用Jsoup爬取jobManager的日志
-        Document managerDoc = Jsoup.connect("http://" + jobHistoryAddress + jobManagerLogUrl).get();
-
-        return AcornData.builder().yarnLogs(Arrays.asList(managerDoc.body().text().split("\n"))).build();
+        return AcornData.builder().yarnLogs(Arrays.asList(stdErrLog.split("\n"))).build();
     }
 
     public AcornData getYarnStatus(AcornRequest acornRequest) throws IOException, YarnException {
@@ -205,14 +158,14 @@ public class AcornBizService {
 
     public AcornData getJobStatus(AcornRequest acornRequest) throws IOException, YarnException {
 
-        ResponseEntity<JobStatus> response = new RestTemplate().getForEntity(acornProperties.getJobHistoryUrl() + "/jobs/" + acornRequest.getJobId(), JobStatus.class);
+        ResponseEntity<JobStatus> response = new RestTemplate().getForEntity(YamlUtils.getFlinkJobHistoryUrl() + "/jobs/" + acornRequest.getJobId(), JobStatus.class);
 
         return AcornData.builder().jobStatus(response.getBody()).build();
     }
 
     public AcornData getJobExceptions(AcornRequest acornRequest) {
 
-        ResponseEntity<JobExceptions> response = new RestTemplate().getForEntity(acornProperties.getJobHistoryUrl() + "/jobs/" + acornRequest.getJobId() + "/exceptions", JobExceptions.class);
+        ResponseEntity<JobExceptions> response = new RestTemplate().getForEntity(YamlUtils.getFlinkJobHistoryUrl() + "/jobs/" + acornRequest.getJobId() + "/exceptions", JobExceptions.class);
 
         return AcornData.builder().jobExceptions(response.getBody()).build();
     }

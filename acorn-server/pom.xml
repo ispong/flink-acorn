@@ -11,16 +11,19 @@
     </parent>
 
     <artifactId>acorn-server</artifactId>
-    <version>1.2.0</version>
-    <name>acorn-server</name>
-    <description>acorn-server</description>
 
     <dependencies>
 
         <dependency>
             <groupId>com.isxcode.acorn</groupId>
             <artifactId>acorn-api</artifactId>
-            <version>${acorn-api.version}</version>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.isxcode.acorn</groupId>
+            <artifactId>acorn-common</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>

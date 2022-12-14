@@ -17,25 +17,25 @@
         <dependency>
             <groupId>com.isxcode.acorn</groupId>
             <artifactId>acorn-api</artifactId>
-            <version>${project.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.isxcode.acorn</groupId>
             <artifactId>acorn-server</artifactId>
-            <version>${project.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.isxcode.acorn</groupId>
             <artifactId>acorn-client</artifactId>
-            <version>${project.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.isxcode.acorn</groupId>
             <artifactId>acorn-sql-plugin</artifactId>
-            <version>${project.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
     </dependencies>
