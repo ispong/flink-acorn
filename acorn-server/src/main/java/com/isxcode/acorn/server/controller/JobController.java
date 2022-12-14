@@ -26,14 +26,9 @@ public class JobController {
 
     @SuccessResponse
     @PostMapping(URLs.EXECUTE_SQL_URL)
-    public AcornData executeFlinkSql(@RequestBody AcornRequest acornRequest) throws IOException {
+    public AcornData executeFlinkSql(@RequestBody AcornRequest acornRequest) {
 
-        try {
-            return acornBizService.executeSql(acornRequest);
-        } catch (MalformedURLException | ProgramInvocationException | ClusterDeploymentException e) {
-            log.error(e.getMessage());
-            throw new AcornException("执行异常", "50001");
-        }
+        return acornBizService.executeSql(acornRequest);
     }
 
     @SuccessResponse
