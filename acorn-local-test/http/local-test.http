@@ -7,4 +7,7 @@ GET http://localhost:8080/getYarnStatus?applicationId=application_1671005804173_
 ### 查询yarn日志
 GET http://localhost:8080/getYarnLog?applicationId=application_1671005804173_0008
 
+### 查询flink作业状态
+GET http://localhost:8080/getJobStatus?flinkJobId=ce1d15ddcf217da4fb5a8195dfbc14ed
 
+### 查询flink

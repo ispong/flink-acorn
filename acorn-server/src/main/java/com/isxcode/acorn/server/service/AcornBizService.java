@@ -161,13 +161,13 @@ public class AcornBizService {
         return AcornData.builder().applicationId(applicationId).flinkJobId(flinkJobId).build();
     }
 
-    public AcornData getYarnLog(AcornRequest acornRequest) throws IOException {
+    public AcornData getYarnLog(AcornRequest acornRequest)  {
 
         Map<String, String> map = HadoopUtils.parseYarnLog(acornRequest.getApplicationId());
         String stdErrLog = map.get("jobmanager.out");
 
         if (stdErrLog == null) {
-            throw new AcornException("50013", "作业日志暂未生成");
+            stdErrLog = "";
         }
 
         return AcornData.builder().yarnLogs(Arrays.asList(stdErrLog.split("\n"))).build();
