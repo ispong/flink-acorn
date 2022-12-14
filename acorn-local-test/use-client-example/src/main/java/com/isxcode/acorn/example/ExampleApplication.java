@@ -69,8 +69,8 @@ public class ExampleApplication {
         return acornTemplate.build().jobId(flinkJobId).getJobStatus();
     }
 
-    @GetMapping("/getJobLog")
-    public AcornResponse getJobLog(@RequestParam String flinkJobId) {
+    @GetMapping("/getJobExceptions")
+    public AcornResponse getJobExceptions(@RequestParam String flinkJobId) {
 
         return acornTemplate.build().jobId(flinkJobId).getJobExceptions();
     }
