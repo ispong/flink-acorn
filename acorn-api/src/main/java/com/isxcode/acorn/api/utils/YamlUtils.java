@@ -34,7 +34,7 @@ public class YamlUtils {
 
             String port = String.valueOf(load.get("historyserver.web.port"));
             if (Strings.isEmpty(port)) {
-                throw new AcornException("50010", "请在flink-conf.yaml中配置historyserver.web.address属性，并开启flink的jobHistory服务");
+                throw new AcornException("50010", "请在flink-conf.yaml中配置historyserver.web.port属性，并开启flink的jobHistory服务");
             }
 
             return URLs.HTTP + address + ":" + port;
