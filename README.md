@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/ispong/flink-acorn" style="border-bottom: none !important;">
-    <img alt="flink-acorn" width="400" src="https://img.isxcode.com/isxcode_img/flink-acorn/logo1.png">
+    <img alt="flink-acorn" width="400" src="https://img.isxcode.com/isxcode_img/flink-acorn/logo.png">
   </a>
 </p>
 
@@ -13,7 +13,9 @@
 </h4>
 
 <div align="center" class="badge">
-    [![Maven Version](https://img.shields.io/maven-central/v/com.isxcode.acorn/acorn-client)](https://search.maven.org/artifact/com.isxcode.acorn/acorn-client)
+
+[![Maven Version](https://img.shields.io/maven-central/v/com.isxcode.acorn/acorn-client)](https://search.maven.org/artifact/com.isxcode.acorn/acorn-client)
+
 </div>
 
 <h2></h2>
