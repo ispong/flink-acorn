@@ -4,29 +4,29 @@
   </a>
 </p>
 
-<h1 align="center">
-    Flink Acorn
-</h1>
-
 <h3 align="center">
-    🐿️ Support development plugin for Flink custom api restful
+    🐿️ One Spring For More Flink
 </h3>
+
+<h4 align="center">
+    👉 https://flink-acorn.isxcode.com 👈
+</h4>
+
+[![Maven Version](https://img.shields.io/maven-central/v/com.isxcode.acorn/acorn-client)](https://search.maven.org/artifact/com.isxcode.acorn/acorn-client)
 
 <h2></h2>
 
 ### 📢 公告
 
-- 目前仅支持 **flink-1.14.0-scala-2.12** 版本
+> 目前仅支持`Yarn-Per-Job`模式
 
-### 📒 相关文档
+### 📒 文档
 
-- [快速使用](https://flink-acorn.isxcode.com/#/zh-cn/start/快速使用)
-- [维护手册](https://flink-acorn.isxcode.com/#/zh-cn/contributing)
-- [版本历史](https://flink-acorn.isxcode.com/#/zh-cn/changelog)
+- [快速使用](https://flink-acorn.isxcode.com/#/zh-cn/start/%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8)
+- [快速安装](https://flink-acorn.isxcode.com/#/zh-cn/install/%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85)
+- [Api说明](https://flink-acorn.isxcode.com/#/zh-cn/reference/Api%E8%AF%B4%E6%98%8E)
 
 ### 📦 使用说明
-
-[![Maven Version](https://img.shields.io/maven-central/v/com.isxcode.acorn/acorn-common)](https://search.maven.org/artifact/com.isxcode.acorn/acorn-common)
 
 ```xml
 <dependency>
@@ -115,7 +115,11 @@ public class DemoApplication {
 }
 ```
 
-### 👏 社区开发
+***
 
-- 欢迎大家一同维护开发，请参照具体[开发文档](https://flink-acorn.isxcode.com/#/zh-cn/contributing) 。
-- 如需加入我们，请联系邮箱 ispong@outlook.com 。
+**Thanks for free JetBrains Open Source license**
+
+<a href="https://www.jetbrains.com/?from=spring-demo" target="_blank" style="border-bottom: none !important;">
+    <img src="https://img.isxcode.com/index_img/jetbrains/jetbrains-3.png" height="100" alt="jetbrains"/>
+</a>
+

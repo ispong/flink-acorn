@@ -1,13 +1,14 @@
 ![logo](assets/images/logo.png)
 
-<h1 align="center" style="font-weight: bold">
-    Flink Acorn
-</h1>
+<br/>
+<br/>
+
 
 <p style="">
-    🐿️ Support custom development plugin for flink restful server
+    🐿️ 基于Spring对远程Flink服务二次封装，实现FlinkSql执行、Job状态查询以及获取运行日志等。
 </p>
 
+<br/>
 <br/>
 
 <div class="buttons">
