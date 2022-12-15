@@ -10,7 +10,4 @@ public class JobExceptions {
 
     @JsonAlias("root-exception")
     private String rootException;
-
-    @JsonAlias("all-exceptions")
-    private List<JobExceptionInfo> allExceptions;
 }
