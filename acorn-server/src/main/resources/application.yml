@@ -4,6 +4,9 @@ spring:
   banner:
     location: classpath:banner.txt
 
+application:
+  version: 1.2.0
+
 server:
   port: 30180
   servlet:

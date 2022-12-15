@@ -34,7 +34,7 @@ public AcornResponse executeFlinkSql() {
 ```json
 {
     "code": "200",
-    "msg": "",
+    "msg": "部署成功",
     "data": {
         "flinkJobId": "092cdca855b719303e826e690c483c73",
         "applicationId": "application_1671005804173_0007"
@@ -45,7 +45,7 @@ public AcornResponse executeFlinkSql() {
 ![20221109174510](https://img.isxcode.com/picgo/20221109174510.png)
 
 
-## - 获取yarn容器状态
+## - 获取Yarn容器状态
 
 ```java
 public AcornResponse getYarnStatus(@RequestParam String applicationId) {
@@ -65,7 +65,7 @@ public AcornResponse getYarnStatus(@RequestParam String applicationId) {
 }
 ```
 
-## - 获取yarn容器日志
+## - 获取Yarn容器日志
 
 ```java
 public AcornResponse getYarnLog(@RequestParam String applicationId) {
@@ -86,7 +86,7 @@ public AcornResponse getYarnLog(@RequestParam String applicationId) {
 }
 ```
 
-## - 查看flinkJob状态
+## - 查看FlinkJob状态
 
 > `http://localhost:8080/getJobStatus?flinkJobId=ce1d15ddcf217da4fb5a8195dfbc14ed`
 
@@ -110,7 +110,7 @@ public AcornResponse getJobStatus(@RequestParam String flinkJobId) {
 }
 ```
 
-## - 查看flinkJob异常
+## - 查看FlinkJob异常
 
 > `http://localhost:8080/getJobExceptions?flinkJobId=ce1d15ddcf217da4fb5a8195dfbc14ed`
 

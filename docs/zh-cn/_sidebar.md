@@ -3,11 +3,9 @@
     - [快速使用](/zh-cn/start/快速使用.md)
 - **安装手册**
     - [快速安装](/zh-cn/install/快速安装.md)
-    - [Jdbc扩展](/zh-cn/install/Jdbc扩展.md)
-    - [Hive扩展](/zh-cn/install/Hive扩展.md)
+    - [Jdbc支持](/zh-cn/install/Jdbc支持.md)
 - **使用说明**
     - [Api说明](/zh-cn/reference/Api说明.md)
-    - [插件开发](/zh-cn/reference/插件开发.md)
 - [**维护手册**](/zh-cn/contributing.md)
 - [**版本历史**](/zh-cn/changelog.md)
 - [**相关博客**](/zh-cn/blogs.md)

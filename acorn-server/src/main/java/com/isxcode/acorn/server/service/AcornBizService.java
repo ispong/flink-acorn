@@ -201,14 +201,24 @@ public class AcornBizService {
 
     public AcornData getJobStatus(AcornRequest acornRequest) throws IOException, YarnException {
 
-        ResponseEntity<JobStatus> response = new RestTemplate().getForEntity(YamlUtils.getFlinkJobHistoryUrl() + "/jobs/" + acornRequest.getJobId(), JobStatus.class);
+        ResponseEntity<JobStatus> response;
+        try {
+            response = new RestTemplate().getForEntity(YamlUtils.getFlinkJobHistoryUrl() + "/jobs/" + acornRequest.getJobId(), JobStatus.class);
+        }catch (Exception e){
+            throw new AcornException("50016", "作业正在运行中，请等待");
+        }
 
         return AcornData.builder().jobStatus(response.getBody()).build();
     }
 
     public AcornData getJobExceptions(AcornRequest acornRequest) {
 
-        ResponseEntity<JobExceptions> response = new RestTemplate().getForEntity(YamlUtils.getFlinkJobHistoryUrl() + "/jobs/" + acornRequest.getJobId() + "/exceptions", JobExceptions.class);
+        ResponseEntity<JobExceptions> response;
+        try {
+            response = new RestTemplate().getForEntity(YamlUtils.getFlinkJobHistoryUrl() + "/jobs/" + acornRequest.getJobId() + "/exceptions", JobExceptions.class);
+        } catch (Exception e) {
+            throw new AcornException("50016", "作业正在运行中，请等待");
+        }
 
         return AcornData.builder().jobExceptions(response.getBody()).build();
     }

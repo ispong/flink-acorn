@@ -12,5 +12,5 @@ public class JobExceptions {
     private String rootException;
 
     @JsonAlias("all-exceptions")
-    private List<String> allExceptions;
+    private List<JobExceptionInfo> allExceptions;
 }
