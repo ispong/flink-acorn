@@ -1,22 +1,24 @@
 <p align="center">
   <a href="https://github.com/ispong/flink-acorn" style="border-bottom: none !important;">
-    <img alt="flink-acorn" width="400" src="https://img.isxcode.com/isxcode_img/flink-acorn/logo.png">
+    <img alt="flink-acorn" width="400" src="https://img.isxcode.com/isxcode_img/flink-acorn/logo1.png">
   </a>
 </p>
 
 <h3 align="center">
-    🐿️ One Spring For More Flink
+    🐿️ 基于Spring对远程Flink服务二次封装，实现FlinkSql执行、Job状态查询以及获取运行日志等。
 </h3>
 
 <h4 align="center">
     👉 https://flink-acorn.isxcode.com 👈
 </h4>
 
-[![Maven Version](https://img.shields.io/maven-central/v/com.isxcode.acorn/acorn-client)](https://search.maven.org/artifact/com.isxcode.acorn/acorn-client)
+<div align="center" class="badge">
+    [![Maven Version](https://img.shields.io/maven-central/v/com.isxcode.acorn/acorn-client)](https://search.maven.org/artifact/com.isxcode.acorn/acorn-client)
+</div>
 
 <h2></h2>
 
-### 📢 公告
+### 📢 注意
 
 > 目前仅支持`Yarn-Per-Job`模式
 
