@@ -4,7 +4,7 @@
 2. 修改`.mailmap`文件，创建合并请求[Pull Request](https://github.com/ispong/flink-acorn/compare)，类似下面的格式。
 
 ```text
-ispong <ispong@gmail.com> 开发申请
+ispong  开发申请    <ispong@gmail.com> 
 ```
 
 ## 启动本地文档

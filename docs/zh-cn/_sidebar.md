@@ -9,4 +9,4 @@
 - [**维护手册**](/zh-cn/contributing.md)
 - [**版本历史**](/zh-cn/changelog.md)
 - [**相关博客**](/zh-cn/blogs.md)
-  
+    - [Flink单节点安装手册](/zh-cn/blogs/Flink单节点安装手册.md)

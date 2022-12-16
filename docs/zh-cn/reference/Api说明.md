@@ -42,9 +42,6 @@ public AcornResponse executeFlinkSql() {
 }
 ```
 
-![20221109174510](https://img.isxcode.com/picgo/20221109174510.png)
-
-
 ## - 获取Yarn容器状态
 
 ```java
@@ -127,8 +124,7 @@ public AcornResponse getJobExceptions(@RequestParam String flinkJobId) {
     "msg": "获取flink作业异常日志",
     "data": {
         "jobExceptions": {
-            "rootException": null,
-            "allExceptions": []
+            "rootException": null
         }
     }
 }
