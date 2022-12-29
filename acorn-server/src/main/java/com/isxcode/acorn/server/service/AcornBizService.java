@@ -67,7 +67,7 @@ public class AcornBizService {
 
         // 读取配置yarn-site.yml文件
         org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
-        java.nio.file.Path path = Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "config" + File.separator + "yarn-site.xml");
+        java.nio.file.Path path = Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "hadoop" + File.separator + "yarn-site.xml");
         try {
             hadoopConf.addResource(Files.newInputStream(path));
         } catch (IOException e) {

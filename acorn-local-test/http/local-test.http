@@ -1,5 +1,5 @@
 ### 执行作业
-GET http://localhost:8080/execute
+GET http://localhost:8080/executeMysql
 
 ### 查询yarn状态
 GET http://localhost:8080/getYarnStatus?applicationId=application_1670911887748_0033

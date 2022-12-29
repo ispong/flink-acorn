@@ -35,8 +35,8 @@ public class HadoopUtils {
         // 读取yarn的配置文件
         Configuration yarnConf = new Configuration(false);
         try {
-            yarnConf.addResource(Files.newInputStream(Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "config" + File.separator + "yarn-site.xml")));
-            yarnConf.addResource(Files.newInputStream(Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "config" + File.separator + "mapred-site.xml")));
+            yarnConf.addResource(Files.newInputStream(Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "hadoop" + File.separator + "yarn-site.xml")));
+            yarnConf.addResource(Files.newInputStream(Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "hadoop" + File.separator + "mapred-site.xml")));
         } catch (IOException e) {
             throw new RuntimeException("未找到yarn配置文件");
         }
