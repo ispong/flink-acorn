@@ -31,11 +31,5 @@ public class AcornServerConfig {
             System.out.println("ERROR:请配置ACORN_HOME环境变量");
             context.close();
         }
-
-        String yarnConfDir = System.getenv("YARN_CONF_DIR");
-        if (Strings.isEmpty(yarnConfDir)) {
-            System.out.println("ERROR:请配置YARN_CONF_DIR环境变量");
-            context.close();
-        }
     }
 }

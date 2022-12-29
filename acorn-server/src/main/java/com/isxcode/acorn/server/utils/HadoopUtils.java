@@ -30,11 +30,13 @@ public class HadoopUtils {
      */
     public static Map<String, String> parseYarnLog(String applicationId) {
 
+        String hadoopHomeDir = System.getenv("HADOOP_HOME");
+
         // 读取yarn的配置文件
         Configuration yarnConf = new Configuration(false);
         try {
-            yarnConf.addResource(Files.newInputStream(Paths.get(System.getenv("YARN_CONF_DIR") + File.separator + "yarn-site.xml")));
-            yarnConf.addResource(Files.newInputStream(Paths.get(System.getenv("YARN_CONF_DIR") + File.separator + "mapred-site.xml")));
+            yarnConf.addResource(Files.newInputStream(Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "config" + File.separator + "yarn-site.xml")));
+            yarnConf.addResource(Files.newInputStream(Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "config" + File.separator + "mapred-site.xml")));
         } catch (IOException e) {
             throw new RuntimeException("未找到yarn配置文件");
         }

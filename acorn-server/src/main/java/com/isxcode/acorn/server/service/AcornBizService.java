@@ -61,13 +61,13 @@ public class AcornBizService {
     public AcornData executeSql(AcornRequest acornRequest) {
 
         // 获取hadoop的配置文件目录
-        String hadoopConfDir = System.getenv("YARN_CONF_DIR");
+        String hadoopHomeDir = System.getenv("HADOOP_HOME");
         String flinkHomeDir = System.getenv("FLINK_HOME");
         String acornHomeDir = System.getenv("ACORN_HOME");
 
         // 读取配置yarn-site.yml文件
         org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
-        java.nio.file.Path path = Paths.get(hadoopConfDir + File.separator + "yarn-site.xml");
+        java.nio.file.Path path = Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "config" + File.separator + "yarn-site.xml");
         try {
             hadoopConf.addResource(Files.newInputStream(path));
         } catch (IOException e) {
