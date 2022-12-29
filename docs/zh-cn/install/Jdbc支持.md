@@ -1,8 +1,8 @@
 ### Jdbc扩展
 
-> 下面以Mysql数据库为例，[Mysql安装参考文档](https://ispong.isxcode.com/spring/mysql/mysql%20docker%E5%AE%89%E8%A3%85/)。
+!> 默认flink是不支持jdbc同步数据的，需要额外下载依赖。
 
-!> 默认flink是不支持jdbc同步数据的，需要格外下载依赖。
+> 下面以Mysql数据库为例，[Mysql安装参考文档](https://ispong.isxcode.com/spring/mysql/mysql%20docker%E5%AE%89%E8%A3%85/)。
 
 ###### 下载jdbc驱动
 

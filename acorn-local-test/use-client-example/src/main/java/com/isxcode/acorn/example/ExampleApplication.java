@@ -23,8 +23,8 @@ public class ExampleApplication {
         SpringApplication.run(ExampleApplication.class, args);
     }
 
-    @GetMapping("/execute")
-    public AcornResponse executeFlinkSql() {
+    @GetMapping("/executeMysql")
+    public AcornResponse executeMysql() {
 
         String flinkSql = "CREATE TABLE from_table(\n" +
             "    username STRING,\n" +
@@ -36,6 +36,30 @@ public class ExampleApplication {
             "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
             "    'username'='root',\n" +
             "    'password'='ispong123');" +
+            "CREATE TABLE to_table(\n" +
+            "    username STRING,\n" +
+            "    age INT\n" +
+            ") WITH (\n" +
+            "    'connector'='jdbc',\n" +
+            "    'url'='jdbc:mysql://isxcode:30306/ispong_db',\n" +
+            "    'table-name'='users_sink',\n" +
+            "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
+            "    'username'='root',\n" +
+            "    'password'='ispong123');" +
+            "insert into to_table select username, age from from_table";
+
+        return acornTemplate.build().sql(flinkSql).deploy();
+    }
+
+    @GetMapping("/executeHive")
+    public AcornResponse executeHive() {
+
+        String flinkSql = "" +
+            "CREATE CATALOG from_table WITH (\n" +
+            "  'type' = 'hive',\n" +
+            "  'hive-conf-dir' = '/opt/acorn/conf'\n" +
+            ");\n" +
+            "USE CATALOG from_table;" +
             "CREATE TABLE to_table(\n" +
             "    username STRING,\n" +
             "    age INT\n" +
