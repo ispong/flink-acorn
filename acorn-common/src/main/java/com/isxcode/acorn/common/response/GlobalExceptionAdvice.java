@@ -1,7 +1,7 @@
 package com.isxcode.acorn.common.response;
 
 import com.isxcode.acorn.api.exception.AbstractException;
-import com.isxcode.acorn.api.pojo.BaseResponse;
+import com.isxcode.acorn.api.pojo.base.BaseResponse;
 import com.isxcode.acorn.common.constant.ResponseConstant;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;

@@ -5,18 +5,11 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.7.RELEASE</version>
-        <relativePath/>
-    </parent>
-
     <groupId>com.isxcode.acorn</groupId>
     <artifactId>flink-acorn-parent</artifactId>
-	<version>1.2.0</version>
 	<name>flink-acorn</name>
-	<description>flink-acorn</description>
+    <version>1.2.0</version>
+    <description>flink-acorn</description>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -38,10 +31,13 @@
         <flink.version>1.14.0</flink.version>
         <scala.binary.version>2.12</scala.binary.version>
         <hadoop.version>3.2.4</hadoop.version>
+        <springboot.version>2.7.5</springboot.version>
+        <springframework.version>5.7.2</springframework.version>
         <jsoup.vesion>1.15.3</jsoup.vesion>
-        <fastjson.version>2.0.20</fastjson.version>
-        <lombok.version>1.18.22</lombok.version>
+        <fastjson.version>2.0.21</fastjson.version>
+        <lombok.version>1.18.24</lombok.version>
         <log4j.version>[2.16.0,)</log4j.version>
+        <snakeyaml.version>1.33</snakeyaml.version>
     </properties>
 
     <dependencies>

@@ -1,32 +1,28 @@
 <configuration>
 
-    <!-- hive配置的数据库 -->
     <property>
         <name>javax.jdo.option.ConnectionURL</name>
-        <value>jdbc:mysql://dcloud-dev:30102/cdh_hive</value>
+        <value>jdbc:mysql://localhost:3306/cdh_hive</value>
     </property>
 
-    <!-- 驱动 -->
     <property>
         <name>javax.jdo.option.ConnectionDriverName</name>
         <value>com.mysql.cj.jdbc.Driver</value>
     </property>
 
-    <!-- 账号 -->
     <property>
         <name>javax.jdo.option.ConnectionUserName</name>
-        <value>xxx</value>
+        <value>root</value>
     </property>
 
-    <!-- 密码 -->
     <property>
         <name>javax.jdo.option.ConnectionPassword</name>
-        <value>xxx</value>
+        <value>root</value>
     </property>
 
     <property>
         <name>hive.metastore.uris</name>
-        <value>thrift://xxx:xxx</value>
+        <value>thrift://localhost:8032</value>
     </property>
 
 </configuration>

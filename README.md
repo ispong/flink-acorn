@@ -9,7 +9,7 @@
 </h1>
 
 <h3 align="center">
-    🐿️ 基于Spring对远程Flink二次封装，实现FlinkSql执行、Job状态查询以及获取运行日志等。
+    🐿️ 让Spring更好的集成Flink
 </h3>
 
 <h4 align="center">

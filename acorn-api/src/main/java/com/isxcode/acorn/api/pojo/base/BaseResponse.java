@@ -1,4 +1,4 @@
-package com.isxcode.acorn.api.pojo;
+package com.isxcode.acorn.api.pojo.base;
 
 import com.isxcode.acorn.api.exception.AbstractExceptionEnum;
 import lombok.AllArgsConstructor;

@@ -1,5 +1,6 @@
 package com.isxcode.acorn.api.pojo;
 
+import com.isxcode.acorn.api.pojo.base.BaseResponse;
 import com.isxcode.acorn.api.pojo.dto.AcornData;
 import lombok.NoArgsConstructor;
 

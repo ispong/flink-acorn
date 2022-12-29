@@ -8,7 +8,7 @@ application:
   version: 1.2.0
 
 server:
-  port: 30180
+  port: 30155
   servlet:
     context-path: /flink-acorn
 

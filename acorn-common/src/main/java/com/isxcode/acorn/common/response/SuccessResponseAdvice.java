@@ -2,7 +2,7 @@ package com.isxcode.acorn.common.response;
 
 import java.io.InputStream;
 
-import com.isxcode.acorn.api.pojo.BaseResponse;
+import com.isxcode.acorn.api.pojo.base.BaseResponse;
 import com.isxcode.acorn.common.constant.ResponseConstant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,16 +1,13 @@
 #!/bin/bash
 
-# 获取后缀参数
 for key in "$@"
 do
     exec_command=${key#*=}
 done
 
-# 获取当前位置路径
 BASE_PATH=$(cd "$(dirname "$0")" || exit ; pwd)
 cd "${BASE_PATH}" || exit
 
-# 根据不同的参数，执行命令
 case ${exec_command} in
     start) "${BASE_PATH}"/../bin/acorn-start;;
     log) "${BASE_PATH}"/../bin/acorn-log;;

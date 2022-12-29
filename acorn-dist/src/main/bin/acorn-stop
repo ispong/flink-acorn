@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# 关闭原有进程
 for metaResult in $(ps -e -o pid,command | grep acorn-server.jar)
 do
     if [ "$metaResult" == java ]; then

@@ -1,6 +1,6 @@
 package com.isxcode.acorn.common.response;
 
-import com.isxcode.acorn.api.pojo.BaseResponse;
+import com.isxcode.acorn.api.pojo.base.BaseResponse;
 import lombok.Getter;
 import lombok.Setter;
 

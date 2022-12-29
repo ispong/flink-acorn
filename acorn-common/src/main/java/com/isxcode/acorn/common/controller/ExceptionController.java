@@ -1,6 +1,6 @@
 package com.isxcode.acorn.common.controller;
 
-import com.isxcode.acorn.api.pojo.BaseResponse;
+import com.isxcode.acorn.api.pojo.base.BaseResponse;
 import com.isxcode.acorn.common.response.CommonExceptionEnum;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
