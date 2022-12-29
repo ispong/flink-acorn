@@ -15,3 +15,4 @@ GET http://localhost:8080/getJobExceptions?flinkJobId=f3979f813ec6e3e8b5106de0a7
 
 ### 中止作业
 GET http://localhost:8080/stopYarnJob?applicationId=application_1670911887748_0033
+

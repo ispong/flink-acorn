@@ -9,6 +9,7 @@ import com.isxcode.acorn.api.properties.ServerInfo;
 import com.isxcode.acorn.api.utils.HttpUtils;
 import com.isxcode.acorn.client.template.AcornTemplate;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Configuration
 @EnableConfigurationProperties({AcornProperties.class, ServerInfo.class})
 @RequiredArgsConstructor
@@ -67,6 +69,7 @@ public class AcornAutoConfig {
                     System.out.println(k + ":" + v.getHost() + ":[error]");
                 }
             } catch (Exception e) {
+                log.error(e.getMessage());
                 System.out.println(k + ":" + v.getHost() + ":[error]");
             }
         });

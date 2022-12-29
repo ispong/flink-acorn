@@ -2,6 +2,7 @@ package com.isxcode.acorn.api.utils;
 
 import com.isxcode.acorn.api.constant.URLs;
 import com.isxcode.acorn.api.exception.AcornException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -14,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
 
+@Slf4j
 public class YamlUtils {
 
     public static String getFlinkJobHistoryUrl() {
@@ -39,6 +41,7 @@ public class YamlUtils {
 
             return URLs.HTTP + address + ":" + port;
         } catch (IOException e) {
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
 

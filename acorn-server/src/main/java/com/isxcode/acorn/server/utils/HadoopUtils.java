@@ -38,6 +38,7 @@ public class HadoopUtils {
             yarnConf.addResource(Files.newInputStream(Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "hadoop" + File.separator + "yarn-site.xml")));
             yarnConf.addResource(Files.newInputStream(Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "hadoop" + File.separator + "mapred-site.xml")));
         } catch (IOException e) {
+            log.error(e.getMessage());
             throw new RuntimeException("未找到yarn配置文件");
         }
 
@@ -61,6 +62,7 @@ public class HadoopUtils {
         try {
             doc = Jsoup.connect(amContainerLogsUrl).get();
         } catch (IOException e) {
+            log.error(e.getMessage());
             throw new RuntimeException(e);
         }
 
@@ -96,6 +98,7 @@ public class HadoopUtils {
                 try {
                     logStr = Jsoup.connect(URLs.HTTP + jobHistoryAddress + logUrl).get().body().getElementsByTag("pre").text();
                 } catch (IOException e) {
+                    log.error(e.getMessage());
                     throw new RuntimeException(e);
                 }
                 thirdElement = thirdElement.previousElementSibling();

@@ -71,7 +71,7 @@ public class AcornTemplate {
             try {
                 return HttpUtils.doPost(url, headers, acornRequest, AcornResponse.class);
             } catch (IOException e) {
-                log.debug(e.getMessage());
+                log.error(e.getMessage());
                 return new AcornResponse("500", e.getMessage());
             }
         }

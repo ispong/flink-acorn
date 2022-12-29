@@ -71,6 +71,7 @@ public class AcornBizService {
         try {
             hadoopConf.addResource(Files.newInputStream(path));
         } catch (IOException e) {
+            log.error(e.getMessage());
             throw new AcornException("50001", "yarn-site.xml配置文件不存在");
         }
         YarnConfiguration yarnConfig = new YarnConfiguration(hadoopConf);
@@ -97,12 +98,14 @@ public class AcornBizService {
                     try {
                         descriptor.setLocalJarPath(new Path(jar.toURI().toURL().toString()));
                     } catch (MalformedURLException e) {
+                        log.error(e.getMessage());
                         throw new AcornException("50015",e.getMessage());
                     }
                 } else if (jar.getName().contains("flink-connector")) {
                     try {
                         classpathFiles.add(jar.toURI().toURL());
                     } catch (MalformedURLException e) {
+                        log.error(e.getMessage());
                         throw new AcornException("50015",e.getMessage());
                     }
                 } else {
@@ -124,6 +127,7 @@ public class AcornBizService {
                     .setSavepointRestoreSettings(SavepointRestoreSettings.none())
                     .build();
             } catch (ProgramInvocationException e) {
+                log.error(e.getMessage());
                 throw new AcornException("50015",e.getMessage());
             }
         } else {
@@ -136,6 +140,7 @@ public class AcornBizService {
                     .setSavepointRestoreSettings(SavepointRestoreSettings.none())
                     .build();
             } catch (ProgramInvocationException e) {
+                log.error(e.getMessage());
                 throw new AcornException("50015", e.getMessage());
             }
         }
@@ -144,6 +149,7 @@ public class AcornBizService {
         try {
             jobGraph = PackagedProgramUtils.createJobGraph(program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), false);
         } catch (ProgramInvocationException e) {
+            log.error(e.getMessage());
             throw new AcornException("50014", e.getMessage());
         }
 
@@ -152,6 +158,7 @@ public class AcornBizService {
         try {
             provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
         } catch (ClusterDeploymentException e) {
+            log.error(e.getMessage());
             throw new AcornException("50015", e.getMessage());
         }
 
@@ -205,6 +212,7 @@ public class AcornBizService {
         try {
             response = new RestTemplate().getForEntity(YamlUtils.getFlinkJobHistoryUrl() + "/jobs/" + acornRequest.getJobId(), JobStatus.class);
         }catch (Exception e){
+            log.error(e.getMessage());
             throw new AcornException("50016", "作业正在运行中，请等待");
         }
 
@@ -217,6 +225,7 @@ public class AcornBizService {
         try {
             response = new RestTemplate().getForEntity(YamlUtils.getFlinkJobHistoryUrl() + "/jobs/" + acornRequest.getJobId() + "/exceptions", JobExceptions.class);
         } catch (Exception e) {
+            log.error(e.getMessage());
             throw new AcornException("50016", "作业正在运行中，请等待");
         }
 

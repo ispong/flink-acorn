@@ -52,6 +52,7 @@ public class HttpUtils {
         try {
             return new RestTemplate().exchange(requestUrl.toString(), HttpMethod.GET, requestEntity, targetClass).getBody();
         } catch (Exception e) {
+            log.error(e.getMessage());
             throw new AcornException("500", e.getMessage());
         }
     }
@@ -113,6 +114,7 @@ public class HttpUtils {
         try {
             return new RestTemplate().exchange(url, HttpMethod.POST, requestEntity, targetCls).getBody();
         } catch (Exception e) {
+            log.error(e.getMessage());
             throw new AcornException("500", e.getMessage());
         }
     }
