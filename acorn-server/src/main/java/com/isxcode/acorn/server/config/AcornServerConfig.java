@@ -31,5 +31,11 @@ public class AcornServerConfig {
             System.out.println("ERROR:请配置ACORN_HOME环境变量");
             context.close();
         }
+
+        String yarnConfDir = System.getenv("HADOOP_HOME");
+        if (Strings.isEmpty(yarnConfDir)) {
+            System.out.println("ERROR:请配置HADOOP_HOME环境变量");
+            context.close();
+        }
     }
 }
