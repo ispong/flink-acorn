@@ -2,10 +2,10 @@
 GET http://localhost:8080/executeMysql
 
 ### 查询yarn状态
-GET http://localhost:8080/getYarnStatus?applicationId=application_1670911887748_0033
+GET http://localhost:8080/getYarnStatus?applicationId=application_1672294660250_0001
 
 ### 查询yarn日志
-GET http://localhost:8080/getYarnLog?applicationId=application_1670911887748_0033
+GET http://localhost:8080/getYarnLog?applicationId=application_1672294660250_0001
 
 ### 查询flink作业状态
 GET http://localhost:8080/getJobStatus?flinkJobId=f3979f813ec6e3e8b5106de0a7860e01
