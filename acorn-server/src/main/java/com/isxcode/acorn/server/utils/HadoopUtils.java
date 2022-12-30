@@ -52,15 +52,34 @@ public class HadoopUtils {
             throw new AcornException("50012", "请在yarn-site.xml中配置yarn.resourcemanager.webapp.address属性:${yarn.resourcemanager.hostname}:8088");
         }
 
+        // 获取jobHistoryAddress前缀
+        String jobHistoryAddress = yarnConfig.get("mapreduce.jobhistory.webapp.address");
+        if (Strings.isEmpty(jobHistoryAddress)) {
+            throw new AcornException("50012", "请在mapred-site.xml中配置mapreduce.jobhistory.webapp.address属性:0.0.0.0:19888");
+        }
+
         // 访问yarn作业日志页面
         Map appInfoMap = new RestTemplate().getForObject(URLs.HTTP + yarnConf.get("yarn.resourcemanager.webapp.address") + "/ws/v1/cluster/apps/" + applicationId, Map.class);
         Map<String, Map<String, Object>> appMap = (Map<String, Map<String, Object>>) appInfoMap.get("app");
         String amContainerLogsUrl = String.valueOf(appMap.get("amContainerLogs"));
 
+        Map<String, String> resultLog = new HashMap<>();
+
+        // 解析第一层 container_1672365636481_0011_01_000001
+        parseYarnHtml(resultLog, amContainerLogsUrl, jobHistoryAddress);
+
+        // 解析第二层 container_1672365636481_0011_01_000002
+        parseYarnHtml(resultLog, amContainerLogsUrl.replace("000001", "000002"), jobHistoryAddress);
+
+        return resultLog;
+    }
+
+    public static void parseYarnHtml(Map<String, String> resultLog, String url, String jobHistoryAddress) {
+
         // 使用jsoup解析日志网页
         Document doc;
         try {
-            doc = Jsoup.connect(amContainerLogsUrl).get();
+            doc = Jsoup.connect(url).get();
         } catch (IOException e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);
@@ -73,14 +92,7 @@ public class HadoopUtils {
         }
 
         // 开始解析
-        Map<String, String> resultLog = new HashMap<>();
         Elements preElements = contentEls.get(0).getElementsByTag("pre");
-
-        // 获取jobHistoryAddress前缀
-        String jobHistoryAddress = yarnConfig.get("mapreduce.jobhistory.webapp.address");
-        if (Strings.isEmpty(jobHistoryAddress)) {
-            throw new AcornException("50012", "请在mapred-site.xml中配置mapreduce.jobhistory.webapp.address属性:0.0.0.0:19888");
-        }
 
         // 遍历
         for (Element element : preElements) {
@@ -109,7 +121,5 @@ public class HadoopUtils {
 
             resultLog.put(firstElement.text().replace("Log Type:", "").trim(), logStr);
         }
-
-        return resultLog;
     }
 }

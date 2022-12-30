@@ -37,7 +37,8 @@ public AcornResponse executeFlinkSql() {
     "msg": "部署成功",
     "data": {
         "flinkJobId": "092cdca855b719303e826e690c483c73",
-        "applicationId": "application_1671005804173_0007"
+        "applicationId": "application_1671005804173_0007",
+        "webInterfaceURL": "http://isxcode:45037"
     }
 }
 ```

@@ -86,8 +86,7 @@ public class AcornBizService {
         yarnClient.start();
 
         Configuration flinkConfig = GlobalConfiguration.loadConfiguration(flinkHomeDir + "/conf");
-        flinkConfig.setString(YarnConfigOptionsInternal.APPLICATION_LOG_CONFIG_FILE, "/opt/flink/conf/log4j.properties");
-        flinkConfig.setString(CoreOptions.FLINK_JM_JVM_OPTIONS, "-XX:MaxMetaspaceSize=268435400");
+        flinkConfig.setString(YarnConfigOptionsInternal.APPLICATION_LOG_CONFIG_FILE, flinkHomeDir + "/conf/log4j.properties");
 
         ClusterSpecification clusterSpecification = new ClusterSpecification.ClusterSpecificationBuilder()
             .setMasterMemoryMB(acornRequest.getMasterMemoryMB())
@@ -197,13 +196,14 @@ public class AcornBizService {
     public AcornData getYarnLog(AcornRequest acornRequest)  {
 
         Map<String, String> map = HadoopUtils.parseYarnLog(acornRequest.getApplicationId());
-        String stdErrLog = map.get("jobmanager.out");
 
-        if (stdErrLog == null) {
-            stdErrLog = "";
-        }
+        String jobManagerLog = map.get("jobmanager.log");
+        String taskManagerLog = map.get("taskmanager.log");
 
-        return AcornData.builder().yarnLogs(Arrays.asList(stdErrLog.split("\n"))).build();
+        return AcornData.builder()
+            .jobManagerLogs(Arrays.asList(jobManagerLog.split("\n")))
+            .taskManagerLogs(Arrays.asList(taskManagerLog.split("\n")))
+            .build();
     }
 
     public AcornData getYarnStatus(AcornRequest acornRequest) throws IOException, YarnException {
