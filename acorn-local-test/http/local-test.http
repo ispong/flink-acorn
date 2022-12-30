@@ -16,3 +16,17 @@ GET http://localhost:8080/getJobExceptions?flinkJobId=045fbcd76227d5485afd740f3b
 ### 中止作业
 GET http://localhost:8080/stopYarnJob?applicationId=application_1670911887748_0033
 
+
+
+taskManager.log
+jobManager.log
+
+
+将执行者添加到dehoop用户组中
+
+
+sudo gpasswd -a yarn dehoop
+newgrp dehoop
+
+
+
