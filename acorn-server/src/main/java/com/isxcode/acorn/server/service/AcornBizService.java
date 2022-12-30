@@ -151,6 +151,10 @@ public class AcornBizService {
                     packagedProgramBuilder.setArguments(acornRequest.getPluginArguments().toString());
                 }
 
+                Configuration configuration = new Configuration();
+                configuration.setString("ceshi", "ceshi22");
+                packagedProgramBuilder.setConfiguration(configuration);
+
                 program = packagedProgramBuilder.build();
 
             } catch (ProgramInvocationException e) {
@@ -161,7 +165,7 @@ public class AcornBizService {
 
         JobGraph jobGraph;
         try {
-            jobGraph = PackagedProgramUtils.createJobGraph(program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), false);
+            jobGraph = PackagedProgramUtils.createJobGraph(program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), true);
         } catch (ProgramInvocationException e) {
             log.error(e.getMessage());
             throw new AcornException("50014", e.getMessage());
