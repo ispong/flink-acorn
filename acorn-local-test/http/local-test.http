@@ -1,23 +1,26 @@
-### 执行作业
+### 执行自定义插件
 GET http://localhost:8080/executePlugin
 
-### 执行作业
+### 执行mysql作业
 GET http://localhost:8080/executeMysql
 
+### 执行hive作业
+GET http://localhost:8080/executeHive
+
 ### 查询yarn状态
-GET http://localhost:8080/getYarnStatus?applicationId=application_1672365636481_0011
+GET http://localhost:8080/getYarnStatus?applicationId=application_1672365636481_00111
 
 ### 查询taskManager日志
-GET http://localhost:8080/getTaskManagerLog?applicationId=application_1672365636481_0011
+GET http://localhost:8080/getTaskManagerLog?applicationId=application_1672365636481_00111
 
 ### 查询jobManager日志
-GET http://localhost:8080/getJobManagerLog?applicationId=application_1672365636481_0011
+GET http://localhost:8080/getJobManagerLog?applicationId=application_1672365636481_00111
 
 ### 查询flink作业状态
-GET http://localhost:8080/getJobStatus?flinkJobId=e9aba7211c0eeb748d7a19cff992ef9b
+GET http://localhost:8080/getJobStatus?flinkJobId=e9aba7211c0eeb748d7a19cff992ef9b1
 
-### 查询flink异常
-GET http://localhost:8080/getRootExceptions?flinkJobId=e9aba7211c0eeb748d7a19cff992ef9b
+### 查询flink root异常
+GET http://localhost:8080/getRootExceptions?flinkJobId=e9aba7211c0eeb748d7a19cff992ef9b1
 
 ### 中止作业
 GET http://localhost:8080/stopYarnJob?applicationId=application_1670911887748_0033

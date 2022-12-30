@@ -222,7 +222,13 @@ public class AcornBizService {
         yarnClient.init(yarnConfig);
         yarnClient.start();
 
-        ApplicationReport applicationReport = yarnClient.getApplicationReport(ApplicationId.fromString(acornRequest.getApplicationId()));
+        ApplicationReport applicationReport;
+        try {
+            applicationReport = yarnClient.getApplicationReport(ApplicationId.fromString(acornRequest.getApplicationId()));
+        } catch (Exception e) {
+            throw new AcornException("50020", e.getMessage());
+        }
+
         FinalApplicationStatus finalApplicationStatus = applicationReport.getFinalApplicationStatus();
         YarnApplicationState yarnApplicationState = applicationReport.getYarnApplicationState();
 
@@ -236,7 +242,11 @@ public class AcornBizService {
         yarnClient.init(yarnConfig);
         yarnClient.start();
 
-        yarnClient.killApplication(ApplicationId.fromString(acornRequest.getApplicationId()));
+        try {
+            yarnClient.killApplication(ApplicationId.fromString(acornRequest.getApplicationId()));
+        } catch (Exception e) {
+            throw new AcornException("50017", e.getMessage());
+        }
 
         return AcornData.builder().build();
     }
@@ -248,7 +258,7 @@ public class AcornBizService {
             response = new RestTemplate().getForEntity(YamlUtils.getFlinkJobHistoryUrl() + "/jobs/" + acornRequest.getJobId(), JobStatus.class);
         }catch (Exception e){
             log.error(e.getMessage());
-            throw new AcornException("50016", "作业正在运行中，请等待");
+            throw new AcornException("50016", "作业正在运行中或者作业不存在");
         }
 
         return AcornData.builder().jobStatus(response.getBody()).build();
@@ -261,7 +271,7 @@ public class AcornBizService {
             response = new RestTemplate().getForEntity(YamlUtils.getFlinkJobHistoryUrl() + "/jobs/" + acornRequest.getJobId() + "/exceptions", JobExceptions.class);
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new AcornException("50016", "作业正在运行中，请等待");
+            throw new AcornException("50016", "作业正在运行中或者作业不存在");
         }
 
         String rootExceptions;
