@@ -1,4 +1,4 @@
-package com.isxcode.acorn.plugin;
+package com.isxcode.acorn.demo;
 
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.TableEnvironment;
