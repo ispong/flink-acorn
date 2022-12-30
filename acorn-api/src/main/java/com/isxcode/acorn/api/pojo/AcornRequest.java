@@ -56,7 +56,7 @@ public class AcornRequest {
 
     private int slotsPerTaskManager = 1;
 
-    private String pluginJarPath;
+    private String pluginName;
 
     private String pluginMainClass;
 

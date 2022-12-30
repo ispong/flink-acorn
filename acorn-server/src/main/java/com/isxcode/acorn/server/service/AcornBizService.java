@@ -117,7 +117,6 @@ public class AcornBizService {
 
         PackagedProgram program;
         if (!Strings.isEmpty(acornRequest.getSql())) {
-            //D:\isxcode\flink-acorn\acorn-plugins\acorn-sql-plugin\target\
             try {
                 program = PackagedProgram.newBuilder()
                     .setJarFile(new File(acornHomeDir + "/plugins/acorn-sql-plugin.jar"))
@@ -131,14 +130,29 @@ public class AcornBizService {
                 throw new AcornException("50015",e.getMessage());
             }
         } else {
+
+            if (Strings.isEmpty(acornRequest.getPluginName())) {
+                throw new AcornException("50016", "PluginName不能为空");
+            }
+
+            String pluginJarPath = acornHomeDir + File.separator + "plugins" + File.separator + acornRequest.getPluginName() + ".jar";
+
             try {
-                program = PackagedProgram.newBuilder()
-                    .setJarFile(new File(acornRequest.getPluginJarPath()))
-                    .setEntryPointClassName(acornRequest.getPluginMainClass())
-                    .setArguments(acornRequest.getPluginArguments().toString())
+                PackagedProgram.Builder packagedProgramBuilder = PackagedProgram.newBuilder()
+                    .setJarFile(new File(pluginJarPath))
                     .setUserClassPaths(classpathFiles)
-                    .setSavepointRestoreSettings(SavepointRestoreSettings.none())
-                    .build();
+                    .setSavepointRestoreSettings(SavepointRestoreSettings.none());
+
+                if (!Strings.isEmpty(acornRequest.getPluginMainClass())) {
+                    packagedProgramBuilder.setEntryPointClassName(acornRequest.getPluginMainClass());
+                }
+
+                if (!Strings.isEmpty(acornRequest.getPluginArguments().toString())) {
+                    packagedProgramBuilder.setArguments(acornRequest.getPluginArguments().toString());
+                }
+
+                program = packagedProgramBuilder.build();
+
             } catch (ProgramInvocationException e) {
                 log.error(e.getMessage());
                 throw new AcornException("50015", e.getMessage());

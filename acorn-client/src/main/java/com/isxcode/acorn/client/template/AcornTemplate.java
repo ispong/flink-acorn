@@ -88,6 +88,12 @@ public class AcornTemplate {
             return this;
         }
 
+        public Builder pluginName(String pluginName) {
+
+            acornRequest.setPluginName(pluginName);
+            return this;
+        }
+
         public Builder sql(String sql) {
 
             acornRequest.setSql(sql);

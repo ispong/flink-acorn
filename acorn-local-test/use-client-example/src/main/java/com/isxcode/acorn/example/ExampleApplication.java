@@ -75,6 +75,12 @@ public class ExampleApplication {
         return acornTemplate.build().sql(flinkSql).deploy();
     }
 
+    @GetMapping("/executePlugin")
+    public AcornResponse executePlugin() {
+
+        return acornTemplate.build().pluginName("sql-job-0.0.1").deploy();
+    }
+
     @GetMapping("/getYarnStatus")
     public AcornResponse getYarnStatus(@RequestParam String applicationId) {
 
