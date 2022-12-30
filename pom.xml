@@ -37,6 +37,7 @@
         <jsoup.vesion>1.15.3</jsoup.vesion>
         <fastjson.version>2.0.21</fastjson.version>
         <lombok.version>1.18.24</lombok.version>
+        <guava.version>27.0-jre</guava.version>
         <log4j.version>[2.16.0,)</log4j.version>
         <snakeyaml.version>1.33</snakeyaml.version>
     </properties>
