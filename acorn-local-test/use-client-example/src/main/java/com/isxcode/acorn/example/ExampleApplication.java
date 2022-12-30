@@ -105,10 +105,10 @@ public class ExampleApplication {
         return acornTemplate.build().jobId(flinkJobId).getJobStatus();
     }
 
-    @GetMapping("/getJobExceptions")
-    public AcornResponse getJobExceptions(@RequestParam String flinkJobId) {
+    @GetMapping("/getRootExceptions")
+    public AcornResponse getRootExceptions(@RequestParam String flinkJobId) {
 
-        return acornTemplate.build().jobId(flinkJobId).getJobExceptions();
+        return acornTemplate.build().jobId(flinkJobId).getRootExceptions();
     }
 
     @GetMapping("/stopYarnJob")

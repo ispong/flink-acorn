@@ -142,9 +142,9 @@ public class AcornTemplate {
             return requestAcornServer(executeUrl, acornRequest);
         }
 
-        public AcornResponse getJobExceptions() {
+        public AcornResponse getRootExceptions() {
 
-            String executeUrl = String.format(URLs.BASE_URL + URLs.GET_JOB_EXCEPTIONS_URL, serverInfo.getHost(), serverInfo.getPort());
+            String executeUrl = String.format(URLs.BASE_URL + URLs.GET_ROOT_EXCEPTIONS_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
 

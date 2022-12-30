@@ -254,7 +254,7 @@ public class AcornBizService {
         return AcornData.builder().jobStatus(response.getBody()).build();
     }
 
-    public AcornData getJobExceptions(AcornRequest acornRequest) {
+    public AcornData getRootExceptions(AcornRequest acornRequest) {
 
         ResponseEntity<JobExceptions> response;
         try {

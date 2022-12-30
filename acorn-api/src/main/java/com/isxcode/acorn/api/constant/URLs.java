@@ -67,7 +67,7 @@ public interface URLs {
     /**
      * 获取作业日志接口
      */
-    String GET_JOB_EXCEPTIONS_URL = "/job/getJobExceptions";
+    String GET_ROOT_EXCEPTIONS_URL = "/job/getRootExceptions";
 
     /**
      * 获取作业flink jobId

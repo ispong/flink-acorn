@@ -17,27 +17,8 @@ GET http://localhost:8080/getJobManagerLog?applicationId=application_16723656364
 GET http://localhost:8080/getJobStatus?flinkJobId=e9aba7211c0eeb748d7a19cff992ef9b
 
 ### 查询flink异常
-GET http://localhost:8080/getJobExceptions?flinkJobId=e9aba7211c0eeb748d7a19cff992ef9b
+GET http://localhost:8080/getRootExceptions?flinkJobId=e9aba7211c0eeb748d7a19cff992ef9b
 
 ### 中止作业
 GET http://localhost:8080/stopYarnJob?applicationId=application_1670911887748_0033
-
-
-
-taskManager.log
-jobManager.log
-
-
-将执行者添加到dehoop用户组中
-
-
-sudo gpasswd -a yarn dehoop
-newgrp dehoop
-
-
-
-
-查询日志修改源码
-处理为何会有两个文件
-
 

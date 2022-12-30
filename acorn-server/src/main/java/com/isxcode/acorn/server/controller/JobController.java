@@ -58,10 +58,10 @@ public class JobController {
     }
 
     @SuccessResponse("获取flink作业异常日志")
-    @PostMapping(URLs.GET_JOB_EXCEPTIONS_URL)
-    public AcornData getJobExceptions(@RequestBody AcornRequest acornRequest) {
+    @PostMapping(URLs.GET_ROOT_EXCEPTIONS_URL)
+    public AcornData getRootExceptions(@RequestBody AcornRequest acornRequest) {
 
-        return acornBizService.getJobExceptions(acornRequest);
+        return acornBizService.getRootExceptions(acornRequest);
     }
 
     @SuccessResponse("停止作业")
