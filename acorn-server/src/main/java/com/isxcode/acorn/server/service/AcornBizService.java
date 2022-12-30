@@ -86,6 +86,8 @@ public class AcornBizService {
         yarnClient.start();
 
         Configuration flinkConfig = GlobalConfiguration.loadConfiguration(flinkHomeDir + "/conf");
+        flinkConfig.setString(YarnConfigOptionsInternal.APPLICATION_LOG_CONFIG_FILE, "/opt/flink/conf/log4j.properties");
+        flinkConfig.setString(CoreOptions.FLINK_JM_JVM_OPTIONS, "-XX:MaxMetaspaceSize=268435400");
 
         ClusterSpecification clusterSpecification = new ClusterSpecification.ClusterSpecificationBuilder()
             .setMasterMemoryMB(acornRequest.getMasterMemoryMB())
@@ -156,11 +158,6 @@ public class AcornBizService {
                 if (acornRequest.getPluginArguments() != null) {
                     packagedProgramBuilder.setArguments(acornRequest.getPluginArguments().toString());
                 }
-
-                Configuration configuration = new Configuration();
-                configuration.setString(YarnConfigOptionsInternal.APPLICATION_LOG_CONFIG_FILE, "/opt/flink/conf/log4j.properties");
-                configuration.setString(CoreOptions.FLINK_JM_JVM_OPTIONS, "-XX:MaxMetaspaceSize=268435400");
-                packagedProgramBuilder.setConfiguration(configuration);
 
                 program = packagedProgramBuilder.build();
 
