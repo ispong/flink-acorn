@@ -18,7 +18,6 @@ wget https://repo1.maven.org/maven2/org/apache/flink/flink-connector-hive_2.12/1
 ```bash
 cd /opt/flink/lib/
 wget https://repo1.maven.org/maven2/org/apache/hive/hive-exec/3.1.2/hive-exec-3.1.2.jar
-#hive-exec中缺少libfb303依赖
 wget https://repo1.maven.org/maven2/org/apache/thrift/libfb303/0.9.3/libfb303-0.9.3.jar
 ```
 
