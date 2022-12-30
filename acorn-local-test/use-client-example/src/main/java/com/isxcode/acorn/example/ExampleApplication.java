@@ -73,7 +73,7 @@ public class ExampleApplication {
             "    'username'='root',\n" +
             "    'password'='ispong123');\n" +
             "\n" +
-            "insert into to_table select username, age from from_db.users;";
+            "insert into to_table select username, age from users;";
 
         return acornTemplate.build().sql(flinkSql).deploy();
     }

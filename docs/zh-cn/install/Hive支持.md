@@ -74,5 +74,5 @@ CREATE TABLE to_table(
     'username'='root',
     'password'='ispong123');
 
-insert into to_table select username, age from from_db.users;
+insert into to_table select username, age from users;
 ```

@@ -170,7 +170,7 @@ public class AcornBizService {
         try {
             jobGraph = PackagedProgramUtils.createJobGraph(program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), false);
         } catch (ProgramInvocationException e) {
-            log.error(e.getMessage());
+            e.printStackTrace();
             throw new AcornException("50014", e.getMessage());
         }
 
