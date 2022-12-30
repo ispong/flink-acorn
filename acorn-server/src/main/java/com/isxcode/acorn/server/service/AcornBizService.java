@@ -17,6 +17,7 @@ import org.apache.flink.client.program.PackagedProgram;
 import org.apache.flink.client.program.PackagedProgramUtils;
 import org.apache.flink.client.program.ProgramInvocationException;
 import org.apache.flink.configuration.Configuration;
+import org.apache.flink.configuration.CoreOptions;
 import org.apache.flink.configuration.GlobalConfiguration;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
@@ -158,6 +159,7 @@ public class AcornBizService {
 
                 Configuration configuration = new Configuration();
                 configuration.setString(YarnConfigOptionsInternal.APPLICATION_LOG_CONFIG_FILE, "/opt/flink/conf/log4j.properties");
+                configuration.setString(CoreOptions.FLINK_JM_JVM_OPTIONS, "-XX:MaxMetaspaceSize=268435400");
                 packagedProgramBuilder.setConfiguration(configuration);
 
                 program = packagedProgramBuilder.build();
