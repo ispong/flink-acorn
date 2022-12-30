@@ -28,7 +28,7 @@ public class SqlJob {
             try {
                 tEnv.executeSql(metaSql);
             } catch (Exception e) {
-                LOG.error(e.getMessage());
+                LOG.error(Arrays.toString(e.getStackTrace()));
             }
         });
 
