@@ -30,18 +30,11 @@
             </exclusions>
         </dependency>
 
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.apache.calcite/calcite-core &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.calcite</groupId>-->
-<!--            <artifactId>calcite-core</artifactId>-->
-<!--            <version>1.32.0</version>-->
-<!--        </dependency>-->
-<!--        -->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.flink</groupId>-->
-<!--            <artifactId>flink-connector-hive_${scala.binary.version}</artifactId>-->
-<!--            <version>${flink.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-hive_${scala.binary.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
 
 <!--        <dependency>-->
 <!--            <groupId>org.apache.flink</groupId>-->
