@@ -87,10 +87,16 @@ public class ExampleApplication {
         return acornTemplate.build().applicationId(applicationId).getYarnStatus();
     }
 
-    @GetMapping("/getYarnLog")
-    public AcornResponse getYarnLog(@RequestParam String applicationId) {
+    @GetMapping("/getJobManagerLog")
+    public AcornResponse getJobManagerLog(@RequestParam String applicationId) {
 
-        return acornTemplate.build().applicationId(applicationId).getYarnLog();
+        return acornTemplate.build().applicationId(applicationId).getJobManagerLog();
+    }
+
+    @GetMapping("/getTaskManagerLog")
+    public AcornResponse getTaskManagerLog(@RequestParam String applicationId) {
+
+        return acornTemplate.build().applicationId(applicationId).getTaskManagerLog();
     }
 
     @GetMapping("/getJobStatus")

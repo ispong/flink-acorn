@@ -148,11 +148,18 @@ public class AcornTemplate {
             return requestAcornServer(executeUrl, acornRequest);
         }
 
-        public AcornResponse getYarnLog() {
+        public AcornResponse getJobManagerLog() {
 
-            String executeUrl = String.format(URLs.BASE_URL + URLs.GET_DEPLOY_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
+            String executeUrl = String.format(URLs.BASE_URL + URLs.GET_JOB_MANAGER_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
             return requestAcornServer(executeUrl, acornRequest);
         }
+
+        public AcornResponse getTaskManagerLog() {
+
+            String executeUrl = String.format(URLs.BASE_URL + URLs.GET_TASK_MANAGER_LOG_URL, serverInfo.getHost(), serverInfo.getPort());
+            return requestAcornServer(executeUrl, acornRequest);
+        }
+
     }
 
 }

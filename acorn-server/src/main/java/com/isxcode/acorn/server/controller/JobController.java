@@ -43,11 +43,18 @@ public class JobController {
         }
     }
 
-    @SuccessResponse("获取yarn作业日志成功")
-    @PostMapping(URLs.GET_DEPLOY_LOG_URL)
-    public AcornData getYarnLog(@RequestBody AcornRequest acornRequest) throws IOException {
+    @SuccessResponse("获取JobManager日志成功")
+    @PostMapping(URLs.GET_JOB_MANAGER_LOG_URL)
+    public AcornData getJobManagerLog(@RequestBody AcornRequest acornRequest) {
 
-        return acornBizService.getYarnLog(acornRequest);
+        return acornBizService.getJobManagerLog(acornRequest);
+    }
+
+    @SuccessResponse("获取TaskManager日志成功")
+    @PostMapping(URLs.GET_TASK_MANAGER_LOG_URL)
+    public AcornData getTaskManagerLog(@RequestBody AcornRequest acornRequest) {
+
+        return acornBizService.getTaskManagerLog(acornRequest);
     }
 
     @SuccessResponse("获取flink作业异常日志")

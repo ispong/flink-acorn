@@ -193,16 +193,25 @@ public class AcornBizService {
             .build();
     }
 
-    public AcornData getYarnLog(AcornRequest acornRequest)  {
+    public AcornData getTaskManagerLog(AcornRequest acornRequest) {
 
         Map<String, String> map = HadoopUtils.parseYarnLog(acornRequest.getApplicationId());
 
-        String jobManagerLog = map.get("jobmanager.log");
-        String taskManagerLog = map.get("taskmanager.log");
+        String taskManagerLog = map.get("taskmanager.log") == null ? "" : map.get("taskmanager.log");
+
+        return AcornData.builder()
+            .taskManagerLogs(Arrays.asList(taskManagerLog.split("\n")))
+            .build();
+    }
+
+    public AcornData getJobManagerLog(AcornRequest acornRequest)  {
+
+        Map<String, String> map = HadoopUtils.parseYarnLog(acornRequest.getApplicationId());
+
+        String jobManagerLog = map.get("jobmanager.log") == null ? "" : map.get("jobmanager.log");
 
         return AcornData.builder()
             .jobManagerLogs(Arrays.asList(jobManagerLog.split("\n")))
-            .taskManagerLogs(Arrays.asList(taskManagerLog.split("\n")))
             .build();
     }
 
