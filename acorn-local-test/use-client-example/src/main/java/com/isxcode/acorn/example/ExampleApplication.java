@@ -54,10 +54,9 @@ public class ExampleApplication {
     @GetMapping("/executeHive")
     public AcornResponse executeHive() {
 
-        String flinkSql = "" +
-            "CREATE CATALOG from_db WITH (\n" +
+        String flinkSql = "CREATE CATALOG from_db WITH (\n" +
             "    'type' = 'hive',\n" +
-            "    'hive-conf-dir' = '/opt/acorn/conf',\n" +
+            "    'hive-conf-dir' = '/opt/hive/conf',\n" +
             "    'default-database' = 'ispong_db'\n" +
             ");\n" +
             "\n" +

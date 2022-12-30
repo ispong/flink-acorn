@@ -13,20 +13,51 @@ cd /opt/flink/lib/
 wget https://repo1.maven.org/maven2/org/apache/flink/flink-connector-hive_2.12/1.14.0/flink-connector-hive_2.12-1.14.0.jar
 ```
 
-###### 修改hive配置文件
+###### 下载hive-exec
 
 ```bash
-vim /opt/acorn/conf/hive-site.xml
+cd /opt/flink/lib/
+wget https://repo1.maven.org/maven2/org/apache/hive/hive-exec/3.1.2/hive-exec-3.1.2.jar
+#hive-exec中缺少libfb303依赖
+wget https://repo1.maven.org/maven2/org/apache/thrift/libfb303/0.9.3/libfb303-0.9.3.jar
+```
+
+###### 和hadoop中的guava版本保持一致
+
+```bash
+cp /opt/hadoop/share/hadoop/hdfs/lib/guava-*.jar /opt/flink/lib/
+```
+
+###### 修改hive配置文件
+
+> 新增配置 `hive.metastore.uris`
+
+```bash
+vim /opt/hive/conf/hive-site.xml
+```
+
+```xml
+<configuration>
+    <property>
+        <name>hive.metastore.port</name>
+        <value>9083</value>
+    </property>
+
+    <property>
+        <name>hive.metastore.uris</name>
+        <value>thrift://isxcode:9083</value>
+    </property>
+</configuration>
 ```
 
 ###### FlinkSql 案例
 
-- hive --> mysql
+- hive同步到mysql
 
 ```sql
 CREATE CATALOG from_db WITH (
     'type' = 'hive',
-    'hive-conf-dir' = '/opt/acorn/conf',
+    'hive-conf-dir' = '/opt/hive/conf',
     'default-database' = 'ispong_db'
 );
 

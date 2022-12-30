@@ -13,25 +13,14 @@ public class SqlJob {
 
     public static void main(String[] args) {
 
-        LOG.info("开始执行作业");
-
         EnvironmentSettings settings = EnvironmentSettings.newInstance().build();
-        LOG.info("构建环境成功");
-
         TableEnvironment tEnv = TableEnvironment.create(settings);
-        LOG.info("创建tEnv成功");
 
         String sql = args[0];
         String[] sqls = sql.split(";");
         Arrays.stream(sqls).forEach(metaSql -> {
             LOG.info("执行sql:" + metaSql);
-            try {
-                tEnv.executeSql(metaSql);
-            } catch (Exception e) {
-                LOG.error(Arrays.toString(e.getStackTrace()));
-            }
+            tEnv.executeSql(metaSql);
         });
-
-        LOG.info("任务部署成功");
     }
 }
