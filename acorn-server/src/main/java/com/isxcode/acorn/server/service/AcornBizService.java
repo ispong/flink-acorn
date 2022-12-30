@@ -147,7 +147,7 @@ public class AcornBizService {
                     packagedProgramBuilder.setEntryPointClassName(acornRequest.getPluginMainClass());
                 }
 
-                if (!Strings.isEmpty(acornRequest.getPluginArguments().toString())) {
+                if (acornRequest.getPluginArguments() != null) {
                     packagedProgramBuilder.setArguments(acornRequest.getPluginArguments().toString());
                 }
 

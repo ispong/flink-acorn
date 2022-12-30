@@ -1,4 +1,7 @@
 ### 执行作业
+GET http://localhost:8080/executePlugin
+
+### 执行作业
 GET http://localhost:8080/executeMysql
 
 ### 查询yarn状态
