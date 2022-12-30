@@ -4,7 +4,7 @@ import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.TableEnvironment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.google.common.base.Stopwatch;
+import org.apache.hive.common.util.HiveVersionInfo;
 
 import java.util.Arrays;
 

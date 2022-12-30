@@ -4,49 +4,26 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>com.isxcode.acorn</groupId>
-        <artifactId>acorn-plugins</artifactId>
-        <version>1.2.0</version>
-    </parent>
+    <groupId>com.isxcode.acorn</groupId>
+    <artifactId>hive-job</artifactId>
+    <version>0.0.1</version>
+    <name>hive-job</name>
+    <description>hive-job</description>
 
-    <artifactId>acorn-sql-plugin</artifactId>
-    <version>1.2.0</version>
-    <name>acorn-sql-plugin</name>
-    <description>acorn-sql-plugin</description>
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- version config -->
+        <flink.version>1.14.0</flink.version>
+        <scala.binary.version>2.12</scala.binary.version>
+        <log4j.version>[2.16.0,)</log4j.version>
+        <hive.version>3.1.2</hive.version>
+    </properties>
 
     <dependencies>
-
-        <!-- hive-exec -->
-        <dependency>
-            <groupId>org.apache.hive</groupId>
-            <artifactId>hive-exec</artifactId>
-            <version>${hive.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.calcite</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-hive_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-jdbc_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-sql-connector-kafka_${scala.binary.version}</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
 
         <!-- flink核心包-支持发布 -->
         <dependency>
@@ -98,7 +75,6 @@
     </dependencies>
 
     <build>
-        <finalName>acorn-sql-plugin</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -139,7 +115,7 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <!-- 一定要改成作业的主方法 -->
-                                    <mainClass>com.isxcode.acorn.plugin.sql.SqlJob</mainClass>
+                                    <mainClass>com.isxcode.acorn.demo.SqlJob</mainClass>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                             </transformers>
@@ -149,5 +125,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

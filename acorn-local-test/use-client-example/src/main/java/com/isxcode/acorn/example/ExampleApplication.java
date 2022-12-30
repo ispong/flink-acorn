@@ -62,17 +62,6 @@ public class ExampleApplication {
             "    'default-database' = 'ispong_db'\n" +
             ");\n" +
             "USE CATALOG from_db;\n" +
-            "CREATE TABLE to_table(\n" +
-            "    username STRING,\n" +
-            "    age INT\n" +
-            ") WITH (\n" +
-            "    'connector'='jdbc',\n" +
-            "    'url'='jdbc:mysql://isxcode:30306/ispong_db',\n" +
-            "    'table-name'='users_sink',\n" +
-            "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
-            "    'username'='root',\n" +
-            "    'password'='ispong123');\n" +
-            "\n" +
             "insert into users_sink select username, age,birth from users;";
 
         return acornTemplate.build().sql(flinkSql).deploy();
