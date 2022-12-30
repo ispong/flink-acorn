@@ -22,6 +22,7 @@ import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 import org.apache.flink.yarn.YarnClientYarnClusterInformationRetriever;
 import org.apache.flink.yarn.YarnClusterDescriptor;
+import org.apache.flink.yarn.configuration.YarnConfigOptionsInternal;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 import org.apache.hadoop.yarn.api.records.ApplicationReport;
@@ -85,7 +86,11 @@ public class AcornBizService {
 
         Configuration flinkConfig = GlobalConfiguration.loadConfiguration(flinkHomeDir + "/conf");
 
-        ClusterSpecification clusterSpecification = new ClusterSpecification.ClusterSpecificationBuilder().setMasterMemoryMB(acornRequest.getMasterMemoryMB()).setTaskManagerMemoryMB(acornRequest.getTaskManagerMemoryMB()).setSlotsPerTaskManager(acornRequest.getSlotsPerTaskManager()).createClusterSpecification();
+        ClusterSpecification clusterSpecification = new ClusterSpecification.ClusterSpecificationBuilder()
+            .setMasterMemoryMB(acornRequest.getMasterMemoryMB())
+            .setTaskManagerMemoryMB(acornRequest.getTaskManagerMemoryMB())
+            .setSlotsPerTaskManager(acornRequest.getSlotsPerTaskManager())
+            .createClusterSpecification();
 
         YarnClusterDescriptor descriptor = new YarnClusterDescriptor(flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
 
@@ -152,7 +157,7 @@ public class AcornBizService {
                 }
 
                 Configuration configuration = new Configuration();
-                configuration.setString("ceshi", "ceshi22");
+                configuration.setString(YarnConfigOptionsInternal.APPLICATION_LOG_CONFIG_FILE, "/opt/flink/conf/log4j.properties");
                 packagedProgramBuilder.setConfiguration(configuration);
 
                 program = packagedProgramBuilder.build();
@@ -165,14 +170,14 @@ public class AcornBizService {
 
         JobGraph jobGraph;
         try {
-            jobGraph = PackagedProgramUtils.createJobGraph(program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), true);
+            jobGraph = PackagedProgramUtils.createJobGraph(program, flinkConfig, flinkConfig.getInteger(DEFAULT_PARALLELISM), false);
         } catch (ProgramInvocationException e) {
             log.error(e.getMessage());
             throw new AcornException("50014", e.getMessage());
         }
 
         // 将本地jar包提交到yarn集群
-        ClusterClientProvider<ApplicationId> provider = null;
+        ClusterClientProvider<ApplicationId> provider;
         try {
             provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
         } catch (ClusterDeploymentException e) {
@@ -183,7 +188,11 @@ public class AcornBizService {
         String applicationId = provider.getClusterClient().getClusterId().toString();
         String flinkJobId = jobGraph.getJobID().toString();
 
-        return AcornData.builder().applicationId(applicationId).flinkJobId(flinkJobId).build();
+        return AcornData.builder()
+            .applicationId(applicationId)
+            .flinkJobId(flinkJobId)
+            .webInterfaceURL(provider.getClusterClient().getWebInterfaceURL())
+            .build();
     }
 
     public AcornData getYarnLog(AcornRequest acornRequest)  {

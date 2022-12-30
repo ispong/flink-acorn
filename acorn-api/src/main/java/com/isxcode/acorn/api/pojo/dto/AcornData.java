@@ -43,4 +43,6 @@ public class AcornData {
     private JobExceptions jobExceptions;
 
     private List<String> yarnLogs;
+
+    private String webInterfaceURL;
 }
