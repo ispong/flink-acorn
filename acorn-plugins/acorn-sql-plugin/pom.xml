@@ -17,6 +17,13 @@
 
     <dependencies>
 
+        <!-- hive-exec -->
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-exec</artifactId>
+            <version>${hive.version}</version>
+        </dependency>
+
         <!-- flink核心包-支持发布 -->
         <dependency>
             <groupId>org.apache.flink</groupId>

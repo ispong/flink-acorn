@@ -31,6 +31,7 @@
         <flink.version>1.14.0</flink.version>
         <scala.binary.version>2.12</scala.binary.version>
         <hadoop.version>3.2.4</hadoop.version>
+        <hive.version>3.1.2</hive.version>
         <springboot.version>2.7.5</springboot.version>
         <springframework.version>5.7.2</springframework.version>
         <jsoup.vesion>1.15.3</jsoup.vesion>
