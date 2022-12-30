@@ -40,7 +40,7 @@ public class AcornData {
 
     private JobStatus jobStatus;
 
-    private JobExceptions jobExceptions;
+    private List<String> rootExceptions;
 
     private List<String> jobManagerLogs;
 

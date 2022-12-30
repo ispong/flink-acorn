@@ -264,7 +264,14 @@ public class AcornBizService {
             throw new AcornException("50016", "作业正在运行中，请等待");
         }
 
-        return AcornData.builder().jobExceptions(response.getBody()).build();
+        String rootExceptions;
+        if (response.getBody() == null || response.getBody().getRootException() == null) {
+            rootExceptions = "";
+        } else {
+            rootExceptions = response.getBody().getRootException();
+        }
+
+        return AcornData.builder().rootExceptions(Arrays.asList(rootExceptions.split("\n"))).build();
     }
 
 }
