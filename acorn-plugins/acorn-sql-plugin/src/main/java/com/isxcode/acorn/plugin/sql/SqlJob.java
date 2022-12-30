@@ -25,7 +25,11 @@ public class SqlJob {
         String[] sqls = sql.split(";");
         Arrays.stream(sqls).forEach(metaSql -> {
             LOG.info("执行sql:" + metaSql);
-            tEnv.executeSql(metaSql);
+            try {
+                tEnv.executeSql(metaSql);
+            } catch (Exception e) {
+                LOG.error(e.getMessage());
+            }
         });
 
         LOG.info("任务部署成功");

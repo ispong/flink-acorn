@@ -12,3 +12,36 @@
 cd /opt/flink/lib/
 wget https://repo1.maven.org/maven2/org/apache/flink/flink-connector-hive_2.12/1.14.0/flink-connector-hive_2.12-1.14.0.jar
 ```
+
+###### 修改hive配置文件
+
+```bash
+vim /opt/acorn/conf/hive-site.xml
+```
+
+###### FlinkSql 案例
+
+- hive --> mysql
+
+```sql
+CREATE CATALOG from_db WITH (
+    'type' = 'hive',
+    'hive-conf-dir' = '/opt/acorn/conf',
+    'default-database' = 'ispong_db'
+);
+
+USE CATALOG from_db;
+            
+CREATE TABLE to_table(
+    username STRING,
+    age INT
+) WITH (
+    'connector'='jdbc',
+    'url'='jdbc:mysql://isxcode:30306/ispong_db',
+    'table-name'='users_sink',
+    'driver'='com.mysql.cj.jdbc.Driver',
+    'username'='root',
+    'password'='ispong123');
+
+insert into to_table select username, age from from_db.users;
+```

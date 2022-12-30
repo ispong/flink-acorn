@@ -55,11 +55,14 @@ public class ExampleApplication {
     public AcornResponse executeHive() {
 
         String flinkSql = "" +
-            "CREATE CATALOG from_table WITH (\n" +
-            "  'type' = 'hive',\n" +
-            "  'hive-conf-dir' = '/opt/acorn/conf'\n" +
+            "CREATE CATALOG from_db WITH (\n" +
+            "    'type' = 'hive',\n" +
+            "    'hive-conf-dir' = '/opt/acorn/conf',\n" +
+            "    'default-database' = 'ispong_db'\n" +
             ");\n" +
-            "USE CATALOG from_table;" +
+            "\n" +
+            "USE CATALOG from_db;\n" +
+            "            \n" +
             "CREATE TABLE to_table(\n" +
             "    username STRING,\n" +
             "    age INT\n" +
@@ -69,8 +72,9 @@ public class ExampleApplication {
             "    'table-name'='users_sink',\n" +
             "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
             "    'username'='root',\n" +
-            "    'password'='ispong123');" +
-            "insert into to_table select username, age from from_table";
+            "    'password'='ispong123');\n" +
+            "\n" +
+            "insert into to_table select username, age from from_db.users;";
 
         return acornTemplate.build().sql(flinkSql).deploy();
     }

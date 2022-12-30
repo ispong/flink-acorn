@@ -20,3 +20,31 @@ mv mysql-connector-java-8.0.22/mysql-connector-java-8.0.22.jar /opt/flink/lib/
 cd /opt/flink/lib/
 wget https://repo1.maven.org/maven2/org/apache/flink/flink-connector-jdbc_2.12/1.14.0/flink-connector-jdbc_2.12-1.14.0.jar
 ```
+
+###### FlinkSql样例
+
+```sql
+CREATE TABLE from_table(
+  username STRING,
+  age INT
+) WITH (
+    'connector'='jdbc',
+    'url'='jdbc:mysql://isxcode:30306/ispong_db',
+    'table-name'='users',
+    'driver'='com.mysql.cj.jdbc.Driver',
+    'username'='root',
+    'password'='ispong123');
+
+CREATE TABLE to_table(
+    username STRING,
+    age INT
+) WITH (
+    'connector'='jdbc',
+    'url'='jdbc:mysql://isxcode:30306/ispong_db',
+    'table-name'='users_sink',
+    'driver'='com.mysql.cj.jdbc.Driver',
+    'username'='root',
+    'password'='ispong123');
+
+insert into to_table select username, age from from_table;
+```
