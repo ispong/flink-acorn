@@ -54,14 +54,14 @@ public class ExampleApplication {
     @GetMapping("/executeHive")
     public AcornResponse executeHive() {
 
-        String flinkSql = "CREATE CATALOG from_db WITH (\n" +
+        String flinkSql = "" +
+            "CREATE CATALOG from_db WITH (\n" +
             "    'type' = 'hive',\n" +
+            "    'hive-version' = '3.1.2', \n" +
             "    'hive-conf-dir' = '/opt/hive/conf',\n" +
             "    'default-database' = 'ispong_db'\n" +
             ");\n" +
-            "\n" +
             "USE CATALOG from_db;\n" +
-            "            \n" +
             "CREATE TABLE to_table(\n" +
             "    username STRING,\n" +
             "    age INT\n" +
@@ -73,7 +73,7 @@ public class ExampleApplication {
             "    'username'='root',\n" +
             "    'password'='ispong123');\n" +
             "\n" +
-            "insert into to_table select username, age from users;";
+            "insert into users_sink select username, age,birth from users;";
 
         return acornTemplate.build().sql(flinkSql).deploy();
     }

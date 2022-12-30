@@ -17,10 +17,11 @@
 
     <dependencies>
 
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
+            <version>27.0-jre</version>
         </dependency>
 
         <!-- hive-exec -->
@@ -35,7 +36,7 @@
                 </exclusion>
                 <exclusion>
                     <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
+                    <artifactId>*</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
