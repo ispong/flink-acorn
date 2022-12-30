@@ -5,6 +5,7 @@ GET http://localhost:8080/executePlugin
 GET http://localhost:8080/executeMysql
 
 ### 执行hive作业
+
 GET http://localhost:8080/executeHive
 
 ### 查询yarn状态
