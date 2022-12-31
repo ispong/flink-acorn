@@ -22,25 +22,12 @@ wget https://repo1.maven.org/maven2/org/antlr/antlr-runtime/3.5.2/antlr-runtime-
 wget https://repo1.maven.org/maven2/org/apache/thrift/libfb303/0.9.3/libfb303-0.9.3.jar
 ```
 
-###### 
-
-```bash
-vim /opt/flink/conf/flink-conf.yaml
-```
-
-```yml
-classloader.resolve-order: parent-first
-classloader.check-leaked-classloader: false
-```
-
 ###### 和hadoop中的guava版本保持一致
 
 ```bash
-cp /opt/hadoop/share/hadoop/hdfs/lib/guava-*.jar /opt/flink/lib/
 cp /opt/hadoop/share/hadoop/common/hadoop-common-*.jar /opt/flink/lib/
 cp /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-core-*.jar /opt/flink/lib/
-cp /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-*.jar /opt/flink/lib/
-cp /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-common-*.jar /opt/flink/lib/
+cp /opt/hadoop/share/hadoop/hdfs/lib/guava-*.jar /opt/flink/lib/
 ```
 
 ###### 修改hive配置文件
