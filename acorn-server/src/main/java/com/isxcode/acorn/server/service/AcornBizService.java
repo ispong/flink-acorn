@@ -108,7 +108,9 @@ public class AcornBizService {
                         log.error(e.getMessage());
                         throw new AcornException("50015",e.getMessage());
                     }
-                } else if (jar.getName().contains("flink-connector") || jar.getName().contains("hive-exec")) {
+                } else if (jar.getName().contains("flink-connector")
+                    || jar.getName().contains("hive-exec")
+                    || jar.getName().contains("libfb303")) {
                     try {
                         shipFiles.add(jar);
                         classpathFiles.add(jar.toURI().toURL());
