@@ -70,7 +70,7 @@ public class ExampleApplication {
     @GetMapping("/executePlugin")
     public AcornResponse executePlugin() {
 
-        return acornTemplate.build().pluginName("hive-job-example").deploy();
+        return acornTemplate.build().pluginName("jdbc-job-example").deploy();
     }
 
     @GetMapping("/getYarnStatus")
