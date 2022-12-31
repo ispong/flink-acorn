@@ -108,12 +108,13 @@ public class AcornBizService {
                         log.error(e.getMessage());
                         throw new AcornException("50015",e.getMessage());
                     }
-                } else if (jar.getName().contains("flink-connector")) {
+                } else if (jar.getName().contains("flink-connector") || jar.getName().contains("hive-exec")) {
                     try {
+                        shipFiles.add(jar);
                         classpathFiles.add(jar.toURI().toURL());
                     } catch (MalformedURLException e) {
                         log.error(e.getMessage());
-                        throw new AcornException("50015",e.getMessage());
+                        throw new AcornException("50015", e.getMessage());
                     }
                 } else {
                     shipFiles.add(jar);
