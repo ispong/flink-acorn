@@ -2,6 +2,7 @@ package com.isxcode.acorn.demo;
 
 import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.TableEnvironment;
+import com.google.common.base.Stopwatch;
 
 public class SqlJob {
 

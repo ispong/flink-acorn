@@ -136,7 +136,6 @@ public class AcornBizService {
                 throw new AcornException("50015",e.getMessage());
             }
         } else {
-
             if (Strings.isEmpty(acornRequest.getPluginName())) {
                 throw new AcornException("50016", "PluginName不能为空");
             }
