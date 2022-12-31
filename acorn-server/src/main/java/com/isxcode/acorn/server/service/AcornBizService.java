@@ -110,6 +110,7 @@ public class AcornBizService {
                     }
                 } else if (jar.getName().contains("flink-connector")) {
                     try {
+                        shipFiles.add(jar);
                         classpathFiles.add(jar.toURI().toURL());
                     } catch (MalformedURLException e) {
                         log.error(e.getMessage());
