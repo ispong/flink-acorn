@@ -30,6 +30,12 @@
     <dependencies>
 
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>27.0-jre</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.hive</groupId>
             <artifactId>hive-exec</artifactId>
             <version>${hive.version}</version>
