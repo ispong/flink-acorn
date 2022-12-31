@@ -40,6 +40,16 @@
             <outputDirectory>plugins/</outputDirectory>
             <fileMode>0644</fileMode>
         </file>
+        <file>
+            <source>../acorn-local-test/hive-job-example/target/hive-job-example.jar</source>
+            <outputDirectory>plugins/</outputDirectory>
+            <fileMode>0644</fileMode>
+        </file>
+        <file>
+            <source>../acorn-local-test/jdbc-job-example/target/jdbc-job-example.jar</source>
+            <outputDirectory>plugins/</outputDirectory>
+            <fileMode>0644</fileMode>
+        </file>
 
 	</files>
 

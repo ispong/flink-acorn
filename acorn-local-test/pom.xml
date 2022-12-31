@@ -15,8 +15,8 @@
 
     <modules>
         <module>use-client-example</module>
-        <module>sql-job</module>
-        <module>hive-job</module>
+        <module>jdbc-job-example</module>
+        <module>hive-job-example</module>
     </modules>
 
 </project>

@@ -38,6 +38,18 @@
             <version>${project.parent.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.isxcode.acorn</groupId>
+            <artifactId>hive-job-example</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.isxcode.acorn</groupId>
+            <artifactId>jdbc-job-example</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
