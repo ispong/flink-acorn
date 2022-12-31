@@ -12,6 +12,16 @@ wget https://repo1.maven.org/maven2/org/apache/hive/hive-exec/3.1.2/hive-exec-3.
 wget https://repo1.maven.org/maven2/org/apache/thrift/libfb303/0.9.3/libfb303-0.9.3.jar
 ```
 
+###### 
+
+```bash
+vim /opt/flink/conf/flink-conf.yaml
+```
+
+```yml
+classloader.resolve-order: parent-first
+```
+
 ###### 和hadoop中的guava版本保持一致
 
 ```bash
