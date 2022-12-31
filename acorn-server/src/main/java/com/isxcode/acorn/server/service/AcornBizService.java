@@ -145,7 +145,6 @@ public class AcornBizService {
             try {
                 PackagedProgram.Builder packagedProgramBuilder = PackagedProgram.newBuilder()
                     .setJarFile(new File(pluginJarPath))
-                    .setUserClassPaths(classpathFiles)
                     .setSavepointRestoreSettings(SavepointRestoreSettings.none());
 
                 if (!Strings.isEmpty(acornRequest.getPluginMainClass())) {
