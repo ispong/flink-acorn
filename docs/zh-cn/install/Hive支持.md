@@ -13,24 +13,28 @@ cd /opt/flink/lib/
 wget https://repo1.maven.org/maven2/org/apache/flink/flink-connector-hive_2.12/1.14.0/flink-connector-hive_2.12-1.14.0.jar
 ```
 
-###### 下载hive-exec
+###### 复制hive-exec和下载相关依赖
 
 ```bash
 cp /opt/hive/lib/hive-exec-*.jar /opt/flink/lib/
+
+# hive-exec缺少部分依赖，需要手动下载
 cd /opt/flink/lib/
 wget https://repo1.maven.org/maven2/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar
 wget https://repo1.maven.org/maven2/org/apache/thrift/libfb303/0.9.3/libfb303-0.9.3.jar
 ```
 
-###### 和hadoop中的guava版本保持一致
+###### 与hadoop中的guava版本保持一致
 
 ```bash
+cp /opt/hadoop/share/hadoop/hdfs/lib/guava-*.jar /opt/flink/lib/
+
+# flink启动需要部分hadoop的包
 cp /opt/hadoop/share/hadoop/common/hadoop-common-*.jar /opt/flink/lib/
 cp /opt/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-core-*.jar /opt/flink/lib/
-cp /opt/hadoop/share/hadoop/hdfs/lib/guava-*.jar /opt/flink/lib/
 ```
 
-###### 修改hive配置文件
+###### 修改hive-site配置文件
 
 > 新增配置 `hive.metastore.uris`
 

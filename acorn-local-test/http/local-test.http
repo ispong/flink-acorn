@@ -8,13 +8,13 @@ GET http://localhost:8080/executeMysql
 GET http://localhost:8080/executeHive
 
 ### 查询yarn状态
-GET http://localhost:8080/getYarnStatus?applicationId=application_1672365636481_0066
+GET http://localhost:8080/getYarnStatus?applicationId=application_1672365636481_0068
 
 ### 查询taskManager日志
-GET http://localhost:8080/getTaskManagerLog?applicationId=application_1672365636481_0066
+GET http://localhost:8080/getTaskManagerLog?applicationId=application_1672365636481_0068
 
 ### 查询jobManager日志
-GET http://localhost:8080/getJobManagerLog?applicationId=application_1672365636481_0066
+GET http://localhost:8080/getJobManagerLog?applicationId=application_1672365636481_0068
 
 ### 查询flink作业状态
 GET http://localhost:8080/getJobStatus?flinkJobId=dac9b36f4f2ee1128c524317dd7fd234

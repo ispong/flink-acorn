@@ -57,12 +57,25 @@ public class ExampleApplication {
         String flinkSql = "" +
             "CREATE CATALOG from_db WITH (\n" +
             "    'type' = 'hive',\n" +
-            "    'hive-version' = '3.1.2', \n" +
             "    'hive-conf-dir' = '/opt/hive/conf',\n" +
             "    'default-database' = 'ispong_db'\n" +
             ");\n" +
+            "\n" +
             "USE CATALOG from_db;\n" +
-            "insert into users_sink select username, age,birth from users;";
+            "            \n" +
+            "CREATE TABLE to_table(\n" +
+            "    username STRING,\n" +
+            "    age INT\n" +
+            ") WITH (\n" +
+            "    'connector'='jdbc',\n" +
+            "    'url'='jdbc:mysql://isxcode:30306/ispong_db',\n" +
+            "    'table-name'='users_sink',\n" +
+            "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
+            "    'username'='root',\n" +
+            "    'password'='ispong123');\n" +
+            "\n" +
+            "insert into to_table select username, age from users;\n" +
+            "drop table to_table";
 
         return acornTemplate.build().sql(flinkSql).deploy();
     }
