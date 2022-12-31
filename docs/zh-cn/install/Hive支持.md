@@ -20,6 +20,7 @@ vim /opt/flink/conf/flink-conf.yaml
 
 ```yml
 classloader.resolve-order: parent-first
+classloader.check-leaked-classloader: false
 ```
 
 ###### 和hadoop中的guava版本保持一致
