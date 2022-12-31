@@ -33,7 +33,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>19.0</version>
+            <version>27.0-jre</version>
         </dependency>
 
         <!-- flink核心包-支持发布 -->
