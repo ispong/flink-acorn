@@ -61,6 +61,10 @@
                     <groupId>org.apache.calcite</groupId>
                     <artifactId>*</artifactId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>commons-cli</artifactId>
+                    <groupId>commons-cli</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
