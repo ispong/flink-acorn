@@ -108,14 +108,15 @@ public class AcornBizService {
                         log.error(e.getMessage());
                         throw new AcornException("50015",e.getMessage());
                     }
-                } else{
+                } else if (jar.getName().contains("flink-connector")) {
                     try {
-                        shipFiles.add(jar);
                         classpathFiles.add(jar.toURI().toURL());
                     } catch (MalformedURLException e) {
                         log.error(e.getMessage());
                         throw new AcornException("50015",e.getMessage());
                     }
+                } else {
+                    shipFiles.add(jar);
                 }
             }
         }
@@ -136,6 +137,7 @@ public class AcornBizService {
                 throw new AcornException("50015",e.getMessage());
             }
         } else {
+
             if (Strings.isEmpty(acornRequest.getPluginName())) {
                 throw new AcornException("50016", "PluginName不能为空");
             }
