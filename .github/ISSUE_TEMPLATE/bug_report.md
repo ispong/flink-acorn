@@ -1,7 +1,6 @@
 ---
-name: 缺陷
-about: 请写清楚缺陷中的案例
-title: '【缺陷】 - '
+name: 缺陷模板
+about: 请写清楚缺陷的案例
+title: ':bug: '
 labels: '缺陷'
-projects: 'Flink Acorn'
 ---

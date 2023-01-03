@@ -1,7 +1,6 @@
 ---
-name: 提需求
-about: 请写清楚需求
-title: '【需求】 - '
+name: 需求模板
+about: 请写清楚需求内容
+title: ":sparkles: "
 labels: '需求'
-projects: 'Flink Acorn'
 ---
