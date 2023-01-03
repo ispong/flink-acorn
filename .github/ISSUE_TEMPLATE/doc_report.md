@@ -1,7 +1,7 @@
 ---
-name: 文档完善
+name: 文档
 about: 指出文档中需要改进的地方
-title: '【文档完善】 - '
-labels: '文档完善'
-projects: 'Flink-Acorn'
+title: '【文档】 - '
+labels: '文档'
+projects: 'Flink Acorn'
 ---
