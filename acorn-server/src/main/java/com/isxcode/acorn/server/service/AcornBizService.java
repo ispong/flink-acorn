@@ -182,7 +182,7 @@ public class AcornBizService {
         try {
             provider = descriptor.deployJobCluster(clusterSpecification, jobGraph, true);
         } catch (ClusterDeploymentException e) {
-            log.error(e.getMessage());
+            e.printStackTrace();
             throw new AcornException("50015", e.getMessage());
         }
 
