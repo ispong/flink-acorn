@@ -70,7 +70,7 @@ public class AcornBizService {
         org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
         hadoopConf.addResource(getHadoopConfigPath("core-site.xml"));
         hadoopConf.addResource(getHadoopConfigPath("hdfs-site.xml"));
-        hadoopConf.addResource(getHadoopConfigPath("core-site.xml"));
+        hadoopConf.addResource(getHadoopConfigPath("yarn-site.xml"));
 
         return hadoopConf;
     }
