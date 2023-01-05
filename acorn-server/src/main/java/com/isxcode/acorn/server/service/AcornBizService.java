@@ -81,15 +81,13 @@ public class AcornBizService {
         String flinkHomeDir = System.getenv("FLINK_HOME");
         String acornHomeDir = System.getenv("ACORN_HOME");
 
-        // 初始化yarn的配置文件
-        YarnConfiguration yarnConfig = new YarnConfiguration(generateHadoopConf());
-
-        // 获取yarn客户端
+        // 初始化yarn客户端
         YarnClient yarnClient = YarnClient.createYarnClient();
+        YarnConfiguration yarnConfig = new YarnConfiguration(generateHadoopConf());
         yarnClient.init(yarnConfig);
         yarnClient.start();
 
-        // 初始化flink配置
+        // 配置flink配置
         Configuration flinkConfig = GlobalConfiguration.loadConfiguration(flinkHomeDir + "/conf");
         flinkConfig.setString(YarnConfigOptionsInternal.APPLICATION_LOG_CONFIG_FILE, flinkHomeDir + "/conf/log4j.properties");
 
@@ -232,7 +230,7 @@ public class AcornBizService {
     public AcornData getYarnStatus(AcornRequest acornRequest) throws IOException, YarnException {
 
         YarnClient yarnClient = YarnClient.createYarnClient();
-        YarnConfiguration yarnConfig = new YarnConfiguration();
+        YarnConfiguration yarnConfig = new YarnConfiguration(generateHadoopConf());
         yarnClient.init(yarnConfig);
         yarnClient.start();
 
@@ -252,7 +250,7 @@ public class AcornBizService {
     public AcornData killYarn(AcornRequest acornRequest) throws IOException, YarnException {
 
         YarnClient yarnClient = YarnClient.createYarnClient();
-        YarnConfiguration yarnConfig = new YarnConfiguration();
+        YarnConfiguration yarnConfig = new YarnConfiguration(generateHadoopConf());
         yarnClient.init(yarnConfig);
         yarnClient.start();
 
