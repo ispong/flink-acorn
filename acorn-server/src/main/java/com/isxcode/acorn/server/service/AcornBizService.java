@@ -5,7 +5,6 @@ import com.isxcode.acorn.api.pojo.AcornRequest;
 import com.isxcode.acorn.api.pojo.dto.AcornData;
 import com.isxcode.acorn.api.pojo.flink.JobExceptions;
 import com.isxcode.acorn.api.pojo.flink.JobStatus;
-import com.isxcode.acorn.api.properties.AcornProperties;
 import com.isxcode.acorn.api.utils.YamlUtils;
 import com.isxcode.acorn.server.utils.HadoopUtils;
 import lombok.RequiredArgsConstructor;
@@ -17,11 +16,11 @@ import org.apache.flink.client.program.PackagedProgram;
 import org.apache.flink.client.program.PackagedProgramUtils;
 import org.apache.flink.client.program.ProgramInvocationException;
 import org.apache.flink.configuration.Configuration;
-import org.apache.flink.configuration.CoreOptions;
 import org.apache.flink.configuration.GlobalConfiguration;
 import org.apache.flink.runtime.jobgraph.JobGraph;
 import org.apache.flink.runtime.jobgraph.SavepointRestoreSettings;
 import org.apache.flink.yarn.YarnClientYarnClusterInformationRetriever;
+import org.apache.flink.yarn.YarnClusterClientFactory;
 import org.apache.flink.yarn.YarnClusterDescriptor;
 import org.apache.flink.yarn.configuration.YarnConfigOptionsInternal;
 import org.apache.hadoop.fs.Path;
@@ -33,9 +32,6 @@ import org.apache.hadoop.yarn.client.api.YarnClient;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
 import org.apache.hadoop.yarn.exceptions.YarnException;
 import org.apache.logging.log4j.util.Strings;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -58,43 +54,58 @@ import static org.apache.flink.configuration.CoreOptions.DEFAULT_PARALLELISM;
 @RequiredArgsConstructor
 public class AcornBizService {
 
-    private final AcornProperties acornProperties;
+    public java.io.InputStream getHadoopConfigPath(String configName) {
+
+        String hadoopHomeDir = System.getenv("HADOOP_HOME");
+        try {
+            return Files.newInputStream(Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "hadoop" + File.separator + configName));
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new AcornException("50001", configName + "配置文件不存在");
+        }
+    }
+
+    public org.apache.hadoop.conf.Configuration generateHadoopConf() {
+
+        org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
+        hadoopConf.addResource(getHadoopConfigPath("core-site.xml"));
+        hadoopConf.addResource(getHadoopConfigPath("hdfs-site.xml"));
+        hadoopConf.addResource(getHadoopConfigPath("core-site.xml"));
+
+        return hadoopConf;
+    }
 
     public AcornData executeSql(AcornRequest acornRequest) {
 
         // 获取hadoop的配置文件目录
-        String hadoopHomeDir = System.getenv("HADOOP_HOME");
         String flinkHomeDir = System.getenv("FLINK_HOME");
         String acornHomeDir = System.getenv("ACORN_HOME");
 
-        // 读取配置yarn-site.yml文件
-        org.apache.hadoop.conf.Configuration hadoopConf = new org.apache.hadoop.conf.Configuration(false);
-        java.nio.file.Path path = Paths.get(hadoopHomeDir + File.separator + "etc" + File.separator + "hadoop" + File.separator + "yarn-site.xml");
-        try {
-            hadoopConf.addResource(Files.newInputStream(path));
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            throw new AcornException("50001", "yarn-site.xml配置文件不存在");
-        }
-        YarnConfiguration yarnConfig = new YarnConfiguration(hadoopConf);
-
-        log.info("yarn.resourcemanager.address:{}", yarnConfig.get("yarn.resourcemanager.address"));
+        // 初始化yarn的配置文件
+        YarnConfiguration yarnConfig = new YarnConfiguration(generateHadoopConf());
 
         // 获取yarn客户端
         YarnClient yarnClient = YarnClient.createYarnClient();
         yarnClient.init(yarnConfig);
         yarnClient.start();
 
+        // 初始化flink配置
         Configuration flinkConfig = GlobalConfiguration.loadConfiguration(flinkHomeDir + "/conf");
         flinkConfig.setString(YarnConfigOptionsInternal.APPLICATION_LOG_CONFIG_FILE, flinkHomeDir + "/conf/log4j.properties");
 
+        // 配置flink on yarn的资源
         ClusterSpecification clusterSpecification = new ClusterSpecification.ClusterSpecificationBuilder()
             .setMasterMemoryMB(acornRequest.getMasterMemoryMB())
             .setTaskManagerMemoryMB(acornRequest.getTaskManagerMemoryMB())
             .setSlotsPerTaskManager(acornRequest.getSlotsPerTaskManager())
             .createClusterSpecification();
 
-        YarnClusterDescriptor descriptor = new YarnClusterDescriptor(flinkConfig, yarnConfig, yarnClient, YarnClientYarnClusterInformationRetriever.create(yarnClient), false);
+        YarnClusterDescriptor descriptor = new YarnClusterDescriptor(
+            flinkConfig,
+            yarnConfig,
+            yarnClient,
+            YarnClientYarnClusterInformationRetriever.create(yarnClient),
+            false);
 
         File[] jars = new File(flinkHomeDir + "/lib/").listFiles();
         List<File> shipFiles = new ArrayList<>();
