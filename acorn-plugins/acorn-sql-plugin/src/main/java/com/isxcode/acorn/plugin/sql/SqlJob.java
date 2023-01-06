@@ -1,7 +1,8 @@
 package com.isxcode.acorn.plugin.sql;
 
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.EnvironmentSettings;
-import org.apache.flink.table.api.TableEnvironment;
+import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,8 +14,10 @@ public class SqlJob {
 
     public static void main(String[] args) {
 
-        EnvironmentSettings settings = EnvironmentSettings.newInstance().build();
-        TableEnvironment tEnv = TableEnvironment.create(settings);
+        StreamExecutionEnvironment bsEnv = StreamExecutionEnvironment.getExecutionEnvironment();
+        bsEnv.enableCheckpointing(1000);
+        EnvironmentSettings settings = EnvironmentSettings.newInstance().useBlinkPlanner().inStreamingMode().build();
+        StreamTableEnvironment tEnv = StreamTableEnvironment.create(bsEnv,settings);
 
         String sql = args[0];
         String[] sqls = sql.split(";");

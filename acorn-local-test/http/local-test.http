@@ -7,20 +7,23 @@ GET http://localhost:8080/executeMysql
 ### 执行hive作业
 GET http://localhost:8080/executeHive
 
+### 执行kafka作业
+GET http://localhost:8080/executeKafka
+
 ### 查询yarn状态
-GET http://localhost:8080/getYarnStatus?applicationId=application_1671711845218_1482
+GET http://localhost:8080/getYarnStatus?applicationId=application_1672971751032_0054
 
 ### 查询taskManager日志
-GET http://localhost:8080/getTaskManagerLog?applicationId=application_1671711845218_1482
+GET http://localhost:8080/getTaskManagerLog?applicationId=application_1672971751032_0054
 
 ### 查询jobManager日志
-GET http://localhost:8080/getJobManagerLog?applicationId=application_1671711845218_1482
+GET http://localhost:8080/getJobManagerLog?applicationId=application_1672971751032_0048
 
 ### 查询flink作业状态
-GET http://localhost:8080/getJobStatus?flinkJobId=dac9b36f4f2ee1128c524317dd7fd234
+GET http://localhost:8080/getJobStatus?flinkJobId=9ba6555247cbcc4b781e5fda355a5e71
 
 ### 查询flink root异常
-GET http://localhost:8080/getRootExceptions?flinkJobId=dac9b36f4f2ee1128c524317dd7fd234
+GET http://localhost:8080/getRootExceptions?flinkJobId=08db38d0184c49679dca98a7b4f59c2a
 
 ### 中止作业
 GET http://localhost:8080/stopYarnJob?applicationId=application_1671711845218_1482

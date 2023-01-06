@@ -57,26 +57,38 @@ public class ExampleApplication {
         String flinkSql = "" +
             "CREATE CATALOG from_db WITH (\n" +
             "    'type' = 'hive',\n" +
-            "    'hive-conf-dir' = '/opt/hive/conf',\n" +
-            "    'default-database' = 'ispong_db'\n" +
+            "    'hive-conf-dir' = '/data/cloudera/parcels/CDH/lib/hive/conf/'\n" +
             ");\n" +
             "\n" +
             "USE CATALOG from_db;\n" +
             "            \n" +
-            "CREATE TABLE to_table(\n" +
-            "    username STRING,\n" +
-            "    age INT\n" +
-            ") WITH (\n" +
-            "    'connector'='jdbc',\n" +
-            "    'url'='jdbc:mysql://isxcode:30306/ispong_db',\n" +
-            "    'table-name'='users_sink',\n" +
-            "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
-            "    'username'='root',\n" +
-            "    'password'='ispong123');\n" +
-            "\n" +
-            "insert into to_table select username, age from users;\n" +
-            "drop table to_table";
+            "insert into ispong_db2.to_table select username, age from ispong_db.users_to;";
 
+        return acornTemplate.build().sql(flinkSql).deploy();
+    }
+
+    @GetMapping("/executeKafka")
+    public AcornResponse executeKafka() {
+
+        String flinkSql = "" +
+            "CREATE CATALOG from_db WITH (\n" +
+            "    'type' = 'hive',\n" +
+            "    'hive-conf-dir' = '/data/cloudera/parcels/CDH/lib/hive/conf/',\n" +
+            "    'default-database' = 'ispong_db'\n" +
+            ");\n" +
+            "USE CATALOG from_db;\n" +
+            "CREATE TABLE kafka_table (\n" +
+            "  username STRING,\n" +
+            "  age INT\n" +
+            ") WITH (\n" +
+            "  'connector' = 'kafka',\n" +
+            "  'topic' = 'ispong-topic',\n" +
+            "  'properties.bootstrap.servers' = 'dcloud-dev:30120',\n" +
+            "  'properties.group.id' = 'test-consumer-group',\n" +
+            "  'scan.startup.mode' = 'latest-offset',\n" +
+            "  'format' = 'json'\n" +
+            ");" +
+            "insert into users_to select username, cast(null as int) from kafka_table";
         return acornTemplate.build().sql(flinkSql).deploy();
     }
 

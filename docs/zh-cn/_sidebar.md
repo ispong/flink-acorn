@@ -4,7 +4,11 @@
 - **安装手册**
     - [快速安装](/zh-cn/install/快速安装.md)
     - [Jdbc支持](/zh-cn/install/Jdbc支持.md)
+    - [Kafka支持](/zh-cn/install/Kafka支持.md)
     - [Hive支持](/zh-cn/install/Hive支持.md)
+    - [多版本支持](/zh-cn/install/多版本支持.md)
+- **插件**
+    - [FlinkSql插件](/zh-cn/plugin/FlinkSql插件.md)
 - **使用说明**
     - [Api说明](/zh-cn/reference/Api说明.md)
 - [**维护手册**](/zh-cn/contributing.md)
