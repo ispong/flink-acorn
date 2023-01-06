@@ -17,11 +17,7 @@ wget https://repo1.maven.org/maven2/org/apache/flink/flink-connector-hive_2.12/1
 
 ```bash
 cp /opt/hive/lib/hive-exec-*.jar /opt/flink/lib/
-
-# hive-exec缺少部分依赖，需要手动下载
-cd /opt/flink/lib/
-wget https://repo1.maven.org/maven2/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar
-wget https://repo1.maven.org/maven2/org/apache/thrift/libfb303/0.9.3/libfb303-0.9.3.jar
+cp /opt/hive/lib/libfb303-*.jar /opt/flink/lib/
 ```
 
 ###### 与hadoop中的guava版本保持一致
@@ -43,6 +39,8 @@ vim /opt/hive/conf/hive-site.xml
 ```
 
 ```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
 <configuration>
     <property>
         <name>hive.metastore.port</name>
@@ -81,4 +79,27 @@ CREATE TABLE to_table(
     'password'='ispong123');
 
 insert into to_table select username, age from users;
+```
+
+###### 注意实现
+
+> 由于hadoop的datanode特殊性，不要忘记配置域名映射，和客户端返回域名的设置
+
+```bash
+sudo vim /etc/hosts
+```
+
+```sql
+123.123.123.123 isxcode
+```
+
+```bash
+vim /opt/hadoop/etc/hadoop/hdfs-site.xml
+```
+
+```xml
+<property>
+    <name>dfs.client.use.datanode.hostname</name>
+    <value>true</value>
+</property>
 ```

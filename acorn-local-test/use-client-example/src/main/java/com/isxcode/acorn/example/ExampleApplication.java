@@ -57,7 +57,7 @@ public class ExampleApplication {
         String flinkSql = "" +
             "CREATE CATALOG from_db WITH (\n" +
             "    'type' = 'hive',\n" +
-            "    'hive-conf-dir' = '/data/cloudera/parcels/CDH/lib/hive/conf/'\n" +
+            "    'hive-conf-dir' = '/home/dehoop/hive-conf'\n" +
             ");\n" +
             "\n" +
             "USE CATALOG from_db;\n" +
@@ -71,12 +71,16 @@ public class ExampleApplication {
     public AcornResponse executeKafka() {
 
         String flinkSql = "" +
-            "CREATE CATALOG from_db WITH (\n" +
-            "    'type' = 'hive',\n" +
-            "    'hive-conf-dir' = '/data/cloudera/parcels/CDH/lib/hive/conf/',\n" +
-            "    'default-database' = 'ispong_db'\n" +
-            ");\n" +
-            "USE CATALOG from_db;\n" +
+            "CREATE TABLE to_table(\n" +
+            "    username STRING,\n" +
+            "    age INT\n" +
+            ") WITH (\n" +
+            "    'connector'='jdbc',\n" +
+            "    'url'='jdbc:mysql://dcloud-dev:30102/ispong_db',\n" +
+            "    'table-name'='users_sink',\n" +
+            "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
+            "    'username'='ispong',\n" +
+            "    'password'='ispong123');" +
             "CREATE TABLE kafka_table (\n" +
             "  username STRING,\n" +
             "  age INT\n" +
@@ -88,7 +92,7 @@ public class ExampleApplication {
             "  'scan.startup.mode' = 'latest-offset',\n" +
             "  'format' = 'json'\n" +
             ");" +
-            "insert into users_to select username, cast(null as int) from kafka_table";
+            "insert into to_table select username, cast(null as int) from kafka_table";
         return acornTemplate.build().sql(flinkSql).deploy();
     }
 

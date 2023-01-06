@@ -11,7 +11,7 @@ GET http://localhost:8080/executeHive
 GET http://localhost:8080/executeKafka
 
 ### 查询yarn状态
-GET http://localhost:8080/getYarnStatus?applicationId=application_1672971751032_0054
+GET http://localhost:8080/getYarnStatus?applicationId=application_1670911887748_0035
 
 ### 查询taskManager日志
 GET http://localhost:8080/getTaskManagerLog?applicationId=application_1672971751032_0054

@@ -5,6 +5,6 @@ acorn:
   check-servers: true
   servers:
     default:
-      host: dcloud-dev
-      port: 30166
+      host: definesys
+      port: 30155
       key: acorn-key
