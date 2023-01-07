@@ -49,7 +49,7 @@ public class HadoopUtils {
         yarnClient.init(yarnConfig);
         yarnClient.start();
 
-        if (Strings.isEmpty(yarnConf.get("yarn.resourcemanager.webapp.address"))) {
+        if (Strings.isEmpty(yarnConfig.get("yarn.resourcemanager.webapp.address"))) {
             throw new AcornException("50012", "请在yarn-site.xml中配置yarn.resourcemanager.webapp.address属性:${yarn.resourcemanager.hostname}:8088");
         }
 
@@ -62,7 +62,7 @@ public class HadoopUtils {
         // 访问yarn作业日志页面
         Map appInfoMap;
         try {
-            appInfoMap = new RestTemplate().getForObject(URLs.HTTP + yarnConf.get("yarn.resourcemanager.webapp.address") + "/ws/v1/cluster/apps/" + applicationId, Map.class);
+            appInfoMap = new RestTemplate().getForObject(URLs.HTTP + yarnConfig.get("yarn.resourcemanager.webapp.address") + "/ws/v1/cluster/apps/" + applicationId, Map.class);
         } catch (HttpClientErrorException e) {
             throw new AcornException("50018", "作业不存在");
         }
