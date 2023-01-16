@@ -13,4 +13,5 @@ server:
     context-path: /flink-acorn
 
 acorn:
+  check-env: true
   secret: acorn-key
