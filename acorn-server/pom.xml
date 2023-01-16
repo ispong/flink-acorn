@@ -12,11 +12,10 @@
 
     <artifactId>acorn-server</artifactId>
     <name>acorn-server</name>
-    <version>${parent.version}</version>
+    <version>1.2.0</version>
 
     <dependencies>
 
-        <!-- flink-acorn 自身依赖 -->
         <dependency>
             <groupId>com.isxcode.acorn</groupId>
             <artifactId>acorn-api</artifactId>
@@ -29,33 +28,27 @@
             <version>${parent.version}</version>
         </dependency>
 
-        <!-- spring 相关依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${springboot.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
-            <version>${springboot.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>${springboot.version}</version>
             <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>${springframework.version}</version>
         </dependency>
 
-        <!-- flink 相关依赖 -->
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-yarn_${scala.binary.version}</artifactId>
@@ -84,7 +77,6 @@
             </exclusions>
         </dependency>
 
-        <!-- hadoop 相关依赖 -->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-yarn-client</artifactId>
@@ -129,6 +121,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${springboot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
