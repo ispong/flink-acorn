@@ -2,17 +2,26 @@ package com.isxcode.acorn.plugintest;
 
 import com.isxcode.acorn.plugin.sql.SqlJob;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PluginTest {
 
-    private static final Logger log = LogManager.getLogger("PluginTest");
-
     public static void main(String[] args) {
 
-        log.error("hello");
-        SqlJob.main(new String[0]);
+        List<String> argsList = new ArrayList<>();
+        argsList.add("CREATE TABLE from_table(\n" +
+            "    username STRING,\n" +
+            "    age INT\n" +
+            ") WITH (\n" +
+            "    'connector'='jdbc',\n" +
+            "    'url'='jdbc:mysql://dcloud-dev:30102/ispong_db',\n" +
+            "    'table-name'='users',\n" +
+            "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
+            "    'username'='ispong',\n" +
+            "    'password'='ispong123');" +
+            "    select * from from_table");
 
+        SqlJob.main(argsList.toArray(new String[0]));
     }
 }

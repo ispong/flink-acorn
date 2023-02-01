@@ -1,46 +1,39 @@
 package com.isxcode.acorn.plugin.sql;
 
-import org.apache.flink.core.execution.JobClient;
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.table.api.EnvironmentSettings;
-import org.apache.flink.table.api.Table;
+import com.isxcode.acorn.plugin.common.EnvFactory;
 import org.apache.flink.table.api.TableResult;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.flink.types.Row;
+import org.apache.flink.util.CloseableIterator;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ExecutionException;
 
 public class SqlJob {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SqlJob.class);
+    private static final Logger log = LogManager.getLogger("SqlJob");
 
     public static void main(String[] args) {
 
-        StreamExecutionEnvironment bsEnv = StreamExecutionEnvironment.getExecutionEnvironment();
-        bsEnv.enableCheckpointing(1000);
-        EnvironmentSettings settings = EnvironmentSettings.newInstance().useBlinkPlanner().inStreamingMode().build();
-        StreamTableEnvironment tEnv = StreamTableEnvironment.create(bsEnv, settings);
+        log.error("初始化环境");
+        StreamTableEnvironment tEnv = EnvFactory.initStreamTableEnvironment("local");
 
-        String sql = args[0];
-        String[] sqls = sql.split(";");
+        log.warn("解析sql");
+        List<String> sqlList = Arrays.asList(args[0].split(";"));
 
-        List<String> sqlList = Arrays.asList(sqls);
-
+        log.info("执行sql语句");
         sqlList.forEach(metaSql -> {
-            LOG.info("执行sql:" + metaSql);
             if ((sqlList.indexOf(metaSql) == sqlList.size() - 1) && !metaSql.contains("insert")) {
-                TableResult execute = tEnv.sqlQuery(metaSql).execute();
-                Optional<JobClient> jobClient = execute.getJobClient();
-                if (jobClient.isPresent()) {
-                    try {
-                        System.out.println(jobClient.get().getAccumulators().get());
-                    } catch (InterruptedException | ExecutionException e) {
-                        throw new RuntimeException(e);
+                TableResult tableResult = tEnv.executeSql(metaSql);
+                try (CloseableIterator<Row> it = tableResult.collect()) {
+                    while (it.hasNext()) {
+                        Row row = it.next();
+                        log.info("data:" + row);
                     }
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
             } else {
                 tEnv.executeSql(metaSql);
