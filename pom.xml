@@ -20,6 +20,7 @@
         <module>acorn-plugins</module>
         <module>acorn-dist</module>
         <module>acorn-local-test</module>
+        <module>acorn-plugins/acorn-plugin-common</module>
     </modules>
 
     <properties>
