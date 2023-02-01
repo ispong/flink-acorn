@@ -132,6 +132,9 @@ public class AcornBizService {
                 }
             }
         }
+
+        shipFiles.add(new File("/opt/flink/conf/log4j.properties"));
+
         descriptor.addShipFiles(shipFiles);
 
         PackagedProgram program;
