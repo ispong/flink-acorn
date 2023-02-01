@@ -18,7 +18,7 @@ public class SqlJob {
     public static void main(String[] args) {
 
         log.error("初始化环境");
-        StreamTableEnvironment tEnv = EnvFactory.initStreamTableEnvironment("local");
+        StreamTableEnvironment tEnv = EnvFactory.initStreamTableEnvironment("cluster");
 
         log.warn("解析sql");
         List<String> sqlList = Arrays.asList(args[0].split(";"));

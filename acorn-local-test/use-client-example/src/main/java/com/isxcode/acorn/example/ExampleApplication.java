@@ -23,6 +23,24 @@ public class ExampleApplication {
         SpringApplication.run(ExampleApplication.class, args);
     }
 
+    @GetMapping("/executeQuery")
+    public AcornResponse executeQuery() {
+
+        String flinkSql = "CREATE TABLE from_table(\n" +
+            "    username STRING,\n" +
+            "    age INT\n" +
+            ") WITH (\n" +
+            "    'connector'='jdbc',\n" +
+            "    'url'='jdbc:mysql://dcloud-dev:30102/ispong_db',\n" +
+            "    'table-name'='users',\n" +
+            "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
+            "    'username'='ispong',\n" +
+            "    'password'='ispong123');" +
+            "select username, age from from_table";
+
+        return acornTemplate.build().sql(flinkSql).deploy();
+    }
+
     @GetMapping("/executeMysql")
     public AcornResponse executeMysql() {
 

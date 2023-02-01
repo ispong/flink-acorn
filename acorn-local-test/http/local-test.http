@@ -1,5 +1,8 @@
+### 查询数据
+GET http://localhost:8080/executeQuery
+
 ### 执行自定义插件
- GET http://localhost:8080/executePlugin
+GET http://localhost:8080/executePlugin
 
 ### 执行mysql作业
 GET http://localhost:8080/executeMysql
