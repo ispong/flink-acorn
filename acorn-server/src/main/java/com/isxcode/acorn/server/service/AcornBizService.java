@@ -136,6 +136,14 @@ public class AcornBizService {
         File[] connectorJars = new File(acornHomeDir + "/connector/").listFiles();
         if (connectorJars != null) {
             shipFiles.addAll(Arrays.asList(connectorJars));
+            for (File connectorJar : connectorJars) {
+                try {
+                    classpathFiles.add(connectorJar.toURI().toURL());
+                } catch (MalformedURLException e) {
+                    log.error(e.getMessage());
+                    throw new AcornException("50015", e.getMessage());
+                }
+            }
         }
 
         shipFiles.add(new File("/opt/flink/conf/log4j.properties"));
