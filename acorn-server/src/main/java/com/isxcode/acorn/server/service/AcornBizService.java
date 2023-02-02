@@ -133,6 +133,11 @@ public class AcornBizService {
             }
         }
 
+        File[] connectorJars = new File(acornHomeDir + "/connector/").listFiles();
+        if (connectorJars != null) {
+            shipFiles.addAll(Arrays.asList(connectorJars));
+        }
+
         shipFiles.add(new File("/opt/flink/conf/log4j.properties"));
 
         descriptor.addShipFiles(shipFiles);

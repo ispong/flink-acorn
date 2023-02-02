@@ -41,12 +41,6 @@
             <version>${flink.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.isxcode.acorn</groupId>
-            <artifactId>acorn-out-connector</artifactId>
-            <version>${parent.version}</version>
-        </dependency>
-
         <!-- flink核心包-支持发布 -->
         <dependency>
             <groupId>org.apache.flink</groupId>

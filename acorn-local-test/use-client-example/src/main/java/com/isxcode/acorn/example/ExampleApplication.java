@@ -34,14 +34,14 @@ public class ExampleApplication {
             "    'url'='jdbc:mysql://isxcode:30306/ispong_db',\n" +
             "    'table-name'='users',\n" +
             "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
-            "    'username'='ispong',\n" +
+            "    'username'='root',\n" +
             "    'password'='ispong123');" +
             "CREATE TABLE out_table (\n" +
             "  username STRING,\n" +
             "  age INT\n" +
             ") WITH (\n" +
             "  'connector' = 'out'\n" +
-            ")" +
+            ");" +
             "insert into out_table select username, age from from_table";
 
         return acornTemplate.build().sql(flinkSql).deploy();

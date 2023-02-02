@@ -30,4 +30,9 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <finalName>acorn-out-connector</finalName>
+    </build>
+
 </project>
