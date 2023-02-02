@@ -40,7 +40,7 @@ public class ExampleApplication {
             "  username STRING,\n" +
             "  age INT\n" +
             ") WITH (\n" +
-            "  'connector' = 'print'\n" +
+            "  'connector' = 'out'\n" +
             ");" +
             "insert into out_table select username, age from from_table";
 

@@ -7,6 +7,8 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.ReadableConfig;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import org.apache.flink.streaming.api.operators.StreamingRuntimeContext;
+import org.apache.flink.table.api.TableColumn;
+import org.apache.flink.table.api.TableSchema;
 import org.apache.flink.table.connector.ChangelogMode;
 import org.apache.flink.table.connector.sink.DynamicTableSink;
 import org.apache.flink.table.connector.sink.SinkFunctionProvider;
@@ -51,8 +53,15 @@ public class OutTableSinkFactory implements DynamicTableSinkFactory {
         FactoryUtil.TableFactoryHelper helper = FactoryUtil.createTableFactoryHelper(this, context);
         helper.validate();
         ReadableConfig options = helper.getOptions();
+
+        TableSchema schema = context.getCatalogTable().getSchema();
+
+        for (TableColumn tableColumn : schema.getTableColumns()) {
+            System.out.println(tableColumn.getName() + ":" + tableColumn.getType());
+        }
+
         return new OutSink(
-            context.getCatalogTable().getSchema().toPhysicalRowDataType(),
+            schema.toPhysicalRowDataType(),
             options.get(OUT_IDENTIFIER));
     }
 
@@ -113,7 +122,7 @@ public class OutTableSinkFactory implements DynamicTableSinkFactory {
         public void invoke(RowData value, Context context) {
             String rowKind = value.getRowKind().shortString();
             Object data = converter.toExternal(value);
-            writer.write(rowKind + "(" + data + ")");
+            System.out.println(data);
         }
     }
 }
