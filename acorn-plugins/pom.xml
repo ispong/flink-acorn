@@ -15,6 +15,7 @@
 
     <modules>
         <module>acorn-sql-plugin</module>
+        <module>acorn-out-connector</module>
     </modules>
 
 </project>
