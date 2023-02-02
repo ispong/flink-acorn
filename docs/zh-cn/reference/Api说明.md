@@ -723,3 +723,32 @@ AcornResponse acornResponse = acornTemplate.build()
 }
 ```
 
+## - 查询数据
+
+```java
+AcornResponse acornResponse = acornTemplate.build()
+    .applicationId("applicationId")
+    .getData();
+```
+
+```json
+{
+  "code": "200",
+  "msg": "停止作业",
+  "data": {
+    "columnNames": [
+      "username",
+      "age",
+      "birth"
+    ],
+    "dataList": [
+      [
+        "ispong",
+        "18",
+        "2020-12-12"
+      ]
+    ]
+  }
+}
+```
+

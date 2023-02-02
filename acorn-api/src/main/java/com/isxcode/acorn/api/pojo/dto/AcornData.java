@@ -20,6 +20,10 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AcornData {
 
+    private List<String> columnNames;
+
+    private List<List<String>> dataList;
+
     private String flinkJobId;
 
     private JobStatusDto jobInfo;

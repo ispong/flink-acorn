@@ -20,12 +20,6 @@
     <dependencies>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.30</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.isxcode.acorn</groupId>
             <artifactId>acorn-sql-plugin</artifactId>
             <version>1.2.0</version>

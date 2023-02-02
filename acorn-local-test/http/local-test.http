@@ -1,4 +1,7 @@
 ### 查询数据
+GET http://localhost:8080/getData?applicaitonId=
+
+### 查询数据
 GET http://localhost:8080/executeQuery
 
 ### 执行自定义插件

@@ -55,6 +55,11 @@ public interface URLs {
     String GET_YARN_STATUS_URL = "/job/getYarnStatus";
 
     /**
+     * 获取查询数据接口
+     */
+    String GET_DATA_URL = "/job/getData";
+
+    /**
      * 获取yarn中JobManager日志
      */
     String GET_JOB_MANAGER_LOG_URL = "/job/getJobManagerLogs";

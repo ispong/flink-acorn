@@ -23,6 +23,12 @@ public class ExampleApplication {
         SpringApplication.run(ExampleApplication.class, args);
     }
 
+    @GetMapping("/getData")
+    public AcornResponse getData(@RequestParam String applicationId) {
+
+        return acornTemplate.build().applicationId(applicationId).getData();
+    }
+
     @GetMapping("/executeQuery")
     public AcornResponse executeQuery() {
 

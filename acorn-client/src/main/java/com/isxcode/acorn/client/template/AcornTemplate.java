@@ -130,6 +130,12 @@ public class AcornTemplate {
             return requestAcornServer(executeUrl, acornRequest);
         }
 
+        public AcornResponse getData() {
+
+            String executeUrl = String.format(URLs.BASE_URL + URLs.GET_DATA_URL, serverInfo.getHost(), serverInfo.getPort());
+            return requestAcornServer(executeUrl, acornRequest);
+        }
+
         public AcornResponse getJobStatus() {
 
             String executeUrl = String.format(URLs.BASE_URL + URLs.GET_JOB_STATUS_URL, serverInfo.getHost(), serverInfo.getPort());
