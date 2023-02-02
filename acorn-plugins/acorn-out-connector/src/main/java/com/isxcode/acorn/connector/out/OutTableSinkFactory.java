@@ -28,8 +28,7 @@ public class OutTableSinkFactory implements DynamicTableSinkFactory {
         ConfigOptions.key("out-identifier")
             .stringType()
             .noDefaultValue()
-            .withDescription(
-                "Message that identify print and is prefixed to the output of the value.");
+            .withDescription("Message that identify print and is prefixed to the output of the value.");
 
     @Override
     public String factoryIdentifier() {
