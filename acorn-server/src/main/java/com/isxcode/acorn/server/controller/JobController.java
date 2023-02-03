@@ -95,4 +95,16 @@ public class JobController {
         return AcornData.builder().jobLog("正常").build();
     }
 
+    @SuccessResponse("查询数据成功")
+    @PostMapping(URLs.GET_DATA_URL)
+    public AcornData getData(@RequestBody AcornRequest acornRequest) {
+
+        try {
+            return acornBizService.getData(acornRequest);
+        } catch (IOException | YarnException e) {
+            log.error(e.getMessage());
+            throw new AcornException("执行异常", "50001");
+        }
+    }
+
 }

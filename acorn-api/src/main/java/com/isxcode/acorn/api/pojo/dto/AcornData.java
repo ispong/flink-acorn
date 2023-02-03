@@ -1,7 +1,6 @@
 package com.isxcode.acorn.api.pojo.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.isxcode.acorn.api.pojo.flink.JobExceptions;
 import com.isxcode.acorn.api.pojo.flink.JobStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

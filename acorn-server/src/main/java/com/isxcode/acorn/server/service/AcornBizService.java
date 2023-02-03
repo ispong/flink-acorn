@@ -1,5 +1,6 @@
 package com.isxcode.acorn.server.service;
 
+import com.alibaba.fastjson.JSON;
 import com.isxcode.acorn.api.exception.AcornException;
 import com.isxcode.acorn.api.pojo.AcornRequest;
 import com.isxcode.acorn.api.pojo.dto.AcornData;
@@ -46,7 +47,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import static java.util.regex.Pattern.compile;
 import static org.apache.flink.configuration.CoreOptions.DEFAULT_PARALLELISM;
 
 @Slf4j
@@ -312,4 +316,24 @@ public class AcornBizService {
         return AcornData.builder().rootExceptions(Arrays.asList(rootExceptions.split("\n"))).build();
     }
 
+    public AcornData getData(AcornRequest acornRequest) throws IOException, YarnException {
+
+        Map<String, String> map = HadoopUtils.parseYarnLog(acornRequest.getApplicationId());
+        String dataLog = map.get("taskmanager.out");
+        String jsonStr = "[" + dataLog + "]";
+        if (Strings.isEmpty(dataLog)) {
+            return AcornData.builder().build();
+        }
+
+        List<String> columnNames = new ArrayList<>();
+        String managerLog = map.get("taskmanager.log");
+        Pattern pattern = compile("(table=\\[default_catalog.default_database.out_table\\], fields=\\[).+?]", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(managerLog);
+        if(matcher.find()){
+            String trim = matcher.group().trim();
+            columnNames = Arrays.asList(trim.substring(60, trim.length() - 1).split(","));
+        }
+
+        return AcornData.builder().dataList(JSON.parseArray(jsonStr)).columnNames(columnNames).build();
+    }
 }

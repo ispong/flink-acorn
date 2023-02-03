@@ -24,7 +24,7 @@ public class OutTableSinkFactory implements DynamicTableSinkFactory {
 
     public static final String IDENTIFIER = "out";
 
-    private final Map<String, String> columnInfos = new HashMap<>();
+    private final Map<String, String> columnInfos = new LinkedHashMap<>();
 
     public static final ConfigOption<String> OUT_IDENTIFIER =
         ConfigOptions.key("out-identifier")
@@ -135,7 +135,7 @@ public class OutTableSinkFactory implements DynamicTableSinkFactory {
                 }
                 index.getAndIncrement();
             });
-            System.out.println(JSON.toJSONString(colData));
+            System.out.println(JSON.toJSONString(colData) + ",");
         }
     }
 }
