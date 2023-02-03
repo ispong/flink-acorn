@@ -1,6 +1,6 @@
 package com.isxcode.acorn.connector.out;
 
-import lombok.extern.slf4j.Slf4j;
+import com.alibaba.fastjson.JSON;
 import org.apache.flink.api.common.functions.util.PrintSinkOutputWriter;
 import org.apache.flink.configuration.ConfigOption;
 import org.apache.flink.configuration.ConfigOptions;
@@ -8,7 +8,6 @@ import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.ReadableConfig;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import org.apache.flink.streaming.api.operators.StreamingRuntimeContext;
-import org.apache.flink.table.api.TableColumn;
 import org.apache.flink.table.api.TableSchema;
 import org.apache.flink.table.connector.ChangelogMode;
 import org.apache.flink.table.connector.sink.DynamicTableSink;
@@ -18,13 +17,14 @@ import org.apache.flink.table.factories.DynamicTableSinkFactory;
 import org.apache.flink.table.factories.FactoryUtil;
 import org.apache.flink.table.types.DataType;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
-@Slf4j
 public class OutTableSinkFactory implements DynamicTableSinkFactory {
 
     public static final String IDENTIFIER = "out";
+
+    private final Map<String, String> columnInfos = new HashMap<>();
 
     public static final ConfigOption<String> OUT_IDENTIFIER =
         ConfigOptions.key("out-identifier")
@@ -57,21 +57,22 @@ public class OutTableSinkFactory implements DynamicTableSinkFactory {
 
         TableSchema schema = context.getCatalogTable().getSchema();
 
-        for (TableColumn tableColumn : schema.getTableColumns()) {
-            log.info(tableColumn.getName() + ":" + tableColumn.getType());
-        }
+        schema.getTableColumns().forEach(e -> columnInfos.put(e.getName(), e.getType().toString()));
 
         return new OutSink(
             schema.toPhysicalRowDataType(),
-            options.get(OUT_IDENTIFIER));
+            options.get(OUT_IDENTIFIER), columnInfos);
     }
 
     private static class OutSink implements DynamicTableSink {
 
         private final DataType type;
         private final String printIdentifier;
+        private final Map<String, String> columnInfos;
 
-        private OutSink(DataType type, String printIdentifier) {
+        private OutSink(DataType type, String printIdentifier, Map<String, String> columnInfos) {
+
+            this.columnInfos = columnInfos;
             this.type = type;
             this.printIdentifier = printIdentifier;
         }
@@ -85,12 +86,12 @@ public class OutTableSinkFactory implements DynamicTableSinkFactory {
         public SinkRuntimeProvider getSinkRuntimeProvider(DynamicTableSink.Context context) {
             DataStructureConverter converter = context.createDataStructureConverter(type);
             return SinkFunctionProvider.of(
-                new RowDataPrintFunction(converter, printIdentifier, false));
+                new RowDataPrintFunction(converter, printIdentifier, false, columnInfos));
         }
 
         @Override
         public DynamicTableSink copy() {
-            return new OutSink(type, printIdentifier);
+            return new OutSink(type, printIdentifier, columnInfos);
         }
 
         @Override
@@ -105,9 +106,11 @@ public class OutTableSinkFactory implements DynamicTableSinkFactory {
 
         private final DynamicTableSink.DataStructureConverter converter;
         private final PrintSinkOutputWriter<String> writer;
+        private final Map<String, String> columnInfos;
 
         private RowDataPrintFunction(
-            DynamicTableSink.DataStructureConverter converter, String printIdentifier, boolean stdErr) {
+            DynamicTableSink.DataStructureConverter converter, String printIdentifier, boolean stdErr, Map<String, String> columnInfos) {
+            this.columnInfos = columnInfos;
             this.converter = converter;
             this.writer = new PrintSinkOutputWriter<>(printIdentifier, stdErr);
         }
@@ -121,9 +124,18 @@ public class OutTableSinkFactory implements DynamicTableSinkFactory {
 
         @Override
         public void invoke(RowData value, Context context) {
-            String rowKind = value.getRowKind().shortString();
-            Object data = converter.toExternal(value);
-            System.out.println("print:" + data);
+            List<String> colData = new ArrayList<>();
+            AtomicInteger index = new AtomicInteger();
+            columnInfos.forEach((k, v) -> {
+                if ("int".equalsIgnoreCase(v)){
+                    colData.add(String.valueOf(value.getInt(index.get())));
+                }
+                if ("string".equalsIgnoreCase(v)) {
+                    colData.add(String.valueOf(value.getString(index.get())));
+                }
+                index.getAndIncrement();
+            });
+            System.out.println(JSON.toJSONString(colData));
         }
     }
 }

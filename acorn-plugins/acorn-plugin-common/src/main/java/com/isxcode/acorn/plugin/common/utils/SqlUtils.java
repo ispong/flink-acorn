@@ -11,9 +11,13 @@ public class SqlUtils {
 
     public static String getSelectSqlTableName(String sql) {
 
-        Pattern pattern = compile("(from ).+? ", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(sql);
-        return matcher.find() ? matcher.group().trim().substring(5) : "";
+        if (sql.contains(" left ") || sql.contains(" right ") || sql.contains(" where ")) {
+            Pattern pattern = compile("(from ).+? ", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(sql);
+            return matcher.find() ? matcher.group().trim().substring(5) : "";
+        }
+
+        return sql.split(" from ")[1].trim();
     }
 
     public static String getCreateSqlTableName(String sql) {

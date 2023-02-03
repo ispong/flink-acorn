@@ -20,7 +20,7 @@ public class PluginTest {
             "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
             "    'username'='ispong',\n" +
             "    'password'='ispong123');" +
-            "    select * from from_table");
+            " select * from from_table");
 
         SqlJob.main(argsList.toArray(new String[0]));
     }

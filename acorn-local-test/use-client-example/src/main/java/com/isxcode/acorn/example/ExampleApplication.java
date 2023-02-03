@@ -37,10 +37,10 @@ public class ExampleApplication {
             "    age INT\n" +
             ") WITH (\n" +
             "    'connector'='jdbc',\n" +
-            "    'url'='jdbc:mysql://isxcode:30306/ispong_db',\n" +
+            "    'url'='jdbc:mysql://dcloud-dev:30102/ispong_db',\n" +
             "    'table-name'='users',\n" +
             "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
-            "    'username'='root',\n" +
+            "    'username'='ispong',\n" +
             "    'password'='ispong123');" +
             "CREATE TABLE out_table (\n" +
             "  username STRING,\n" +

@@ -5,6 +5,6 @@ acorn:
   check-servers: true
   servers:
     default:
-      host: isxcode
+      host: definesys
       port: 30155
       key: acorn-key
