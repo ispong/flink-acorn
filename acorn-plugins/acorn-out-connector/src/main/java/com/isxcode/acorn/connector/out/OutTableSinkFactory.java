@@ -1,5 +1,6 @@
 package com.isxcode.acorn.connector.out;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.common.functions.util.PrintSinkOutputWriter;
 import org.apache.flink.configuration.ConfigOption;
 import org.apache.flink.configuration.ConfigOptions;
@@ -20,6 +21,7 @@ import org.apache.flink.table.types.DataType;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 public class OutTableSinkFactory implements DynamicTableSinkFactory {
 
     public static final String IDENTIFIER = "out";
@@ -56,7 +58,7 @@ public class OutTableSinkFactory implements DynamicTableSinkFactory {
         TableSchema schema = context.getCatalogTable().getSchema();
 
         for (TableColumn tableColumn : schema.getTableColumns()) {
-            System.out.println(tableColumn.getName() + ":" + tableColumn.getType());
+            log.info(tableColumn.getName() + ":" + tableColumn.getType());
         }
 
         return new OutSink(
@@ -121,7 +123,7 @@ public class OutTableSinkFactory implements DynamicTableSinkFactory {
         public void invoke(RowData value, Context context) {
             String rowKind = value.getRowKind().shortString();
             Object data = converter.toExternal(value);
-            System.out.println(data);
+            System.out.println("print:" + data);
         }
     }
 }
