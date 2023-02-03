@@ -11,7 +11,7 @@ public class SqlUtils {
 
     public static String getSelectSqlTableName(String sql) {
 
-        if (sql.contains(" left ") || sql.contains(" right ") || sql.contains(" where ")) {
+        if (sql.contains(" left ") || sql.contains(" right ") || sql.contains(" where ") || sql.contains(" limit ")) {
             Pattern pattern = compile("(from ).+? ", Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(sql);
             return matcher.find() ? matcher.group().trim().substring(5) : "";

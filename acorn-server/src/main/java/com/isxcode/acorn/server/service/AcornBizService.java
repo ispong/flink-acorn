@@ -330,7 +330,7 @@ public class AcornBizService {
         Pattern pattern = compile("(table=\\[default_catalog.default_database.out_table\\], fields=\\[).+?]", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(managerLog);
         if(matcher.find()){
-            String trim = matcher.group().trim();
+            String trim = matcher.group().trim().replace(" ", "");
             columnNames = Arrays.asList(trim.substring(60, trim.length() - 1).split(","));
         }
 

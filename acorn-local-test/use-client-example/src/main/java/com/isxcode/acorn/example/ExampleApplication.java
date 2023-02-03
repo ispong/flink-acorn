@@ -42,13 +42,7 @@ public class ExampleApplication {
             "    'driver'='com.mysql.cj.jdbc.Driver',\n" +
             "    'username'='ispong',\n" +
             "    'password'='ispong123');" +
-            "CREATE TABLE out_table (\n" +
-            "  username STRING,\n" +
-            "  age INT\n" +
-            ") WITH (\n" +
-            "  'connector' = 'out'\n" +
-            ");" +
-            "insert into out_table select username, age from from_table";
+            "select * from from_table where age > 19";
 
         return acornTemplate.build().sql(flinkSql).deploy();
     }
