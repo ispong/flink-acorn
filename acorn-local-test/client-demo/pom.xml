@@ -12,9 +12,9 @@
 	</parent>
 
     <groupId>com.isxcode.acorn</groupId>
-	<artifactId>use-client-example</artifactId>
+	<artifactId>client-demo</artifactId>
 	<version>0.0.1</version>
-	<name>use-client-example</name>
+	<name>client-demo</name>
 	<description>Demo project for Spring Boot</description>
 
     <properties>

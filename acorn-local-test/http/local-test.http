@@ -1,36 +1,71 @@
-### 查询数据
-GET http://localhost:8080/getData?applicationId=application_1670911887748_0202
+### mysql -> mysql
+POST http://localhost:8080/executeSql
+Content-Type: application/json
 
-### 查询数据
-GET http://localhost:8080/executeQuery
-
-### 执行自定义插件
-GET http://localhost:8080/executePlugin
-
-### 执行mysql作业
-GET http://localhost:8080/executeMysql
-
-### 执行hive作业
-GET http://localhost:8080/executeHive
-
-### 执行kafka作业
-GET http://localhost:8080/executeKafka
+{
+    "flinkSql": "CREATE TABLE from_table( username STRING, age INT ) WITH ( 'connector'='jdbc', 'url'='jdbc:mysql://localhost:3306/ispong_db', 'table-name'='users', 'driver'='com.mysql.cj.jdbc.Driver', 'username'='root', 'password'='ispong123'); CREATE TABLE to_table( username STRING, age INT ) WITH ( 'connector'='jdbc', 'url'='jdbc:mysql://localhost:3306/ispong_db', 'table-name'='users_sink', 'driver'='com.mysql.cj.jdbc.Driver', 'username'='root', 'password'='ispong123'); insert into to_table select username, age from from_table;"
+}
 
 ### 查询yarn状态
-GET http://localhost:8080/getYarnStatus?applicationId=application_1670911887748_0202
+POST http://localhost:8080/getYarnStatus
+Content-Type: application/json
+
+{
+    "applicationId": "application_1676601640542_0002"
+}
 
 ### 查询taskManager日志
-GET http://localhost:8080/getTaskManagerLog?applicationId=application_1670911887748_0201
+POST http://localhost:8080/getTaskManagerLog
+Content-Type: application/json
+
+{
+    "applicationId": "application_1676601640542_0002"
+}
 
 ### 查询jobManager日志
-GET http://localhost:8080/getJobManagerLog?applicationId=application_1670911887748_0201
+POST http://localhost:8080/getJobManagerLog
+Content-Type: application/json
 
-### 查询flink作业状态
-GET http://localhost:8080/getJobStatus?flinkJobId=9ba6555247cbcc4b781e5fda355a5e71
-
-### 查询flink root异常
-GET http://localhost:8080/getRootExceptions?flinkJobId=08db38d0184c49679dca98a7b4f59c2a
+{
+    "applicationId": "application_1676601640542_0002"
+}
 
 ### 中止作业
-GET http://localhost:8080/stopYarnJob?applicationId=application_1670911887748_0201
+POST http://localhost:8080/stopYarnJob
+Content-Type: application/json
 
+{
+    "applicationId": "application_1676601640542_0002"
+}
+
+### 查询flink作业状态
+POST http://localhost:8080/getJobStatus
+Content-Type: application/json
+
+{
+    "flinkJobId": "c09ba617e41ffce636ac7a09fb1ed43d"
+}
+
+### 查询flink root异常
+POST http://localhost:8080/getRootExceptions
+Content-Type: application/json
+
+{
+    "flinkJobId": "c09ba617e41ffce636ac7a09fb1ed43d"
+}
+
+### 执行sql查询
+POST http://localhost:8080/executeSql
+Content-Type: application/json
+
+{
+    "flinkSql": "CREATE TABLE from_table( username STRING, age INT ) WITH ( 'connector'='jdbc', 'url'='jdbc:mysql://localhost:3306/ispong_db', 'table-name'='users', 'driver'='com.mysql.cj.jdbc.Driver', 'username'='root', 'password'='ispong123'); select username,age from from_table;"
+}
+
+### 查询数据
+POST http://localhost:8080/getData
+Content-Type: application/json
+
+{
+    "applicationId": "application_1676601640542_0004"
+}

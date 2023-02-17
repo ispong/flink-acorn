@@ -1,0 +1,6 @@
+server:
+  port: 30155
+
+acorn:
+  check-env: true
+  secret: acorn-key

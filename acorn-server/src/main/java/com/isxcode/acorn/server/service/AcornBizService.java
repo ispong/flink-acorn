@@ -150,7 +150,7 @@ public class AcornBizService {
             }
         }
 
-        shipFiles.add(new File("/opt/flink/conf/log4j.properties"));
+        shipFiles.add(new File(flinkHomeDir+"/conf/log4j.properties"));
 
         descriptor.addShipFiles(shipFiles);
 
@@ -331,7 +331,7 @@ public class AcornBizService {
         Matcher matcher = pattern.matcher(managerLog);
         if(matcher.find()){
             String trim = matcher.group().trim().replace(" ", "");
-            columnNames = Arrays.asList(trim.substring(60, trim.length() - 1).split(","));
+            columnNames = Arrays.asList(trim.substring(59, trim.length() -1).split(","));
         }
 
         return AcornData.builder().dataList(JSON.parseArray(jsonStr)).columnNames(columnNames).build();

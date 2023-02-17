@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>use-client-example</module>
+        <module>client-demo</module>
         <module>jdbc-job-example</module>
         <module>hive-job-example</module>
         <module>plugin-test</module>
